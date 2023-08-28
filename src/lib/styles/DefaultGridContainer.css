@@ -1,0 +1,61 @@
+.default-grid-container-title-card {
+	max-width: calc(var(--default-card-max-width) + 32rem) !important;
+	width: 100%;
+	padding: 2rem !important;
+	text-align: center !important;
+}
+
+.default-grid-container {
+	width: 100%;
+	max-width: calc(var(--default-card-max-width) + 32rem);
+	padding-top: 4rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+.default-grid-container > .card,
+.default-grid-container > .lite-wrapper {
+	width: 22rem;
+	margin: clamp(0vw, 1vw, 1.5rem);
+}
+
+.default-grid-container div h3 {
+	margin: 0.5em;
+	text-align: center;
+	font-weight: bold;
+}
+
+.default-grid-container video {
+	padding: var(--theme-border-base);
+}
+
+.default-grid-container img {
+	padding: var(--theme-border-base);
+	width: 100%;
+}
+
+.links {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.card.tx-badge {
+	object-fit: scale-down;
+	padding: 0.5rem;
+}
+
+img.tx-badge,
+.card.tx-badge {
+	max-height: 5rem;
+	max-width: 6rem;
+	margin: 1rem;
+}
+
+.twitter-wrapper {
+	padding: 1rem;
+}

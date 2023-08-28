@@ -1,0 +1,94 @@
+/*place global styles here */
+:root {
+	--default-card-max-width: calc(4rem + 4rem + 40rem);
+}
+
+html,
+body {
+	@apply h-full overflow-hidden;
+	@apply bg-surface-400-500-token;
+	background-color: transparent;
+}
+
+/*
+
+//for reference left here
+
+.bg-surface-custom-token {
+    @apply bg-surface-200 dark:bg-surface-700;
+}
+
+.app-bar {
+    @apply bg-surface-custom-token;
+}
+*/
+
+.card {
+	--tw-ring-offset-color: rgb(var(--color-text-300));
+	--tw-ring-offset-width: var(--theme-border-base);
+}
+
+.dark .card {
+	--tw-ring-offset-color: rgb(var(--color-text-600));
+}
+
+.variant-ghost-primary {
+	background-color: rgb(var(--color-primary-500) / 0.8);
+}
+
+.dark .variant-ghost-primary {
+	background-color: rgb(var(--color-primary-400) / 0.8);
+}
+
+.default-card {
+	@apply variant-ghost-primary text-center p-16;
+	text-align: start;
+	padding-inline-end: clamp(0rem, 10vw, 8rem);
+	max-width: var(--default-card-max-width);
+}
+
+h1,
+h2,
+p {
+	margin-bottom: 0.5em;
+}
+
+ul {
+	list-style-type: circle;
+	padding-left: 1em;
+}
+
+a:not(.unstyled):not(.permalink):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(
+		a.card
+	):not(.list-nav a) {
+	color: rgb(var(--color-secondary-500) / var(--tw-text-opacity));
+}
+
+.dark
+	a:not(.unstyled):not(.permalink):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(
+		a.card
+	):not(.list-nav a) {
+	color: rgb(var(--color-secondary-700) / var(--tw-text-opacity));
+}
+
+.default-page-container {
+	@apply flex justify-center items-center;
+	margin-top: 4em;
+	margin-left: clamp(1em, 15vw, 10em);
+	margin-right: 1em;
+	flex-direction: column;
+	z-index: 0;
+}
+
+.footer-space {
+	width: 100%;
+	height: calc(var(--dialog-box-height) + 4em);
+}
+
+a.dialog-choice {
+    cursor: url("$lib/assets/icons/chat_cursor.svg"), auto;
+}
+
+a.external-link {
+    cursor: url("$lib/assets/icons/external_link.svg"), auto;
+}

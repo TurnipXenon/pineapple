@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="48"
+   viewBox="0 -960 960 960"
+   width="48"
+   version="1.1"
+   id="svg12"
+   sodipodi:docname="external_link.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs16" />
+  <sodipodi:namedview
+     id="namedview14"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="true"
+     inkscape:zoom="4.359375"
+     inkscape:cx="-21.677419"
+     inkscape:cy="73.175627"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg12">
+    <inkscape:grid
+       type="xygrid"
+       id="grid362" />
+  </sodipodi:namedview>
+  <path
+     d="m 595.00431,-626.20279 128.00001,-128.00001 -103.00001,-10e-6 10e-6,-59.99998 h 205.99999 l 2e-5,205.99999 -60.00002,-10e-6 V -712.2028 l -127.99999,128 z"
+     id="path301" />
+  <path
+     id="path10"
+     d="m 394,-789 q -26,40 -43,82.5 -17,42.5 -28,96.5 H 172 q 35,-70 91,-115 56,-45 131,-64 z m -242,239 h 160 q -3,24 -4,43.5 -1,19.5 -1,44.5 0,21 0.5,42.5 0.5,21.5 3.5,48.5 H 152 q -7,-24 -9.5,-44.5 -2.5,-20.5 -2.5,-46.5 0,-26 2.5,-45 2.5,-19 9.5,-43 z m 20,239 h 150 q 12,55 30,99 18,44 43,82 -85,-29 -135,-69.5 Q 210,-240 172,-311 Z m 212,0 h 193 q -15,64 -38.5,110.5 Q 515,-154 480,-118 445,-155 421.5,-203 398,-251 384,-311 Z m 255,0 h 149 q -35,65 -92.5,111 -57.5,46 -129.5,69 25,-38 42.5,-82 17.5,-44 30.5,-98 z M 480,-860 q -84,0 -157,30.5 -73,30.5 -127,84.5 -54,54 -85,126.5 -31,72.5 -31,156.5 0,84 31,157.5 31,73.5 85,127.5 54,54 127,85.5 73,31.5 157,31.5 84,0 157,-31.5 73,-31.5 127,-85.5 54,-54 85,-127.5 31,-73.5 31,-157.5 0,-17 -1,-34 -1,-17 -4,-34 h -62 q 4,17 5.5,32.5 1.5,15.5 1.5,35.5 0,26 -2.5,46.5 Q 815,-395 808,-371 H 648 q 3,-30 4.5,-49.5 1.5,-19.5 1.5,-41.5 0,-14 -0.5,-28.5 Q 653,-505 651,-530 h -61 q 2,21 3,36 1,15 1,32 0,21 -1,40.5 -1,19.5 -5,50.5 H 373 q -4,-31 -5,-50.5 -1,-19.5 -1,-40.5 0,-20 1,-38.5 1,-18.5 5,-49.5 h 177 v -60 H 384 q 20,-75 42,-119 22,-44 54,-71 21,22 38.5,49 17.5,27 31.5,56 v -159 q -17,-3 -34.5,-4.5 Q 498,-860 480,-860 Z"
+     style="display:inline" />
+  <path
+     style="display:inline;fill:#000000;stroke-width:26.5796"
+     d="m 80.286738,-860.28674 v 161.55451 L 239.7891,-859.71249 Z"
+     id="path364" />
+</svg>
