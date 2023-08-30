@@ -48,12 +48,15 @@
 		"svelte": "^3.59.0",
 		"@sveltejs/kit": "^1.5.0"
 	},
-	"main": "./dist/index.ts",
+	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
 			"svelte": "./dist/index.js"
 		}
-	}
+	},
+	"files": [
+		"./dist"
+	]
 }
