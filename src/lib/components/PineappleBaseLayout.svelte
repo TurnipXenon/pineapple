@@ -135,6 +135,30 @@
     }
 
     /* breadcrumb does not work due to a lot of magic stuff i do
-       the code below is from skeleton's tailwind css */
+       the code below is from skeleton's tailwind css:
+       https://github.com/skeletonlabs/skeleton/blob/54f4ecedabf2be6d94a670b56dc8821095ca3fc9/packages/plugin/src/styles/components/breadcrumbs.css
 
+       it likely disappeared due to code gen shenanigans and package magic */
+    .breadcrumb,
+    .breadcrumb-nonresponsive {
+        @apply flex items-center space-x-4 w-full hide-scrollbar overflow-x-auto;
+    }
+
+    .crumb {
+        @apply flex justify-center items-center space-x-2;
+    }
+    .crumb-separator {
+        @apply flex text-surface-700-200-token opacity-50;
+    }
+
+    /* === Auto-Responsive === */
+
+    .breadcrumb li {
+        @apply hidden md:block;
+    }
+    .breadcrumb li:nth-last-child(3),
+    .breadcrumb li:nth-last-child(2),
+    .breadcrumb li:nth-last-child(1) {
+        @apply block;
+    }
 </style>
