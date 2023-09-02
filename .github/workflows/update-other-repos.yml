@@ -1,0 +1,30 @@
+name: Update Other Repos
+
+#on:
+#  push:
+#    branches:
+#      - main
+
+on:
+  [ push ]
+
+env:
+  repo1: ${{ secrets.DEPENDENT_REPO1 }}
+
+# Updates all repos dependent on this repo
+jobs:
+  build:
+    if: contains(github.event.pull_request.labels.*.name, 'dont update') == false
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        current_repo: [ ${{ env.repo1 }} ]
+    # access env
+    # loop through array
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout
+        with:
+          repository: ${{ matrix.current_repo }}
+          path: ${{ matrix.current_repo }}
+      - run: echo $current_repo
