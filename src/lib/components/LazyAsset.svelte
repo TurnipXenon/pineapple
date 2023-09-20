@@ -49,36 +49,37 @@
 
 	onMount(async () => {
 		const path = src.includes("https://") ? src : `${window.location.origin}${src}`;
-		switch (assetType) {
+
+        switch(assetType) {
             case LazyAssetType.Image: {
                 const img = new Image();
                 img.onload = () => {
+                    actualSrc = path;
                     status = LazyAssetStatus.Loaded;
                 }
                 img.src = path;
                 break;
             }
             case LazyAssetType.Video: {
-
-
-                const video = document.createElement('video');
-                video.oncanplay = () => {
-                    status = LazyAssetStatus.Loaded
-                }
-
-                video.src = path;
+                fetch(path)
+                    .then(resp => resp.blob())
+                    .then(blob => {
+                        actualSrc = URL.createObjectURL(blob);
+                        status = LazyAssetStatus.Loaded;
+                    })
+                    .catch(error => {
+                        console.warn(error);
+                        status = LazyAssetStatus.Error;
+                    });
                 break;
             }
             case LazyAssetType.Unknown: {
-				status = LazyAssetStatus.Error;
+                console.warn("Unknown asset: ", path)
+                status = LazyAssetStatus.Error;
                 break;
             }
 
         }
-
-        const resp = await fetch(path);
-		actualSrc = resp.url;
-
 	});
 </script>
 
