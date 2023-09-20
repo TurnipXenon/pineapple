@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"dev": "npm run check-requirements && vite dev",
+		"dev": "vite dev",
 		"build": "npm run check-requirements && svelte-kit sync && npm run package",
 		"package": "svelte-kit sync && svelte-package",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

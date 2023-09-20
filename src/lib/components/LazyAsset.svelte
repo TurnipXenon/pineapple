@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { LazyAssetStatus, LazyAssetType } from "$lib/components/LazyAssetType";
-	import BgTiledAres from "$lib/assets/bg_tiled/bg_tiled_ares.png";
-	import { onMount } from "svelte";
+    import {LazyAssetStatus, LazyAssetType} from "$lib/components/LazyAssetType";
+    import BgTiledAres from "$lib/assets/bg_tiled/bg_tiled_ares.png";
+    import {onMount} from "svelte";
 
-	export let src: string;
+    export let src: string;
 	export let alt: string;
 
 	// in pixels
@@ -44,20 +44,42 @@
 	};
 	const assetType: LazyAssetType = getAssetType();
 
-	let actualSrc: string = "";
+	let actualSrc = "";
 	let status: LazyAssetStatus = LazyAssetStatus.Loading;
 
 	onMount(async () => {
 		const path = src.includes("https://") ? src : `${window.location.origin}${src}`;
-		const resp = await fetch(path);
-		actualSrc = resp.url;
 
-		if (resp.ok) {
-			status = LazyAssetStatus.Loaded;
-		} else {
-			status = LazyAssetStatus.Error;
-			console.log(`Error loading asset: ${src}`);
-		}
+        switch(assetType) {
+            case LazyAssetType.Image: {
+                const img = new Image();
+                img.onload = () => {
+                    actualSrc = path;
+                    status = LazyAssetStatus.Loaded;
+                }
+                img.src = path;
+                break;
+            }
+            case LazyAssetType.Video: {
+                fetch(path)
+                    .then(resp => resp.blob())
+                    .then(blob => {
+                        actualSrc = URL.createObjectURL(blob);
+                        status = LazyAssetStatus.Loaded;
+                    })
+                    .catch(error => {
+                        console.warn(error);
+                        status = LazyAssetStatus.Error;
+                    });
+                break;
+            }
+            case LazyAssetType.Unknown: {
+                console.warn("Unknown asset: ", path)
+                status = LazyAssetStatus.Error;
+                break;
+            }
+
+        }
 	});
 </script>
 
