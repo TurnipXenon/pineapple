@@ -47,7 +47,8 @@
 		"highlight.js": "^11.8.0",
 		"node-html-parser": "^6.1.5",
 		"svelte": "^4.0.0",
-		"ts-node": "^10.9.1"
+		"ts-node": "^10.9.1",
+		"string-width": "^7.1.0"
 	},
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
