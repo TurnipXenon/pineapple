@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "scripts": {
     "dev": "vite dev",
     "build": "npm run check-requirements && vite build",
@@ -45,9 +45,9 @@
     "@types/node": "^20.1.0",
     "highlight.js": "^11.8.0",
     "node-html-parser": "^6.1.5",
+    "string-width": "^7.1.0",
     "svelte": "^4.0.0",
-    "ts-node": "^10.9.1",
-    "string-width": "^7.1.0"
+    "ts-node": "^10.9.1"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
