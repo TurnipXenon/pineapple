@@ -1,42 +1,83 @@
+<!--todo: probably add a timer that auto scrolls the carousel-->
+<!--todo: highlight current item visible-->
+
 <script lang="ts">
     import FABIcon from "$lib/assets/bg_tiled/bg_tiled_turnip.png";
     import SeaweedBaseLayout from "$lib/components/SeaweedBaseLayout.svelte";
     import {Accordion, AccordionItem} from "@skeletonlabs/skeleton";
-    import {onMount} from "svelte";
     import StickyElement from "$lib/components/StickyElement.svelte";
+
+    import HeaderPengi from "$lib/assets/temp/header-pengi.mp4";
+    // import GithubLogo from "$lib/assets/temp/github-logo.png";
+    // import BitbucketLogo from "$lib/assets/temp/bitbucket-logo.png";
+    import HeaderSoulwork from "$lib/assets/temp/header-soulwork.mp4";
+    import HeaderHepCat from "$lib/assets/temp/header-hep-cat.mp4";
+    import CarouselElement from "$pkg/components/CarouselElement.svelte";
+    // import HeaderThinkingOfFlowers from "$lib/assets/game_dev/footage-thinking-of-flowers.webm";
+    // import HeaderGameJamMama from "$lib/assets/game_dev/screenshot-game-jam-mama.png";
+    // import HeaderWetAssRoad from "$lib/assets/game_dev/screenshot-wet-ass-road.png";
+    // import HeaderDepreciated from "$lib/assets/game_dev/footage-depreciation.webm";
+    // import HeaderStringHop from "$lib/assets/game_dev/screenshot-string-hop.png";
+    import HeaderChefWings from "$lib/assets/game_dev/footage-chef-wings.gif";
+    import {onMount} from "svelte";
+    // import HeaderLoveAmidstTheTimelessRift from "$lib/assets/game_dev/love-amidst-the-timeless-rift.png";
 
     let elemMovies: HTMLDivElement;
     let stickyElem: HTMLElement;
     let elemCarousel: HTMLDivElement;
     let elemCarousel2: HTMLDivElement;
 
+    enum AssetType {
+        Image,
+        Video
+    }
 
-    const unsplashIds = ['vjUokUWbFOs', '1aJuPtQJX_I', 'Jp6O3FFRdEI', 'I3C_eojFVQY', 's0fXOuyTH1M', 'z_X0PxmBuIQ'];
+    type UnsplashAsset = {
+        src: string;
+        type: AssetType;
+    };
+
+    const unsplashAssets: UnsplashAsset[] = [
+        {
+            src: HeaderPengi,
+            type: AssetType.Video,
+        },
+        {
+            src: HeaderHepCat,
+            type: AssetType.Video,
+        },
+        {
+            src: HeaderChefWings,
+            type: AssetType.Image,
+        },
+        {
+            src: HeaderSoulwork,
+            type: AssetType.Video,
+        },
+        {
+            src: HeaderPengi,
+            type: AssetType.Video,
+        },
+    ];
 
     let isSocialSticky = false;
-    let elemCarouselCount = 0;
+    const gameCarouselCount = 5;
     let activeGameIndex = 0;
 
     function carouselLeft(): void {
-        if (elemCarouselCount === 0) {
-            console.warn("Game carousel count is 0; skipping doing modulo division");
-            return;
-        }
+        activeGameIndex = (activeGameIndex - 1) % gameCarouselCount;
 
-        activeGameIndex = (activeGameIndex - 1) % elemCarouselCount;
+        if (activeGameIndex < 0) {
+            activeGameIndex += gameCarouselCount;
+        }
     }
 
     function carouselRight(): void {
-        if (elemCarouselCount === 0) {
-            console.warn("Game carousel count is 0; skipping doing modulo division");
-            return;
-        }
-
-        activeGameIndex = (activeGameIndex + 1) % elemCarouselCount;
+        activeGameIndex = (activeGameIndex + 1) % gameCarouselCount;
     }
 
     function carouselThumbnail(index: number) {
-        elemCarousel.scroll(elemCarousel.clientWidth * index, 0);
+        activeGameIndex = index;
     }
 
     function multiColumnLeft(): void {
@@ -58,18 +99,8 @@
         return selfIndex === activeIndex ? "visible" : "collapse";
     };
 
-    let observer: undefined | IntersectionObserver;
     onMount(() => {
-        observer = new IntersectionObserver(
-            ([e]) => {
-                isSocialSticky = e.intersectionRatio < 1;
-            },
-            {threshold: [1]}
-        );
-        observer.observe(stickyElem);
-
-        elemCarouselCount = elemCarousel.childElementCount;
-        console.log(`Child count: ${elemCarouselCount}`);
+        console.log(`Child count: ${elemCarousel.childElementCount}`);
     });
 </script>
 
@@ -78,6 +109,7 @@
 </button>
 
 <SeaweedBaseLayout>
+	<!-- todo: limit main size to 1080 px? -->
 	<main>
 
 		<section>
@@ -188,34 +220,120 @@
 				<button type="button" class="btn-icon variant-filled" on:click={carouselLeft}>
 					<i class="fa-solid fa-arrow-left"/>
 				</button>
-				<!-- Full Images -->
-				<!--				<div bind:this={elemCarousel} class="snap-x snap-mandatory scroll-smooth flex overflow-x-auto">-->
-				<!--					{#each unsplashIds as unsplashId}-->
-				<!--						<img-->
-				<!--								class="snap-center w-[1024px] rounded-container-token"-->
-				<!--								src="https://source.unsplash.com/{unsplashId}/1024x768"-->
-				<!--								alt={unsplashId}-->
-				<!--								loading="lazy"-->
-				<!--						/>-->
-				<!--					{/each}-->
-				<!--				</div>-->
-				<div bind:this={elemCarousel} class="snap-x snap-mandatory scroll-smooth flex overflow-x-auto">
-					<section class="game-showcase"
-					         style:visibility={determineVisibility(0, activeGameIndex)}>
-						test1
-					</section>
-					<section class="game-showcase"
-					         style:visibility={determineVisibility(1, activeGameIndex)}>
-						test2
-					</section>
-					<section class="game-showcase"
-					         style:visibility={determineVisibility(2, activeGameIndex)}>
-						test3
-					</section>
-					<section class="game-showcase"
-					         style:visibility={determineVisibility(3, activeGameIndex)}>
-						test4
-					</section>
+				<div bind:this={elemCarousel} class="snap-x snap-mandatory scroll-smooth flex">
+					<!-- remember to update the count of items on gameCarouselCount when adding or removing a
+						CarouselElement here -->
+					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>
+						<div class="carousel-element">
+							<h2>Pengi</h2>
+							<video playsinline autoplay muted loop preload="none">
+								video unavailable. original video contains pengi gameplay showing the dynamic dialog
+								layout and character animation.
+								<source src={HeaderPengi} type="video/mp4">
+							</video>
+
+							<p>
+								(Oct 2020 - Dec 2020)
+							</p>
+							<p>
+								Well well, quite the dreamer, aren’t you? Might be hard to get in... costs a lot of
+								money...
+							</p>
+
+							<p>
+								Pengi is a text-based adventure made in Unity. I acted as the sole programmer for the
+								team. Most of the work revolves around UI and creating <a
+									href="https://yarnspinner.dev/" target="_blank">YarnSpinner</a> commands for writers
+								to use to create expressive stage directions in the script.
+							</p>
+
+							<p>
+								This is a course project made by a team of six for STS 350: Understanding Video Games.
+							</p>
+
+							<!--							https://turnipxenon.itch.io/pengi-->
+							<!--							https://github.com/GreenTea-M/ProjectPengi-->
+						</div>
+					</CarouselElement>
+					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={1}>
+						<div class="carousel-element">
+							<h2>Hepcat</h2>
+							<video playsinline autoplay muted loop preload="none">
+								<source src={HeaderHepCat} type="video/mp4">
+							</video>
+
+							(Jan 2020 - Apr 2020)
+							"Cats, Jazz, and a little bit of Death. What more could anyone ask for?"
+
+							Hep Cat is a rhythm game made in <a
+								href="https://www.rpgmakerweb.com/products/programs/rpg-maker-mv" target="_blank">RPG
+							Maker
+							MV</a> with the help of additional custom-made
+							Javascript plugins. I wrote the rhythm game plugin's framework. For this plugin to work, I
+							had to write a Python script that parses osu! files into readable JSON files.
+
+							This is a course project made by a team of six for <a
+								href="https://sites.google.com/ualberta.ca/cmput250/">CMPUT 250.</a>
+
+							<!--							https://just-a-phantom.itch.io/hep-cat-->
+							<!--							https://bitbucket.org/egginchicken/hep-cat/src/master/-->
+						</div>
+					</CarouselElement>
+					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={2}>
+						<div class="carousel-element">
+							<h2>Chef Wings</h2>
+							<img src={HeaderChefWings} alt="todo" loading="lazy">
+
+							(Jan 2022 - Apr 2022)
+
+							A “roguelite-lite” where you gather ingredients in a procedurally-generated dungeon and use
+							them to cook for customers and then critics!
+							I built and documented several of the game’s systems including the game state management
+							system that extends Unity’s existing Monobehavior lifecycle with new events, and the
+							dialogue, event, and level systems that coordinate the game flow using the interactive
+							dialogue tool YarnSpinner
+
+							<!--							https://selk.io/birb-project/trunk/-->
+						</div>
+					</CarouselElement>
+					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={3}>
+						<div class="carousel-element">
+							<h2>Soulwork</h2>
+							<video playsinline autoplay muted loop preload="none">
+								<source src={HeaderSoulwork} type="video/mp4">
+							</video>
+
+							<p>
+								(Nov 2019)
+							</p>
+
+							<p>
+								Soulwork is a 2D platforming game that uses unique physics to solve puzzle-based levels.
+								This project is a Time to Game Jam entry, restricting game development to be under 48
+								hours.
+								I helped make the level designing tools used by the designers to drag-and-drop objects
+								on
+								the stage. I also helped program the unique physics-based gameplay mechanic. This was
+								written using C#.
+							</p>
+
+							<!--							https://itch.io/jam/time-to-game-jam-gadec-fall-game-jam/rate/514331-->
+							<!--							https://github.com/Zeyu-Li/Clockwork-->
+						</div>
+					</CarouselElement>
+					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={4}>
+						<div class="carousel-element">
+							<h2>And more...</h2>
+							<video playsinline autoplay muted loop preload="none">
+								<source src={HeaderHepCat} type="video/mp4">
+							</video>
+
+							I make more games. You can check them out at my itch page!
+
+						</div>
+					</CarouselElement>
+					<!-- remember to update the count of items on gameCarouselCount when adding or removing a
+						CarouselElement here -->
 				</div>
 
 				<!-- Button: Right -->
@@ -224,59 +342,119 @@
 				</button>
 			</div>
 
-			<div class="card p-4 grid grid-cols-6 gap-4">
-				{#each unsplashIds as unsplashId, i}
-					<button type="button" on:click={() => carouselThumbnail(i)}>
-						<img
-								class="rounded-container-token"
-								src="https://source.unsplash.com/{unsplashId}/256x256"
-								alt={unsplashId}
-								loading="lazy"
-						/>
-					</button>
+			<!-- from:  -->
+			<div class="card p-4 grid grid-cols-6 gap-4 carousel-thumbnail-container">
+				{#each unsplashAssets as unsplashId, i}
+					<div class="carousel-thumbnail">
+						<button type="button" on:click={() => carouselThumbnail(i)}>
+							{#if unsplashId.type === AssetType.Video}
+								<video playsinline autoplay muted loop preload="none">
+									<source src={unsplashId.src} type="video/mp4">
+								</video>
+							{:else }
+								<!--todo: improve alt-->
+								<img
+										class="rounded-container-token"
+										src={unsplashId.src}
+										alt={unsplashId.src}
+										loading="lazy"
+								/>
+							{/if}
+						</button>
+					</div>
 				{/each}
 			</div>
-
 		</section>
 
 		<section>
 			<h1>Projects</h1>
 
-			<div class="card p-4 grid grid-cols-[auto_1fr_auto] gap-4 items-center">
-				<!-- Button: Left -->
-				<button type="button" class="btn-icon variant-filled" on:click={carouselLeft}>
-					<i class="fa-solid fa-arrow-left"/>
-				</button>
-				<!-- Full Images -->
-				<div bind:this={elemCarousel2} class="snap-x snap-mandatory scroll-smooth flex overflow-x-auto">
-					{#each unsplashIds as unsplashId}
-						<img
-								class="snap-center w-[1024px] rounded-container-token"
-								src="https://source.unsplash.com/{unsplashId}/1024x768"
-								alt={unsplashId}
-								loading="lazy"
-						/>
-					{/each}
+			<div class="project-carousel-container">
+
+				<div class="card p-4 grid grid-cols-6 gap-4 carousel-thumbnail-container">
+
+					<!-- todo: fix layout -->
+
+					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>
+						<div class="card project-carousel-element">
+							Migrante Alberta, Group Project Jan 2022 – Apr 2022
+							https://cmput401.ca/projects/d5b366aa-bd10-4031-aba5-a4bc6ff5b649
+							cmput401.ca/projects/d5b366aa-bd10-4031-aba5-a4bc6ff5b649
+							Developed a mobile-first cross-platform application to be used by the Canadian-based
+							Filipino non-profit advocacy group, Migrante Alberta, to help new immigrants navigate
+							through local services and events
+							Created reusable Flutter components for the application’s frontend, Dart utility files to
+							help ease writing and debugging calls to the backend, and a troubleshooting documentation
+							for handling common issues
+							Added Python unit tests to the backend endpoints, refactored the backend’s authentication
+							system from plain text to using Django’s authentication system, and wrote a script to ease
+							deployment to Heroku
+							https://www.migrantealberta.ca/
+						</div>
+					</CarouselElement>
+					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>
+						<div class="card project-carousel-element">
+							<h3>This webpage!!!</h3>
+
+							The webpage is made of two parts. The webpage that has the content for everything here, I've
+							lovingly called Seaweed. Then the base package which I want to use for all spin offs of my
+							websites. I call that one Pineapple. An interesting part of the base package is it has a
+							dialog interpreter based on YarnSpinner.
+
+							todo: github link
+							todo: add tags
+						</div>
+					</CarouselElement>
+					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>
+						<div class="card project-carousel-element">
+							<h3>Working set simulation</h3>
+
+							A C program that simulates the working set model based on the output of memory addresses
+							valgrind detects as being accessed by a program being ran. The working set is the collection
+							of memory pages referenced by a program within a certain time frame. It comes with a report
+							analyzing how the window set sizes vary between popular sorting algorithms being used on big
+							datasets.
+
+							https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment03/DESIGN.md
+
+						</div>
+					</CarouselElement>
+
+
+					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>
+						<div class="card project-carousel-element">
+							<h3>Client-server application in C</h3>
+
+							multiprocessing
+							networking via socket programming
+
+							https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment02/DESIGN.md
+						</div>
+					</CarouselElement>
+
+
+					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>
+						<div class="card project-carousel-element">
+							Mock Uber App, Group Project Jan 2020 – Apr 2020
+							github.com/CMPUT301W20T10/UberApp
+							Implemented all interfaces related to the NoSQL cloud database Firebase, making writing code
+							easier for other programmers (Android / Java)
+							Wrote documentation to said code and added instrumented tests that are tested by the
+							continuous integration tool Travis CI, ensuring that the code I write is tested
+
+						</div>
+					</CarouselElement>
+
+
+					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>
+						<div class="card project-carousel-element">
+							<h3>Full stack decentralized social media</h3>
+
+							https://github.com/hgshah/cmput404-project
+						</div>
+					</CarouselElement>
 				</div>
-				<!-- Button: Right -->
-				<button type="button" class="btn-icon variant-filled" on:click={carouselRight}>
-					<i class="fa-solid fa-arrow-right"/>
-				</button>
 			</div>
-
-			<div class="card p-4 grid grid-cols-6 gap-4">
-				{#each unsplashIds as unsplashId, i}
-					<button type="button" on:click={() => carouselThumbnail(i)}>
-						<img
-								class="rounded-container-token"
-								src="https://source.unsplash.com/{unsplashId}/256x256"
-								alt={unsplashId}
-								loading="lazy"
-						/>
-					</button>
-				{/each}
-			</div>
-
 		</section>
 
 		<section>
@@ -304,24 +482,49 @@
         box-shadow: 0.5em 0.5em 0.5em gray;
     }
 
-    .socials {
-        position: sticky;
-        top: -1px;
-    }
-
-    /*might need to move to apppost.css*/
-    .socials.isSticky {
-        font-size: 2rem;
-        color: red;
-        border-bottom: 1px solid black;
-    }
-
-    .game-showcase {
-        @apply snap-center w-[1024px] rounded-container-token;
-    }
-
-
     .fab img {
         object-fit: contain;
+    }
+
+    .carousel-element {
+        text-align: center;
+        height: 25lh;
+    }
+
+    .carousel-element > video, .carousel-element > img {
+        max-height: 15lh;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .carousel-thumbnail {
+        width: 10lh;
+        height: 10lh;
+    }
+
+    .carousel-thumbnail-container {
+        justify-content: center;
+        display: flex;
+        flex-direction: row;
+        max-width: 1960px;
+    }
+
+    .carousel-thumbnail > *, .carousel-thumbnail > * > * {
+        object-fit: cover;
+        width: 6lh;
+        height: 6lh;
+        border-radius: 1lh;
+    }
+
+    .project-carousel-element {
+        width: 12lh;
+        height: 12lh;
+    }
+
+    .project-carousel-container {
+        justify-content: flex-start;
+        display: flex;
+        flex-direction: row;
+        max-width: 1960px;
     }
 </style>
