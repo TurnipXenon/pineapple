@@ -14,8 +14,8 @@
 </svelte:head>
 
 <div class="card default-card">
-	<LazyAsset src={TestImage} alt="test" width="100" height="100">
-	</LazyAsset>
+<!--	<LazyAsset src={TestImage} alt="test" width="100" height="100">-->
+<!--	</LazyAsset>-->
 
 		<h1 class="mb-8">Directory</h1>
 
