@@ -141,7 +141,8 @@
        it likely disappeared due to code gen shenanigans and package magic */
     .breadcrumb,
     .breadcrumb-nonresponsive {
-        @apply flex items-center space-x-4 w-full hide-scrollbar overflow-x-auto;
+        @apply flex items-center space-x-4 w-full overflow-x-auto;
+        /*@apply flex items-center space-x-4 w-full hide-scrollbar overflow-x-auto;*/
     }
 
     .crumb {
