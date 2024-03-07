@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
-		"build": "npm run check-requirements && svelte-kit sync && npm run package && vite build",
+		"build": "npm run check-requirements && vite build",
 		"package": "svelte-kit sync && svelte-package",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -13,7 +13,8 @@
 		"generate": "npx vite-node src/routes/blogs/blog_list_data_generator.ts && npx vite-node src/routes/toyay/toya_files_generator.ts && npm run generate-yarn",
 		"generate-yarn": "npx vite-node src/lib/scripts/pineapple_fiber/PineappleWeaver.ts",
 		"check-requirements": "npx vite-node src/lib/scripts/SetDefaultEnvironment.ts",
-		"custom-check": "npx vite-node src/lib/scripts/util/ManualCheckRun.ts"
+		"custom-check": "npx vite-node src/lib/scripts/util/ManualCheckRun.ts",
+		"prepare": "svelte-kit sync && npm run package"
 	},
 	"devDependencies": {
 		"@skeletonlabs/skeleton": "^1.2.5",
