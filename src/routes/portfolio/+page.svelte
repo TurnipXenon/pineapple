@@ -8,23 +8,31 @@
     let elemMovies: HTMLDivElement;
     let stickyElem: HTMLElement;
     let elemCarousel: HTMLDivElement;
-    let isSocialSticky = false;
+    let elemCarousel2: HTMLDivElement;
+
+
     const unsplashIds = ['vjUokUWbFOs', '1aJuPtQJX_I', 'Jp6O3FFRdEI', 'I3C_eojFVQY', 's0fXOuyTH1M', 'z_X0PxmBuIQ'];
 
+    let isSocialSticky = false;
+    let elemCarouselCount = 0;
+    let activeGameIndex = 0;
+
     function carouselLeft(): void {
-        const x =
-            elemCarousel.scrollLeft === 0
-                ? elemCarousel.clientWidth * elemCarousel.childElementCount // loop
-                : elemCarousel.scrollLeft - elemCarousel.clientWidth; // step left
-        elemCarousel.scroll(x, 0);
+        if (elemCarouselCount === 0) {
+            console.warn("Game carousel count is 0; skipping doing modulo division");
+            return;
+        }
+
+        activeGameIndex = (activeGameIndex - 1) % elemCarouselCount;
     }
 
     function carouselRight(): void {
-        const x =
-            elemCarousel.scrollLeft === elemCarousel.scrollWidth - elemCarousel.clientWidth
-                ? 0 // loop
-                : elemCarousel.scrollLeft + elemCarousel.clientWidth; // step right
-        elemCarousel.scroll(x, 0);
+        if (elemCarouselCount === 0) {
+            console.warn("Game carousel count is 0; skipping doing modulo division");
+            return;
+        }
+
+        activeGameIndex = (activeGameIndex + 1) % elemCarouselCount;
     }
 
     function carouselThumbnail(index: number) {
@@ -44,6 +52,12 @@
         elemMovies.scroll(x, 0);
     }
 
+    // todo: document
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/visibility
+    const determineVisibility = (selfIndex: number, activeIndex: number): string => {
+        return selfIndex === activeIndex ? "visible" : "collapse";
+    };
+
     let observer: undefined | IntersectionObserver;
     onMount(() => {
         observer = new IntersectionObserver(
@@ -53,6 +67,9 @@
             {threshold: [1]}
         );
         observer.observe(stickyElem);
+
+        elemCarouselCount = elemCarousel.childElementCount;
+        console.log(`Child count: ${elemCarouselCount}`);
     });
 </script>
 
@@ -131,8 +148,9 @@
 
 			<Accordion>
 				<AccordionItem>
-					<!--					<svelte:fragment slot="lead">(icon)</svelte:fragment>-->
-					<svelte:fragment slot="summary">More previous experience</svelte:fragment>
+					<!-- todo: add logo downwards chevron -->
+					<!-- <svelte:fragment slot="lead">(icon)</svelte:fragment>-->
+					<svelte:fragment slot="summary">More experience</svelte:fragment>
 					<svelte:fragment slot="content">
 						<section>
 							<h2>Software Engineer Intern</h2>
@@ -165,16 +183,35 @@
 					<i class="fa-solid fa-arrow-left"/>
 				</button>
 				<!-- Full Images -->
+				<!--				<div bind:this={elemCarousel} class="snap-x snap-mandatory scroll-smooth flex overflow-x-auto">-->
+				<!--					{#each unsplashIds as unsplashId}-->
+				<!--						<img-->
+				<!--								class="snap-center w-[1024px] rounded-container-token"-->
+				<!--								src="https://source.unsplash.com/{unsplashId}/1024x768"-->
+				<!--								alt={unsplashId}-->
+				<!--								loading="lazy"-->
+				<!--						/>-->
+				<!--					{/each}-->
+				<!--				</div>-->
 				<div bind:this={elemCarousel} class="snap-x snap-mandatory scroll-smooth flex overflow-x-auto">
-					{#each unsplashIds as unsplashId}
-						<img
-								class="snap-center w-[1024px] rounded-container-token"
-								src="https://source.unsplash.com/{unsplashId}/1024x768"
-								alt={unsplashId}
-								loading="lazy"
-						/>
-					{/each}
+					<section class="game-showcase"
+					         style:visibility={determineVisibility(0, activeGameIndex)}>
+						test1
+					</section>
+					<section class="game-showcase"
+					         style:visibility={determineVisibility(1, activeGameIndex)}>
+						test2
+					</section>
+					<section class="game-showcase"
+					         style:visibility={determineVisibility(2, activeGameIndex)}>
+						test3
+					</section>
+					<section class="game-showcase"
+					         style:visibility={determineVisibility(3, activeGameIndex)}>
+						test4
+					</section>
 				</div>
+
 				<!-- Button: Right -->
 				<button type="button" class="btn-icon variant-filled" on:click={carouselRight}>
 					<i class="fa-solid fa-arrow-right"/>
@@ -205,7 +242,7 @@
 					<i class="fa-solid fa-arrow-left"/>
 				</button>
 				<!-- Full Images -->
-				<div bind:this={elemCarousel} class="snap-x snap-mandatory scroll-smooth flex overflow-x-auto">
+				<div bind:this={elemCarousel2} class="snap-x snap-mandatory scroll-smooth flex overflow-x-auto">
 					{#each unsplashIds as unsplashId}
 						<img
 								class="snap-center w-[1024px] rounded-container-token"
@@ -271,6 +308,10 @@
         font-size: 2rem;
         color: red;
         border-bottom: 1px solid black;
+    }
+
+    .game-showcase {
+        @apply snap-center w-[1024px] rounded-container-token;
     }
 
 
