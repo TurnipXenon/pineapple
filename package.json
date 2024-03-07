@@ -14,7 +14,6 @@
 		"generate-yarn": "npx vite-node src/lib/scripts/pineapple_fiber/PineappleWeaver.ts",
 		"check-requirements": "npx vite-node src/lib/scripts/SetDefaultEnvironment.ts",
 		"custom-check": "npx vite-node src/lib/scripts/util/ManualCheckRun.ts",
-		"prepare": "svelte-kit sync && npm run package"
 	},
 	"devDependencies": {
 		"@skeletonlabs/skeleton": "^1.2.5",
