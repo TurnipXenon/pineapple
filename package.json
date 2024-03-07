@@ -41,12 +41,12 @@
   },
   "type": "module",
   "dependencies": {
-    "@sveltejs/kit": "^1.20.4",
+    "@sveltejs/kit": "^2.5.2",
     "@types/node": "^20.1.0",
     "highlight.js": "^11.8.0",
     "node-html-parser": "^6.1.5",
     "string-width": "^7.1.0",
-    "svelte": "^4.0.0",
+    "svelte": "^4.2.12",
     "ts-node": "^10.9.1"
   },
   "main": "./dist/index.js",
@@ -63,5 +63,6 @@
     "./dist"
   ],
   "repository": "https://github.com/TurnipXenon/pineapple",
-  "author": "turnipxenon <turnipxenon@gmail.com>"
+  "author": "turnipxenon <turnipxenon@gmail.com>",
+  "license": "MIT"
 }
