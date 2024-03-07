@@ -1,65 +1,67 @@
 {
-	"name": "@turnipxenon/pineapple",
-	"version": "1.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "vite dev",
-		"build": "npm run check-requirements && vite build",
-		"package": "svelte-kit sync && svelte-package",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write .",
-		"generate": "npx vite-node src/routes/blogs/blog_list_data_generator.ts && npx vite-node src/routes/toyay/toya_files_generator.ts && npm run generate-yarn",
-		"generate-yarn": "npx vite-node src/lib/scripts/pineapple_fiber/PineappleWeaver.ts",
-		"check-requirements": "npx vite-node src/lib/scripts/SetDefaultEnvironment.ts",
-		"custom-check": "npx vite-node src/lib/scripts/util/ManualCheckRun.ts"
-	},
-	"devDependencies": {
-		"@skeletonlabs/skeleton": "^1.2.5",
-		"@sveltejs/adapter-auto": "^3.1.1",
-		"@sveltejs/kit": "^2.5.2",
-		"@sveltejs/package": "^2.2.1",
-		"@tailwindcss/forms": "^0.5.3",
-		"@tailwindcss/typography": "^0.5.9",
-		"@typescript-eslint/eslint-plugin": "^5.45.0",
-		"@typescript-eslint/parser": "^5.45.0",
-		"autoprefixer": "^10.4.14",
-		"eslint": "^8.28.0",
-		"eslint-config-prettier": "^8.5.0",
-		"eslint-plugin-svelte3": "^4.0.0",
-		"postcss": "8.4.35",
-		"prettier": "^3.2.5",
-		"prettier-plugin-svelte": "^3.2.2",
-		"svelte": "^4.2.12",
-		"svelte-check": "^3.6.6",
-		"svelte2tsx": "^0.6.20",
-		"tailwindcss": "^3.3.2",
-		"tslib": "^2.4.1",
-		"typescript": "^5.1.6",
-		"vite": "^5.1.5"
-	},
-	"type": "module",
-	"dependencies": {
-		"@sveltejs/kit": "^1.20.4",
-		"@types/node": "^20.1.0",
-		"highlight.js": "^11.8.0",
-		"node-html-parser": "^6.1.5",
-		"svelte": "^4.0.0",
-		"ts-node": "^10.9.1",
-		"string-width": "^7.1.0"
-	},
-	"main": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
-		}
-	},
-	"files": [
-		"./src",
-		"./static",
-		"./dist"
-	]
+  "name": "@turnipxenon/pineapple",
+  "description": "personal package for base styling for other personal projects",
+  "version": "1.1.2",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "npm run check-requirements && vite build",
+    "package": "svelte-kit sync && svelte-package",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "lint": "prettier --plugin-search-dir . --check . && eslint .",
+    "format": "prettier --plugin-search-dir . --write .",
+    "generate": "npx vite-node src/routes/blogs/blog_list_data_generator.ts && npx vite-node src/routes/toyay/toya_files_generator.ts && npm run generate-yarn",
+    "generate-yarn": "npx vite-node src/lib/scripts/pineapple_fiber/PineappleWeaver.ts",
+    "check-requirements": "npx vite-node src/lib/scripts/SetDefaultEnvironment.ts",
+    "custom-check": "npx vite-node src/lib/scripts/util/ManualCheckRun.ts"
+  },
+  "devDependencies": {
+    "@skeletonlabs/skeleton": "^1.2.5",
+    "@sveltejs/adapter-auto": "^3.1.1",
+    "@sveltejs/kit": "^2.5.2",
+    "@sveltejs/package": "^2.2.1",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/typography": "^0.5.9",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-svelte3": "^4.0.0",
+    "postcss": "8.4.35",
+    "prettier": "^3.2.5",
+    "prettier-plugin-svelte": "^3.2.2",
+    "svelte": "^4.2.12",
+    "svelte-check": "^3.6.6",
+    "svelte2tsx": "^0.6.20",
+    "tailwindcss": "^3.3.2",
+    "tslib": "^2.4.1",
+    "typescript": "^5.1.6",
+    "vite": "^5.1.5"
+  },
+  "type": "module",
+  "dependencies": {
+    "@sveltejs/kit": "^1.20.4",
+    "@types/node": "^20.1.0",
+    "highlight.js": "^11.8.0",
+    "node-html-parser": "^6.1.5",
+    "string-width": "^7.1.0",
+    "svelte": "^4.0.0",
+    "ts-node": "^10.9.1"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js"
+    }
+  },
+  "files": [
+    "./src",
+    "./static",
+    "./dist"
+  ],
+  "repository": "https://github.com/TurnipXenon/pineapple",
+  "author": "turnipxenon <turnipxenon@gmail.com>"
 }
