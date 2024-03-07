@@ -42,6 +42,7 @@
   "type": "module",
   "dependencies": {
     "@sveltejs/kit": "^2.5.2",
+    "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "@types/node": "^20.1.0",
     "highlight.js": "^11.8.0",
     "node-html-parser": "^6.1.5",
