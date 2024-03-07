@@ -3,7 +3,7 @@
     import SeaweedBaseLayout from "$lib/components/SeaweedBaseLayout.svelte";
     import {Accordion, AccordionItem} from "@skeletonlabs/skeleton";
     import {onMount} from "svelte";
-    import StickySeparatorElement from "$lib/components/StickySeparatorElement.svelte";
+    import StickyElement from "$lib/components/StickyElement.svelte";
 
     let elemMovies: HTMLDivElement;
     let stickyElem: HTMLElement;
@@ -90,16 +90,22 @@
 			Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
 
 		</section>
-		<section bind:this={stickyElem} class="socials">
+		<!--		<section bind:this={stickyElem} class="socials">-->
+
+		<StickyElement isFirst={true}>
 			email: <a href="mailto:turnipxenon@gmail.com">turnipxenon@gmail.com</a>
-			<StickySeparatorElement isSticky={isSocialSticky}></StickySeparatorElement>
+		</StickyElement>
+		<StickyElement>
 			github: <a href="https://github.com/TurnipXenon" target="_blank">github.com/TurnipXenon</a>
-			<StickySeparatorElement isSticky={isSocialSticky}></StickySeparatorElement>
+		</StickyElement>
+		<StickyElement>
 			itch: <a href="https://turnipxenon.itch.io/" target="_blank">github.com/TurnipXenon</a>
-			<StickySeparatorElement isSticky={isSocialSticky}></StickySeparatorElement>
+		</StickyElement>
+		<!-- todo: when linkedin gets the sticky status, let's render a different style here -->
+		<StickyElement>
 			linkedin: <a href="https://www.linkedin.com/in/turnip-xenon/"
 			             target="_blank">linkedin.com/in/turnip-xenon</a>
-		</section>
+		</StickyElement>
 
 		<section>
 			<h1>Experience</h1>
