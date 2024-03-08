@@ -7,7 +7,7 @@
     export let shouldDisplaySocialIcons: Writable<boolean>;
 
     import SeaweedBaseLayout from "$lib/components/SeaweedBaseLayout.svelte";
-    import {Accordion, AccordionItem} from "@skeletonlabs/skeleton";
+    import {Accordion, AccordionItem, ProgressBar} from "@skeletonlabs/skeleton";
     import StickyElement from "$lib/components/StickyElement.svelte";
     import {ItchBadgeHotLink, ItchLogoHotLink} from "$lib/consts";
 
@@ -162,15 +162,15 @@
 			<Accordion>
 				<AccordionItem class="variant-filled-primary hover:variant-filled-surface rounded-md">
 					<svelte:fragment slot="summary">
-						<!--						<button type="button" class="btn variant-filled-primary w-full">-->
 						<h2>More experience</h2>
-						<!--						</button>-->
 					</svelte:fragment>
 					<svelte:fragment slot="content">
 						<section class="more-section">
 							<h2>Software Engineer Intern</h2>
-							<p>May 2021 – Dec 2021</p>
-							<p>Twitch / Amazon Web Services Canada, Remote</p>
+							<div class="two-column-separated">
+								<div>May 2021 – Dec 2021</div>
+								<div>Twitch / Amazon Web Services Canada, Remote</div>
+							</div>
 							<ul>
 								<li>
 									Implemented and wrote tests for a feature in Twitch’s backend authentication systems
@@ -189,163 +189,154 @@
 			</Accordion>
 		</section>
 
-		<!--		<section>-->
-		<!--			<h1>Games</h1>-->
+		<section class="section-card">
+			<h1>Games</h1>
 
-		<!--			<div class="card p-4 grid grid-cols-[auto_1fr_auto] gap-4 items-center">-->
-		<!--				&lt;
+			<ProgressBar meter="bg-primary-900-50-token"
+			             track="bg-secondary-200-700-token"
+			             label="Progress Bar"
+			             value={40} max={100}/>
 
-			!&ndash; Button: Left &ndash;&gt;-->
-		<!--				<button type="button" class="btn-icon variant-filled" on:click={carouselLeft}>-->
-		<!--					<i class="fa-solid fa-arrow-left"/>-->
-		<!--				</button>-->
-		<!--				<div class="snap-x snap-mandatory scroll-smooth flex">-->
-		<!--					&lt;!&ndash; remember to update the count of items on gameCarouselCount when adding or removing a-->
-		<!--						CarouselElement here &ndash;&gt;-->
-		<!--					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>-->
-		<!--						<div class="carousel-element">-->
-		<!--							<h2>Pengi</h2>-->
-		<!--							<video playsinline autoplay muted loop preload="none">-->
-		<!--								video unavailable. original video contains pengi gameplay showing the dynamic dialog-->
-		<!--								layout and character animation.-->
-		<!--								<source src={HeaderPengi} type="video/mp4">-->
-		<!--							</video>-->
+			<div class="carousel-thumbnail-container">
+				{#each unsplashAssets as unsplashId, i}
+						<button type="button" class="carousel-btn" on:click={() => carouselThumbnail(i)}>
+							{#if unsplashId.type === AssetType.Video}
+								<video playsinline autoplay muted loop preload="none">
+									<source src={unsplashId.src} type="video/mp4">
+								</video>
+							{:else }
+								<!--todo: improve alt-->
+								<img
+										class="rounded-container-token"
+										src={unsplashId.src}
+										alt={unsplashId.src}
+										loading="lazy"
+								/>
+							{/if}
+						</button>
+				{/each}
+			</div>
 
-		<!--							<p>-->
-		<!--								(Oct 2020 - Dec 2020)-->
-		<!--							</p>-->
-		<!--							<p>-->
-		<!--								Well well, quite the dreamer, aren’t you? Might be hard to get in... costs a lot of-->
-		<!--								money...-->
-		<!--							</p>-->
+			<div class="game-carousel-container">
+				<!-- remember to update the count of items on gameCarouselCount when adding or removing a
+					CarouselElement here -->
+				<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>
+					<div class="carousel-element">
+						<video playsinline autoplay muted loop preload="none">
+							video unavailable. original video contains pengi gameplay showing the dynamic dialog
+							layout and character animation.
+							<source src={HeaderPengi} type="video/mp4">
+						</video>
+						<h1>Pengi</h1>
 
-		<!--							<p>-->
-		<!--								Pengi is a text-based adventure made in Unity. I acted as the sole programmer for the-->
-		<!--								team. Most of the work revolves around UI and creating <a-->
-		<!--									href="https://yarnspinner.dev/" target="_blank">YarnSpinner</a> commands for writers-->
-		<!--								to use to create expressive stage directions in the script.-->
-		<!--							</p>-->
+						<p>
+							Well well, quite the dreamer, aren’t you? Might be hard to get in... costs a lot of
+							money...
+						</p>
 
-		<!--							<p>-->
-		<!--								This is a course project made by a team of six for STS 350: Understanding Video Games.-->
-		<!--							</p>-->
+						<p>
+							Pengi is a text-based adventure made in Unity. I acted as the sole programmer for the
+							team. Most of the work revolves around UI and creating <a
+								href="https://yarnspinner.dev/" target="_blank">YarnSpinner</a> commands for writers
+							to use to create expressive stage directions in the script.
+						</p>
 
-		<!--							&lt;!&ndash;							https://turnipxenon.itch.io/pengi&ndash;&gt;-->
-		<!--							&lt;!&ndash;							https://github.com/GreenTea-M/ProjectPengi&ndash;&gt;-->
-		<!--							<button type="button"><img src={GithubLogo}></button>-->
-		<!--						</div>-->
-		<!--					</CarouselElement>-->
-		<!--					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={1}>-->
-		<!--						<div class="carousel-element">-->
-		<!--							<h2>Hepcat</h2>-->
-		<!--							<video playsinline autoplay muted loop preload="none">-->
-		<!--								<source src={HeaderHepCat} type="video/mp4">-->
-		<!--							</video>-->
+						<!--							https://turnipxenon.itch.io/pengi-->
+						<!--							https://github.com/GreenTea-M/ProjectPengi-->
+						<button type="button"><img src={GithubLogo}></button>
+					</div>
+				</CarouselElement>
+				<CarouselElement activeGameIndex={activeGameIndex} selfIndex={1}>
+					<div class="carousel-element">
+						<h2>Hepcat</h2>
+						<video playsinline autoplay muted loop preload="none">
+							<source src={HeaderHepCat} type="video/mp4">
+						</video>
 
-		<!--							(Jan 2020 - Apr 2020)-->
-		<!--							"Cats, Jazz, and a little bit of Death. What more could anyone ask for?"-->
+						(Jan 2020 - Apr 2020)
+						"Cats, Jazz, and a little bit of Death. What more could anyone ask for?"
 
-		<!--							Hep Cat is a rhythm game made in <a-->
-		<!--								href="https://www.rpgmakerweb.com/products/programs/rpg-maker-mv" target="_blank">RPG-->
-		<!--							Maker-->
-		<!--							MV</a> with the help of additional custom-made-->
-		<!--							Javascript plugins. I wrote the rhythm game plugin's framework. For this plugin to work, I-->
-		<!--							had to write a Python script that parses osu! files into readable JSON files.-->
+						Hep Cat is a rhythm game made in <a
+							href="https://www.rpgmakerweb.com/products/programs/rpg-maker-mv" target="_blank">RPG
+						Maker
+						MV</a> with the help of additional custom-made
+						Javascript plugins. I wrote the rhythm game plugin's framework. For this plugin to work, I
+						had to write a Python script that parses osu! files into readable JSON files.
 
-		<!--							This is a course project made by a team of six for <a-->
-		<!--								href="https://sites.google.com/ualberta.ca/cmput250/">CMPUT 250.</a>-->
+						This is a course project made by a team of six for <a
+							href="https://sites.google.com/ualberta.ca/cmput250/">CMPUT 250.</a>
 
-		<!--							&lt;!&ndash;							https://just-a-phantom.itch.io/hep-cat&ndash;&gt;-->
-		<!--							&lt;!&ndash;							https://bitbucket.org/egginchicken/hep-cat/src/master/&ndash;&gt;-->
-		<!--							<img src={ItchLogoHotLink} loading="lazy">-->
-		<!--						</div>-->
-		<!--					</CarouselElement>-->
-		<!--					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={2}>-->
-		<!--						<div class="carousel-element">-->
-		<!--							<h2>Chef Wings</h2>-->
-		<!--							<img src={HeaderChefWings} alt="todo" loading="lazy">-->
+						<!--							https://just-a-phantom.itch.io/hep-cat-->
+						<!--							https://bitbucket.org/egginchicken/hep-cat/src/master/-->
+						<img src={ItchLogoHotLink} loading="lazy">
+					</div>
+				</CarouselElement>
+				<CarouselElement activeGameIndex={activeGameIndex} selfIndex={2}>
+					<div class="carousel-element">
+						<h2>Chef Wings</h2>
+						<img src={HeaderChefWings} alt="todo" loading="lazy">
 
-		<!--							(Jan 2022 - Apr 2022)-->
+						(Jan 2022 - Apr 2022)
 
-		<!--							A “roguelite-lite” where you gather ingredients in a procedurally-generated dungeon and use-->
-		<!--							them to cook for customers and then critics!-->
-		<!--							I built and documented several of the game’s systems including the game state management-->
-		<!--							system that extends Unity’s existing Monobehavior lifecycle with new events, and the-->
-		<!--							dialogue, event, and level systems that coordinate the game flow using the interactive-->
-		<!--							dialogue tool YarnSpinner-->
+						A “roguelite-lite” where you gather ingredients in a procedurally-generated dungeon and use
+						them to cook for customers and then critics!
+						I built and documented several of the game’s systems including the game state management
+						system that extends Unity’s existing Monobehavior lifecycle with new events, and the
+						dialogue, event, and level systems that coordinate the game flow using the interactive
+						dialogue tool YarnSpinner
 
-		<!--							&lt;!&ndash;							https://selk.io/birb-project/trunk/&ndash;&gt;-->
-		<!--						</div>-->
-		<!--					</CarouselElement>-->
-		<!--					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={3}>-->
-		<!--						<div class="carousel-element">-->
-		<!--							<h2>Soulwork</h2>-->
-		<!--							<video playsinline autoplay muted loop preload="none">-->
-		<!--								<source src={HeaderSoulwork} type="video/mp4">-->
-		<!--							</video>-->
+						<!--							https://selk.io/birb-project/trunk/-->
+					</div>
+				</CarouselElement>
+				<CarouselElement activeGameIndex={activeGameIndex} selfIndex={3}>
+					<div class="carousel-element">
+						<h2>Soulwork</h2>
+						<video playsinline autoplay muted loop preload="none">
+							<source src={HeaderSoulwork} type="video/mp4">
+						</video>
 
-		<!--							<p>-->
-		<!--								(Nov 2019)-->
-		<!--							</p>-->
+						<p>
+							(Nov 2019)
+						</p>
 
-		<!--							<p>-->
-		<!--								Soulwork is a 2D platforming game that uses unique physics to solve puzzle-based levels.-->
-		<!--								This project is a Time to Game Jam entry, restricting game development to be under 48-->
-		<!--								hours.-->
-		<!--								I helped make the level designing tools used by the designers to drag-and-drop objects-->
-		<!--								on-->
-		<!--								the stage. I also helped program the unique physics-based gameplay mechanic. This was-->
-		<!--								written using C#.-->
-		<!--							</p>-->
+						<p>
+							Soulwork is a 2D platforming game that uses unique physics to solve puzzle-based levels.
+							This project is a Time to Game Jam entry, restricting game development to be under 48
+							hours.
+							I helped make the level designing tools used by the designers to drag-and-drop objects
+							on
+							the stage. I also helped program the unique physics-based gameplay mechanic. This was
+							written using C#.
+						</p>
 
-		<!--							&lt;!&ndash;							https://itch.io/jam/time-to-game-jam-gadec-fall-game-jam/rate/514331&ndash;&gt;-->
-		<!--							&lt;!&ndash;							https://github.com/Zeyu-Li/Clockwork&ndash;&gt;-->
-		<!--						</div>-->
-		<!--					</CarouselElement>-->
-		<!--					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={4}>-->
-		<!--						<div class="carousel-element">-->
-		<!--							<h2>And more...</h2>-->
-		<!--							<video playsinline autoplay muted loop preload="none">-->
-		<!--								<source src={HeaderHepCat} type="video/mp4">-->
-		<!--							</video>-->
+						<!--							https://itch.io/jam/time-to-game-jam-gadec-fall-game-jam/rate/514331-->
+						<!--							https://github.com/Zeyu-Li/Clockwork-->
+					</div>
+				</CarouselElement>
+				<CarouselElement activeGameIndex={activeGameIndex} selfIndex={4}>
+					<div class="carousel-element">
+						<h1>And more...</h1>
+						<video playsinline autoplay muted loop preload="none">
+							video unavailable. original video contains pengi gameplay showing the dynamic dialog
+							layout and character animation.
+							<source src={HeaderPengi} type="video/mp4">
+						</video>
 
-		<!--							I make more games. You can check them out at my itch page!-->
+						<p>
+							I make more games...
+						</p>
 
-		<!--						</div>-->
-		<!--					</CarouselElement>-->
-		<!--					&lt;!&ndash; remember to update the count of items on gameCarouselCount when adding or removing a-->
-		<!--						CarouselElement here &ndash;&gt;-->
-		<!--				</div>-->
+						<!--							https://turnipxenon.itch.io/pengi-->
+						<!--							https://github.com/GreenTea-M/ProjectPengi-->
+						<button type="button"><img src={GithubLogo}></button>
+					</div>
+				</CarouselElement>
+				<!-- remember to update the count of items on gameCarouselCount when adding or removing a
+					CarouselElement here -->
+			</div>
 
-		<!--				&lt;!&ndash; Button: Right &ndash;&gt;-->
-		<!--				<button type="button" class="btn-icon variant-filled" on:click={carouselRight}>-->
-		<!--					<i class="fa-solid fa-arrow-right"/>-->
-		<!--				</button>-->
-		<!--			</div>-->
-
-		<!--			&lt;!&ndash; from:  &ndash;&gt;-->
-		<!--			<div class="card p-4 grid grid-cols-6 gap-4 carousel-thumbnail-container">-->
-		<!--				{#each unsplashAssets as unsplashId, i}-->
-		<!--					<div class="carousel-thumbnail">-->
-		<!--						<button type="button" on:click={() => carouselThumbnail(i)}>-->
-		<!--							{#if unsplashId.type === AssetType.Video}-->
-		<!--								<video playsinline autoplay muted loop preload="none">-->
-		<!--									<source src={unsplashId.src} type="video/mp4">-->
-		<!--								</video>-->
-		<!--							{:else }-->
-		<!--								&lt;!&ndash;todo: improve alt&ndash;&gt;-->
-		<!--								<img-->
-		<!--										class="rounded-container-token"-->
-		<!--										src={unsplashId.src}-->
-		<!--										alt={unsplashId.src}-->
-		<!--										loading="lazy"-->
-		<!--								/>-->
-		<!--							{/if}-->
-		<!--						</button>-->
-		<!--					</div>-->
-		<!--				{/each}-->
-		<!--			</div>-->
-		<!--		</section>-->
+			<!-- from:  -->
+		</section>
 
 		<!--		<section>-->
 		<!--			<h1>Projects</h1>-->
@@ -477,28 +468,35 @@
 
     .carousel-element {
         text-align: center;
-        height: 25lh;
+        height: 26lh;
+    }
+
+    .carousel-element > h1 {
+        margin-top: 0.5lh;
     }
 
     .carousel-element > video, .carousel-element > img {
-        max-height: 15lh;
+        max-height: 13lh;
         margin-left: auto;
         margin-right: auto;
     }
 
-    .carousel-thumbnail {
-        width: 10lh;
-        height: 10lh;
+    .carousel-btn {
+        width: 6lh;
+        height: 6lh;
     }
 
     .carousel-thumbnail-container {
         justify-content: center;
         display: flex;
         flex-direction: row;
-        /*max-width: 1960px;*/
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        overflow-y: clip;
+        height: 7lh;
     }
 
-    .carousel-thumbnail > *, .carousel-thumbnail > * > * {
+    .carousel-btn > * {
         object-fit: cover;
         width: 6lh;
         height: 6lh;
@@ -517,10 +515,6 @@
         /*max-width: 1960px;*/
     }
 
-    button > img {
-        max-height: 1lh;
-    }
-
     .socials {
         display: flex;
         flex-wrap: wrap;
@@ -537,6 +531,22 @@
     }
 
     .more-section {
-	    padding: 1em;
+        padding: 1em;
+    }
+
+    .game-carousel-container {
+        height: 26lh;
+        width: 100%;
+        display: flex;
+    }
+
+    .game-carousel-container > .leftbtn {
+        margin-right: 1em;
+        width: 3em;
+    }
+
+    .game-carousel-container > .rightbtn {
+        margin-left: 1em;
+        width: 3em;
     }
 </style>

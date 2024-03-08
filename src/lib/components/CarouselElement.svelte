@@ -9,15 +9,15 @@
 {#if (activeGameIndex === selfIndex)}
 	<!--todo: make section consistent size for all-->
 	<section class="game-showcase"
-	         in:fly={{x: '100%', delay: 400}} out:fly={{x: '-100%'}}>
+	         in:fly={{x: '100%'}} out:fly={{x: '-100%'}}>
 		<slot/>
 	</section>
 {/if}
 
 <style>
     .game-showcase {
-        @apply snap-center w-[1024px] rounded-container-token;
+        @apply snap-center rounded-container-token;
         margin: auto;
-        width: 50%;
+        width: 100%;
     }
 </style>
