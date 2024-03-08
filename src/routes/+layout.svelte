@@ -1,7 +1,7 @@
 <script lang="ts">
-    // import '../app.postcss';
+    import '../lib/app.postcss';
     // import {initializeStores} from '@skeletonlabs/skeleton';
-	//
+    //
     // initializeStores();
 </script>
 

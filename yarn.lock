@@ -341,12 +341,17 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.12.1.tgz#cd8d175e001c212d5ac71c7827ef1d5c5e14494c"
   integrity sha512-n+vkrSyphvmU0qkQ6QBNXCGr2mKjhP08mPRM/Xp5Ck2FV4NrHU+y6axzDeixUrCBHVUS51TZhjqrKBBsHLKb2Q==
 
-"@skeletonlabs/skeleton@^1.2.5":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@skeletonlabs/skeleton/-/skeleton-1.12.0.tgz#6bfac569ba964917670d669ae5fdf41fc7cc0194"
-  integrity sha512-NCGy6WT3LUqu6EaFEG7J6lFQNB/DHlqFQpXMWkSpwdZIZ005OEVoZznNgdATYdTet++nS6LymBGVUQK00z82gw==
+"@skeletonlabs/skeleton@^2.9.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@skeletonlabs/skeleton/-/skeleton-2.9.0.tgz#d585f2cfb807802bd912ff38a9572a84c1f867a9"
+  integrity sha512-s6l29M0PU+0he8+ifmfA6aA6Hvua58QDgcNlHrm9FFFdlj2D89BkT67f49LihNODOrTia7KewswkbdtYlPe8Ow==
   dependencies:
     esm-env "1.0.0"
+
+"@skeletonlabs/tw-plugin@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@skeletonlabs/tw-plugin/-/tw-plugin-0.3.1.tgz#75ba4d100948c59b70ec5343f637d3aeb155f878"
+  integrity sha512-DjjeOHN3HhFQf6gYPT2MUZMkIdw1jeB9mbuKC8etQxUlOR4XitfC7hssRWFJ8RJsvrrN0myCBbdWkVG1JVA96g==
 
 "@sveltejs/adapter-auto@^3.1.1":
   version "3.1.1"
@@ -456,7 +461,7 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.15.tgz#596a1747233694d50f6ad8a7869fcb6f56cf5841"
   integrity sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==
 
-"@types/node@^20.1.0":
+"@types/node@^20.11.25":
   version "20.11.25"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.25.tgz#0f50d62f274e54dd7a49f7704cc16bfbcccaf49f"
   integrity sha512-TBHyJxk2b7HceLVGFcpAUjsa5zIdsPWlR6XHfyGzd0SFu+/NFgQgMAl96MSDZgQDvJAvV6BKsFOrt6zIL09JDw==

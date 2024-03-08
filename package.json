@@ -16,7 +16,6 @@
     "custom-check": "npx vite-node src/lib/scripts/util/ManualCheckRun.ts"
   },
   "devDependencies": {
-    "@skeletonlabs/skeleton": "^1.2.5",
     "@sveltejs/adapter-auto": "^3.1.1",
     "@sveltejs/kit": "^2.5.2",
     "@sveltejs/package": "^2.2.1",
@@ -41,9 +40,11 @@
   },
   "type": "module",
   "dependencies": {
+    "@skeletonlabs/skeleton": "^2.9.0",
+    "@skeletonlabs/tw-plugin": "^0.3.1",
     "@sveltejs/kit": "^2.5.2",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
-    "@types/node": "^20.1.0",
+    "@types/node": "^20.11.25",
     "highlight.js": "^11.8.0",
     "node-html-parser": "^6.1.5",
     "string-width": "^7.1.0",
