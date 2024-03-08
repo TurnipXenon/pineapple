@@ -7,9 +7,8 @@
     export let shouldDisplaySocialIcons: Writable<boolean>;
 
     import SeaweedBaseLayout from "$lib/components/SeaweedBaseLayout.svelte";
-    import {Accordion, AccordionItem, ProgressBar} from "@skeletonlabs/skeleton";
-    import StickyElement from "$lib/components/StickyElement.svelte";
-    import {ItchBadgeHotLink, ItchLogoHotLink} from "$lib/consts";
+    import {Accordion, AccordionItem} from "@skeletonlabs/skeleton";
+    import {ItchLogoHotLink} from "$lib/consts";
 
     import HeaderPengi from "$lib/assets/temp/header-pengi.mp4";
     import GithubLogo from "$lib/assets/temp/github-logo.png";
@@ -18,9 +17,9 @@
     import CarouselElement from "$pkg/components/CarouselElement.svelte";
     import HeaderChefWings from "$lib/assets/game_dev/footage-chef-wings.gif";
     import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
-    import MailIcon from "$lib/assets/icons/mail.svg";
     import GithubIcon from "$lib/assets/icons/github-mark.svg";
-    import LinkedinIcon from "$lib/assets/icons/linkedin.svg";
+    import BitbucketIcon from "$lib/assets/icons/bitbucket-icon.svg";
+    import WebIcon from "$lib/assets/icons/external-link.svg";
     import SocialSection from "./SocialSection.svelte";
 
     enum AssetType {
@@ -90,252 +89,267 @@
 	<!-- todo: limit main size to 1080 px? -->
 	<main>
 
-		<section class="section-card">
-			<h1>About</h1>
+		<div class="experience-and-about-div">
 
-			Hi! My name is {name}! I work as a software developer. Outside of that, I like making games, and
-			trying to do everything in between required to make one. I have some showcased below, our visit my itch.io
-			page for more of them.<br>
-			I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
-			Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
+			<div class="greater-about-div">
 
-			<!-- todo: maybe put cute stuff here -->
-		</section>
-		<!--		<section bind:this={stickyElem} class="socials">-->
+				<section class="section-card">
+					<h1>About</h1>
 
-		<section class="section-card">
-			<SocialSection email={email} linkedinSlug={linkedinSlug}></SocialSection>
-			<ElementVisbilityDetector bind:isVisible={isVisible}>
-			</ElementVisbilityDetector>
-		</section>
+					Hi! My name is {name}! I work as a software developer. Outside of that, I like making games, and
+					trying to do everything in between required to make one. I have some showcased below, our visit my
+					itch.io
+					page for more of them.<br>
+					I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
+					Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
 
-		<section class="section-card">
-			<h1>Experience</h1>
+					<!-- todo: maybe put cute stuff here -->
+				</section>
 
-			<h2>Software Engineer</h2>
-			<div class="two-column-separated">
-				<div>July 2023 – January 2024</div>
-				<div>Twitch, Remote</div>
+				<section class="section-card">
+					<SocialSection email={email} linkedinSlug={linkedinSlug}></SocialSection>
+					<ElementVisbilityDetector bind:isVisible={isVisible}>
+					</ElementVisbilityDetector>
+				</section>
+
 			</div>
-			<ul>
-				<li>Contributed to Golang and Typescript codebases, across several teams, to accommodate adjustments for
-					public-facing user safety related features, in preparation for complying with EU’s
-					<a href="https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/europe-fit-digital-age/digital-services-act/europe-fit-digital-age-new-online-rules-platforms_en"
-					   target="_blank">Digital Services</a>
-					Act, also including feature flags, alarms, unit tests, end-to-end testing, and documentation
-				</li>
-				<li>Improved observability for upcoming features by setting up new AWS resources to integrate internal
-					data platform tools with existing alarms in our team’s microservice, utilizing Cloudwatch and
-					Kinesis Data Stream, while adhering to best practices for AWS CDK (infrastructure as code)
-				</li>
-			</ul>
-			<br>
 
-			<h2>Software Engineer Intern</h2>
-			<div class="two-column-separated">
-				<div>May 2022 – Aug 2022</div>
-				<div>Twitch, San Francisco</div>
-			</div>
-			<ul>
-				<li>
-					Built a load testing service that can be configured to generate different message types at different
-					volumes
-					that can be easily extended to target different chat services
-				</li>
-				<li>
-					Used Twitch’s set of custom tools, including Twitch’s custom RPC protocol, to create a backend
-					service with
-					business logic written in Go and cloud infrastructure utilizing ECS on Fargate, Cloudwatch, and
-					DynamoDB,
-					defined in Typescript-flavored CDK
-				</li>
-				<li>
-					Wrote a technical specification document for the service’s MVP and possible future features, and
-					additional
-					documentation on how to use the service and how to extend the load testing service to include new
-					services
-					to test
-				</li>
-			</ul>
-			<br>
+			<section class="section-card">
+				<h1>Experience</h1>
 
-			<Accordion>
-				<AccordionItem class="variant-filled-primary hover:variant-filled-surface rounded-md">
-					<svelte:fragment slot="summary">
-						<h2>More experience</h2>
-					</svelte:fragment>
-					<svelte:fragment slot="content">
-						<section class="more-section">
-							<h2>Software Engineer Intern</h2>
-							<div class="two-column-separated">
-								<div>May 2021 – Dec 2021</div>
-								<div>Twitch / Amazon Web Services Canada, Remote</div>
-							</div>
-							<ul>
-								<li>
-									Implemented and wrote tests for a feature in Twitch’s backend authentication systems
-									and frontend web application that will help suggest security improvements to over
-									hundreds of thousands of users daily
-								</li>
-								<li>
-									Learned Go, Typescript, React, and other new technologies on the go to contribute to
-									the codebase
-								</li>
-							</ul>
-							<br>
-						</section>
-					</svelte:fragment>
-				</AccordionItem>
-			</Accordion>
+				<h2>Software Engineer</h2>
+				<div class="two-column-separated">
+					<div>July 2023 – January 2024</div>
+					<div>Twitch, Remote</div>
+				</div>
+				<ul>
+					<li>Contributed to Golang and Typescript codebases, across several teams, to accommodate adjustments
+						for
+						public-facing user safety related features, in preparation for complying with EU’s
+						<a href="https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/europe-fit-digital-age/digital-services-act/europe-fit-digital-age-new-online-rules-platforms_en"
+						   target="_blank">Digital Services</a>
+						Act, also including feature flags, alarms, unit tests, end-to-end testing, and documentation
+					</li>
+					<li>Improved observability for upcoming features by setting up new AWS resources to integrate
+						internal
+						data platform tools with existing alarms in our team’s microservice, utilizing Cloudwatch and
+						Kinesis Data Stream, while adhering to best practices for AWS CDK (infrastructure as code)
+					</li>
+				</ul>
+				<br>
+
+				<h2>Software Engineer Intern</h2>
+				<div class="two-column-separated">
+					<div>May 2022 – Aug 2022</div>
+					<div>Twitch, San Francisco</div>
+				</div>
+				<ul>
+					<li>
+						Built a load testing service that can be configured to generate different message types at
+						different
+						volumes
+						that can be easily extended to target different chat services
+					</li>
+					<li>
+						Used Twitch’s set of custom tools, including Twitch’s custom RPC protocol, to create a backend
+						service with
+						business logic written in Go and cloud infrastructure utilizing ECS on Fargate, Cloudwatch, and
+						DynamoDB,
+						defined in Typescript-flavored CDK
+					</li>
+					<li>
+						Wrote a technical specification document for the service’s MVP and possible future features, and
+						additional
+						documentation on how to use the service and how to extend the load testing service to include
+						new
+						services
+						to test
+					</li>
+				</ul>
+				<br>
+
+				<Accordion>
+					<AccordionItem class="variant-filled-primary hover:variant-filled-surface rounded-md">
+						<svelte:fragment slot="summary">
+							<h2>More experience</h2>
+						</svelte:fragment>
+						<svelte:fragment slot="content">
+							<section class="more-section">
+								<h2>Software Engineer Intern</h2>
+								<div class="two-column-separated">
+									<div>May 2021 – Dec 2021</div>
+									<div>Twitch / Amazon Web Services Canada, Remote</div>
+								</div>
+								<ul>
+									<li>
+										Implemented and wrote tests for a feature in Twitch’s backend authentication
+										systems
+										and frontend web application that will help suggest security improvements to
+										over
+										hundreds of thousands of users daily
+									</li>
+									<li>
+										Learned Go, Typescript, React, and other new technologies on the go to
+										contribute to
+										the codebase
+									</li>
+								</ul>
+								<br>
+							</section>
+						</svelte:fragment>
+					</AccordionItem>
+				</Accordion>
+			</section>
+
+		</div>
+
+		<section class="section-card" style:width="100%">
+			<h1 class="text-center">Game projects</h1>
 		</section>
 
-		<section class="section-card">
-			<h1>Games</h1>
+		<section class="games-section">
+			<section class="game-card">
+				<video playsinline autoplay muted loop preload="none">
+					video unavailable. original video contains pengi gameplay showing the dynamic dialog
+					layout and character animation.
+					<source src={HeaderPengi} type="video/mp4">
+				</video>
 
-			<ProgressBar meter="bg-primary-900-50-token"
-			             track="bg-secondary-200-700-token"
-			             label="Progress Bar"
-			             value={40} max={100}/>
+				<section class="game-card-body">
 
-			<div class="carousel-thumbnail-container">
-				{#each unsplashAssets as unsplashId, i}
-						<button type="button" class="carousel-btn" on:click={() => carouselThumbnail(i)}>
-							{#if unsplashId.type === AssetType.Video}
-								<video playsinline autoplay muted loop preload="none">
-									<source src={unsplashId.src} type="video/mp4">
-								</video>
-							{:else }
-								<!--todo: improve alt-->
-								<img
-										class="rounded-container-token"
-										src={unsplashId.src}
-										alt={unsplashId.src}
-										loading="lazy"
-								/>
-							{/if}
+					<h1>Pengi</h1>
+
+					<blockquote>
+						Well well, quite the dreamer, aren’t you? Might be hard to get in... costs a lot of
+						money...
+					</blockquote>
+
+					<p>
+						Pengi is a text-based adventure made in Unity. I acted as the sole programmer for the
+						team. Most of the work revolves around UI and creating <a
+							href="https://yarnspinner.dev/" target="_blank">YarnSpinner</a> commands for writers
+						to use to create expressive stage directions in the script.
+					</p>
+
+					<section class="game-link-section">
+						<button type="button" class="game-button"
+						        on:click={()=> window.open("https://github.com/GreenTea-M/ProjectPengi")}>
+							<img alt="github icon" src={GithubIcon}>
 						</button>
-				{/each}
-			</div>
+						<button type="button" class="game-button"
+						        on:click={()=> window.open("https://turnipxenon.itch.io/pengi")}>
+							<img alt="itch.io icon" src={ItchLogoHotLink}>
+						</button>
+					</section>
+				</section>
+			</section>
+			<section class="game-card">
+				<video playsinline autoplay muted loop preload="none">
+					<source src={HeaderHepCat} type="video/mp4">
+				</video>
 
-			<div class="game-carousel-container">
-				<!-- remember to update the count of items on gameCarouselCount when adding or removing a
-					CarouselElement here -->
-				<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>
-					<div class="carousel-element">
-						<video playsinline autoplay muted loop preload="none">
-							video unavailable. original video contains pengi gameplay showing the dynamic dialog
-							layout and character animation.
-							<source src={HeaderPengi} type="video/mp4">
-						</video>
-						<h1>Pengi</h1>
+				<section class="game-card-body">
 
-						<p>
-							Well well, quite the dreamer, aren’t you? Might be hard to get in... costs a lot of
-							money...
-						</p>
+					<h1>Hepcat</h1>
 
-						<p>
-							Pengi is a text-based adventure made in Unity. I acted as the sole programmer for the
-							team. Most of the work revolves around UI and creating <a
-								href="https://yarnspinner.dev/" target="_blank">YarnSpinner</a> commands for writers
-							to use to create expressive stage directions in the script.
-						</p>
-
-						<!--							https://turnipxenon.itch.io/pengi-->
-						<!--							https://github.com/GreenTea-M/ProjectPengi-->
-						<button type="button"><img src={GithubLogo}></button>
-					</div>
-				</CarouselElement>
-				<CarouselElement activeGameIndex={activeGameIndex} selfIndex={1}>
-					<div class="carousel-element">
-						<h2>Hepcat</h2>
-						<video playsinline autoplay muted loop preload="none">
-							<source src={HeaderHepCat} type="video/mp4">
-						</video>
-
-						(Jan 2020 - Apr 2020)
+					<blockquote>
 						"Cats, Jazz, and a little bit of Death. What more could anyone ask for?"
+					</blockquote>
+
+					<p>
 
 						Hep Cat is a rhythm game made in <a
-							href="https://www.rpgmakerweb.com/products/programs/rpg-maker-mv" target="_blank">RPG
-						Maker
-						MV</a> with the help of additional custom-made
+							href="https://www.rpgmakerweb.com/products/programs/rpg-maker-mv" target="_blank">
+						RPG Maker MV</a> with the help of additional custom-made
 						Javascript plugins. I wrote the rhythm game plugin's framework. For this plugin to work, I
 						had to write a Python script that parses osu! files into readable JSON files.
+					</p>
 
-						This is a course project made by a team of six for <a
-							href="https://sites.google.com/ualberta.ca/cmput250/">CMPUT 250.</a>
+					<p>This is a course project made by a team of six for <a
+							href="https://sites.google.com/ualberta.ca/cmput250/">CMPUT 250</a>, and it won <a
+							href="https://webdocs.cs.ualberta.ca/~nathanst/certificate/">Game of the year.</a>
+					</p>
 
-						<!--							https://just-a-phantom.itch.io/hep-cat-->
-						<!--							https://bitbucket.org/egginchicken/hep-cat/src/master/-->
-						<img src={ItchLogoHotLink} loading="lazy">
-					</div>
-				</CarouselElement>
-				<CarouselElement activeGameIndex={activeGameIndex} selfIndex={2}>
-					<div class="carousel-element">
-						<h2>Chef Wings</h2>
-						<img src={HeaderChefWings} alt="todo" loading="lazy">
 
-						(Jan 2022 - Apr 2022)
+					<section class="game-link-section">
+						<button type="button" class="game-button"
+						        on:click={()=> window.open("https://bitbucket.org/egginchicken/hep-cat/src/master/")}>
+							<img alt="bitbucket icon" src={BitbucketIcon}>
+						</button>
+						<button type="button" class="game-button"
+						        on:click={()=> window.open("https://just-a-phantom.itch.io/hep-cat")}>
+							<img alt="itch.io icon" src={ItchLogoHotLink}>
+						</button>
+					</section>
+				</section>
+			</section>
+			<section class="game-card">
+				<img src={HeaderChefWings} alt="todo" loading="lazy">
+				<section class="game-card-body">
 
+					<h1>Chef Wings</h1>
+					<p>
 						A “roguelite-lite” where you gather ingredients in a procedurally-generated dungeon and use
 						them to cook for customers and then critics!
+					</p>
+					<p>
 						I built and documented several of the game’s systems including the game state management
 						system that extends Unity’s existing Monobehavior lifecycle with new events, and the
 						dialogue, event, and level systems that coordinate the game flow using the interactive
 						dialogue tool YarnSpinner
+					</p>
 
-						<!--							https://selk.io/birb-project/trunk/-->
-					</div>
-				</CarouselElement>
-				<CarouselElement activeGameIndex={activeGameIndex} selfIndex={3}>
-					<div class="carousel-element">
-						<h2>Soulwork</h2>
-						<video playsinline autoplay muted loop preload="none">
-							<source src={HeaderSoulwork} type="video/mp4">
-						</video>
+					<section class="game-link-section">
+						<button type="button" class="game-button"
+						        on:click={()=> window.open("https://selk.io/birb-project/trunk/")}>
+							<img alt="itch.io icon" src={WebIcon}>
+						</button>
+					</section>
+				</section>
+			</section>
+			<CarouselElement activeGameIndex={activeGameIndex} selfIndex={3}>
+				<div class="carousel-element">
+					<h2>Soulwork</h2>
+					<video playsinline autoplay muted loop preload="none">
+						<source src={HeaderSoulwork} type="video/mp4">
+					</video>
 
-						<p>
-							(Nov 2019)
-						</p>
+					<p>
+						(Nov 2019)
+					</p>
 
-						<p>
-							Soulwork is a 2D platforming game that uses unique physics to solve puzzle-based levels.
-							This project is a Time to Game Jam entry, restricting game development to be under 48
-							hours.
-							I helped make the level designing tools used by the designers to drag-and-drop objects
-							on
-							the stage. I also helped program the unique physics-based gameplay mechanic. This was
-							written using C#.
-						</p>
+					<p>
+						Soulwork is a 2D platforming game that uses unique physics to solve puzzle-based levels.
+						This project is a Time to Game Jam entry, restricting game development to be under 48
+						hours.
+						I helped make the level designing tools used by the designers to drag-and-drop objects
+						on
+						the stage. I also helped program the unique physics-based gameplay mechanic. This was
+						written using C#.
+					</p>
 
-						<!--							https://itch.io/jam/time-to-game-jam-gadec-fall-game-jam/rate/514331-->
-						<!--							https://github.com/Zeyu-Li/Clockwork-->
-					</div>
-				</CarouselElement>
-				<CarouselElement activeGameIndex={activeGameIndex} selfIndex={4}>
-					<div class="carousel-element">
-						<h1>And more...</h1>
-						<video playsinline autoplay muted loop preload="none">
-							video unavailable. original video contains pengi gameplay showing the dynamic dialog
-							layout and character animation.
-							<source src={HeaderPengi} type="video/mp4">
-						</video>
+					<!--							https://itch.io/jam/time-to-game-jam-gadec-fall-game-jam/rate/514331-->
+					<!--							https://github.com/Zeyu-Li/Clockwork-->
+				</div>
+			</CarouselElement>
+			<CarouselElement activeGameIndex={activeGameIndex} selfIndex={4}>
+				<div class="carousel-element">
+					<h1>And more...</h1>
+					<video playsinline autoplay muted loop preload="none">
+						video unavailable. original video contains pengi gameplay showing the dynamic dialog
+						layout and character animation.
+						<source src={HeaderPengi} type="video/mp4">
+					</video>
 
-						<p>
-							I make more games...
-						</p>
+					<p>
+						I make more games...
+					</p>
 
-						<!--							https://turnipxenon.itch.io/pengi-->
-						<!--							https://github.com/GreenTea-M/ProjectPengi-->
-						<button type="button"><img src={GithubLogo}></button>
-					</div>
-				</CarouselElement>
-				<!-- remember to update the count of items on gameCarouselCount when adding or removing a
-					CarouselElement here -->
-			</div>
-
-			<!-- from:  -->
+					<!--							https://turnipxenon.itch.io/pengi-->
+					<!--							https://github.com/GreenTea-M/ProjectPengi-->
+					<button type="button"><img src={GithubLogo}></button>
+				</div>
+			</CarouselElement>
 		</section>
 
 		<!--		<section>-->
@@ -444,7 +458,12 @@
 
 <style>
     main {
+        width: 100%;
         overflow: visible;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     h1 {
@@ -460,6 +479,37 @@
         padding: 3em;
         max-width: 800px;
         margin-bottom: 3em;
+    }
+
+    .game-card {
+        @apply card;
+        max-width: 36em;
+        margin-bottom: 3em;
+    }
+
+    .game-card > video {
+        border-top-left-radius: 1em;
+        border-top-right-radius: 1em;
+        max-height: 24em;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .game-button {
+        @apply btn variant-filled-primary;
+    }
+
+    .game-button > img {
+        max-height: 1lh;
+        /* todo: consider night mode day mode */
+        filter: brightness(0%);
+    }
+
+    .section-card.games-section {
+        max-width: 1200px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2em;
     }
 
     .fab img {
@@ -548,5 +598,50 @@
     .game-carousel-container > .rightbtn {
         margin-left: 1em;
         width: 3em;
+    }
+
+    .greater-about-div {
+        display: flex;
+        flex-direction: column;
+        max-width: 36em;
+    }
+
+    .experience-and-about-div {
+        display: flex;
+        gap: 2em;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .more-experience {
+        padding: 0;
+        min-width: 36em;
+    }
+
+    .game-card-body {
+        padding: 1em;
+    }
+
+    .game-card-body > blockquote {
+        margin-bottom: 0.7lh;
+    }
+
+    .game-card-body > h1 {
+        text-align: center;
+    }
+
+    .game-link-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 1em;
+        margin-top: 1em;
+    }
+
+    .games-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2em;
     }
 </style>

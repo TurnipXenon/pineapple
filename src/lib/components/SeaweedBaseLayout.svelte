@@ -127,9 +127,8 @@
     }
 
     .default-page-container {
-        @apply flex justify-center items-center;
-        max-width: 1600px;
-        margin: 4em clamp(1em, 5vw, 15em);
+        max-width: 2100px;
+        margin: 4em auto;
         flex-direction: column;
         z-index: 0;
     }
