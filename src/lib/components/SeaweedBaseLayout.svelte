@@ -6,7 +6,7 @@
     // Most of your app wide CSS should be put in this file
     import "../app.postcss";
     // For auto dark/light mode
-    import {AppShell, autoModeWatcher} from "@skeletonlabs/skeleton";
+    import {AppBar, AppShell, autoModeWatcher, LightSwitch} from "@skeletonlabs/skeleton";
     import RandomizedBackground from "$lib/components/RandomizedBackground.svelte";
 
     // navigation
@@ -16,8 +16,14 @@
     import type {BreadcrumbData} from "$lib/types/BreadcrumbData";
     // assets
     import {enableDialogueOverlay} from "$lib/components/dialog_manager/DialogManagerStore";
+    import AresLogo from "$lib/assets/bg_tiled/bg_tiled_ares.png";
+    import DialogOverlay from "$pkg/components/DialogOverlay.svelte";
+    import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
+    import {writable} from "svelte/store";
+    import {fly} from "svelte/transition";
     // todo: clean up all these imports!
 
+    export let shouldDisplayLeadingIcons: boolean = false;
     let pages: BreadcrumbData[] = [];
 
     const updateBreadcrumb = (pathname: string) => {
@@ -53,10 +59,13 @@
         enableBackgroundValue = value;
     });
 
+    enableDialogueOverlay.set(false); // false by default until we unlock the fab for public
     let enableDialogueOverlayValue = true;
     enableDialogueOverlay.subscribe((value) => {
         enableDialogueOverlayValue = value;
     });
+
+    let shouldDisplaySocialIcons = writable(false);
 </script>
 
 <!-- App Shell -->
@@ -64,50 +73,50 @@
 	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
 </svelte:head>
 
+<!--todo: turn off hidden when it's time-->
+<!--<button type="button" class="fab" on:click={()=>{-->
+<!--    enableDialogueOverlay.set(!enableDialogueOverlayValue);-->
+<!--}}>-->
+<!--	<img src={FABIcon} alt="interactive floating action button represented as a turnip">-->
+<!--</button>-->
+
 <AppShell>
-	<!--	<svelte:fragment slot="header">-->
-	<!--		&lt;!&ndash; App Bar &ndash;&gt;-->
-	<!--		<AppBar slotDefault="place-content-start" slotTrail="place-content-end">-->
-	<!--			<svelte:fragment slot="lead">-->
-	<!--				&lt;!&ndash;TODO: add logo or something for the lead in layout&ndash;&gt;-->
-	<!--				<img-->
-	<!--					alt="Ares's head titled towards the left with his tongue out and winking"-->
-	<!--					class="ares-logo"-->
-	<!--					src={AresLogo}-->
-	<!--				/>-->
-	<!--				<span class="mr-2" />-->
-	<!--				<ol class="breadcrumb">-->
-	<!--					{#each pages as crumb, i}-->
-	<!--						{#if i < pages.length - 1}-->
-	<!--							<li class="crumb">-->
-	<!--								<a href={crumb.path}>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</a>-->
-	<!--							</li>-->
-	<!--							<li class="crumb-separator" aria-hidden="true">&rsaquo;</li>-->
-	<!--						{:else}-->
-	<!--							<li class="crumb">{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>-->
-	<!--						{/if}-->
-	<!--					{/each}-->
-	<!--				</ol>-->
-	<!--			</svelte:fragment>-->
-	<!--			<svelte:fragment slot="trail">-->
-	<!--				<LightSwitch bgLight="bg-surface-400" />-->
-	<!--			</svelte:fragment>-->
-	<!--		</AppBar>-->
-	<!--	</svelte:fragment>-->
+	<svelte:fragment slot="header">
+		<!-- App Bar -->
+		<AppBar slotDefault="place-content-start" slotTrail="place-content-end">
+			<svelte:fragment slot="lead">
+				<!--TODO: add logo or something for the lead in layout-->
+				<img
+						alt="Ares's head titled towards the left with his tongue out and winking"
+						class="ares-logo"
+						src={AresLogo}
+				/>
+
+				{#if $$slots.extraLeadingIcons && shouldDisplayLeadingIcons}
+					<div transition:fly={{x:-10}}>
+						<slot name="extraLeadingIcons"/>
+					</div>
+				{/if}
+			</svelte:fragment>
+			<svelte:fragment slot="trail">
+				<LightSwitch bgLight="bg-surface-400"/>
+			</svelte:fragment>
+		</AppBar>
+	</svelte:fragment>
 
 	<RandomizedBackground enable={enableBackgroundValue}/>
 
-	{#if enableDialogueOverlayValue}
-		<!-- Page Route Content -->
-		<div class="default-page-container">
-			<slot/>
-			<div class="footer-space"/>
-		</div>
-		<!--		<DialogOverlay />-->
-	{:else}
-		<!--		<DialogOverlay />-->
-		<slot/>
-	{/if}
+	<!--{#if enableDialogueOverlayValue}-->
+	<!-- Page Route Content -->
+	<div class="default-page-container">
+		<slot shouldDisplaySocialIcons={shouldDisplaySocialIcons}/>
+		<div class="footer-space"/>
+	</div>
+	<DialogOverlay/>
+	<!--{:else}-->
+	<!--	<DialogOverlay/>-->
+	<!--	<slot/>-->
+	<!--{/if}-->
 </AppShell>
 
 <style lang="postcss">
@@ -119,16 +128,15 @@
 
     .default-page-container {
         @apply flex justify-center items-center;
-        margin-top: 4em;
-        margin-left: clamp(1em, 15vw, 10em);
-        margin-right: 1em;
+        max-width: 1600px;
+        margin: 4em clamp(1em, 5vw, 15em);
         flex-direction: column;
         z-index: 0;
     }
 
     .ares-logo {
         object-fit: contain;
-        height: 2em;
+        height: 3em;
         margin-inline-end: 0.5em;
     }
 
@@ -162,4 +170,15 @@
     .breadcrumb li:nth-last-child(1) {
         @apply block;
     }
+
+    /*todo: consider left handedness or customizability*/
+    /*.fab {*/
+    /*    @apply btn-icon variant-filled-surface;*/
+    /*    position: fixed;*/
+    /*    height: 5em;*/
+    /*    width: 5em;*/
+    /*    bottom: 3em;*/
+    /*    right: 2em;*/
+    /*    box-shadow: 0.5em 0.5em 0.5em gray;*/
+    /*}*/
 </style>
