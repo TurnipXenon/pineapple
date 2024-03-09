@@ -1,0 +1,4 @@
+/* todo: investigate: why does this not work? */
+.accordion-control {
+    @apply hover:variant-filled-surface;
+}

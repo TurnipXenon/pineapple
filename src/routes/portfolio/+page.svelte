@@ -112,12 +112,19 @@
 				<section class="section-card">
 					<h1>About</h1>
 
-					Hi! My name is {name}! I work as a software developer. Outside of that, I like making games, and
-					trying to do everything in between required to make one. I have some showcased below, our visit my
-					itch.io
-					page for more of them.<br>
-					I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
-					Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
+					<p>
+						Hi! My name is {name}! I work as a software developer. Outside of that, I like making games, and
+						trying to do everything in between required to make one. I have some showcased below, our visit
+						my itch.io page for more of them.
+					</p>
+					<p>
+						I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
+						Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
+					</p>
+					<p>
+						I also graduated with BS Computing Science, Specialization in Software Practice June and a
+						certificate in Computer Game Development at University of Alberta.
+					</p>
 
 					<!-- todo: maybe put cute stuff here -->
 				</section>
@@ -185,7 +192,7 @@
 				<br>
 				<!-- todo: turn off flashing when accordion is expanded -->
 				<Accordion>
-					<AccordionItem class="variant-filled-primary hover:variant-filled-surface rounded-md">
+					<AccordionItem class="variant-filled-primary rounded-md">
 						<svelte:fragment slot="summary">
 							<h2>More experience</h2>
 						</svelte:fragment>
@@ -260,6 +267,7 @@
 				</section>
 			</section>
 			<section class="game-card">
+				<!-- todo: move the image crop a bit lower -->
 				<video playsinline autoplay muted loop preload="none">
 					<source src={HeaderHepCat} type="video/mp4">
 				</video>
@@ -272,18 +280,18 @@
 						"Cats, Jazz, and a little bit of Death. What more could anyone ask for?"
 					</blockquote>
 
-					<p>
 
+					<p>This is a course project made by a team of six for <a
+							href="https://sites.google.com/ualberta.ca/cmput250/">CMPUT 250</a>, and it won <a
+							href="https://webdocs.cs.ualberta.ca/~nathanst/certificate/">Game of the year.</a>
+					</p>
+
+					<p>
 						Hep Cat is a rhythm game made in <a
 							href="https://www.rpgmakerweb.com/products/programs/rpg-maker-mv" target="_blank">
 						RPG Maker MV</a> with the help of additional custom-made
 						Javascript plugins. I wrote the rhythm game plugin's framework. For this plugin to work, I
 						had to write a Python script that parses osu! files into readable JSON files.
-					</p>
-
-					<p>This is a course project made by a team of six for <a
-							href="https://sites.google.com/ualberta.ca/cmput250/">CMPUT 250</a>, and it won <a
-							href="https://webdocs.cs.ualberta.ca/~nathanst/certificate/">Game of the year.</a>
 					</p>
 
 
@@ -363,7 +371,7 @@
 				<section class="game-link-section">
 					<button type="button" class="btn variant-filled-primary"
 					        on:click={() => window.open("https://turnipxenon.itch.io/")}>
-						<img src={ItchLogoHotLink} class="long-itch" alt="itch icon">
+						<img src={ItchLogoHotLink} class="long-btn-image" alt="itch icon">
 						<span>TurnipXenon</span>
 					</button>
 				</section>
@@ -407,7 +415,7 @@
 					<section class="game-link-section">
 						<button type="button" class="btn variant-filled-primary"
 						        on:click={() => window.open("https://cmput401.ca/projects/e5b13586-09c7-4ddd-baf6-fdb078d23398")}>
-							<img src={LinkIcon} class="long-itch" alt="itch icon">
+							<img src={LinkIcon} class="long-btn-image" alt="itch icon">
 							<span>cmput401.ca/projects/e5b13586-09c7-4ddd-baf6-fdb078d23398</span>
 						</button>
 					</section>
@@ -453,28 +461,6 @@
 			</section>
 
 			<section class="project-card">
-				<div class="project-card-body">
-					<h2>This webpage!</h2>
-
-					The webpage is made of two parts. The webpage that has the content for everything here, I've
-					lovingly called Seaweed. Then the base package which I want to use for all spin offs of my
-					websites. I call that one Pineapple.
-
-					<section class="game-link-section">
-						<button type="button" class="btn variant-filled-primary"
-						        on:click={() => window.open("https://github.com/TurnipXenon/pineapple")}>
-							<img src={GithubIcon} class="long-itch" alt="github icon">
-							<span>Pineapple</span>
-						</button>
-						<button type="button" class="btn variant-filled-primary"
-						        on:click={() => window.open("https://github.com/TurnipXenon/seaweed")}>
-							<img src={GithubIcon} class="long-itch" alt="github icon">
-							<span>Seaweed</span>
-						</button>
-					</section>
-				</div>
-			</section>
-			<section class="project-card">
 				<img alt="Footage of a visual novel-like dynamic dialog interaction happening on the same page we are on"
 				     src={WeaverFootage}/>
 
@@ -490,57 +476,101 @@
 					<section class="game-link-section">
 						<button type="button" class="game-button"
 						        on:click={() => window.open("https://github.com/TurnipXenon/pineapple/blob/main/docs/PineappleFiberSpec.md")}>
-							<img src={GithubIcon} class="long-itch" alt="github icon">
+							<img src={GithubIcon} alt="github icon">
 						</button>
 					</section>
 				</div>
 			</section>
-			<section class="project-card">
 
-				<div class="project-card-body">
-
-					<h3>Working set simulation</h3>
-
-					A C program that simulates the working set model based on the output of memory addresses
-					valgrind detects as being accessed by a program being ran. The working set is the collection
-					of memory pages referenced by a program within a certain time frame. It comes with a report
-					analyzing how the window set sizes vary between popular sorting algorithms being used on big
-					datasets.
-
-					https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment03/DESIGN.md
-
-				</div>
-			</section>
 			<section class="project-card">
 				<div class="project-card-body">
+					<h2>Full-stack C app</h2>
 
-					<h3>Client-server application in C</h3>
+					<p>
+						A terminal-based app consisting of a server observing several terminal apps all concurrently
+						sending updates to the server, which then broadcasts these information concurrently to all the
+						other terminal apps connected.
+					</p>
+					<p>
+						The project features multiprocessing programming featuring pthreads and mutexes, and networking
+						via sockets.
+					</p>
 
-					multiprocessing
-					networking via socket programming
-
-					https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment02/DESIGN.md
-
+					<section class="game-link-section">
+						<button type="button" class="game-button"
+						        on:click={() => window.open("https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment02/DESIGN.md")}>
+							<img src={GithubIcon} class="long-btn-image" alt="github icon">
+						</button>
+					</section>
 				</div>
 			</section>
+
 			<section class="project-card">
 				<div class="project-card-body">
+					<h2>Mock Uber App</h2>
 
-					Mock Uber App, Group Project Jan 2020 – Apr 2020
-					github.com/CMPUT301W20T10/UberApp
-					Implemented all interfaces related to the NoSQL cloud database Firebase, making writing code
-					easier for other programmers (Android / Java)
-					Wrote documentation to said code and added instrumented tests that are tested by the
-					continuous integration tool Travis CI, ensuring that the code I write is tested
+					<p>A course project app meant to emulate how Uber works.</p>
+					<p>
+						I implemented all interfaces related to the NoSQL cloud database Firebase, making writing code
+						easier for other programmers (Android / Java). I also wrote documentation to said code and added
+						instrumented tests that are tested by the continuous integration tool Travis CI, ensuring that
+						the code I write is tested
+					</p>
 
+					<section class="game-link-section">
+						<!-- todo: mock uber app find link -->
+						<button type="button" class="game-button"
+						        on:click={() => window.open("https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment02/DESIGN.md")}>
+							<img src={GithubIcon} class="long-btn-image" alt="github icon">
+						</button>
+					</section>
 				</div>
 			</section>
-		</section>
-		<section>
-			<h2>Education</h2>
-			BS Computing Science, Specialization in Software Practice June 2023
-			With Certificate in Computer Game Development
-			University of Alberta
+
+			<section class="project-card">
+				<div class="project-card-body">
+					<h2>Working set simulation</h2>
+
+					<p>
+						A C program that simulates the working set model based on the output of memory addresses
+						valgrind detects as being accessed by a program being ran. The working set is the collection
+						of memory pages referenced by a program within a certain time frame. It comes with a report
+						analyzing how the window set sizes vary between popular sorting algorithms being used on big
+						datasets.
+					</p>
+
+					<section class="game-link-section">
+						<!-- todo: mock uber app find link -->
+						<button type="button" class="game-button"
+						        on:click={() => window.open("https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment02/DESIGN.md")}>
+							<img src={GithubIcon} class="long-btn-image" alt="github icon">
+						</button>
+					</section>
+				</div>
+			</section>
+
+			<section class="project-card">
+				<div class="project-card-body">
+					<h2>This webpage!</h2>
+
+					The webpage is made of two parts. The webpage that has the content for everything here, I've
+					lovingly called Seaweed. Then the base package which I want to use for all spin offs of my
+					websites. I call that one Pineapple.
+
+					<section class="game-link-section">
+						<button type="button" class="btn variant-filled-primary"
+						        on:click={() => window.open("https://github.com/TurnipXenon/pineapple")}>
+							<img src={GithubIcon} class="long-btn-image" alt="github icon">
+							<span>Pineapple</span>
+						</button>
+						<button type="button" class="btn variant-filled-primary"
+						        on:click={() => window.open("https://github.com/TurnipXenon/seaweed")}>
+							<img src={GithubIcon} class="long-btn-image" alt="github icon">
+							<span>Seaweed</span>
+						</button>
+					</section>
+				</div>
+			</section>
 		</section>
 
 	</main>
@@ -608,76 +638,6 @@
         filter: brightness(0%);
     }
 
-    .section-card.games-section {
-        max-width: 1200px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2em;
-    }
-
-    .fab img {
-        object-fit: contain;
-    }
-
-    .carousel-element {
-        text-align: center;
-        height: 26lh;
-    }
-
-    .carousel-element > h1 {
-        margin-top: 0.5lh;
-    }
-
-    .carousel-element > video, .carousel-element > img {
-        max-height: 13lh;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .carousel-btn {
-        width: 6lh;
-        height: 6lh;
-    }
-
-    .carousel-thumbnail-container {
-        justify-content: center;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        overflow-x: scroll;
-        overflow-y: clip;
-        height: 7lh;
-    }
-
-    .carousel-btn > * {
-        object-fit: cover;
-        width: 6lh;
-        height: 6lh;
-        border-radius: 1lh;
-    }
-
-    .project-carousel-element {
-        width: 12lh;
-        height: 12lh;
-    }
-
-    .project-carousel-container {
-        justify-content: flex-start;
-        display: flex;
-        flex-direction: row;
-        /*max-width: 1960px;*/
-    }
-
-    .socials {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .socials > button {
-        margin: 0 0.5em 0.5lh;
-    }
-
     .two-column-separated {
         display: flex;
         justify-content: space-between;
@@ -685,22 +645,6 @@
 
     .more-section {
         padding: 1em;
-    }
-
-    .game-carousel-container {
-        height: 26lh;
-        width: 100%;
-        display: flex;
-    }
-
-    .game-carousel-container > .leftbtn {
-        margin-right: 1em;
-        width: 3em;
-    }
-
-    .game-carousel-container > .rightbtn {
-        margin-left: 1em;
-        width: 3em;
     }
 
     .greater-about-div {
@@ -715,11 +659,6 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: flex-start;
-    }
-
-    .more-experience {
-        padding: 0;
-        min-width: 36em;
     }
 
     .game-card-body, .project-card-body {
@@ -749,7 +688,12 @@
         justify-content: center;
     }
 
-    .long-itch {
+    .projects-section {
+        align-items: flex-start;
+        /*justify-content: flex-start;*/
+    }
+
+    .long-btn-image {
         max-height: 1lh;
     }
 

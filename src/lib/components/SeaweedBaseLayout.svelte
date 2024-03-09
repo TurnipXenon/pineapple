@@ -85,12 +85,7 @@
 		<!-- App Bar -->
 		<AppBar slotDefault="place-content-start" slotTrail="place-content-end">
 			<svelte:fragment slot="lead">
-				<!--TODO: add logo or something for the lead in layout-->
-				<img
-						alt="Ares's head titled towards the left with his tongue out and winking"
-						class="ares-logo"
-						src={AresLogo}
-				/>
+				<span class="lead-slot-placeholder"></span>
 
 				{#if $$slots.extraLeadingIcons && shouldDisplayLeadingIcons}
 					<div transition:fly={{x:-10}}>
@@ -133,8 +128,7 @@
         z-index: 0;
     }
 
-    .ares-logo {
-        object-fit: contain;
+    .lead-slot-placeholder {
         height: 3em;
         margin-inline-end: 0.5em;
     }

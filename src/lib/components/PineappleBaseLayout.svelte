@@ -74,7 +74,7 @@
 				<!--TODO: add logo or something for the lead in layout-->
 				<img
 					alt="Ares's head titled towards the left with his tongue out and winking"
-					class="ares-logo"
+					class="lead-slot-placeholder"
 					src={AresLogo}
 				/>
 				<span class="mr-2" />

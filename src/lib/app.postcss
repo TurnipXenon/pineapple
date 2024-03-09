@@ -65,18 +65,20 @@ ul {
     padding-left: 1em;
 }
 
-a:not(.unstyled):not(.permalink):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(
-		a.card
-	):not(.list-nav a) {
+/* todo: study why this does not work? */
+a {
+    /*a:not(.unstyled):not(.permalink):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(*/
+    /*		a.card*/
+    /*	):not(.list-nav a) {*/
     color: rgb(var(--color-secondary-500) / var(--tw-text-opacity));
 }
 
-.dark
-a:not(.unstyled):not(.permalink):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(
-		a.card
-	):not(.list-nav a) {
-    color: rgb(var(--color-secondary-700) / var(--tw-text-opacity));
-}
+/*.dark*/
+/*a:not(.unstyled):not(.permalink):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(*/
+/*		a.card*/
+/*	):not(.list-nav a) {*/
+/*    color: rgb(var(--color-secondary-700) / var(--tw-text-opacity));*/
+/*}*/
 
 .default-page-container {
     @apply flex justify-center items-center;
