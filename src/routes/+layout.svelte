@@ -1,8 +1,11 @@
 <script lang="ts">
+    import {initializeStores} from '@skeletonlabs/skeleton';
     import '../lib/app.postcss';
-    // import {initializeStores} from '@skeletonlabs/skeleton';
-    //
-    // initializeStores();
+    import {Modal} from "@skeletonlabs/skeleton";
+
+    initializeStores();
 </script>
+
+<Modal/>
 
 <slot/>

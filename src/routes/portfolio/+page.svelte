@@ -7,7 +7,7 @@
     export let shouldDisplaySocialIcons: Writable<boolean>;
 
     import SeaweedBaseLayout from "$lib/components/SeaweedBaseLayout.svelte";
-    import {Accordion, AccordionItem} from "@skeletonlabs/skeleton";
+    import {Accordion, AccordionItem, getModalStore, type ModalSettings} from "@skeletonlabs/skeleton";
     import {ItchLogoHotLink} from "$lib/consts";
 
     import HeaderPengi from "$lib/assets/temp/header-pengi.mp4";
@@ -19,8 +19,10 @@
     import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
     import GithubIcon from "$lib/assets/icons/github-mark.svg";
     import BitbucketIcon from "$lib/assets/icons/bitbucket-icon.svg";
-    import WebIcon from "$lib/assets/icons/external-link.svg";
+    import LinkIcon from "$lib/assets/icons/link-icon.svg";
+    import WeaverFootage from "$lib/assets/others/weaver-footage.gif";
     import SocialSection from "./SocialSection.svelte";
+    import type {PageData} from "./+page.server";
 
     enum AssetType {
         Image,
@@ -55,6 +57,9 @@
         },
     ];
 
+    export let data: PageData;
+    console.log(`Page data message ${data.itchMeta}`);
+    const modalStore = getModalStore();
     const gameCarouselCount = 5;
     let socialsSection: HTMLDivElement;
     let activeGameIndex = 0;
@@ -77,12 +82,23 @@
     };
 
     $: isSocialsGone = !isVisible;
-    $: console.log("IsVisible:", isVisible);
 
-    /* modifiable attributes */
+    /* todo: modifiable attributes */
     const name = "Turnip";
     const email = "turnipxenon@gmail.com";
     const linkedinSlug = "turnip-xenon";
+
+    const chefWingsWarning: ModalSettings = {
+        type: 'confirm',
+        title: 'Warning: please confirm',
+        body: 'This will directly link to the game itself, since this game does not have any game page or any ' +
+            'publicly viewable source code. Are you sure you wish to proceed?',
+        response: (r: boolean) => {
+            if (r) {
+                window.open("https://selk.io/birb-project/trunk/");
+            }
+        },
+    };
 </script>
 
 <SeaweedBaseLayout bind:shouldDisplayLeadingIcons={isSocialsGone}>
@@ -167,7 +183,7 @@
 					</li>
 				</ul>
 				<br>
-
+				<!-- todo: turn off flashing when accordion is expanded -->
 				<Accordion>
 					<AccordionItem class="variant-filled-primary hover:variant-filled-surface rounded-md">
 						<svelte:fragment slot="summary">
@@ -204,7 +220,7 @@
 		</div>
 
 		<section class="section-card" style:width="100%">
-			<h1 class="text-center">Game projects</h1>
+			<h1 class="text-center">Games</h1>
 		</section>
 
 		<section class="games-section">
@@ -301,154 +317,231 @@
 
 					<section class="game-link-section">
 						<button type="button" class="game-button"
-						        on:click={()=> window.open("https://selk.io/birb-project/trunk/")}>
-							<img alt="itch.io icon" src={WebIcon}>
+						        on:click={()=>modalStore.trigger(chefWingsWarning)}>
+							<img alt="itch.io icon" src={LinkIcon}>
+							<span>selk.io/birb-project/trunk/</span>
 						</button>
 					</section>
 				</section>
 			</section>
-			<CarouselElement activeGameIndex={activeGameIndex} selfIndex={3}>
-				<div class="carousel-element">
-					<h2>Soulwork</h2>
-					<video playsinline autoplay muted loop preload="none">
-						<source src={HeaderSoulwork} type="video/mp4">
-					</video>
+			<section class="game-card">
+				<video playsinline autoplay muted loop preload="none">
+					<source src={HeaderSoulwork} type="video/mp4">
+				</video>
+				<section class="game-card-body">
 
-					<p>
-						(Nov 2019)
-					</p>
+					<h1>Soulwork</h1>
 
 					<p>
 						Soulwork is a 2D platforming game that uses unique physics to solve puzzle-based levels.
 						This project is a Time to Game Jam entry, restricting game development to be under 48
 						hours.
+					</p>
+					<p>
 						I helped make the level designing tools used by the designers to drag-and-drop objects
 						on
 						the stage. I also helped program the unique physics-based gameplay mechanic. This was
 						written using C#.
 					</p>
 
-					<!--							https://itch.io/jam/time-to-game-jam-gadec-fall-game-jam/rate/514331-->
-					<!--							https://github.com/Zeyu-Li/Clockwork-->
-				</div>
-			</CarouselElement>
-			<CarouselElement activeGameIndex={activeGameIndex} selfIndex={4}>
-				<div class="carousel-element">
-					<h1>And more...</h1>
-					<video playsinline autoplay muted loop preload="none">
-						video unavailable. original video contains pengi gameplay showing the dynamic dialog
-						layout and character animation.
-						<source src={HeaderPengi} type="video/mp4">
-					</video>
 
-					<p>
-						I make more games...
-					</p>
+					<section class="game-link-section">
+						<button type="button" class="game-button"
+						        on:click={()=> window.open("https://github.com/Zeyu-Li/Clockwork")}>
+							<img alt="github icon" src={GithubIcon}>
+						</button>
+						<button type="button" class="game-button"
+						        on:click={()=> window.open("https://itch.io/jam/time-to-game-jam-gadec-fall-game-jam/rate/514331")}>
+							<img alt="itch.io icon" src={ItchLogoHotLink}>
+						</button>
+					</section>
+				</section>
+			</section>
+			<section class="game-card itch-promo">
+				<h1 class="mb-12 text-center">Check out my itch.io page for more games</h1>
 
-					<!--							https://turnipxenon.itch.io/pengi-->
-					<!--							https://github.com/GreenTea-M/ProjectPengi-->
-					<button type="button"><img src={GithubLogo}></button>
-				</div>
-			</CarouselElement>
+				<section class="game-link-section">
+					<button type="button" class="btn variant-filled-primary"
+					        on:click={() => window.open("https://turnipxenon.itch.io/")}>
+						<img src={ItchLogoHotLink} class="long-itch" alt="itch icon">
+						<span>TurnipXenon</span>
+					</button>
+				</section>
+
+			</section>
 		</section>
 
-		<!--		<section>-->
-		<!--			<h1>Projects</h1>-->
+		<section class="section-card" style:width="100%">
+			<h1 class="text-center">Projects</h1>
+		</section>
 
-		<!--			<div class="project-carousel-container">-->
+		<section class="projects-section">
+			<section class="project-card">
+				<iframe id="migrante-alberta"
+				        width="560" height="315" src="https://www.youtube.com/embed/ZemWwf8jh8E?si=RZwSfYHI-0Ael-RE"
+				        title="YouTube video player" frameborder="0"
+				        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+				        allowfullscreen></iframe>
+				<div class="project-card-body">
+					<!-- todo: add regression to see if page is gone: https://cmput401.ca/api/projects/e5b13586-09c7-4ddd-baf6-fdb078d23398 -->
 
-		<!--				<div class="card p-4 grid grid-cols-6 gap-4 carousel-thumbnail-container">-->
+					<h2>Migrante Alberta</h2>
+					<p>We developed a mobile-first cross-platform application to be used by the Canadian-based
+						Filipino non-profit advocacy group, Migrante Alberta, to help new immigrants navigate
+						through local services and events
+					</p>
+					<!-- todo: add a way to ask what did i do via chat?  -->
+					<!--					<p>-->
+					<!--						I helped make reusable Flutter components for the application’s frontend, Dart utility files to-->
+					<!--						help ease writing and debugging calls to the backend, and a troubleshooting documentation-->
+					<!--						for handling common issues-->
+					<!--					</p>-->
+					<!--					<p>-->
+					<!--						Added Python unit tests to the backend endpoints, refactored the backend’s authentication-->
+					<!--						system from plain text to using Django’s authentication system, and wrote a script to ease-->
+					<!--						deployment to Heroku-->
+					<!--					</p>-->
 
-		<!--					&lt;!&ndash; todo: fix layout &ndash;&gt;-->
+					<!-- todo: add tags with Dart, Flutter, Python, Django, Heroku, Android -->
 
-		<!--					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>-->
-		<!--						<div class="card project-carousel-element">-->
-		<!--							Migrante Alberta, Group Project Jan 2022 – Apr 2022-->
-		<!--							https://cmput401.ca/projects/d5b366aa-bd10-4031-aba5-a4bc6ff5b649-->
-		<!--							cmput401.ca/projects/d5b366aa-bd10-4031-aba5-a4bc6ff5b649-->
-		<!--							Developed a mobile-first cross-platform application to be used by the Canadian-based-->
-		<!--							Filipino non-profit advocacy group, Migrante Alberta, to help new immigrants navigate-->
-		<!--							through local services and events-->
-		<!--							Created reusable Flutter components for the application’s frontend, Dart utility files to-->
-		<!--							help ease writing and debugging calls to the backend, and a troubleshooting documentation-->
-		<!--							for handling common issues-->
-		<!--							Added Python unit tests to the backend endpoints, refactored the backend’s authentication-->
-		<!--							system from plain text to using Django’s authentication system, and wrote a script to ease-->
-		<!--							deployment to Heroku-->
-		<!--							https://www.migrantealberta.ca/-->
-		<!--						</div>-->
-		<!--					</CarouselElement>-->
-		<!--					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>-->
-		<!--						<div class="card project-carousel-element">-->
-		<!--							<h3>This webpage!!!</h3>-->
+					<section class="game-link-section">
+						<button type="button" class="btn variant-filled-primary"
+						        on:click={() => window.open("https://cmput401.ca/projects/e5b13586-09c7-4ddd-baf6-fdb078d23398")}>
+							<img src={LinkIcon} class="long-itch" alt="itch icon">
+							<span>cmput401.ca/projects/e5b13586-09c7-4ddd-baf6-fdb078d23398</span>
+						</button>
+					</section>
 
-		<!--							The webpage is made of two parts. The webpage that has the content for everything here, I've-->
-		<!--							lovingly called Seaweed. Then the base package which I want to use for all spin offs of my-->
-		<!--							websites. I call that one Pineapple. An interesting part of the base package is it has a-->
-		<!--							dialog interpreter based on YarnSpinner.-->
+				</div>
+			</section>
 
-		<!--							todo: github link-->
-		<!--							todo: add tags-->
-		<!--						</div>-->
-		<!--					</CarouselElement>-->
-		<!--					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>-->
-		<!--						<div class="card project-carousel-element">-->
-		<!--							<h3>Working set simulation</h3>-->
+			<section class="project-card">
+				<div class="project-card-body">
 
-		<!--							A C program that simulates the working set model based on the output of memory addresses-->
-		<!--							valgrind detects as being accessed by a program being ran. The working set is the collection-->
-		<!--							of memory pages referenced by a program within a certain time frame. It comes with a report-->
-		<!--							analyzing how the window set sizes vary between popular sorting algorithms being used on big-->
-		<!--							datasets.-->
+					<h2>Decentralized social media</h2>
 
-		<!--							https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment03/DESIGN.md-->
+					<p>We made a full stack decentralized social media app made with React + Javascript for the client
+						code, Django + Python for the backend code, and Heroku for deployment. This project was made for
+						our Web Applications and Architecture class.</p>
+					<p>The application can connect with three other decentralized social media app in the same class:
+					</p>
+					<ul>
+						<li>
+							<a href="https://github.com/hgshah/cmput404-project/blob/main/docs/testing_other_teams.md#team-14">Also
+								a social media with the same Django + Python backend server where they act on behalf of
+								our users interacting with theirs</a></li>
+						<li>
+							<a href="https://github.com/hgshah/cmput404-project/blob/main/docs/testing_other_teams.md#team-7">A
+								social media that uses Fast API + Python for their backend server</a></li>
+						<li>
+							<a href="https://github.com/hgshah/cmput404-project/blob/main/docs/testing_other_teams.md#team-12">Another
+								social media that has Django + Python for their backend but we have to act on behalf of
+								our
+								users interacting with their users</a>
+						</li>
+					</ul>
 
-		<!--						</div>-->
-		<!--					</CarouselElement>-->
+					<!-- todo: add tags with Javascript, React, Python, Django, Heroku -->
 
+					<section class="game-link-section">
+						<button type="button" class="game-button"
+						        on:click={() => window.open("https://github.com/hgshah/cmput404-project")}>
+							<img src={GithubIcon} alt="github icon">
+						</button>
+					</section>
+				</div>
+			</section>
 
-		<!--					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>-->
-		<!--						<div class="card project-carousel-element">-->
-		<!--							<h3>Client-server application in C</h3>-->
+			<section class="project-card">
+				<div class="project-card-body">
+					<h2>This webpage!</h2>
 
-		<!--							multiprocessing-->
-		<!--							networking via socket programming-->
+					The webpage is made of two parts. The webpage that has the content for everything here, I've
+					lovingly called Seaweed. Then the base package which I want to use for all spin offs of my
+					websites. I call that one Pineapple.
 
-		<!--							https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment02/DESIGN.md-->
-		<!--						</div>-->
-		<!--					</CarouselElement>-->
+					<section class="game-link-section">
+						<button type="button" class="btn variant-filled-primary"
+						        on:click={() => window.open("https://github.com/TurnipXenon/pineapple")}>
+							<img src={GithubIcon} class="long-itch" alt="github icon">
+							<span>Pineapple</span>
+						</button>
+						<button type="button" class="btn variant-filled-primary"
+						        on:click={() => window.open("https://github.com/TurnipXenon/seaweed")}>
+							<img src={GithubIcon} class="long-itch" alt="github icon">
+							<span>Seaweed</span>
+						</button>
+					</section>
+				</div>
+			</section>
+			<section class="project-card">
+				<img alt="Footage of a visual novel-like dynamic dialog interaction happening on the same page we are on"
+				     src={WeaverFootage}/>
 
+				<div class="project-card-body">
+					<h2>Customized Yarnspinner interpreter and dialog runner</h2>
 
-		<!--					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>-->
-		<!--						<div class="card project-carousel-element">-->
-		<!--							Mock Uber App, Group Project Jan 2020 – Apr 2020-->
-		<!--							github.com/CMPUT301W20T10/UberApp-->
-		<!--							Implemented all interfaces related to the NoSQL cloud database Firebase, making writing code-->
-		<!--							easier for other programmers (Android / Java)-->
-		<!--							Wrote documentation to said code and added instrumented tests that are tested by the-->
-		<!--							continuous integration tool Travis CI, ensuring that the code I write is tested-->
+					A custom dialog interpreter, written in Typescript, that tokenizes then transpiles custom
+					Yarnspinner dialog
+					into a Typescript file. The said files can be used on a corresponding runner or library, also
+					implemented alongside it, allowing the ability to play a custom-flavor of YarnSpinner dialogs on
+					Svelte.
 
-		<!--						</div>-->
-		<!--					</CarouselElement>-->
+					<section class="game-link-section">
+						<button type="button" class="game-button"
+						        on:click={() => window.open("https://github.com/TurnipXenon/pineapple/blob/main/docs/PineappleFiberSpec.md")}>
+							<img src={GithubIcon} class="long-itch" alt="github icon">
+						</button>
+					</section>
+				</div>
+			</section>
+			<section class="project-card">
 
+				<div class="project-card-body">
 
-		<!--					<CarouselElement activeGameIndex={activeGameIndex} selfIndex={0}>-->
-		<!--						<div class="card project-carousel-element">-->
-		<!--							<h3>Full stack decentralized social media</h3>-->
+					<h3>Working set simulation</h3>
 
-		<!--							https://github.com/hgshah/cmput404-project-->
-		<!--						</div>-->
-		<!--					</CarouselElement>-->
-		<!--				</div>-->
-		<!--			</div>-->
-		<!--		</section>-->
+					A C program that simulates the working set model based on the output of memory addresses
+					valgrind detects as being accessed by a program being ran. The working set is the collection
+					of memory pages referenced by a program within a certain time frame. It comes with a report
+					analyzing how the window set sizes vary between popular sorting algorithms being used on big
+					datasets.
 
-		<!--		<section>-->
-		<!--			<h2>Education</h2>-->
-		<!--			BS Computing Science, Specialization in Software Practice June 2023-->
-		<!--			With Certificate in Computer Game Development-->
-		<!--			University of Alberta-->
-		<!--		</section>-->
+					https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment03/DESIGN.md
+
+				</div>
+			</section>
+			<section class="project-card">
+				<div class="project-card-body">
+
+					<h3>Client-server application in C</h3>
+
+					multiprocessing
+					networking via socket programming
+
+					https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment02/DESIGN.md
+
+				</div>
+			</section>
+			<section class="project-card">
+				<div class="project-card-body">
+
+					Mock Uber App, Group Project Jan 2020 – Apr 2020
+					github.com/CMPUT301W20T10/UberApp
+					Implemented all interfaces related to the NoSQL cloud database Firebase, making writing code
+					easier for other programmers (Android / Java)
+					Wrote documentation to said code and added instrumented tests that are tested by the
+					continuous integration tool Travis CI, ensuring that the code I write is tested
+
+				</div>
+			</section>
+		</section>
+		<section>
+			<h2>Education</h2>
+			BS Computing Science, Specialization in Software Practice June 2023
+			With Certificate in Computer Game Development
+			University of Alberta
+		</section>
 
 	</main>
 
@@ -481,7 +574,7 @@
         margin-bottom: 3em;
     }
 
-    .game-card {
+    .game-card, .project-card {
         @apply card;
         max-width: 36em;
         margin-bottom: 3em;
@@ -491,6 +584,16 @@
         border-top-left-radius: 1em;
         border-top-right-radius: 1em;
         max-height: 24em;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    #migrante-alberta, .game-card > img, .project-card > img {
+        border-top-left-radius: 1em;
+        border-top-right-radius: 1em;
+    }
+
+    #migrante-alberta {
         width: 100%;
         object-fit: cover;
     }
@@ -619,7 +722,7 @@
         min-width: 36em;
     }
 
-    .game-card-body {
+    .game-card-body, .project-card-body {
         padding: 1em;
     }
 
@@ -627,7 +730,7 @@
         margin-bottom: 0.7lh;
     }
 
-    .game-card-body > h1 {
+    .game-card-body > h1, .project-card-body > h2 {
         text-align: center;
     }
 
@@ -639,9 +742,19 @@
         margin-top: 1em;
     }
 
-    .games-section {
+    .games-section, .projects-section {
         display: flex;
         flex-wrap: wrap;
         gap: 2em;
+        justify-content: center;
+    }
+
+    .long-itch {
+        max-height: 1lh;
+    }
+
+    .itch-promo {
+        padding: 4em;
+        align-self: flex-start;
     }
 </style>
