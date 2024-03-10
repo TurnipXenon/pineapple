@@ -14,14 +14,27 @@ html, body {
     @apply h-full overflow-hidden;
     @apply bg-surface-400 dark:bg-surface-800;
     background-color: transparent;
+}
+
+/* font color */
+html, body {
     color: rgb(var(--theme-font-color-base));
 }
 
-.dark body, .dark .variant-filled-primary, .dark .turnip-button, .dark .turnip-button > span {
+.accordion-panel {
+    color: rgb(var(--color-primary-1000));
+}
+
+.dark body,
+.dark .variant-filled-primary,
+.dark .turnip-button,
+.dark .turnip-button > span,
+.dark .accordion-panel,
+.dark button.accordion-control {
     color: rgb(var(--theme-font-color-dark));
 }
 
-.turnip-button, .turnip-button > span {
+.turnip-button, .turnip-button > span, button.accordion-control {
     font-weight: bold;
     color: rgb(var(--theme-font-color-base));
 }
@@ -103,14 +116,13 @@ blockquote {
     font-weight: bold;
 }
 
-
 /* todo: add --tw-text-opacity division to add ambience based on bg better */
 a {
     text-decoration: underline;
     color: rgb(var(--color-secondary-500));
 }
 
-a:hover {
+a:hover, a:hover:visited {
     color: rgb(var(--color-secondary-400));
 }
 
@@ -127,7 +139,7 @@ a:active {
     color: rgb(var(--color-secondary-300));
 }
 
-.dark a:hover {
+.dark a:hover, .dark a:hover:visited {
     color: rgb(var(--color-secondary-200));
 }
 

@@ -144,11 +144,11 @@
 					</ul>
 					<br>
 					<!-- todo: turn off flashing when accordion is expanded -->
-					<Accordion>
+					<Accordion hover="hover:bg-surface-hover-token">
 						<AccordionItem class="variant-filled-primary rounded-md">
-							<svelte:fragment slot="summary">
-								<h2>More experience</h2>
-							</svelte:fragment>
+							<div slot="summary">
+								<h2 class="mt-2">More experience</h2>
+							</div>
 							<svelte:fragment slot="content">
 								<section class="more-section">
 									<h2>Software Engineer Intern</h2>
@@ -229,7 +229,7 @@
 			<Card>
 				<section class="game-card" slot="content">
 					<!-- todo: move the image crop a bit lower -->
-					<video playsinline autoplay muted loop preload="none">
+					<video playsinline autoplay muted loop preload="none" id="hepcat-video">
 						<source src={HeaderHepCat} type="video/mp4">
 					</video>
 
@@ -680,5 +680,9 @@
 
     .itch-promo {
         padding: 4em;
+    }
+
+    #hepcat-video {
+		    object-position: 0 0;
     }
 </style>
