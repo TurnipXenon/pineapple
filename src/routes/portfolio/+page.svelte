@@ -38,7 +38,24 @@
 		type: "confirm",
 		title: "Warning: please confirm",
 		body: "This will directly link to the game itself, since this game does not have any game page or any " +
-			"publicly viewable source code. Are you sure you wish to proceed?",
+			"publicly viewable source code. The game is only playable on desktop. " +
+			`Are you sure you wish to proceed? If there are any bugs, please report at <a href='mailto:${email}' target='_blank'>` +
+			`${email}</a>.`,
+		response: (r: boolean) => {
+			if (r) {
+				window.open("https://selk.io/birb-project/trunk/");
+			}
+		}
+	};
+
+	const cmput401Info: ModalSettings = {
+		type: "confirm",
+		title: "Information",
+		body: "As a full disclosure, this link will lead you to <a href='https://cmput401.ca/projects/e5b13586-09c7-4ddd-baf6-fdb078d23398' target='_blank'>" +
+			"https://cmput401.ca/projects/e5b13586-09c7-4ddd-baf6-fdb078d23398</a>. " +
+			"We currently don't have any tests yet ensuring that the link is correct. " +
+			`Click confirm to go to the site. Please report any bugs at <a href='mailto:${email}' target='_blank'>` +
+			`${email}</a>.`,
 		response: (r: boolean) => {
 			if (r) {
 				window.open("https://selk.io/birb-project/trunk/");
@@ -95,7 +112,7 @@
 					<h2>Software Engineer</h2>
 					<div class="two-column-separated">
 						<div>July 2023 – January 2024</div>
-						<div>Twitch, Remote</div>
+						<div style="text-align: end">Twitch, Remote</div>
 					</div>
 					<ul>
 						<li>Contributed to Golang and Typescript codebases, across several teams, to accommodate adjustments
@@ -117,7 +134,7 @@
 					<h2>Software Engineer Intern</h2>
 					<div class="two-column-separated">
 						<div>May 2022 – Aug 2022</div>
-						<div>Twitch, San Francisco</div>
+						<div style="text-align: end">Twitch, San Francisco</div>
 					</div>
 					<ul>
 						<li>
@@ -154,7 +171,7 @@
 									<h2>Software Engineer Intern</h2>
 									<div class="two-column-separated">
 										<div>May 2021 – Dec 2021</div>
-										<div>Twitch / Amazon Web Services Canada, Remote</div>
+										<div style="text-align: end">Twitch / Amazon Web Services Canada, Remote</div>
 									</div>
 									<ul>
 										<li>
@@ -181,7 +198,7 @@
 		</div>
 
 		<Card>
-			<div class="section-card" slot="content" style="width: 800px">
+			<div class="section-card title-card" slot="content">
 				<h1 class="text-center">Games</h1>
 			</div>
 		</Card>
@@ -349,7 +366,7 @@
 		</section>
 
 		<Card>
-			<section class="section-card" style="width: 800px" slot="content">
+			<section class="section-card title-card" slot="content">
 				<h1 class="text-center">Projects</h1>
 			</section>
 		</Card>
@@ -386,9 +403,9 @@
 
 						<section class="game-link-section">
 							<button type="button" class="btn variant-filled-primary turnip-button"
-							        on:click={() => window.open("https://cmput401.ca/projects/e5b13586-09c7-4ddd-baf6-fdb078d23398")}>
+							        on:click={() => modalStore.trigger(cmput401Info)}>
 								<img src={LinkIcon} class="long-btn-image" alt="itch icon">
-								<span>cmput401.ca/projects/e5b13586-09c7-4ddd-baf6-fdb078d23398</span>
+								<span>cmput401.ca</span>
 							</button>
 						</section>
 
@@ -560,7 +577,10 @@
 
 	</main>
 
-	<SocialSection slot="extraLeadingIcons" email={email} linkedinSlug={linkedinSlug}
+	<SocialSection slot="extraLeadingIcons"
+	               isSlot={true}
+	               email={email}
+	               linkedinSlug={linkedinSlug}
 	               isSmallVersion={true}></SocialSection>
 </SeaweedBaseLayout>
 
@@ -588,6 +608,7 @@
     }
 
     .game-card, .project-card {
+        width: 100vw;
         max-width: 36em;
         margin-bottom: 3em;
     }
@@ -683,6 +704,10 @@
     }
 
     #hepcat-video {
-		    object-position: 0 0;
+        object-position: 0 0;
+    }
+
+    .title-card {
+        width: clamp(360px, 80vw, 800px);
     }
 </style>

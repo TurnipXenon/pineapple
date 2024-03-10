@@ -78,13 +78,16 @@
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
 		<AppBar slotDefault="place-content-start"
-		        slotTrail="place-content-end"
 		        background="app-shell-token">
 			<svelte:fragment slot="lead">
 				<span class="lead-slot-placeholder"></span>
 
 				{#if $$slots.extraLeadingIcons && shouldDisplayLeadingIcons}
 					<div transition:fly={{x:-10}}>
+						<slot name="extraLeadingIcons" />
+					</div>
+				{:else if $$slots.extraLeadingIcons}
+					<div hidden>
 						<slot name="extraLeadingIcons" />
 					</div>
 				{/if}
