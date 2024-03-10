@@ -54,6 +54,9 @@
     "svelte": "^4.2.12",
     "ts-node": "^10.9.1"
   },
+  "resolutions": {
+    "string-width": "4.2.3"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
