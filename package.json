@@ -42,6 +42,7 @@
   "dependencies": {
     "@skeletonlabs/skeleton": "^2.9.0",
     "@skeletonlabs/tw-plugin": "^0.3.1",
+    "@sveltejs/adapter-vercel": "^5.1.0",
     "@sveltejs/kit": "^2.5.2",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "@types/htmlparser2": "^3.10.7",
