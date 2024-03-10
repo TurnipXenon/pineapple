@@ -1,71 +1,65 @@
 <script lang="ts">
-    // The ordering of these imports is critical to your app working properly
-    import "../theme.postcss";
-    // If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
-    // import "@skeletonlabs/skeleton/styles/all.css";
-    // Most of your app wide CSS should be put in this file
-    import "$lib/app.postcss";
-    // For auto dark/light mode
-    import {AppBar, AppShell, autoModeWatcher, LightSwitch} from "@skeletonlabs/skeleton";
-    import RandomizedBackground from "$lib/components/RandomizedBackground.svelte";
+	// The ordering of these imports is critical to your app working properly
+	import "../../theme.postcss";
+	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
+	// import "@skeletonlabs/skeleton/styles/all.css";
+	// Most of your app wide CSS should be put in this file
+	import "$lib/app.postcss";
+	// For auto dark/light mode
+	import { AppBar, AppShell, autoModeWatcher, LightSwitch } from "@skeletonlabs/skeleton";
+	import RandomizedBackground from "$lib/components/RandomizedBackground.svelte";
 
-    // navigation
-    import {page} from "$app/stores";
-    // store
-    import {enableBackground} from "$lib/store";
-    import type {BreadcrumbData} from "$lib/types/BreadcrumbData";
-    // assets
-    import {enableDialogueOverlay} from "$lib/components/dialog_manager/DialogManagerStore";
-    import AresLogo from "$lib/assets/bg_tiled/bg_tiled_ares.png";
-    import DialogOverlay from "$pkg/components/DialogOverlay.svelte";
-    import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
-    import {writable} from "svelte/store";
-    import {fly} from "svelte/transition";
-    // todo: clean up all these imports!
+	// navigation
+	import { page } from "$app/stores";
+	// store
+	import { enableBackground } from "$lib/store";
+	import type { BreadcrumbData } from "$lib/types/BreadcrumbData";
+	// assets
+	import { enableDialogueOverlay } from "$lib/components/dialog_manager/DialogManagerStore";
+	import DialogOverlay from "$lib/components/DialogOverlay.svelte";
+	import { writable } from "svelte/store";
+	import { fly } from "svelte/transition";
+	// todo: clean up all these imports!
 
-    export let shouldDisplayLeadingIcons: boolean = false;
-    let pages: BreadcrumbData[] = [];
+	export let shouldDisplayLeadingIcons: boolean = false;
+	let pages: BreadcrumbData[] = [];
 
-    const updateBreadcrumb = (pathname: string) => {
-        pages = [];
-        let basePath = "";
-        pathname.split("/").forEach((value, index) => {
-            if (index === 0) {
-                basePath = "/";
-                pages.push({
-                    path: "/",
-                    name: "Home"
-                });
-                return;
-            }
+	const updateBreadcrumb = (pathname: string) => {
+		pages = [];
+		let basePath = "";
+		pathname.split("/").forEach((value, index) => {
+			if (index === 0) {
+				basePath = "/";
+				pages.push({
+					path: "/",
+					name: "Home"
+				});
+				return;
+			}
 
-            if (value === "") {
-                return;
-            }
+			if (value === "") {
+				return;
+			}
 
-            basePath += value + "/";
-            pages.push({
-                path: basePath,
-                name: value
-            });
-        });
-        pages = pages;
-    };
+			basePath += value + "/";
+			pages.push({
+				path: basePath,
+				name: value
+			});
+		});
+		pages = pages;
+	};
 
-    $: updateBreadcrumb($page.url.pathname); // run every time we navigate
+	$: updateBreadcrumb($page.url.pathname); // run every time we navigate
 
-    let enableBackgroundValue = true;
-    enableBackground.subscribe((value) => {
-        enableBackgroundValue = value;
-    });
+	let enableBackgroundValue = true;
+	enableBackground.subscribe((value) => {
+		enableBackgroundValue = value;
+	});
 
-    enableDialogueOverlay.set(false); // false by default until we unlock the fab for public
-    let enableDialogueOverlayValue = true;
-    enableDialogueOverlay.subscribe((value) => {
-        enableDialogueOverlayValue = value;
-    });
+	enableDialogueOverlay.set(false); // false by default until we unlock the fab for public
 
-    let shouldDisplaySocialIcons = writable(false);
+	let shouldDisplaySocialIcons = writable(false);
 </script>
 
 <!-- App Shell -->
@@ -83,31 +77,33 @@
 <AppShell>
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
-		<AppBar slotDefault="place-content-start" slotTrail="place-content-end">
+		<AppBar slotDefault="place-content-start"
+		        slotTrail="place-content-end"
+		        background="app-shell-token">
 			<svelte:fragment slot="lead">
 				<span class="lead-slot-placeholder"></span>
 
 				{#if $$slots.extraLeadingIcons && shouldDisplayLeadingIcons}
 					<div transition:fly={{x:-10}}>
-						<slot name="extraLeadingIcons"/>
+						<slot name="extraLeadingIcons" />
 					</div>
 				{/if}
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<LightSwitch bgLight="bg-surface-400"/>
+				<LightSwitch bgLight="bg-surface-400" />
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
 
-	<RandomizedBackground enable={enableBackgroundValue}/>
+	<RandomizedBackground enable={enableBackgroundValue} />
 
 	<!--{#if enableDialogueOverlayValue}-->
 	<!-- Page Route Content -->
 	<div class="default-page-container">
-		<slot shouldDisplaySocialIcons={shouldDisplaySocialIcons}/>
-		<div class="footer-space"/>
+		<slot shouldDisplaySocialIcons={shouldDisplaySocialIcons} />
+		<div class="footer-space" />
 	</div>
-	<DialogOverlay/>
+	<DialogOverlay />
 	<!--{:else}-->
 	<!--	<DialogOverlay/>-->
 	<!--	<slot/>-->

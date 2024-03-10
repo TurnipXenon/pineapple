@@ -1,19 +1,19 @@
 <script lang="ts">
-    // The ordering of these imports is critical to your app working properly
-    import "$lib/theme.postcss";
-    // If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
-    // import "@skeletonlabs/skeleton/styles/all.css";
-    // Most of your app wide CSS should be put in this file
-    import "$lib/app.postcss";
+	// The ordering of these imports is critical to your app working properly
+	import "$lib/theme.postcss";
+	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
+	// import "@skeletonlabs/skeleton/styles/all.css";
+	// Most of your app wide CSS should be put in this file
+	import "$lib/app.postcss";
 
 
-    import {initializeStores} from '@skeletonlabs/skeleton';
-    import '../lib/app.postcss';
-    import {Modal} from "@skeletonlabs/skeleton";
+	import { initializeStores } from "@skeletonlabs/skeleton";
+	import { Modal } from "@skeletonlabs/skeleton";
+	import "$lib/styles/global.css";
 
-    initializeStores();
+	initializeStores();
 </script>
 
-<Modal/>
+<Modal />
 
-<slot/>
+<slot />

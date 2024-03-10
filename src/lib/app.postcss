@@ -10,11 +10,29 @@
     --default-card-max-width: calc(4rem + 4rem + 40rem);
 }
 
-html,
-body {
+html, body {
     @apply h-full overflow-hidden;
-    @apply bg-surface-400-500-token;
+    @apply bg-surface-400 dark:bg-surface-800;
     background-color: transparent;
+    color: rgb(var(--theme-font-color-base));
+}
+
+.dark body, .dark .variant-filled-primary, .dark .turnip-button, .dark .turnip-button > span {
+    color: rgb(var(--theme-font-color-dark));
+}
+
+.turnip-button, .turnip-button > span {
+    font-weight: bold;
+    color: rgb(var(--theme-font-color-base));
+}
+
+/* todo: add some hues to the icon that should be in sync with primary and make them not pure darkness */
+.turnip-button > img {
+    filter: grayscale(100%) brightness(0%) invert(25%);
+}
+
+.dark .turnip-button > img {
+    filter: grayscale(100%) brightness(0%) invert(100%);
 }
 
 /*
@@ -30,14 +48,6 @@ body {
 }
 */
 
-.card {
-    --tw-ring-offset-color: rgb(var(--color-text-300));
-    --tw-ring-offset-width: var(--theme-border-base);
-}
-
-.dark .card {
-    --tw-ring-offset-color: rgb(var(--color-text-600));
-}
 
 .variant-ghost-primary {
     background-color: rgb(var(--color-primary-500) / 0.8);
@@ -65,21 +75,6 @@ ul {
     padding-left: 1em;
 }
 
-/* todo: study why this does not work? */
-a {
-    /*a:not(.unstyled):not(.permalink):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(*/
-    /*		a.card*/
-    /*	):not(.list-nav a) {*/
-    color: rgb(var(--color-secondary-500) / var(--tw-text-opacity));
-}
-
-/*.dark*/
-/*a:not(.unstyled):not(.permalink):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(*/
-/*		a.card*/
-/*	):not(.list-nav a) {*/
-/*    color: rgb(var(--color-secondary-700) / var(--tw-text-opacity));*/
-/*}*/
-
 .default-page-container {
     @apply flex justify-center items-center;
     margin-top: 4em;
@@ -100,4 +95,46 @@ a.dialog-choice {
 
 a.external-link {
     cursor: url("$lib/assets/icons/external-link.svg"), auto;
+}
+
+blockquote {
+    font-style: italic;
+    opacity: 60%;
+    font-weight: bold;
+}
+
+
+/* todo: add --tw-text-opacity division to add ambience based on bg better */
+a {
+    text-decoration: underline;
+    color: rgb(var(--color-secondary-500));
+}
+
+a:hover {
+    color: rgb(var(--color-secondary-400));
+}
+
+a:visited {
+    color: rgb(var(--color-secondary-800));
+}
+
+a:active {
+    color: rgb(var(--color-secondary-350));
+}
+
+.dark a {
+    text-decoration: underline;
+    color: rgb(var(--color-secondary-300));
+}
+
+.dark a:hover {
+    color: rgb(var(--color-secondary-200));
+}
+
+.dark a:visited {
+    color: rgb(var(--color-secondary-350));
+}
+
+.dark a:active {
+    color: rgb(var(--color-secondary-100));
 }

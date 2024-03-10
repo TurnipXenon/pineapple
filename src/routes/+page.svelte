@@ -2,7 +2,7 @@
     import {PUBLIC_CRINGE_USERNAME} from "$env/static/public";
 
     import {createGoToFunction} from "$lib/util/create_go_to_function";
-    import PineappleBaseLayout from "$lib/components/PineappleBaseLayout.svelte";
+    import PineappleBaseLayout from "$lib/components/layouts/PineappleBaseLayout.svelte";
 </script>
 
 <svelte:head>
