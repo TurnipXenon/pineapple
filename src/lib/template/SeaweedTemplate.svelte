@@ -3,6 +3,7 @@
 	export let email = "turnipxenon@gmail.com";
 	export let linkedinSlug = "turnip-xenon";
 	export let metaWebsite = "https://www.crouton.com/test/portfolio-base-layout";
+	export let letChaos = true;
 
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
 	import { Accordion, AccordionItem, getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
@@ -23,11 +24,12 @@
 	import LinkIcon from "$pkg/assets/icons/link-icon.svg";
 	import WeaverFootage from "$pkg/assets/others/weaver-footage.gif";
 	import WindowSetGraph from "$pkg/assets/others/window-set.png";
-	import ThisWebsiteFootage from "$pkg/assets/others/weaver-footage.gif";
+	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 
 	const modalStore = getModalStore();
 	let isVisible = true;
+	let mainParent: HTMLElement;
 
 	$: isSocialsGone = !isVisible;
 
@@ -93,10 +95,39 @@
 		console.log(dynamicStyle);
 	};
 
+	const chaoticWordBank = ["niko", "toba", "seal", "aquarium", "ojisan", "baikal"];
+	const runChaos = (node: Element) => {
+		for (let child of Array.from(node.children)) {
+			console.log(child, child.nodeName);
+			// (child.textContent)
+			if (child.nodeType === Node.TEXT_NODE) {
+				child.innerHTML = "testing";
+			} else if (child.nodeType === Node.ELEMENT_NODE) {
+				runChaos(child);
+				for (const childOfChild of child.childNodes) {
+					if (childOfChild.nodeType === Node.TEXT_NODE && childOfChild.textContent?.trim()) {
+						const max = childOfChild.textContent.length;
+						childOfChild.textContent = "";
+						while (childOfChild.textContent.length < max) {
+							childOfChild.textContent += (chaoticWordBank[Math.floor(Math.random() * chaoticWordBank.length)] + " ");
+						}
+					}
+					// runChaos(childOfChild);
+
+				}
+			}
+		}
+	};
+	// if (letChaos) {
+	// 	runChaos();
+	// }
+
 	onMount(() => {
-		if ($page.url.searchParams) {
+		if (!letChaos && $page.url.searchParams) {
 			filterSearchParams($page.url.searchParams);
 		}
+
+		runChaos(document.body);
 	});
 </script>
 
@@ -208,23 +239,27 @@
 							</div>
 							<svelte:fragment slot="content">
 								<section class="more-section">
-									<h2>Software Engineer Intern</h2>
-									<div class="two-column-separated">
-										<div>May 2021 – Dec 2021</div>
-										<div style="text-align: end">Twitch / Amazon Web Services Canada, Remote</div>
-									</div>
-									<ul>
-										<li>
-											Implemented and wrote tests for a feature in Twitch’s backend authentication
-											systems and frontend web application that will help suggest security improvements to
-											over hundreds of thousands of users daily
-										</li>
-										<li>
-											Learned <span class="qt-go">Go</span>, <span class="qt-ts">Typescript</span>, <span
-											class="qt-react">React</span>, and other new technologies on the go to contribute to
-											the codebase
-										</li>
-									</ul>
+									{#if (!letChaos)}
+										<h2>Software Engineer Intern</h2>
+										<div class="two-column-separated">
+											<div>May 2021 – Dec 2021</div>
+											<div style="text-align: end">Twitch / Amazon Web Services Canada, Remote</div>
+										</div>
+										<ul>
+											<li>
+												Implemented and wrote tests for a feature in Twitch’s backend authentication
+												systems and frontend web application that will help suggest security improvements to
+												over hundreds of thousands of users daily
+											</li>
+											<li>
+												Learned <span class="qt-go">Go</span>, <span class="qt-ts">Typescript</span>, <span
+												class="qt-react">React</span>, and other new technologies on the go to contribute to
+												the codebase
+											</li>
+										</ul>
+									{:else}
+										niko baikal seal from toba aquarium
+									{/if}
 									<br>
 								</section>
 							</svelte:fragment>
@@ -619,8 +654,12 @@
 
 			<Card>
 				<section class="project-card" slot="content">
-					<img alt="Clip showcasing this webpage handling resizing and toggling between dark mode and light mode"
-					     src={ThisWebsiteFootage} />
+
+					<video playsinline autoplay muted loop preload="none">
+						video unavailable. original video contains clips of this website being resized and light-dark mode being
+						toggled.
+						<source src={ThisWebsiteFootage} type="video/mp4">
+					</video>
 					<div class="project-card-body">
 						<h2>This webpage!</h2>
 
