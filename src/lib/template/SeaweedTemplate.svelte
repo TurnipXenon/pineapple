@@ -1,4 +1,6 @@
 <script lang="ts">
+	import ToggleableContent from "$pkg/components/ToggleableContent.svelte";
+
 	export let name = "Turnip";
 	export let email = "turnipxenon@gmail.com";
 	export let linkedinSlug = "turnip-xenon";
@@ -26,6 +28,7 @@
 	import WindowSetGraph from "$pkg/assets/others/window-set.png";
 	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
+	import { ToggleableContentType } from "$pkg/components/ToggleableContentType";
 
 	const modalStore = getModalStore();
 	let isVisible = true;
@@ -151,24 +154,27 @@
 
 				<Card>
 					<section class="section-card" slot="content">
-						<h1>About</h1>
+<!--						<ToggleableContent toggle={ToggleableContentType.Gibberish}>-->
 
-						<p>
-							Hi! My name is {name}! I work as a software developer. Outside of that, I like making games, and
-							trying to do everything in between required to make one. I have some showcased below, our visit
-							my itch.io page for more of them.
-						</p>
-						<!-- todo: link the degree details idk -->
-						<p>
-							I also graduated with BS Computing Science, Specializing in Software Practice, and a
-							certificate in Computer Game Development at University of Alberta.
-						</p>
-						<p>
-							I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
-							Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
-						</p>
+							<h1>About</h1>
 
-						<!-- todo: maybe put cute stuff here -->
+							<p>
+								Hi! My name is {name}! I work as a software developer. Outside of that, I like making games, and
+								trying to do everything in between required to make one. I have some showcased below, our visit
+								my itch.io page for more of them.
+							</p>
+							<!-- todo: link the degree details idk -->
+							<p>
+								I also graduated with BS Computing Science, Specializing in Software Practice, and a
+								certificate in Computer Game Development at University of Alberta.
+							</p>
+							<p>
+								I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
+								Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
+							</p>
+
+							<!-- todo: maybe put cute stuff here -->
+<!--						</ToggleableContent>-->
 					</section>
 				</Card>
 
