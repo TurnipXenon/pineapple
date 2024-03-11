@@ -22,8 +22,9 @@
 </script>
 
 <div class="socials" class:isSmall={isSmallVersion} style={style}>
-	<!-- todo: add alt and highlight on the buttons -->
 	<button type="button" class="social-button turnip-button"
+	        role="link"
+	        title="https://github.com/TurnipXenon"
 	        on:click={() => window.open("https://github.com/TurnipXenon")}>
 		<img src={GithubIcon} alt="github icon">
 		{#if (!isSmallVersion)}
@@ -31,6 +32,8 @@
 		{/if}
 	</button>
 	<button type="button" class="social-button turnip-button"
+	        role="link"
+	        title={`https://www.linkedin.com/in/${linkedinSlug}/`}
 	        on:click={() => window.open(`https://www.linkedin.com/in/${linkedinSlug}}/`)}>
 		<img src={LinkedinIcon} alt="linkedikn icon">
 		{#if (!isSmallVersion)}
@@ -38,6 +41,8 @@
 		{/if}
 	</button>
 	<button type="button" class="social-button turnip-button"
+	        role="link"
+	        title={`mailto:${email}`}
 	        on:click={() => window.open(`mailto:${email}`)}>
 		<img src={MailIcon} alt="mail icon" />
 		{#if (!isSmallVersion)}
@@ -46,6 +51,8 @@
 	</button>
 	{#if (shouldShowExtra)}
 		<button type="button" class="social-button turnip-button"
+		        role="link"
+		        title="https://turnipxenon.itch.io/"
 		        on:click={() => window.open("https://turnipxenon.itch.io/")}>
 			<img src={ItchLogoHotLink} alt="itch icon">
 			{#if (!isSmallVersion)}

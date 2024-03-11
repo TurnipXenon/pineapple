@@ -9,48 +9,15 @@
 	import { AppBar, AppShell, autoModeWatcher, LightSwitch } from "@skeletonlabs/skeleton";
 	import RandomizedBackground from "$lib/components/RandomizedBackground.svelte";
 
-	// navigation
-	import { page } from "$app/stores";
 	// store
 	import { enableBackground } from "$lib/store";
-	import type { BreadcrumbData } from "$lib/types/BreadcrumbData";
 	// assets
 	import { enableDialogueOverlay } from "$lib/components/dialog_manager/DialogManagerStore";
-	import DialogOverlay from "$lib/components/DialogOverlay.svelte";
 	import { writable } from "svelte/store";
 	import { fly } from "svelte/transition";
 	// todo: clean up all these imports!
 
-	export let shouldDisplayLeadingIcons: boolean = false;
-	let pages: BreadcrumbData[] = [];
-
-	const updateBreadcrumb = (pathname: string) => {
-		pages = [];
-		let basePath = "";
-		pathname.split("/").forEach((value, index) => {
-			if (index === 0) {
-				basePath = "/";
-				pages.push({
-					path: "/",
-					name: "Home"
-				});
-				return;
-			}
-
-			if (value === "") {
-				return;
-			}
-
-			basePath += value + "/";
-			pages.push({
-				path: basePath,
-				name: value
-			});
-		});
-		pages = pages;
-	};
-
-	$: updateBreadcrumb($page.url.pathname); // run every time we navigate
+	export let shouldDisplayLeadingIcons = false;
 
 	let enableBackgroundValue = true;
 	enableBackground.subscribe((value) => {
@@ -106,11 +73,8 @@
 		<slot shouldDisplaySocialIcons={shouldDisplaySocialIcons} />
 		<div class="footer-space" />
 	</div>
-	<DialogOverlay />
-	<!--{:else}-->
-	<!--	<DialogOverlay/>-->
-	<!--	<slot/>-->
-	<!--{/if}-->
+	<!-- todo: eventually re-add	-->
+	<!--	<DialogOverlay />-->
 </AppShell>
 
 <style lang="postcss">
@@ -130,37 +94,6 @@
     .lead-slot-placeholder {
         height: 3em;
         margin-inline-end: 0.5em;
-    }
-
-    /* breadcrumb does not work due to a lot of magic stuff i do
-       the code below is from skeleton's tailwind css:
-       https://github.com/skeletonlabs/skeleton/blob/54f4ecedabf2be6d94a670b56dc8821095ca3fc9/packages/plugin/src/styles/components/breadcrumbs.css
-
-       it likely disappeared due to code gen shenanigans and package magic */
-    .breadcrumb,
-    .breadcrumb-nonresponsive {
-        @apply flex items-center space-x-4 w-full overflow-x-auto;
-        /*@apply flex items-center space-x-4 w-full hide-scrollbar overflow-x-auto;*/
-    }
-
-    .crumb {
-        @apply flex justify-center items-center space-x-2;
-    }
-
-    .crumb-separator {
-        @apply flex text-surface-700-200-token opacity-50;
-    }
-
-    /* === Auto-Responsive === */
-
-    .breadcrumb li {
-        @apply hidden md:block;
-    }
-
-    .breadcrumb li:nth-last-child(3),
-    .breadcrumb li:nth-last-child(2),
-    .breadcrumb li:nth-last-child(1) {
-        @apply block;
     }
 
     /*todo: consider left handedness or customizability*/

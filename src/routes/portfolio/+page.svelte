@@ -1,11 +1,8 @@
-<!--todo: probably add a timer that auto scrolls the carousel-->
-<!--todo: highlight current item visible-->
-
 <script lang="ts">
-	import type { Writable } from "svelte/store";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
 	import { Accordion, AccordionItem, getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
 	import { ItchLogoHotLink } from "$lib/consts";
+	import { page } from "$app/stores";
 
 	import HeaderPengi from "$lib/assets/temp/header-pengi.mp4";
 	import HeaderSoulwork from "$lib/assets/temp/header-soulwork.mp4";
@@ -16,23 +13,24 @@
 	import BitbucketIcon from "$lib/assets/icons/bitbucket-icon.svg";
 	import LinkIcon from "$lib/assets/icons/link-icon.svg";
 	import WeaverFootage from "$lib/assets/others/weaver-footage.gif";
+	import WindowSetGraph from "$lib/assets/others/window-set.png";
+	import ThisWebsiteFootage from "$lib/assets/others/weaver-footage.gif";
+	import WebThumbnailImage from "$lib/assets/placeholder/placeholder_circle.png";
 	import SocialSection from "./SocialSection.svelte";
-	import type { PageData } from "./+page.server";
 	import Card from "$pkg/components/Card.svelte";
+	import Chip from "$pkg/components/Chip.svelte";
+	import { onMount } from "svelte";
 
-	export let shouldDisplaySocialIcons: Writable<boolean>;
-
-	export let data: PageData;
-	console.log(`Page data message ${data.itchMeta}`);
 	const modalStore = getModalStore();
 	let isVisible = true;
 
 	$: isSocialsGone = !isVisible;
 
 	/* todo: modifiable attributes */
-	const name = "Turnip";
-	const email = "turnipxenon@gmail.com";
-	const linkedinSlug = "turnip-xenon";
+	export let name = "Turnip";
+	export let email = "turnipxenon@gmail.com";
+	export let linkedinSlug = "turnip-xenon";
+	export let metaWebsite = "https://www.crouton.com/test/portfolio-base-layout";
 
 	const chefWingsWarning: ModalSettings = {
 		type: "confirm",
@@ -62,11 +60,60 @@
 			}
 		}
 	};
+
+	let qtfontWeight = "normal";
+	let additionalFontWeight = "";
+	/** qt values and what they mean:
+	 *  undefined: set all qt terms to font-weight: bold
+	 *  clear: unset all terms to font-weight: normal
+	 *  <term>: only set qt-<term> to bold
+	 *  <term1>,<term2>: only set qt-<term1> and qt-<term2> to bold,
+	 **/
+	const filterSearchParams = (searchParams: URLSearchParams) => {
+		if (document === undefined) {
+			return;
+		}
+
+		const qtValue = searchParams.get("qt")?.trim();
+		if (qtValue === undefined) {
+			qtfontWeight = "bold";
+			return;
+		}
+		qtfontWeight = "normal";
+		const dynamicStyle = qtValue.split(",").map((term) => {
+			return `span.qt-${term} { font-weight: bold !important; }`;
+		}).join("\n");
+
+		// from https://stackoverflow.com/a/1720483/17836168
+
+		// https://stackoverflow.com/a/24285947/17836168
+		const style = document.createElement("style");
+		style.type = "text/css";
+		style.innerText = dynamicStyle;
+		document.head.appendChild(style);
+		console.log(dynamicStyle);
+	};
+
+	onMount(() => {
+		if ($page.url.searchParams) {
+			filterSearchParams($page.url.searchParams);
+		}
+	});
 </script>
+
+<svelte:head>
+	<meta charset="utf-8" />
+	<title>Welcome to my portfolio</title>
+	<meta name="twitter:card" content="summary" />
+	<meta property="og:url" content={metaWebsite} />
+	<meta property="og:title" content={name} />
+	<meta property="og:description" content={`Welcome to ${name}'s portfolio website`} />
+	<meta property="og:image" content={WebThumbnailImage} />
+</svelte:head>
 
 <SeaweedBaseLayout bind:shouldDisplayLeadingIcons={isSocialsGone}>
 	<!-- todo: limit main size to 1080 px? -->
-	<main>
+	<main style={`--qt-font-weight: ${qtfontWeight};${additionalFontWeight}`}>
 
 		<div class="experience-and-about-div">
 
@@ -115,18 +162,17 @@
 						<div style="text-align: end">Twitch, Remote</div>
 					</div>
 					<ul>
-						<li>Contributed to Golang and Typescript codebases, across several teams, to accommodate adjustments
-							for
-							public-facing user safety related features, in preparation for complying with EU’s
-							<a target="_blank"
-							   href="https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/europe-fit-digital-age/digital-services-act/europe-fit-digital-age-new-online-rules-platforms_en">Digital
-								Services</a>
-							Act, also including feature flags, alarms, unit tests, end-to-end testing, and documentation
+						<li>Contributed to <span class="qt-go">Golang</span> and <span class="qt-ts">Typescript</span> codebases,
+							across several teams, to accommodate adjustments for public-facing user safety related features, in
+							preparation for complying with EU’s <a target="_blank"
+							                                       href="https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/europe-fit-digital-age/digital-services-act/europe-fit-digital-age-new-online-rules-platforms_en">
+								Digital Services Act</a>, also including feature flags, alarms, unit tests, end-to-end testing, and
+							documentation
 						</li>
-						<li>Improved observability for upcoming features by setting up new AWS resources to integrate
-							internal
-							data platform tools with existing alarms in our team’s microservice, utilizing Cloudwatch and
-							Kinesis Data Stream, while adhering to best practices for AWS CDK (infrastructure as code)
+						<li>Improved observability for upcoming features by setting up new <span class="qt-aws qt-infra">AWS</span>
+							resources to integrate internal data platform tools with existing alarms in our team’s microservice,
+							utilizing <span class="qt-aws qt-infra">Cloudwatch</span> and <span class="qt-aws qt-infra">Kinesis Data Stream</span>,
+							while adhering to best practices for <span class="qt-aws qt-infra">AWS CDK</span> (infrastructure as code)
 						</li>
 					</ul>
 					<br>
@@ -138,25 +184,20 @@
 					</div>
 					<ul>
 						<li>
-							Built a load testing service that can be configured to generate different message types at
-							different
-							volumes
-							that can be easily extended to target different chat services
+							Built a <span class="qt-infra">load testing service</span> that can be configured to generate different
+							message types at different volumes that can be easily extended to target different chat services
 						</li>
 						<li>
 							Used Twitch’s set of custom tools, including Twitch’s custom RPC protocol, to create a backend
-							service with
-							business logic written in Go and cloud infrastructure utilizing ECS on Fargate, Cloudwatch, and
-							DynamoDB,
-							defined in Typescript-flavored CDK
+							service with business logic written in <span class="qt-go">Go</span> and cloud infrastructure utilizing
+							<span
+								class="qt-infra qt-aws">ECS on Fargate, Cloudwatch, and DynamoDB</span>
+							, defined in <span class="qt-ts">Typescript</span>-flavored CDK
 						</li>
 						<li>
 							Wrote a technical specification document for the service’s MVP and possible future features, and
-							additional
-							documentation on how to use the service and how to extend the load testing service to include
-							new
-							services
-							to test
+							additional documentation on how to use the service and how to extend the load testing service to include
+							new services to test
 						</li>
 					</ul>
 					<br>
@@ -176,14 +217,12 @@
 									<ul>
 										<li>
 											Implemented and wrote tests for a feature in Twitch’s backend authentication
-											systems
-											and frontend web application that will help suggest security improvements to
-											over
-											hundreds of thousands of users daily
+											systems and frontend web application that will help suggest security improvements to
+											over hundreds of thousands of users daily
 										</li>
 										<li>
-											Learned Go, Typescript, React, and other new technologies on the go to
-											contribute to
+											Learned <span class="qt-go">Go</span>, <span class="qt-ts">Typescript</span>, <span
+											class="qt-react">React</span>, and other new technologies on the go to contribute to
 											the codebase
 										</li>
 									</ul>
@@ -223,18 +262,22 @@
 						</blockquote>
 
 						<p>
-							Pengi is a text-based adventure made in Unity. I acted as the sole programmer for the
-							team. Most of the work revolves around UI and creating <a
+							Pengi is a text-based adventure made in <span class="qt-unity">Unity</span>. I acted as the sole
+							programmer for the team. Most of the work revolves around UI and creating <a
 							href="https://yarnspinner.dev/" target="_blank">YarnSpinner</a> commands for writers
 							to use to create expressive stage directions in the script.
 						</p>
 
 						<section class="game-link-section">
 							<button type="button" class="game-button turnip-button"
+							        role="link"
+							        title="https://github.com/GreenTea-M/ProjectPengi"
 							        on:click={()=> window.open("https://github.com/GreenTea-M/ProjectPengi")}>
 								<img alt="github icon" src={GithubIcon}>
 							</button>
 							<button type="button" class="game-button turnip-button"
+							        role="link"
+							        title="https://turnipxenon.itch.io/pengi"
 							        on:click={()=> window.open("https://turnipxenon.itch.io/pengi")}>
 								<img alt="itch.io icon" src={ItchLogoHotLink}>
 							</button>
@@ -266,19 +309,24 @@
 
 						<p>
 							Hep Cat is a rhythm game made in <a
-							href="https://www.rpgmakerweb.com/products/programs/rpg-maker-mv" target="_blank">
-							RPG Maker MV</a> with the help of additional custom-made
-							Javascript plugins. I wrote the rhythm game plugin's framework. For this plugin to work, I
-							had to write a Python script that parses osu! files into readable JSON files.
+							href="https://www.rpgmakerweb.com/products/programs/rpg-maker-mv" target="_blank" class="qt-rpgmaker">
+							RPG Maker MV</a> with the help of additional custom-made <span class="qt-js">Javascript</span> plugins. I
+							wrote the rhythm game plugin's framework. For this plugin to work, I
+							had to write a <span class="qt-python">Python</span> script that parses osu! files into readable JSON
+							files.
 						</p>
 
 
 						<section class="game-link-section">
 							<button type="button" class="game-button turnip-button"
+							        role="link"
+							        title="https://bitbucket.org/egginchicken/hep-cat/src/master/"
 							        on:click={()=> window.open("https://bitbucket.org/egginchicken/hep-cat/src/master/")}>
 								<img alt="bitbucket icon" src={BitbucketIcon}>
 							</button>
 							<button type="button" class="game-button turnip-button"
+							        role="link"
+							        title="https://just-a-phantom.itch.io/hep-cat"
 							        on:click={()=> window.open("https://just-a-phantom.itch.io/hep-cat")}>
 								<img alt="itch.io icon" src={ItchLogoHotLink}>
 							</button>
@@ -299,13 +347,14 @@
 						</p>
 						<p>
 							I built and documented several of the game’s systems including the game state management
-							system that extends Unity’s existing Monobehavior lifecycle with new events, and the
-							dialogue, event, and level systems that coordinate the game flow using the interactive
+							system that extends <span class="qt-unity">Unity’s</span> existing Monobehavior lifecycle with new events,
+							and the dialogue, event, and level systems that coordinate the game flow using the interactive
 							dialogue tool YarnSpinner
 						</p>
 
 						<section class="game-link-section">
 							<button type="button" class="game-button turnip-button"
+							        title="https://selk.io/birb-project/trunk/"
 							        on:click={()=>modalStore.trigger(chefWingsWarning)}>
 								<img alt="itch.io icon" src={LinkIcon}>
 								<span>selk.io/birb-project/trunk/</span>
@@ -330,18 +379,21 @@
 						</p>
 						<p>
 							I helped make the level designing tools used by the designers to drag-and-drop objects
-							on
-							the stage. I also helped program the unique physics-based gameplay mechanic. This was
-							written using C#.
+							on the stage. I also helped program the unique physics-based gameplay mechanic. This was
+							was made in <span class="qt-unity">Unity</span> written using <span class="qt-cs">C#</span>.
 						</p>
 
 
 						<section class="game-link-section">
 							<button type="button" class="game-button turnip-button"
+							        role="link"
+							        title="https://github.com/Zeyu-Li/Clockwork"
 							        on:click={()=> window.open("https://github.com/Zeyu-Li/Clockwork")}>
 								<img alt="github icon" src={GithubIcon}>
 							</button>
 							<button type="button" class="game-button turnip-button"
+							        role="link"
+							        title="https://itch.io/jam/time-to-game-jam-gadec-fall-game-jam/rate/514331"
 							        on:click={()=> window.open("https://itch.io/jam/time-to-game-jam-gadec-fall-game-jam/rate/514331")}>
 								<img alt="itch.io icon" src={ItchLogoHotLink}>
 							</button>
@@ -355,6 +407,8 @@
 
 					<section class="game-link-section">
 						<button type="button" class="btn variant-filled-primary turnip-button"
+						        role="link"
+						        title="https://turnipxenon.itch.io/"
 						        on:click={() => window.open("https://turnipxenon.itch.io/")}>
 							<img src={ItchLogoHotLink} class="long-btn-image" alt="itch icon">
 							<span>TurnipXenon</span>
@@ -376,7 +430,7 @@
 				<section class="project-card" slot="content">
 					<iframe id="migrante-alberta"
 					        width="560" height="315" src="https://www.youtube.com/embed/ZemWwf8jh8E?si=RZwSfYHI-0Ael-RE"
-					        title="YouTube video player" frameborder="0"
+					        title="YouTube video player" style="border: none"
 					        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 					        allowfullscreen></iframe>
 					<div class="project-card-body">
@@ -386,6 +440,15 @@
 						<p>We developed a mobile-first cross-platform application to be used by the Canadian-based
 							Filipino non-profit advocacy group, Migrante Alberta, to help new immigrants navigate
 							through local services and events
+						</p>
+						<p>
+							<Chip>Flutter</Chip>
+							<Chip>Dart</Chip>
+							<Chip>Python</Chip>
+							<Chip>Django</Chip>
+							<Chip>Heroku</Chip>
+							<Chip>Android</Chip>
+							<Chip>Postgresql</Chip>
 						</p>
 						<!-- todo: add a way to ask what did i do via chat?  -->
 						<!--					<p>-->
@@ -403,6 +466,7 @@
 
 						<section class="game-link-section">
 							<button type="button" class="btn variant-filled-primary turnip-button"
+							        title="https://selk.io/birb-project/trunk/"
 							        on:click={() => modalStore.trigger(cmput401Info)}>
 								<img src={LinkIcon} class="long-btn-image" alt="itch icon">
 								<span>cmput401.ca</span>
@@ -419,8 +483,11 @@
 
 						<h2>Decentralized social media</h2>
 
-						<p>We made a full stack decentralized social media app made with React + Javascript for the client
-							code, Django + Python for the backend code, and Heroku for deployment. This project was made for
+						<p>We made a full stack decentralized social media app made with <span class="qt-react">React</span> +
+							<span class="qt-js">Javascript</span> for the client code, <span class="qt-django">Django</span> + <span
+								class="qt-python">Python</span> for the backend code, and <span class="qt-heroku">Heroku</span> for
+							deployment. This project was made
+							for
 							our Web Applications and Architecture class.</p>
 						<p>The application can connect with three other decentralized social media app in the same class:
 						</p>
@@ -447,6 +514,8 @@
 
 						<section class="game-link-section">
 							<button type="button" class="game-button turnip-button"
+							        role="link"
+							        title="https://github.com/hgshah/cmput404-project"
 							        on:click={() => window.open("https://github.com/hgshah/cmput404-project")}>
 								<img src={GithubIcon} alt="github icon">
 							</button>
@@ -463,14 +532,15 @@
 					<div class="project-card-body">
 						<h2>Customized Yarnspinner interpreter and dialog runner</h2>
 
-						A custom dialog interpreter, written in Typescript, that tokenizes then transpiles custom
-						Yarnspinner dialog
-						into a Typescript file. The said files can be used on a corresponding runner or library, also
-						implemented alongside it, allowing the ability to play a custom-flavor of YarnSpinner dialogs on
-						Svelte.
+						A custom dialog interpreter, written in <span class="qt-ts">Typescript</span>, that tokenizes then
+						transpiles custom Yarnspinner dialog into a <span class="qt-ts">Typescript</span> file. The said files can
+						be used on a corresponding runner or library, also implemented alongside it, allowing the ability to play a
+						custom-flavor of YarnSpinner dialogs on <span class="qt-svelte">Svelte</span>.
 
 						<section class="game-link-section">
 							<button type="button" class="game-button turnip-button"
+							        role="link"
+							        title="https://github.com/TurnipXenon/pineapple/blob/main/docs/PineappleFiberSpec.md"
 							        on:click={() => window.open("https://github.com/TurnipXenon/pineapple/blob/main/docs/PineappleFiberSpec.md")}>
 								<img src={GithubIcon} alt="github icon">
 							</button>
@@ -482,7 +552,7 @@
 			<Card>
 				<section class="project-card" slot="content">
 					<div class="project-card-body">
-						<h2>Full-stack C app</h2>
+						<h2>Full-stack <span class="qt-c">C</span> app</h2>
 
 						<p>
 							A terminal-based app consisting of a server observing several terminal apps all concurrently
@@ -490,13 +560,90 @@
 							other terminal apps connected.
 						</p>
 						<p>
-							The project features multiprocessing programming featuring pthreads and mutexes, and networking
-							via sockets.
+							The project involves <span class="qt-foundation">multiprocessing</span> programming featuring pthreads and
+							mutexes, and <span class="qt-foundation">networking</span> via sockets.
 						</p>
 
 						<section class="game-link-section">
 							<button type="button" class="game-button turnip-button"
+							        role="link"
+							        title="https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment02/DESIGN.md"
 							        on:click={() => window.open("https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment02/DESIGN.md")}>
+								<img src={GithubIcon} class="long-btn-image" alt="github icon">
+							</button>
+						</section>
+					</div>
+				</section>
+			</Card>
+
+			<Card>
+				<section class="project-card" slot="content">
+					<img
+						alt="A graph that visualizes the number of memory pages made by Quicksort cached within the window set as
+						time goes by. The trend appears to look like a damping harmonic motion that does not go below the zero line. More
+						details include the data size being 200000 entries, each data point skips 1060174 data points, with a
+						page size of 4096 bytes, and window size of 100000 bytes."
+						src={WindowSetGraph} />
+					<div class="project-card-body">
+						<h2>Working set simulation</h2>
+
+						<p>
+							A <span class="qt-c">C</span> program that simulates the working set model based on the output of memory
+							addresses
+							<span class="qt-valgrind">valgrind</span> detects as being accessed by a program being ran. It's
+							implemented using a nested hashmap <span class="qt-foundation">data structure</span> implemented from
+							scratch. The working set is the collection of memory pages referenced by a program within a certain time
+							frame. It comes with a report analyzing and benchmarking how memory allocation, between sorting <span
+							class="qt-foundation">algorithms</span> heapsort, quicksort, and radixsort, is affected by the window set
+							size, page size, and their input size.
+						</p>
+
+						<section class="game-link-section">
+							<button type="button" class="game-button turnip-button"
+							        role="link"
+							        title="https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment03/REPORT.pdf"
+							        on:click={() => window.open("https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment03/REPORT.pdf")}>
+								<img src={GithubIcon} class="long-btn-image" alt="github icon">
+								<span>Benchmark report</span>
+							</button>
+							<button type="button" class="game-button turnip-button"
+							        role="link"
+							        title="https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment03/DESIGN.md"
+							        on:click={() => window.open("https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment03/DESIGN.md")}>
+								<img src={GithubIcon} class="long-btn-image" alt="github icon">
+								<span>Design</span>
+							</button>
+						</section>
+					</div>
+				</section>
+			</Card>
+
+			<Card>
+				<section class="project-card" slot="content">
+					<img alt="Clip showcasing this webpage handling resizing and toggling between dark mode and light mode"
+					     src={ThisWebsiteFootage} />
+					<div class="project-card-body">
+						<h2>This webpage!</h2>
+
+						<p>
+							The webpage is made of two parts. The webpage that has the content for everything here, I've
+							lovingly called Seaweed. I kept seaweed as a private package. On the other hand, the base package which I
+							want to use for all spin offs of my websites is called Pineapple and have kept that codebase public.
+						</p>
+
+						<p>
+							<Chip>Svelte</Chip>
+							<Chip>Skeleton (Svelte UI library)</Chip>
+							<Chip>Typescript</Chip>
+							<Chip>Vercel</Chip>
+							<Chip>YarnSpinner</Chip>
+						</p>
+
+						<section class="game-link-section">
+							<button type="button" class="btn variant-filled-primary turnip-button"
+							        role="link"
+							        title="https://github.com/TurnipXenon/pineapple"
+							        on:click={() => window.open("https://github.com/TurnipXenon/pineapple")}>
 								<img src={GithubIcon} class="long-btn-image" alt="github icon">
 							</button>
 						</section>
@@ -509,18 +656,22 @@
 					<div class="project-card-body">
 						<h2>Mock Uber App</h2>
 
-						<p>A course project app meant to emulate how Uber works.</p>
+						<p>A course project app meant to emulate how Uber works by playing with <span class="qt-google">Google Maps API</span>.
+						</p>
 						<p>
-							I implemented all interfaces related to the NoSQL cloud database Firebase, making writing code
-							easier for other programmers (Android / Java). I also wrote documentation to said code and added
-							instrumented tests that are tested by the continuous integration tool Travis CI, ensuring that
-							the code I write is tested
+							I implemented all interfaces related to the NoSQL cloud database <span
+							class="qt-firebase qt-google qt-infra">Firebase</span>, making writing code easier for other programmers (<span
+							class="qt-android">Android</span> / <span class="qt-java">Java</span>). I also wrote documentation to said
+							code and added instrumented tests that are tested by the continuous integration tool <span
+							class="qt-infra">Travis CI</span>, ensuring that our code is tested
 						</p>
 
 						<section class="game-link-section">
 							<!-- todo: mock uber app find link -->
 							<button type="button" class="game-button turnip-button"
-							        on:click={() => window.open("https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment02/DESIGN.md")}>
+							        role="link"
+							        title="https://github.com/CMPUT301W20T10/UberApp"
+							        on:click={() => window.open("https://github.com/CMPUT301W20T10/UberApp")}>
 								<img src={GithubIcon} class="long-btn-image" alt="github icon">
 							</button>
 						</section>
@@ -528,51 +679,6 @@
 				</section>
 			</Card>
 
-			<Card>
-				<section class="project-card" slot="content">
-					<div class="project-card-body">
-						<h2>Working set simulation</h2>
-
-						<p>
-							A C program that simulates the working set model based on the output of memory addresses
-							valgrind detects as being accessed by a program being ran. The working set is the collection
-							of memory pages referenced by a program within a certain time frame. It comes with a report
-							analyzing how the window set sizes vary between popular sorting algorithms being used on big
-							datasets.
-						</p>
-
-						<section class="game-link-section">
-							<!-- todo: mock uber app find link -->
-							<button type="button" class="game-button turnip-button"
-							        on:click={() => window.open("https://github.com/TurnipXenon/C380-1Code/blob/main/Assignment02/DESIGN.md")}>
-								<img src={GithubIcon} class="long-btn-image" alt="github icon">
-							</button>
-						</section>
-					</div>
-				</section>
-			</Card>
-
-			<Card>
-				<section class="project-card" slot="content">
-					<div class="project-card-body">
-						<h2>This webpage!</h2>
-
-						<p>
-							The webpage is made of two parts. The webpage that has the content for everything here, I've
-							lovingly called Seaweed. I kept seaweed as a private package. On the other hand, the base package which I
-							want to use for all spin offs of my websites is called Pineapple and have kept that codebase public.
-						</p>
-
-						<section class="game-link-section">
-							<button type="button" class="btn variant-filled-primary turnip-button"
-							        on:click={() => window.open("https://github.com/TurnipXenon/pineapple")}>
-								<img src={GithubIcon} class="long-btn-image" alt="github icon">
-								<span>Pineapple</span>
-							</button>
-						</section>
-					</div>
-				</section>
-			</Card>
 		</section>
 
 	</main>
@@ -709,5 +815,9 @@
 
     .title-card {
         width: clamp(360px, 80vw, 800px);
+    }
+
+    [class*='qt-'] {
+        font-weight: var(--qt-font-weight);
     }
 </style>
