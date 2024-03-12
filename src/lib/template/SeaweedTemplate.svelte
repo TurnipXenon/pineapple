@@ -1,4 +1,6 @@
 <script lang="ts">
+	import SocialSection from "$pkg/components/SocialSection.svelte";
+
 	export let letChaos = true;
 	export let name = "Turnip";
 	export let email = "turnipxenon@gmail.com";
@@ -8,7 +10,6 @@
 	import { Accordion, AccordionItem, getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
 	import { ItchLogoHotLink } from "$pkg/consts";
 	import { page } from "$app/stores";
-	import SocialSection from "../../routes/portfolio/SocialSection.svelte";
 	import Card from "$pkg/components/Card.svelte";
 	import Chip from "$pkg/components/Chip.svelte";
 	import { onMount } from "svelte";
