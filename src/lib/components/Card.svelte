@@ -11,14 +11,15 @@
 	`;
 </script>
 
-<div class="card" style={style}>
+<div class="card turnip-card" style={style}>
 	<slot name="content" class="card" />
 </div>
 
 <style lang="postcss">
-    .card {
+    .turnip-card {
 		    @apply bg-surface-100 dark:bg-surface-900;
         margin: var(--turnip-card-margin);
         margin-bottom: var(--turnip-card-margin-bottom);
+		    border-radius: var(--theme-rounded-container);
     }
 </style>
