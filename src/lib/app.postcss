@@ -1,13 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+/* (all other styles below) */
+
 /*place global styles here */
 :root {
-	--default-card-max-width: calc(4rem + 4rem + 40rem);
+    --default-card-max-width: calc(4rem + 4rem + 40rem);
 }
 
-html,
-body {
-	@apply h-full overflow-hidden;
-	@apply bg-surface-400-500-token;
-	background-color: transparent;
+html, body {
+    @apply h-full overflow-hidden;
+    @apply bg-surface-400 dark:bg-surface-800;
+    background-color: transparent;
+}
+
+/* font color */
+html, body {
+    color: rgb(var(--theme-font-color-base));
+}
+
+.accordion-panel {
+    color: rgb(var(--color-primary-1000));
+}
+
+.dark body,
+.dark .variant-filled-primary,
+.dark .turnip-button,
+.dark .turnip-button > span,
+.dark .accordion-panel,
+.dark button.accordion-control,
+.chip, .dark .chip {
+    color: rgb(var(--theme-font-color-dark));
+}
+
+.turnip-button, .turnip-button > span, button.accordion-control {
+    font-weight: bold;
+    color: rgb(var(--theme-font-color-base));
+}
+
+/* todo: add some hues to the icon that should be in sync with primary and make them not pure darkness */
+.turnip-button > img {
+    filter: grayscale(100%) brightness(0%) invert(25%);
+}
+
+.dark .turnip-button > img {
+    filter: grayscale(100%) brightness(0%) invert(100%);
 }
 
 /*
@@ -23,72 +62,92 @@ body {
 }
 */
 
-.card {
-	--tw-ring-offset-color: rgb(var(--color-text-300));
-	--tw-ring-offset-width: var(--theme-border-base);
-}
-
-.dark .card {
-	--tw-ring-offset-color: rgb(var(--color-text-600));
-}
 
 .variant-ghost-primary {
-	background-color: rgb(var(--color-primary-500) / 0.8);
+    background-color: rgb(var(--color-primary-500) / 0.8);
 }
 
 .dark .variant-ghost-primary {
-	background-color: rgb(var(--color-primary-400) / 0.8);
+    background-color: rgb(var(--color-primary-400) / 0.8);
 }
 
 .default-card {
-	@apply variant-ghost-primary text-center p-16;
-	text-align: start;
-	padding-inline-end: clamp(0rem, 10vw, 8rem);
-	max-width: var(--default-card-max-width);
+    @apply variant-ghost-primary text-center p-16;
+    text-align: start;
+    padding-inline-end: clamp(0rem, 10vw, 8rem);
+    max-width: var(--default-card-max-width);
 }
 
 h1,
 h2,
 p {
-	margin-bottom: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 ul {
-	list-style-type: circle;
-	padding-left: 1em;
-}
-
-a:not(.unstyled):not(.permalink):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(
-		a.card
-	):not(.list-nav a) {
-	color: rgb(var(--color-secondary-500) / var(--tw-text-opacity));
-}
-
-.dark
-	a:not(.unstyled):not(.permalink):is(:not(.prose *)):not(.btn):not(.btn-icon):not(.app-bar a):not(.logo-item):not(
-		a.card
-	):not(.list-nav a) {
-	color: rgb(var(--color-secondary-700) / var(--tw-text-opacity));
+    list-style-type: circle;
+    padding-left: 1em;
 }
 
 .default-page-container {
-	@apply flex justify-center items-center;
-	margin-top: 4em;
-	margin-left: clamp(1em, 15vw, 10em);
-	margin-right: 1em;
-	flex-direction: column;
-	z-index: 0;
+    @apply flex justify-center items-center;
+    margin-top: 4em;
+    margin-left: clamp(1em, 15vw, 10em);
+    margin-right: 1em;
+    flex-direction: column;
+    z-index: 0;
 }
 
 .footer-space {
-	width: 100%;
-	height: calc(var(--dialog-box-height) + 4em);
+    width: 100%;
+    height: calc(var(--dialog-box-height) + 4em);
 }
 
 a.dialog-choice {
-    cursor: url("$lib/assets/icons/chat_cursor.svg"), auto;
+    cursor: url("$lib/assets/icons/chat-cursor.svg"), auto;
 }
 
 a.external-link {
-    cursor: url("$lib/assets/icons/external_link.svg"), auto;
+    cursor: url("$lib/assets/icons/external-link.svg"), auto;
+}
+
+blockquote {
+    font-style: italic;
+    opacity: 60%;
+    font-weight: bold;
+}
+
+/* todo: add --tw-text-opacity division to add ambience based on bg better */
+a {
+    text-decoration: underline;
+    color: rgb(var(--color-secondary-500));
+}
+
+a:hover, a:hover:visited {
+    color: rgb(var(--color-secondary-400));
+}
+
+a:visited {
+    color: rgb(var(--color-secondary-800));
+}
+
+a:active {
+    color: rgb(var(--color-secondary-350));
+}
+
+.dark a {
+    text-decoration: underline;
+    color: rgb(var(--color-secondary-300));
+}
+
+.dark a:hover, .dark a:hover:visited {
+    color: rgb(var(--color-secondary-200));
+}
+
+.dark a:visited {
+    color: rgb(var(--color-secondary-350));
+}
+
+.dark a:active {
+    color: rgb(var(--color-secondary-100));
 }

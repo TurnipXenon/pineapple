@@ -1,8 +1,11 @@
-import adapter from "@sveltejs/adapter-auto";
-import { vitePreprocess } from "@sveltejs/kit/vite";
+// warning: you might to change away from adapter-vercel if you plan to use anything outside of vercel
+// there's an auto-adapter which can replace the import below
+// import adapter from "@sveltejs/adapter-auto";
+import adapter from "@sveltejs/adapter-vercel";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import path from "path";
 
-/** @type {import('@sveltejs/kit').Config} */
+/** @type {import("@sveltejs/kit").Config} */
 const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors

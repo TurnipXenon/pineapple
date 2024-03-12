@@ -1,4 +1,4 @@
-export { default as PineappleLayoutBase } from "./components/PineappleBaseLayout.svelte";
+export { default as PineappleLayoutBase } from "./components/layouts/PineappleBaseLayout.svelte";
 export { default as LazyAsset } from "./components/LazyAsset.svelte";
 
 export * from "./components/dialog_manager/DialogManagerStore";

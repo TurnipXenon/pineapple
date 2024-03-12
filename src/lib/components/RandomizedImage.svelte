@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let src: URL;
+	import { modeCurrent } from "@skeletonlabs/skeleton";
+
+	export let src: string;
 	export let rng: () => number;
 	let rotateRandom = rng() * 90 - 45;
 
@@ -11,21 +13,28 @@
 <div
 	style="--paddingTop: {paddingTop}rem;
         --paddingLeft: {paddingLeft}rem;
-        --paddingRight: {paddingRight}rem;"
->
-	<img {src} aria-hidden="true" style="--rotateRandom:{rotateRandom}deg;" alt="" />
+        --paddingRight: {paddingRight}rem;">
+	<img {src} class="randomized-image-style"
+	     aria-hidden="true"
+	     style="--rotateRandom:{rotateRandom}deg;"
+	     alt=""
+	     class:darkMode={modeCurrent} />
 </div>
 
 <style>
-	div {
-		padding-top: var(--paddingTop);
-		padding-left: var(--paddingLeft);
-		padding-right: var(--paddingRight);
-	}
+    div {
+        padding-top: var(--paddingTop);
+        padding-left: var(--paddingLeft);
+        padding-right: var(--paddingRight);
+    }
 
-	img {
-		width: 8rem;
-		height: 8rem;
-		transform: rotate(var(--rotateRandom));
-	}
+    img {
+        width: 8rem;
+        height: 8rem;
+        transform: rotate(var(--rotateRandom));
+    }
+
+    .darkMode {
+        filter: brightness(50%);
+    }
 </style>

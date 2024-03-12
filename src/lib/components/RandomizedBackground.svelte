@@ -33,8 +33,7 @@
 		return array;
 	};
 
-	let generatedImageList = [];
-	let component;
+	let generatedImageList: string[] = [];
 
 	for (let i = 0; i < 20; i++) {
 		shuffle(imageList);
@@ -54,6 +53,7 @@
 	/>
 </svelte:head>
 
+<!--todo: add a letterbox beyond 1960px + 16 rem-->
 {#if enable}
 	<div class="default-background" aria-hidden="true">
 		{#each generatedImageList as imageItem}
@@ -66,9 +66,11 @@
     .default-background {
         position: fixed;
         display: flex;
-        margin-top: -8rem;
-        margin-left: -8rem;
+        top: -8rem;
+        left: 50%;
+        transform: translate(-50%, 0);
         width: calc(100vw + 16rem);
+        max-width: 1960px;
         height: calc(100vh + 16rem);
         flex-wrap: wrap;
         overflow: hidden;

@@ -1,23 +1,19 @@
 <script lang="ts">
-	import PinyaBaseLayout from "$lib/components/PineappleBaseLayout.svelte";
-	import { PUBLIC_CRINGE_USERNAME } from "$env/static/public";
+	// The ordering of these imports is critical to your app working properly
+	import "$lib/theme.postcss";
+	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
+	// import "@skeletonlabs/skeleton/styles/all.css";
+	// Most of your app wide CSS should be put in this file
+	import "$lib/app.postcss";
+
+
+	import { initializeStores } from "@skeletonlabs/skeleton";
+	import { Modal } from "@skeletonlabs/skeleton";
+	import "$lib/styles/global.css";
+
+	initializeStores();
 </script>
 
-<svelte:head>
-	<title>{PUBLIC_CRINGE_USERNAME}</title>
-	<meta content="summary" name="Turnip time!" />
-	<meta content="@{PUBLIC_CRINGE_USERNAME}" name="twitter:site" />
-	<meta content="@{PUBLIC_CRINGE_USERNAME}" name="twitter:creator" />
-	<meta content="https://www.{PUBLIC_CRINGE_USERNAME}.com/" name="og:url" />
-	<meta content="{PUBLIC_CRINGE_USERNAME} | Home" name="og:title" />
-	<meta
-		content="I have no idea! Anyway... Hi! I don't know what I'm doing! Also check out my games!"
-		name="og:description"
-	/>
-	<meta content="https://www.{PUBLIC_CRINGE_USERNAME}.com/default-card.png" property="og:image" />
-</svelte:head>
+<Modal />
 
-<PinyaBaseLayout>
-	<slot />
-</PinyaBaseLayout>
-
+<slot />

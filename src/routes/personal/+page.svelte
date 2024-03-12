@@ -1,8 +1,5 @@
 <script>
     import {PUBLIC_CRINGE_USERNAME} from "$env/static/public";
-
-    import {createGoToFunction} from "$lib/util/create_go_to_function";
-    import PineappleBaseLayout from "$lib/components/layouts/PineappleBaseLayout.svelte";
 </script>
 
 <svelte:head>
@@ -14,16 +11,18 @@
 	/>
 </svelte:head>
 
-<PineappleBaseLayout>
-	<div class="card default-card">
+<div class="card default-card">
+
 		<h1 class="mb-8">Directory</h1>
 
 		<div class="btn-group-vertical variant-filled-secondary">
-			<button on:click={createGoToFunction("personal")}><h2>Personal</h2></button>
-			<button on:click={createGoToFunction("portfolio")}><h2>Portfolio</h2></button>
+			<button onclick="location.href='/about'"><h2>About</h2></button>
+			<button onclick="location.href='/socials'"><h2>Socials</h2></button>
+			<button onclick="location.href='/game-dev'"><h2>Game development</h2></button>
+			<button onclick="location.href='/blogs'"><h2>Blogs</h2></button>
+			<button onclick="location.href='/misc'"><h2>Miscellaneous</h2></button>
 		</div>
-	</div>
-</PineappleBaseLayout>
+</div>
 
 <style lang="postcss">
     .btn-group-vertical button {
