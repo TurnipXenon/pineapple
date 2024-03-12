@@ -1,9 +1,9 @@
 <script lang="ts">
+	export let letChaos = true;
 	export let name = "Turnip";
 	export let email = "turnipxenon@gmail.com";
 	export let linkedinSlug = "turnip-xenon";
 	export let metaWebsite = "https://www.crouton.com/test/portfolio-base-layout";
-	export let letChaos = true;
 
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
 	import { Accordion, AccordionItem, getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
@@ -26,11 +26,9 @@
 	import WindowSetGraph from "$pkg/assets/others/window-set.png";
 	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
-	import { ToggleableContentType } from "$pkg/components/ToggleableContentType";
 
 	const modalStore = getModalStore();
 	let isVisible = true;
-	let mainParent: HTMLElement;
 
 	$: isSocialsGone = !isVisible;
 
@@ -126,10 +124,6 @@
 					} else {
 						child.setAttribute("src", "https://video.twimg.com/ext_tw_video/1318728494256410624/pu/vid/640x360/TMklz6hiTkQu3xhn.mp4");
 						child.setAttribute("muted", "true");
-
-						if (child.tagName.trim() === "IFRAME") {
-							child.style.autoplay = false;
-						}
 					}
 				}
 				if (child.tagName.trim() === "VIDEO") {
@@ -501,7 +495,6 @@
 					<iframe id="migrante-alberta"
 					        width="560" height="315" src="https://www.youtube.com/embed/ZemWwf8jh8E?si=RZwSfYHI-0Ael-RE"
 					        title="YouTube video player" style="border: none"
-					        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 					        allowfullscreen></iframe>
 					<div class="project-card-body">
 						<!-- todo: add regression to see if page is gone: https://cmput401.ca/api/projects/e5b13586-09c7-4ddd-baf6-fdb078d23398 -->
