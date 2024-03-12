@@ -57,18 +57,16 @@
   "resolutions": {
     "string-width": "4.2.3"
   },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./lib/index.ts",
+  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "svelte": "./dist/index.js"
+      "types": "./lib/index.d.ts",
+      "svelte": "./lib/index.ts"
     }
   },
   "files": [
-    "./src",
-    "./static",
-    "./dist"
+    "./src"
   ],
   "repository": "https://github.com/TurnipXenon/pineapple",
   "author": "turnipxenon <turnipxenon@gmail.com>",
