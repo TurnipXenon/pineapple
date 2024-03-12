@@ -1,4 +1,5 @@
 export { default as PineappleLayoutBase } from "./components/layouts/PineappleBaseLayout.svelte";
+export { default as SeaweedTemplate } from "./template/SeaweedTemplate";
 export { default as LazyAsset } from "./components/LazyAsset.svelte";
 
 export * from "./components/dialog_manager/DialogManagerStore";
