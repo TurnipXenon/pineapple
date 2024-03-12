@@ -1,6 +1,4 @@
 <script lang="ts">
-	import ToggleableContent from "$pkg/components/ToggleableContent.svelte";
-
 	export let name = "Turnip";
 	export let email = "turnipxenon@gmail.com";
 	export let linkedinSlug = "turnip-xenon";
@@ -99,13 +97,11 @@
 	};
 
 	const chaoticWordBank = ["niko", "toba", "seal", "aquarium", "ojisan", "baikal"];
+	let chaosDone = false;
 	const runChaos = (node: Element) => {
+		// change all text content to gibberish
 		for (let child of Array.from(node.children)) {
-			console.log(child, child.nodeName);
-			// (child.textContent)
-			if (child.nodeType === Node.TEXT_NODE) {
-				child.innerHTML = "testing";
-			} else if (child.nodeType === Node.ELEMENT_NODE) {
+			if (child.nodeType === Node.ELEMENT_NODE) {
 				runChaos(child);
 				for (const childOfChild of child.childNodes) {
 					if (childOfChild.nodeType === Node.TEXT_NODE && childOfChild.textContent?.trim()) {
@@ -115,23 +111,46 @@
 							childOfChild.textContent += (chaoticWordBank[Math.floor(Math.random() * chaoticWordBank.length)] + " ");
 						}
 					}
-					// runChaos(childOfChild);
+				}
 
+				// change all links to crouton
+				if (child.hasAttribute("href")) {
+					child.setAttribute("href", "https://crouton.net/");
+				}
+
+				// change all images to niko if aria != hidden?
+				if (child.hasAttribute("src") && !child.hasAttribute("aria-hidden")) {
+					console.log(child)
+					if (child.hasAttribute("alt")) {
+						child.setAttribute("src", "https://p.potaufeu.asahi.com/a2b9-p/picture/21583312/5c3310aec77068e24844c663aa62b37c.jpg");
+					} else {
+						child.setAttribute("src", "https://video.twimg.com/ext_tw_video/1318728494256410624/pu/vid/640x360/TMklz6hiTkQu3xhn.mp4");
+						child.setAttribute("muted", "true");
+					}
+				}
+
+				// change all button events
+				if (child.tagName.trim() === "BUTTON") {
+					// remove anon function: https://stackoverflow.com/a/41343451/17836168
+					child.setAttribute("disabled", "true");
 				}
 			}
 		}
 	};
-	// if (letChaos) {
-	// 	runChaos();
-	// }
 
 	onMount(() => {
 		if (!letChaos && $page.url.searchParams) {
 			filterSearchParams($page.url.searchParams);
 		}
 
-		runChaos(document.body);
+		if (letChaos) {
+			runChaos(document.body);
+			chaosDone = true;
+		}
 	});
+
+	let mainVisibility = "visible";
+	$: mainVisibility = letChaos && !chaosDone ? "hidden" : "visible";
 </script>
 
 <svelte:head>
@@ -146,7 +165,10 @@
 
 <SeaweedBaseLayout bind:shouldDisplayLeadingIcons={isSocialsGone}>
 	<!-- todo: limit main size to 1080 px? -->
-	<main style={`--qt-font-weight: ${qtfontWeight};${additionalFontWeight}`}>
+	<main style={`
+	--qt-font-weight: ${qtfontWeight};${additionalFontWeight};
+	visibility: ${mainVisibility};
+	`}>
 
 		<div class="experience-and-about-div">
 
@@ -154,27 +176,27 @@
 
 				<Card>
 					<section class="section-card" slot="content">
-<!--						<ToggleableContent toggle={ToggleableContentType.Gibberish}>-->
+						<!--						<ToggleableContent toggle={ToggleableContentType.Gibberish}>-->
 
-							<h1>About</h1>
+						<h1>About</h1>
 
-							<p>
-								Hi! My name is {name}! I work as a software developer. Outside of that, I like making games, and
-								trying to do everything in between required to make one. I have some showcased below, our visit
-								my itch.io page for more of them.
-							</p>
-							<!-- todo: link the degree details idk -->
-							<p>
-								I also graduated with BS Computing Science, Specializing in Software Practice, and a
-								certificate in Computer Game Development at University of Alberta.
-							</p>
-							<p>
-								I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
-								Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
-							</p>
+						<p>
+							Hi! My name is {name}! I work as a software developer. Outside of that, I like making games, and
+							trying to do everything in between required to make one. I have some showcased below, our visit
+							my itch.io page for more of them.
+						</p>
+						<!-- todo: link the degree details idk -->
+						<p>
+							I also graduated with BS Computing Science, Specializing in Software Practice, and a
+							certificate in Computer Game Development at University of Alberta.
+						</p>
+						<p>
+							I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
+							Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
+						</p>
 
-							<!-- todo: maybe put cute stuff here -->
-<!--						</ToggleableContent>-->
+						<!-- todo: maybe put cute stuff here -->
+						<!--						</ToggleableContent>-->
 					</section>
 				</Card>
 
@@ -662,9 +684,9 @@
 				<section class="project-card" slot="content">
 
 					<video playsinline autoplay muted loop preload="none">
+						<source src={ThisWebsiteFootage} type="video/mp4">
 						video unavailable. original video contains clips of this website being resized and light-dark mode being
 						toggled.
-						<source src={ThisWebsiteFootage} type="video/mp4">
 					</video>
 					<div class="project-card-body">
 						<h2>This webpage!</h2>
