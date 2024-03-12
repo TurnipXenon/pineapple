@@ -3,7 +3,6 @@
 	export let name = "Turnip";
 	export let email = "turnipxenon@gmail.com";
 	export let linkedinSlug = "turnip-xenon";
-	export let metaWebsite = "https://www.crouton.com/test/portfolio-base-layout";
 
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
 	import { Accordion, AccordionItem, getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
@@ -25,7 +24,6 @@
 	import WeaverFootage from "$pkg/assets/others/weaver-footage.gif";
 	import WindowSetGraph from "$pkg/assets/others/window-set.png";
 	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
-	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 
 	const modalStore = getModalStore();
 	let isVisible = true;
@@ -68,12 +66,10 @@
 	 *  clear: unset all terms to font-weight: normal
 	 *  <term>: only set qt-<term> to bold
 	 *  <term1>,<term2>: only set qt-<term1> and qt-<term2> to bold,
+	 *
+	 *  ONLY CALL INSIDE onMount()
 	 **/
 	const filterSearchParams = (searchParams: URLSearchParams) => {
-		if (document === undefined) {
-			return;
-		}
-
 		const qtValue = searchParams.get("qt")?.trim();
 		if (qtValue === undefined) {
 			qtfontWeight = "bold";
@@ -84,14 +80,12 @@
 			return `span.qt-${term} { font-weight: bold !important; }`;
 		}).join("\n");
 
-		// from https://stackoverflow.com/a/1720483/17836168
-
 		// https://stackoverflow.com/a/24285947/17836168
 		const style = document.createElement("style");
+		// noinspection JSDeprecatedSymbols
 		style.type = "text/css";
 		style.innerText = dynamicStyle;
 		document.head.appendChild(style);
-		console.log(dynamicStyle);
 	};
 
 	const chaoticWordBank = ["niko", "toba", "seal", "aquarium", "ojisan", "baikal"];
@@ -118,7 +112,6 @@
 
 				// change all images to niko if aria != hidden?
 				if (child.hasAttribute("src") && !child.hasAttribute("aria-hidden")) {
-					console.log(child);
 					if (child.hasAttribute("alt")) {
 						child.setAttribute("src", "https://p.potaufeu.asahi.com/a2b9-p/picture/21583312/5c3310aec77068e24844c663aa62b37c.jpg");
 					} else {
@@ -154,16 +147,6 @@
 	let mainVisibility = "visible";
 	$: mainVisibility = letChaos && !chaosDone ? "hidden" : "visible";
 </script>
-
-<svelte:head>
-	<meta charset="utf-8" />
-	<title>Welcome to my portfolio</title>
-	<meta name="twitter:card" content="summary" />
-	<meta property="og:url" content={metaWebsite} />
-	<meta property="og:title" content={name} />
-	<meta property="og:description" content={`Welcome to ${name}'s portfolio website`} />
-	<meta property="og:image" content={WebThumbnailImage} />
-</svelte:head>
 
 <SeaweedBaseLayout bind:shouldDisplayLeadingIcons={isSocialsGone}>
 	<!-- todo: limit main size to 1080 px? -->
@@ -223,9 +206,9 @@
 					</div>
 					<ul>
 						<li>Contributed to <span class="qt-go">Golang</span> and <span class="qt-ts">Typescript</span> codebases,
-							across several teams, to accommodate adjustments for public-facing user safety related features, in
-							preparation for complying with EU’s <a target="_blank"
-							                                       href="https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/europe-fit-digital-age/digital-services-act/europe-fit-digital-age-new-online-rules-platforms_en">
+							across several teams, to accommodate adjustments for public-facing user safety related features, to better
+							comply with EU’s <a target="_blank"
+							                    href="https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/europe-fit-digital-age/digital-services-act/europe-fit-digital-age-new-online-rules-platforms_en">
 								Digital Services Act</a>, also including feature flags, alarms, unit tests, end-to-end testing, and
 							documentation
 						</li>

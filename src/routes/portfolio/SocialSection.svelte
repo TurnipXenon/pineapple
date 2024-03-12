@@ -34,7 +34,7 @@
 	<button type="button" class="social-button turnip-button"
 	        role="link"
 	        title={`https://www.linkedin.com/in/${linkedinSlug}/`}
-	        on:click={() => window.open(`https://www.linkedin.com/in/${linkedinSlug}}/`)}>
+	        on:click={() => window.open(`https://www.linkedin.com/in/${linkedinSlug}/`)}>
 		<img src={LinkedinIcon} alt="linkedikn icon">
 		{#if (!isSmallVersion)}
 			<span>{linkedinSlug}</span>
