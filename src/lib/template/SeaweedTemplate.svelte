@@ -120,13 +120,21 @@
 
 				// change all images to niko if aria != hidden?
 				if (child.hasAttribute("src") && !child.hasAttribute("aria-hidden")) {
-					console.log(child)
+					console.log(child);
 					if (child.hasAttribute("alt")) {
 						child.setAttribute("src", "https://p.potaufeu.asahi.com/a2b9-p/picture/21583312/5c3310aec77068e24844c663aa62b37c.jpg");
 					} else {
 						child.setAttribute("src", "https://video.twimg.com/ext_tw_video/1318728494256410624/pu/vid/640x360/TMklz6hiTkQu3xhn.mp4");
 						child.setAttribute("muted", "true");
+
+						if (child.tagName.trim() === "IFRAME") {
+							child.style.autoplay = false;
+						}
 					}
+				}
+				if (child.tagName.trim() === "VIDEO") {
+					child.setAttribute("src", "https://video.twimg.com/ext_tw_video/1318728494256410624/pu/vid/640x360/TMklz6hiTkQu3xhn.mp4");
+					child.setAttribute("muted", "true");
 				}
 
 				// change all button events
