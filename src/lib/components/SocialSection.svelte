@@ -21,7 +21,7 @@
 	});
 </script>
 
-<div class="socials" class:isSmall={isSmallVersion} style={style}>
+<div class="socials" class:isSmall={isSmallVersion} style={style} data-nosnippet>
 	<button type="button" class="social-button turnip-button"
 	        role="link"
 	        title="https://github.com/TurnipXenon"

@@ -160,9 +160,8 @@
 
 			<div class="greater-about-div">
 
-				<Card>
+				<Card includeDataNoSnippet={false}>
 					<section class="section-card" slot="content">
-						<!--						<ToggleableContent toggle={ToggleableContentType.Gibberish}>-->
 
 						<h1>About</h1>
 
