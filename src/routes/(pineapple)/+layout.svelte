@@ -1,5 +1,5 @@
 <script lang="ts">
-	import PinyaBaseLayout from "$lib/components/layouts/PineappleBaseLayout.svelte";
+	import PinyaBaseLayout from "$pkg/components/layouts/PineappleBaseLayout.svelte";
 	import { PUBLIC_CRINGE_USERNAME } from "$env/static/public";
 </script>
 
