@@ -246,7 +246,7 @@
 					</ul>
 					<br>
 					<!-- todo: turn off flashing when accordion is expanded -->
-					<Accordion hover="hover:bg-surface-hover-token">
+					<Accordion hover="hover:bg-surface-hover-token" rounded="rounded-md">
 						<AccordionItem class="variant-filled-primary rounded-md">
 							<div slot="summary">
 								<h2 class="mt-2">More experience</h2>

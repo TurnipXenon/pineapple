@@ -16,4 +16,5 @@
 	<meta property="og:image" content={WebThumbnailImage} />
 </svelte:head>
 
-<SeaweedTemplate ></SeaweedTemplate>
+<!--todo: maybe add check that this is always false? -->
+<SeaweedTemplate letChaos={true}></SeaweedTemplate>
