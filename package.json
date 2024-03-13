@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "2.4.8",
+  "version": "2.4.9",
   "scripts": {
     "dev": "vite dev",
     "build": "npm run check-requirements && vite build && yarn package",
@@ -56,9 +56,6 @@
     "svelte": "^4.2.12",
     "ts-node": "^10.9.1"
   },
-  "resolutions": {
-    "string-width": "4.2.3"
-  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -70,7 +67,9 @@
   "files": [
     "dist",
     "!dist/**/*.test.*",
-    "!dist/**/*.spec.*"
+    "!dist/**/*.spec.*",
+    "./src/lib/app.postcss",
+    "./src/lib/theme.postcss"
   ],
   "repository": "https://github.com/TurnipXenon/pineapple",
   "author": "turnipxenon <turnipxenon@gmail.com>",
