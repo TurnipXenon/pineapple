@@ -21,7 +21,7 @@
 	});
 </script>
 
-<div class="socials" class:isSmall={isSmallVersion} style={style}>
+<div class="socials" class:isSmall={isSmallVersion} style={style} data-nosnippet>
 	<button type="button" class="social-button turnip-button"
 	        role="link"
 	        title="https://github.com/TurnipXenon"
@@ -34,7 +34,7 @@
 	<button type="button" class="social-button turnip-button"
 	        role="link"
 	        title={`https://www.linkedin.com/in/${linkedinSlug}/`}
-	        on:click={() => window.open(`https://www.linkedin.com/in/${linkedinSlug}}/`)}>
+	        on:click={() => window.open(`https://www.linkedin.com/in/${linkedinSlug}/`)}>
 		<img src={LinkedinIcon} alt="linkedikn icon">
 		{#if (!isSmallVersion)}
 			<span>{linkedinSlug}</span>
