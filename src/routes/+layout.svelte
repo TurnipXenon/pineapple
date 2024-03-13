@@ -6,14 +6,7 @@
 	// Most of your app wide CSS should be put in this file
 	import "$lib/app.postcss";
 
-
-	import { initializeStores } from "@skeletonlabs/skeleton";
-	import { Modal } from "@skeletonlabs/skeleton";
 	import "$lib/styles/global.css";
-
-	initializeStores();
 </script>
-
-<Modal />
 
 <slot />

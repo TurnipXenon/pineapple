@@ -1,4 +1,4 @@
-import type {PageLoad} from './$types';
+import type {PageLoad} from '../../../../.svelte-kit/types/src/routes';
 import * as htmlparser2 from "htmlparser2";
 import {DomUtils} from "htmlparser2";
 
