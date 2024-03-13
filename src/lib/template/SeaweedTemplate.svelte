@@ -55,7 +55,7 @@
 			`${email}</a>.`,
 		response: (r: boolean) => {
 			if (r) {
-				window.open("https://selk.io/birb-project/trunk/");
+				window.open("https://cmput401.ca/projects/e5b13586-09c7-4ddd-baf6-fdb078d23398");
 			}
 		}
 	};
