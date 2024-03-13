@@ -246,10 +246,10 @@
 					</ul>
 					<br>
 					<!-- todo: turn off flashing when accordion is expanded -->
-					<Accordion hover="hover:bg-surface-hover-token" rounded="rounded-md">
-						<AccordionItem class="variant-filled-primary rounded-md">
+					<Accordion>
+						<AccordionItem>
 							<div slot="summary">
-								<h2 class="mt-2">More experience</h2>
+								<h2 class="accordion-header">More experience</h2>
 							</div>
 							<svelte:fragment slot="content">
 								<section class="more-section">
@@ -870,5 +870,9 @@
 
     [class*='qt-'] {
         font-weight: var(--qt-font-weight);
+    }
+
+    .accordion-header {
+		    margin-top: 0.25em;
     }
 </style>

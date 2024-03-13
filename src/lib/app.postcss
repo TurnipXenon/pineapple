@@ -151,3 +151,13 @@ a:active {
 .dark a:active {
     color: rgb(var(--color-secondary-100));
 }
+
+/* region Accordion css for handling missing styles in package */
+.accordion-control {
+    @apply hover:bg-surface-hover-token;
+}
+
+.accordion-item {
+    @apply variant-filled-primary rounded-md;
+}
+/* endregion Accordion css for handling missing styles in package */
