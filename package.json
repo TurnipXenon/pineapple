@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "2.4.6",
+  "version": "2.4.7",
   "scripts": {
     "dev": "vite dev",
     "build": "npm run check-requirements && vite build && yarn package",
@@ -63,7 +63,9 @@
     ".": {
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js"
-    }
+    },
+    "./app.postcss": "./src/lib/app.postcss",
+    "./theme.postcss": "./src/lib/theme.postcss"
   },
   "files": [
     "dist",
