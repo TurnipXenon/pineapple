@@ -164,4 +164,14 @@ a:active {
 .accordion-item {
     @apply variant-filled-primary rounded-md;
 }
+
 /* endregion Accordion css for handling missing styles in package */
+
+:root {
+    --shadow-color: rgba(91, 79, 54, 0.5);
+}
+
+/* todo: adjust shadow for each component + change depending on dark mode or not */
+.fab, #shell-header {
+    box-shadow: 3px 3px 3px var(--shadow-color);
+}
