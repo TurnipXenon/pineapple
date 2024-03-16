@@ -1,4 +1,4 @@
-export { default as PineappleLayoutBase } from "./components/layouts/PineappleBaseLayout.svelte";
+export { default as PineappleLayoutBase } from "./components/pineapple/PineappleBaseLayout.svelte";
 export { default as SeaweedTemplate } from "./template/SeaweedTemplate.svelte";
 export { default as LazyAsset } from "./components/LazyAsset.svelte";
 

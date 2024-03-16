@@ -1,18 +1,19 @@
 <script lang="ts">
 	// For auto dark/light mode
 	import { AppBar, AppShell, autoModeWatcher, LightSwitch } from "@skeletonlabs/skeleton";
-	import RandomizedBackground from "$lib/components/RandomizedBackground.svelte";
+	import RandomizedBackground from "$pkg/components/RandomizedBackground.svelte";
 
 	// navigation
 	import { page } from "$app/stores";
 	// store
-	import { enableBackground } from "$lib/store";
-	import type { BreadcrumbData } from "$lib/types/BreadcrumbData";
+	import { enableBackground } from "$pkg/store";
+	import type { BreadcrumbData } from "$pkg/types/BreadcrumbData";
 	// assets
 	// import DialogOverlay from "$lib/components/DialogOverlay.svelte";
-	import AresLogo from "$lib/assets/characters/ares/ares_logo.webp";
-	import FABIcon from "$lib/assets/placeholder/placeholder_circle.png";
-	import { enableDialogueOverlay } from "$lib/components/dialog_manager/DialogManagerStore";
+	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
+	import FABIcon from "$pkg/assets/placeholder/placeholder_circle.png";
+	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import Toast from "$pkg/components/pineapple/toast/Toast.svelte";
 	// todo: clean up all these imports!
 
 	let pages: BreadcrumbData[] = [];
@@ -103,6 +104,8 @@
 	</svelte:fragment>
 
 	<RandomizedBackground enable={enableBackgroundValue} />
+
+	<Toast></Toast>
 
 	<div class="default-page-container">
 		<slot />

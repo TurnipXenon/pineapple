@@ -1,8 +1,7 @@
-<script>
+<script lang="ts">
 	import { PUBLIC_CRINGE_USERNAME } from "$env/static/public";
-
-	import { createGoToFunction } from "$pkg/util/create_go_to_function";
-	import PineappleBaseLayout from "$pkg/components/pineapple/PineappleBaseLayout.svelte";
+	import { showComponentInToast } from "$pkg/components/pineapple/toast/Toast";
+	import TestCard from "./TestCard.svelte";
 </script>
 
 <svelte:head>
@@ -15,11 +14,17 @@
 </svelte:head>
 
 <div class="card default-card">
+
 	<h1 class="mb-8">Directory</h1>
 
 	<div class="btn-group-vertical variant-filled-secondary">
-		<button on:click={createGoToFunction("pineapple")}><h2>Personal</h2></button>
-		<button on:click={createGoToFunction("portfolio")}><h2>Portfolio</h2></button>
+		<button on:click={() => {
+			showComponentInToast({component: TestCard});
+		}}><h3>Test toast</h3></button>
+		<!--			<button onclick="location.href='/socials'"><h2>Socials</h2></button>-->
+		<!--			<button onclick="location.href='/game-dev'"><h2>Game development</h2></button>-->
+		<!--			<button onclick="location.href='/blogs'"><h2>Blogs</h2></button>-->
+		<!--			<button onclick="location.href='/misc'"><h2>Miscellaneous</h2></button>-->
 	</div>
 </div>
 

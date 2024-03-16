@@ -175,3 +175,17 @@ a:active {
 .fab, #shell-header {
     box-shadow: 3px 3px 3px var(--shadow-color);
 }
+
+#toast-progress {
+    position: relative;
+    top: 4px;
+    border-radius: 0 8px;
+    background: transparent;
+    height: 10px;
+}
+
+#toast-progress::-moz-progress-bar {
+    /*background-color: red;*/
+    background: rgba(var(--color-secondary-500));
+}
+
