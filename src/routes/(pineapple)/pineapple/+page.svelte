@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { PUBLIC_CRINGE_USERNAME } from "$env/static/public";
 	import { showComponentInToast, showTextInToast } from "$pkg/components/pineapple/toast/Toast";
-	import TestCard from "./TestCard.svelte";
+	import TestCard from "$pkg/components/pineapple/toast/custom-toast/TestCustomToast.svelte";
 
 	let testingQueueNumber = 1;
 	const testingRandomPhrases = [
@@ -25,7 +25,7 @@
 	<button
 		class="btn variant-filled-secondary"
 		on:click={() => {
-			showComponentInToast({component: TestCard});
+			showComponentInToast({componentAndProps: {component: TestCard, props: undefined}});
 		}}><h3>Test custom toast</h3></button>
 	<button
 		class="btn variant-filled-secondary"

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { DefaultToastBodyProps } from "$pkg/components/pineapple/toast/DefaultToastBodyProps";
+	import type { Props } from "$pkg/components/pineapple/toast/DefaultToastBody";
 
-	export let props: DefaultToastBodyProps;
+	export let props: Props;
 
 </script>
 

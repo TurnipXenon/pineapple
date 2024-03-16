@@ -1,7 +1,7 @@
 <script lang="ts">
 	import {
 		activeToast,
-		type CustomToastProps,
+		type CustomToastPairs,
 		DefaultToastParamsDuration,
 		toastQueue
 	} from "$pkg/components/pineapple/toast/Toast";
@@ -10,7 +10,7 @@
 	import { spring, tweened } from "svelte/motion";
 
 	let localComponent: ComponentType | undefined;
-	let localProps: CustomToastProps | undefined;
+	let localProps: CustomToastPairs["props"];
 
 	// todo: make hidden value reliant on current vh
 	const HIDDEN_VALUE = -15;
@@ -25,12 +25,12 @@
 			return;
 		}
 
-		if (params.component === localComponent) {
+		if (params.componentAndProps?.component === localComponent) {
 			return;
 		}
 
-		localComponent = params.component;
-		localProps = params.props;
+		localComponent = params.componentAndProps.component;
+		localProps = params.componentAndProps.props;
 
 		// todo: make unnested
 		// set progress to 0 before showing
@@ -64,7 +64,11 @@
 	<div style={`position: fixed; bottom: ${$position}lh; left: 2em; max-width: calc(100vw - 12em)`}>
 		<Card marginBottom="1lh">
 			<div slot="content">
-				<svelte:component this={localComponent} props={localProps} />
+				{#if (localProps !== undefined)}
+					<svelte:component this={localComponent} props={localProps} />
+				{:else }
+					<svelte:component this={localComponent} />
+				{/if}
 				<progress id="toast-progress" value={$progress/100}></progress>
 			</div>
 		</Card>

@@ -1,23 +1,23 @@
-import type { ComponentType } from "svelte";
 import { writable } from "svelte/store";
-import type { DefaultToastBodyProps } from "$pkg/components/pineapple/toast/DefaultToastBodyProps";
+import type { DefaultToastPair } from "$pkg/components/pineapple/toast/DefaultToastBody";
 import DefaultToastBody from "$pkg/components/pineapple/toast/DefaultToastBody.svelte";
+import type { TestCustomToastPair } from "$pkg/components/pineapple/toast/custom-toast/TestCustomToast";
 
 /**
  * Default toast duration is 5 seconds
  */
 export const DefaultToastParamsDuration = 5000;
 
-export type CustomToastProps = DefaultToastBodyProps;
+export type CustomToastPairs = DefaultToastPair
+	| TestCustomToastPair;
 
 // todo: note may not be possible
 export interface ToastParams {
-	component: ComponentType;
+	componentAndProps: CustomToastPairs;
 	/**
 	 * Time in millisecond. If undefined, defaults to DefaultToastParamsDuration
 	 */
 	duration?: number;
-	props?: CustomToastProps;
 }
 
 /**
@@ -45,9 +45,11 @@ export const showComponentInToast = (newToast: ToastParams) => {
 
 export const showTextInToast = (message: string) => {
 	showComponentInToast({
-		component: DefaultToastBody,
-		props: {
-			message
+		componentAndProps: {
+			component: DefaultToastBody,
+			props: {
+				message
+			}
 		}
 	});
 };
