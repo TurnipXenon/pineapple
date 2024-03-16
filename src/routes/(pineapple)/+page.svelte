@@ -2,7 +2,7 @@
 	import { PUBLIC_CRINGE_USERNAME } from "$env/static/public";
 
 	import { createGoToFunction } from "$pkg/util/create_go_to_function";
-	import PineappleBaseLayout from "$pkg/components/layouts/PineappleBaseLayout.svelte";
+	import PineappleBaseLayout from "$pkg/components/pineapple/PineappleBaseLayout.svelte";
 </script>
 
 <svelte:head>
@@ -18,7 +18,7 @@
 	<h1 class="mb-8">Directory</h1>
 
 	<div class="btn-group-vertical variant-filled-secondary">
-		<button on:click={createGoToFunction("personal")}><h2>Personal</h2></button>
+		<button on:click={createGoToFunction("pineapple")}><h2>Personal</h2></button>
 		<button on:click={createGoToFunction("portfolio")}><h2>Portfolio</h2></button>
 	</div>
 </div>

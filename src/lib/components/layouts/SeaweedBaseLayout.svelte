@@ -28,13 +28,6 @@
 	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
 </svelte:head>
 
-<!--todo: turn off hidden when it's time-->
-<!--<button type="button" class="fab" on:click={()=>{-->
-<!--    enableDialogueOverlay.set(!enableDialogueOverlayValue);-->
-<!--}}>-->
-<!--	<img src={FABIcon} alt="interactive floating action button represented as a turnip">-->
-<!--</button>-->
-
 <AppShell>
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
@@ -49,7 +42,7 @@
 					</div>
 				{:else if $$slots.extraLeadingIcons}
 					<div hidden>
-						<slot name="extraLeadingIcons" />
+						<slot name="s" />
 					</div>
 				{/if}
 			</svelte:fragment>

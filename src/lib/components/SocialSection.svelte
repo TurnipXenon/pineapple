@@ -1,14 +1,16 @@
 <script>
-	import MailIcon from "$pkg/assets/icons/mail.svg";
-	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
-	import { ItchLogoHotLink } from "$pkg/consts";
-	import LinkedinIcon from "$pkg/assets/icons/linkedin.svg";
-	import { onMount } from "svelte";
-
 	export let isSmallVersion = false;
 	export let email = "turnipxenon@gmail.com";
 	export let linkedinSlug = "turnip-xenon";
 	export let isSlot = false;
+
+	import { ItchLogoHotLink } from "$pkg/consts";
+	import { onMount } from "svelte";
+	import { scale } from "svelte/transition";
+
+	import MailIcon from "$pkg/assets/icons/mail.svg";
+	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
+	import LinkedinIcon from "$pkg/assets/icons/linkedin.svg";
 
 	let shouldShowExtra = false;
 	const style = `
@@ -53,6 +55,7 @@
 		<button type="button" class="social-button turnip-button"
 		        role="link"
 		        title="https://turnipxenon.itch.io/"
+		        transition:scale
 		        on:click={() => window.open("https://turnipxenon.itch.io/")}>
 			<img src={ItchLogoHotLink} alt="itch icon">
 			{#if (!isSmallVersion)}
