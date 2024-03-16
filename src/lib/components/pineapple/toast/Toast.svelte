@@ -1,20 +1,23 @@
 <script lang="ts">
-	import { activeToast, DefaultToastParamsDuration, type ToastParams } from "$pkg/components/pineapple/toast/Toast";
+	import {
+		activeToast,
+		type CustomToastProps,
+		DefaultToastParamsDuration,
+		toastQueue
+	} from "$pkg/components/pineapple/toast/Toast";
 	import { type ComponentType } from "svelte";
 	import Card from "$pkg/components/Card.svelte";
 	import { spring, tweened } from "svelte/motion";
 
 	let localComponent: ComponentType | undefined;
-	let currentParams: ToastParams | undefined;
+	let localProps: CustomToastProps | undefined;
 
 	// todo: make hidden value reliant on current vh
 	const HIDDEN_VALUE = -15;
-	const SHOWN_VALUE = 2;
+	const SHOWN_VALUE = 0;
 	const progress = tweened(0, { duration: DefaultToastParamsDuration });
 	const position = spring(HIDDEN_VALUE);
-	// position.stiffness = 0.3;
 	position.damping = 0.4;
-	// position.precision = 0.005;
 
 	// todo: add timer?
 	activeToast.subscribe((params) => {
@@ -22,10 +25,14 @@
 			return;
 		}
 
-		localComponent = params.component;
-		// progress.set(0, { duration: 0 });
-		currentParams = params;
+		if (params.component === localComponent) {
+			return;
+		}
 
+		localComponent = params.component;
+		localProps = params.props;
+
+		// todo: make unnested
 		// set progress to 0 before showing
 		progress.set(0, { duration: 0 }).then(() => {
 			// animate showing the toast
@@ -40,8 +47,10 @@
 						// Toast requests
 						localComponent = undefined;
 						activeToast.update(() => {
-							// todo check queue
-							return undefined;
+							if (toastQueue.length === 0) {
+								return undefined;
+							}
+							return toastQueue.shift();
 						});
 					});
 				});
@@ -51,11 +60,11 @@
 </script>
 
 {#if (localComponent !== undefined)}
-	<div style={`position: fixed; bottom: ${$position}lh; left: 2lh; width: 20em`}>
-
-		<Card>
+	<!-- 12em = this component's margin (4em) + fab margin + width (8em) -->
+	<div style={`position: fixed; bottom: ${$position}lh; left: 2em; max-width: calc(100vw - 12em)`}>
+		<Card marginBottom="1lh">
 			<div slot="content">
-				<svelte:component this={localComponent} />
+				<svelte:component this={localComponent} props={localProps} />
 				<progress id="toast-progress" value={$progress/100}></progress>
 			</div>
 		</Card>

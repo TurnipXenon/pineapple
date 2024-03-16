@@ -1,7 +1,14 @@
 <script lang="ts">
 	import { PUBLIC_CRINGE_USERNAME } from "$env/static/public";
-	import { showComponentInToast } from "$pkg/components/pineapple/toast/Toast";
+	import { showComponentInToast, showTextInToast } from "$pkg/components/pineapple/toast/Toast";
 	import TestCard from "./TestCard.svelte";
+
+	let testingQueueNumber = 1;
+	const testingRandomPhrases = [
+		"Niko",
+		"Niko the Baikal seal",
+		"Niko the Baikal seal\nfrom Toba Aquarium"
+	];
 </script>
 
 <svelte:head>
@@ -15,27 +22,23 @@
 
 <div class="card default-card">
 
-	<h1 class="mb-8">Directory</h1>
-
-	<div class="btn-group-vertical variant-filled-secondary">
-		<button on:click={() => {
+	<button
+		class="btn variant-filled-secondary"
+		on:click={() => {
 			showComponentInToast({component: TestCard});
-		}}><h3>Test toast</h3></button>
-		<!--			<button onclick="location.href='/socials'"><h2>Socials</h2></button>-->
-		<!--			<button onclick="location.href='/game-dev'"><h2>Game development</h2></button>-->
-		<!--			<button onclick="location.href='/blogs'"><h2>Blogs</h2></button>-->
-		<!--			<button onclick="location.href='/misc'"><h2>Miscellaneous</h2></button>-->
-	</div>
+		}}><h3>Test custom toast</h3></button>
+	<button
+		class="btn variant-filled-secondary"
+		on:click={() => {
+			showTextInToast(`${testingQueueNumber} ${testingRandomPhrases[testingQueueNumber]}`);
+			testingQueueNumber = (testingQueueNumber + 1) % testingRandomPhrases.length;
+		}}><h3>Handy toast</h3></button>
 </div>
 
 <style lang="postcss">
-    .btn-group-vertical button {
-        padding: 2em;
-    }
-
     .default-card {
-        text-align: center;
-        padding-inline-end: 0;
-        @apply p-16;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2em;
     }
 </style>

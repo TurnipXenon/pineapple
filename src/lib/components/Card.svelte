@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let margin = "0";
-	export let marginBottom = "3em";
+	export let marginBottom = "2lh";
 	export let overrideStyle = "";
 	export let includeDataNoSnippet = true;
 
