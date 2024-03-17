@@ -8,5 +8,6 @@
         margin: 0.25em;
         font-weight: bold;
         pointer-events: none;
+        background-color: rgb(var(--color-tertiary-500) / var(--tw-bg-opacity));
     }
 </style>
