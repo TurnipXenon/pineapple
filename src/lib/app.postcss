@@ -41,11 +41,11 @@ html, body {
 }
 
 /* todo: add some hues to the icon that should be in sync with primary and make them not pure darkness */
-.turnip-button > img {
+.turnip-button > img, .img-icon {
     filter: grayscale(100%) brightness(0%) invert(25%);
 }
 
-.dark .turnip-button > img {
+.dark .turnip-button > img, .dark .img-icon {
     filter: grayscale(100%) brightness(0%) invert(100%);
 }
 
@@ -179,7 +179,7 @@ a:active {
 #toast-progress {
     position: relative;
     top: 4px;
-    border-radius: 0 8px;
+    border-radius: 8px;
     background: transparent;
     height: 10px;
 }
