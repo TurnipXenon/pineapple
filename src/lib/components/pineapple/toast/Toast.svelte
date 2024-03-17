@@ -34,7 +34,6 @@
 		});
 	};
 
-	// todo: add timer?
 	activeToast.subscribe((params) => {
 		if (!params) {
 			return;
@@ -53,8 +52,6 @@
 			// animate showing the toast
 			position.set(SHOWN_VALUE).then(() => {
 				shouldEnableButton = true;
-				// todo: now
-				// todo: when dismissed, set isDismissed to true and also trigger position to HIDDEN_VALUE and disappear
 
 				// now animate the lifespan of the current toast
 				progress.set(100, { delay: 500, duration: params.duration ?? DefaultToastParamsDuration }).then(() => {
@@ -77,12 +74,10 @@
 		shouldEnableButton = false;
 		isDismissed = true;
 		position.set(HIDDEN_VALUE).then(onToastDisappear);
-		// todo
 	};
 </script>
 
 {#if (localComponent !== undefined)}
-	<!-- 12em = this component's margin (4em) + fab margin + width (8em) -->
 	<div class="toast-positioner" style={`bottom: ${$position}lh;`}>
 		<!-- todo: adjust shadow to be more dynamic or transparent -->
 		<Card marginBottom="1lh" overrideStyle="box-shadow: 3px 3px 3px var(--shadow-color);">
@@ -104,6 +99,7 @@
 <style lang="postcss">
     .toast-positioner {
         position: fixed;
+        /* 12em = this component's margin (4em) + fab margin + width (8em) */
         max-width: calc(100vw - 12em);
     }
 
