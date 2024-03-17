@@ -84,7 +84,8 @@
 {#if (localComponent !== undefined)}
 	<!-- 12em = this component's margin (4em) + fab margin + width (8em) -->
 	<div class="toast-positioner" style={`bottom: ${$position}lh;`}>
-		<Card marginBottom="1lh">
+		<!-- todo: adjust shadow to be more dynamic or transparent -->
+		<Card marginBottom="1lh" overrideStyle="box-shadow: 3px 3px 3px var(--shadow-color);">
 			<div slot="content">
 				{#if (localProps !== undefined)}
 					<svelte:component this={localComponent}
@@ -103,7 +104,7 @@
 <style lang="postcss">
     .toast-positioner {
         position: fixed;
-        max-width: calc(100vw - 12em)
+        max-width: calc(100vw - 12em);
     }
 
     .toast-positioner:dir(ltr) {
