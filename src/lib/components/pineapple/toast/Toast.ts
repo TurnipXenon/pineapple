@@ -11,6 +11,8 @@ export const DefaultToastParamsDuration = 5000;
 export type CustomToastPairs = DefaultToastPair
 	| TestCustomToastPair;
 
+export type DismissToastCallback = () => void;
+
 // todo: note may not be possible
 export interface ToastParams {
 	componentAndProps: CustomToastPairs;
