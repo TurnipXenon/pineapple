@@ -18,8 +18,8 @@
 	<h1 class="mb-8">Directory</h1>
 
 	<div class="btn-group-vertical variant-filled-secondary">
-		<button on:click={createGoToFunction("pineapple")}><h2>Personal</h2></button>
-		<button on:click={createGoToFunction("portfolio")}><h2>Portfolio</h2></button>
+		<button on:click={createGoToFunction("pineapple")}><h2>Pineapple playground</h2></button>
+		<button on:click={createGoToFunction("portfolio")}><h2>Seaweed playrground</h2></button>
 	</div>
 </div>
 

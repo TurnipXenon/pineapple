@@ -12,8 +12,10 @@
 	// import DialogOverlay from "$lib/components/DialogOverlay.svelte";
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import FABIcon from "$pkg/assets/placeholder/placeholder_circle.png";
-	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import CloseIcon from "$pkg/assets/icons/close.svg";
+	import { dialogManager, enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import Toast from "$pkg/components/pineapple/toast/Toast.svelte";
+	import DialogOverlay from "$pkg/components/DialogOverlay.svelte";
 	// todo: clean up all these imports!
 
 	let pages: BreadcrumbData[] = [];
@@ -55,6 +57,8 @@
 	enableDialogueOverlay.subscribe((value) => {
 		enableDialogueOverlayValue = value;
 	});
+
+	enableDialogueOverlay.set(false);
 </script>
 
 <!-- App Shell -->
@@ -64,9 +68,13 @@
 
 <!--todo: turn off hidden when it's time-->
 <button type="button" class="fab" on:click={()=>{
-    enableDialogueOverlay.set(!enableDialogueOverlayValue);
+	dialogManager.toggleDialogOverlay()
 }}>
-	<img src={FABIcon} alt="interactive floating action button represented as a turnip">
+	{#if (enableDialogueOverlayValue)}
+		<img class="img-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
+	{:else }
+		<img src={FABIcon} alt="interactive floating action button represented as a turnip">
+	{/if}
 </button>
 
 <AppShell>
@@ -107,6 +115,8 @@
 
 	<Toast></Toast>
 
+	<DialogOverlay></DialogOverlay>
+
 	<div class="default-page-container">
 		<slot />
 		<div class="footer-space" />
@@ -126,8 +136,8 @@
 
 <style lang="postcss">
     :root {
-        --dialog-left-pad: clamp(0em, 5vw, 2em);
-        --dialog-box-width: min(calc(50em + 4em), calc(100vw - var(--dialog-left-pad) - var(--theme-border-base)));
+        --dialog-start-pad: clamp(0em, 5vw, 2em);
+        --dialog-box-width: min(calc(50em + 4em), calc(100vw - var(--dialog-start-pad) - var(--theme-border-base)));
         --dialog-box-height: clamp(15em, 50vw, 18em);
 
         /** FAB icon margin/position calculation origin:
@@ -147,7 +157,6 @@
     .default-page-container {
         @apply flex justify-center items-center;
         margin-top: 4em;
-        margin-left: clamp(1em, 15vw, 10em);
         margin-right: 1em;
         flex-direction: column;
         z-index: 0;
@@ -195,6 +204,10 @@
         bottom: var(--fab-margin);
         width: 4em;
         border-radius: 50%;
+    }
+
+    .fab > img {
+        width: 100%;
     }
 
     .fab:dir(ltr) {

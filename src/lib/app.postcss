@@ -92,7 +92,7 @@ ul {
 .default-page-container {
     @apply flex justify-center items-center;
     margin-top: 4em;
-    margin-left: clamp(1em, 15vw, 10em);
+    margin-left: 1em;
     margin-right: 1em;
     flex-direction: column;
     z-index: 0;
@@ -191,3 +191,17 @@ a:active {
     background: rgba(var(--color-secondary-500));
 }
 
+.dialog-box {
+    background-color: rgb(var(--color-surface-500) / 0.9);
+    position: fixed;
+    bottom: 0;
+    width: var(--dialog-box-width); /*75em + 4em padding*/
+    height: var(--dialog-box-height);
+    max-width: calc(100vw - ((var(--fab-margin) * 2) + 4em));
+}
+
+.dark .dialog-box {
+    background-color: rgb(var(--color-surface-900) / 0.95);
+    --tw-ring-color: rgb(var(--color-text-400));
+    /*background-color: red;*/
+}
