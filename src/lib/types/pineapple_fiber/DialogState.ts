@@ -1,5 +1,6 @@
 export enum DialogState {
 	Invisible,
 	Visible,
-	Busy
+	Busy,
+	Inherit
 }

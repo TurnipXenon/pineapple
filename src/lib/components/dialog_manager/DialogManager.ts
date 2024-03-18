@@ -6,7 +6,7 @@ import { writable } from "svelte/store";
 import type { DialogDetail } from "$pkg/types/pineapple_fiber/DialogDetail";
 import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 import { tweened } from "svelte/motion";
-import { cubicOut } from "svelte/easing";
+import { backOut } from "svelte/easing";
 import { PortraitType } from "$pkg/types/pineapple_fiber/PortraitType";
 import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 import AresBlushing from "$pkg/assets/characters/ares/ares_blushing.webp";
@@ -24,6 +24,7 @@ import {
 	updateRate
 } from "$pkg/components/dialog_manager/DialogManagerStore";
 import { DialogProcessor } from "$pkg/components/dialog_manager/DialogProcessor";
+import { parseYarn } from "$pkg/scripts/pineapple_fiber/PineappleFiberParser";
 
 const shouldDebugYarn = false;
 
@@ -31,7 +32,7 @@ export type OnSetDialogChoiceCallback = (newMessage: DialogDetail) => void;
 
 export class DialogManager {
 	dialogMessageMap: Map<string, DialogDetail> = new Map();
-	dialogMessageList: DialogDetail[] = [];
+	currentDialogTree: DialogDetail[] = [];
 	fullCurrentMessage: string = defaultDialogMessage[0].textContent;
 	currentMessageMeta: DialogDetail = defaultDialogMessage[0];
 	currentMessage = writable("");
@@ -41,9 +42,10 @@ export class DialogManager {
 	currentPortrait = writable();
 	portraitMap: Map<string, any> = new Map();
 	currentState = DialogState.Visible;
+	currentReadableState = writable(this.currentState);
 	hidePercent = tweened(100, {
 		duration: 400,
-		easing: cubicOut
+		easing: backOut
 	}); // 100 = 100%
 	skipNextActiveTime = 0;
 	dialogProcessor = new DialogProcessor();
@@ -59,10 +61,15 @@ export class DialogManager {
 			// ISSUE #82 https://github.com/TurnipXenon/pineapple/issues/82
 			this.enableDialogueOverlayCache = value;
 			if (value) {
-				this.hidePercent.set(0);
-				this.setDialogToDefault();
+				this.hidePercent.set(0).then(() => {
+					this.currentState = DialogState.Visible;
+					this.currentReadableState.set(this.currentState);
+				});
 			} else {
-				this.hidePercent.set(100);
+				this.hidePercent.set(100).then(() => {
+					this.currentState = DialogState.Invisible;
+					this.currentReadableState.set(this.currentState);
+				});
 				this.setDialogTree([{ textContent: "" }]);
 			}
 		});
@@ -95,13 +102,13 @@ export class DialogManager {
 	 * sets the possible dialog that might appear on the Dialog UI
 	 * note that it overwrites the previous tree and does not append on it due to the possibility
 	 * of node name conflicts
-	 * @param newMessageList
+	 * @param newDialogTree
 	 */
-	setDialogTree = (newMessageList: DialogDetail[]) => {
-		this.dialogMessageList = newMessageList;
+	setDialogTree = (newDialogTree: DialogDetail[]) => {
+		this.currentDialogTree = newDialogTree;
 
 		this.dialogMessageMap.clear();
-		newMessageList.map((value) => {
+		newDialogTree.map((value) => {
 			if (value.dialogId) {
 				this.dialogMessageMap.set(value.dialogId!, value);
 			}
@@ -120,7 +127,7 @@ export class DialogManager {
 			this.portraitMap.set(PortraitType.AresYay.toString(), AresYay);
 		}
 
-		this.setDialogChoice(newMessageList[0]);
+		this.setDialogChoice(newDialogTree[0]);
 	};
 
 	/**
@@ -282,11 +289,20 @@ export class DialogManager {
 		window.requestAnimationFrame(this.update);
 	};
 
-	enableDialogOverlay = (enable: boolean) => {
+	enableDialogOverlay(enable: boolean) {
 		enableDialogueOverlay.set(enable);
-	};
+	}
 
-	toggleDialogOverlay = () => {
+	toggleDialogOverlay() {
 		enableDialogueOverlay.set(!this.enableDialogueOverlayCache);
 	};
+
+	async parseAndSetDialogTree(dialogYarn: string): Promise<DialogDetail[]> {
+		return parseYarn(dialogYarn)
+			.then((dialogTree) => {
+				console.log(dialogTree);
+				this.setDialogTree(dialogTree);
+				return dialogTree;
+			});
+	}
 }

@@ -3,6 +3,7 @@
 	import { onMount } from "svelte";
 
 	import { dialogManager } from "$lib/components/dialog_manager/DialogManagerStore";
+	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 
 	let currentMessage = "";
 	dialogManager.currentMessage.subscribe((value) => {
@@ -21,12 +22,16 @@
 	});
 
 	let hidePercent = 100;
-	let shouldHide = "hidden";
+	let isHidden = true;
 	dialogManager.hidePercent.subscribe((value) => {
 		hidePercent = value * 0.4;
+		isHidden = false;
+	});
 
-		// todo: fix this hack
-		shouldHide = hidePercent <= -40 ? "hidden" : "visible";
+	dialogManager.currentReadableState.subscribe((value) => {
+		isHidden = value === DialogState.Invisible;
+		if (value === DialogState.Invisible) {
+		}
 	});
 
 	const onDialogClick = () => {
@@ -34,8 +39,10 @@
 	};
 </script>
 
-<div class="dialog-elements" style="--hidePercentWidth: -{hidePercent}vw; --hidePercentHeight: {hidePercent}vh"
-     hidden={shouldHide}>
+<div class="dialog-elements"
+     hidden={isHidden}
+     style="--hidePercentWidth: -{hidePercent}vw;
+            --hidePercentHeight: {hidePercent}vh;">
 	<img src={currentPortrait} alt="Ares" class="dialog-portrait" />
 	<div class="card dialog-box variant-ghost-primary" on:click={onDialogClick}>
 		<div class="card dialog-name">
@@ -60,16 +67,6 @@
 
     .dialog-elements > div {
         transform: translateY(var(--hidePercentHeight));
-    }
-
-    .dialog-box {
-        background-color: rgb(var(--color-surface-500) / 0.9);
-        position: fixed;
-        bottom: 0;
-        left: var(--dialog-left-pad);
-
-        width: var(--dialog-box-width); /*75em + 4em padding*/
-        height: var(--dialog-box-height);
     }
 
     .dialog-box *,

@@ -32,7 +32,7 @@ export const updateRate: number = 40 / 1000; // *at least* 40ms per letter
 // todo: if we go through doing yarn to typescript, move this!
 export const defaultDialogMessage: DialogDetail[] = [
 	{
-		textContent: `<p>Have you drank water? Or perhaps, you've checked out <a target="_blank" class="external-link" href="http://crouton.net">one of the best webpages</a> out there?`
+		textContent: `<p>I don't really have anything to say. Have you drank water? Or perhaps, you've checked out <a target="_blank" class="external-link" href="http://crouton.net">one of the best webpages</a> out there?`
 	}
 ];
 

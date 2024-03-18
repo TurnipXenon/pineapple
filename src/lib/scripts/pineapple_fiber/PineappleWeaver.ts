@@ -18,10 +18,10 @@ const pineappleWeaverRun = () => {
 	const BASE_PATH = "./src/routes";
 	getAllFiles(BASE_PATH, (path: string): boolean => {
 		return path.split(".").pop() === "yarn";
-	}).map((filePath) => {
+	}).map(async (filePath) => {
 		console.info(`Converting: ${filePath}`);
 		const fileContent = readFileSync(filePath, "utf-8");
-		const dialogDetailList: DialogDetail[] = parseYarn(fileContent);
+		const dialogDetailList: DialogDetail[] = await parseYarn(fileContent);
 
 		const dialogDetailToString = (detail: DialogDetail): string => {
 			if (detail.portraitType === undefined) {

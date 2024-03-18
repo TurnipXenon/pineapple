@@ -191,3 +191,17 @@ a:active {
     background: rgba(var(--color-secondary-500));
 }
 
+.dialog-box {
+    background-color: rgb(var(--color-surface-500) / 0.9);
+    position: fixed;
+    bottom: 0;
+    width: var(--dialog-box-width); /*75em + 4em padding*/
+    height: var(--dialog-box-height);
+    max-width: calc(100vw - ((var(--fab-margin) * 2) + 4em));
+}
+
+.dark .dialog-box {
+    background-color: rgb(var(--color-surface-900) / 0.95);
+    --tw-ring-color: rgb(var(--color-text-400));
+    /*background-color: red;*/
+}

@@ -8,7 +8,7 @@ interface ChoiceDetail {
 
 const shouldDebug = false;
 
-export const parseYarn = (fileContent: string): DialogDetail[] => {
+export const parseYarn = async (fileContent: string): Promise<DialogDetail[]> => {
 	const dialogDetailList: DialogDetail[] = [];
 
 	fileContent.split("===").map((unparsedNode) => {
@@ -166,7 +166,7 @@ export const parseYarn = (fileContent: string): DialogDetail[] => {
 				dialogDetails.textContent = dialogDetails.textContent.replace(choiceEndKeyword, "</a>"); // convert all choice end tags to a tags
 			}
 		} else {
-			// assume only one which indicates it's choiceless
+			// assume only one which indicates it is choiceless
 			dialogDetails.textContent = unprocessedContent;
 		}
 

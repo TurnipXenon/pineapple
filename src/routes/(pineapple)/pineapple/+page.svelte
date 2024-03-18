@@ -3,8 +3,8 @@
 	import { showComponentInToast, showTextInToast } from "$pkg/components/pineapple/toast/Toast";
 	import TestCard from "$pkg/components/pineapple/toast/custom-toast/TestCustomToast.svelte";
 	import TestDialogYarn from "./TestDialog.yarn?raw";
-	import { parseYarn } from "$pkg/scripts/pineapple_fiber/PineappleFiberParser";
 	import { dialogManager } from "$pkg";
+
 
 	let testingQueueNumber = 1;
 	const testingRandomPhrases = [
@@ -12,11 +12,19 @@
 		"Niko the Baikal seal",
 		"Niko the Baikal seal\nfrom Toba Aquarium"
 	];
+	const testDialogYarn = TestDialogYarn;
 
-	const dialogTree = parseYarn(TestDialogYarn);
-	// todo: parse the result
-	// todo: run the interpreter when needed
-	// todo: do parsing in dialogManager
+	let parsed = false;
+	const onTestDialogClick = () => {
+		if (!parsed) {
+			dialogManager.parseAndSetDialogTree(testDialogYarn).then(() => {
+				dialogManager.toggleDialogOverlay();
+			});
+			parsed = true;
+		} else {
+			dialogManager.toggleDialogOverlay();
+		}
+	};
 </script>
 
 <svelte:head>
@@ -42,10 +50,7 @@
 		}}><h3>Handy toast</h3></button>
 	<button
 		class="btn variant-filled-secondary"
-		on:click={() => {
-				dialogManager.setDialogTree(dialogTree);
-				dialogManager.toggleDialogOverlay();
-		}}><h3>Test dialog</h3></button>
+		on:click={onTestDialogClick}><h3>Test dialog</h3></button>
 </div>
 
 <style lang="postcss">
