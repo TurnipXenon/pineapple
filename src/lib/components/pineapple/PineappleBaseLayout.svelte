@@ -1,4 +1,6 @@
 <script lang="ts">
+	export let showDialogByDefault = false;
+
 	// For auto dark/light mode
 	import { AppBar, AppShell, autoModeWatcher, LightSwitch } from "@skeletonlabs/skeleton";
 	import RandomizedBackground from "$pkg/components/RandomizedBackground.svelte";
@@ -58,7 +60,7 @@
 		enableDialogueOverlayValue = value;
 	});
 
-	enableDialogueOverlay.set(false);
+	enableDialogueOverlay.set(showDialogByDefault);
 </script>
 
 <!-- App Shell -->
