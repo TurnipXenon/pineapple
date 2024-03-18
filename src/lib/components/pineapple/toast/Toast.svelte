@@ -101,6 +101,7 @@
         position: fixed;
         /* 12em = this component's margin (4em) + fab margin + width (8em) */
         max-width: calc(100vw - 12em);
+		    z-index: 100;
     }
 
     .toast-positioner:dir(ltr) {

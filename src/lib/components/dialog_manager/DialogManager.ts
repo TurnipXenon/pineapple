@@ -51,11 +51,13 @@ export class DialogManager {
 	_setDialogChoiceQueue: DialogDetail[] = [];
 	_setDialogChoiceMutex = false;
 	onSetDialogListeners: OnSetDialogChoiceCallback[] = [];
+	enableDialogueOverlayCache = false;
 
 	constructor() {
 		enableDialogueOverlay.subscribe((value) => {
 			// todo: investigate why we cant put setDialogDefault inside the then clause
 			// ISSUE #82 https://github.com/TurnipXenon/pineapple/issues/82
+			this.enableDialogueOverlayCache = value;
 			if (value) {
 				this.hidePercent.set(0);
 				this.setDialogToDefault();
@@ -265,7 +267,7 @@ export class DialogManager {
 		while (
 			this.fullCurrentMessage[this.currentIndex] == "<" &&
 			this.currentIndex + 1 < this.fullCurrentMessage.length
-		) {
+			) {
 			// find valid character, trap with closing
 			this.currentIndex = this.fullCurrentMessage.indexOf(">", this.currentIndex) + 1;
 			// normalize
@@ -278,5 +280,13 @@ export class DialogManager {
 		++this.currentIndex;
 
 		window.requestAnimationFrame(this.update);
+	};
+
+	enableDialogOverlay = (enable: boolean) => {
+		enableDialogueOverlay.set(enable);
+	};
+
+	toggleDialogOverlay = () => {
+		enableDialogueOverlay.set(!this.enableDialogueOverlayCache);
 	};
 }

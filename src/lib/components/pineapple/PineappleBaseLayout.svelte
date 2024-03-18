@@ -14,6 +14,7 @@
 	import FABIcon from "$pkg/assets/placeholder/placeholder_circle.png";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import Toast from "$pkg/components/pineapple/toast/Toast.svelte";
+	import DialogOverlay from "$pkg/components/DialogOverlay.svelte";
 	// todo: clean up all these imports!
 
 	let pages: BreadcrumbData[] = [];
@@ -107,6 +108,8 @@
 
 	<Toast></Toast>
 
+	<DialogOverlay></DialogOverlay>
+
 	<div class="default-page-container">
 		<slot />
 		<div class="footer-space" />
@@ -147,7 +150,6 @@
     .default-page-container {
         @apply flex justify-center items-center;
         margin-top: 4em;
-        margin-left: clamp(1em, 15vw, 10em);
         margin-right: 1em;
         flex-direction: column;
         z-index: 0;
