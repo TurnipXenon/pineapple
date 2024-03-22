@@ -18,7 +18,7 @@
 	import { dialogManager, enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import Toast from "$pkg/components/pineapple/toast/Toast.svelte";
 	import DialogOverlay from "$pkg/components/DialogOverlay.svelte";
-	import { crossfade } from "svelte/transition";
+	import { fade } from "svelte/transition";
 	// todo: clean up all these imports!
 
 	let pages: BreadcrumbData[] = [];
@@ -98,12 +98,12 @@
 				<ol class="breadcrumb">
 					{#each pages as crumb, i}
 						{#if i < pages.length - 1}
-							<li class="crumb" transition:crossfade>
+							<li class="crumb" transition:fade>
 								<a href={crumb.path}>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</a>
-							  &nbsp;&rsaquo;
+							  &nbsp;&rsaquo;&nbsp;
 							</li>
 						{:else}
-							<li class="crumb" transition:crossfade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
+							<li class="crumb" transition:fade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
 						{/if}
 					{/each}
 				</ol>
@@ -174,6 +174,7 @@
 
     .crumb {
         @apply flex justify-center items-center;
+		    margin: 0.1em;
     }
 
     .crumb-separator {
