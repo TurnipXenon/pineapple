@@ -1,6 +1,6 @@
-import type { BehaviorNode } from "$lib/components/dialog_manager/behavior_tree/core/BehaviorNode";
-import { BehaviorStatus } from "$lib/components/dialog_manager/behavior_tree/core/BehaviorStatus";
-import type { BaseBehaviorResult } from "$lib/components/dialog_manager/behavior_tree/core/BaseBehaviorResult";
+import type { BehaviorNode } from "$pkg/components/dialog_manager/behavior_tree/core/BehaviorNode";
+import { BehaviorStatus } from "$pkg/components/dialog_manager/behavior_tree/core/BehaviorStatus";
+import type { BaseBehaviorResult } from "$pkg/components/dialog_manager/behavior_tree/core/BaseBehaviorResult";
 
 /**
  * Selector is a composite behavior node where it tries to process everything until it

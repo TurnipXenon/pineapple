@@ -7,7 +7,7 @@ import { writable } from "svelte/store";
  * When updating to false, remember to restore the value to true, our default value, onDestroy.
  * Avoid async to prevent weird flashes of updates!
  * ```
- * import {enableBackground} from "$lib/store.ts";
+ * import {enableBackground} from "$pkg/store.ts";
  * enableBackground.update(() => false);
  *
  * onDestroy(() => {

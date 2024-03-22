@@ -1,12 +1,12 @@
 <script lang="ts">
 	// For auto dark/light mode
 	import { AppBar, AppShell, autoModeWatcher, LightSwitch } from "@skeletonlabs/skeleton";
-	import RandomizedBackground from "$lib/components/RandomizedBackground.svelte";
+	import RandomizedBackground from "$pkg/components/RandomizedBackground.svelte";
 
 	// store
-	import { enableBackground } from "$lib/store";
+	import { enableBackground } from "$pkg/store";
 	// assets
-	import { enableDialogueOverlay } from "$lib/components/dialog_manager/DialogManagerStore";
+	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { writable } from "svelte/store";
 	import { fly } from "svelte/transition";
 	// todo: clean up all these imports!

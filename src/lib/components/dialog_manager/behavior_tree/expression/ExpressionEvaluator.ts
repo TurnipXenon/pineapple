@@ -1,10 +1,10 @@
 import { browser } from "$app/environment";
-import { OperatorNode } from "$lib/components/dialog_manager/behavior_tree/expression/OperatorNode";
-import { OperandNode } from "$lib/components/dialog_manager/behavior_tree/expression/OperandNode";
-import { ExpressionSelectorNode } from "$lib/components/dialog_manager/behavior_tree/expression/ExpressionSelectorNode";
-import type { ExpressionState } from "$lib/components/dialog_manager/behavior_tree/expression/ExpressionState";
-import { btreeUtils } from "$lib/components/dialog_manager/behavior_tree/core/BTreeUtils";
-import { CommandExpressionNode } from "$lib/components/dialog_manager/behavior_tree/expression/commands/CommandExpressionNode";
+import { OperatorNode } from "$pkg/components/dialog_manager/behavior_tree/expression/OperatorNode";
+import { OperandNode } from "$pkg/components/dialog_manager/behavior_tree/expression/OperandNode";
+import { ExpressionSelectorNode } from "$pkg/components/dialog_manager/behavior_tree/expression/ExpressionSelectorNode";
+import type { ExpressionState } from "$pkg/components/dialog_manager/behavior_tree/expression/ExpressionState";
+import { btreeUtils } from "$pkg/components/dialog_manager/behavior_tree/core/BTreeUtils";
+import { CommandExpressionNode } from "$pkg/components/dialog_manager/behavior_tree/expression/commands/CommandExpressionNode";
 
 class ExpressionEvaluator {
 	evaluatorTree = new ExpressionSelectorNode([

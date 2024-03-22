@@ -1,19 +1,19 @@
-import type { OperatorLogicNode } from "$lib/components/dialog_manager/behavior_tree/expression/operators/OperatorLogicNode";
-import { EqualityOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/EqualityOperator";
-import { InequalityOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/InequalityOperator";
-import { GreaterThanOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/GreaterThanOperator";
-import { GreaterThanEqualOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/GreaterThanEqualOperator";
-import { LessThanOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/LessThanOperator";
-import { LessThanEqualOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/LessThanEqualOperator";
-import { NegationOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/NegationOperator";
-import { AndOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/AndOperator";
-import { OrOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/OrOperator";
-import { XorOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/XorOperator";
-import { AddOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/arithmetic/PlusOperator";
-import { MinusOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/arithmetic/MinusOperator";
-import { MultiplicationOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/arithmetic/MultiplicationOperator";
-import { DivisionOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/arithmetic/DivisionOperator";
-import { RemainderDivisionOperator } from "$lib/components/dialog_manager/behavior_tree/expression/operators/arithmetic/RemainderDivisionOperator";
+import type { OperatorLogicNode } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/OperatorLogicNode";
+import { EqualityOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/EqualityOperator";
+import { InequalityOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/InequalityOperator";
+import { GreaterThanOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/GreaterThanOperator";
+import { GreaterThanEqualOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/GreaterThanEqualOperator";
+import { LessThanOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/LessThanOperator";
+import { LessThanEqualOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/LessThanEqualOperator";
+import { NegationOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/NegationOperator";
+import { AndOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/AndOperator";
+import { OrOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/OrOperator";
+import { XorOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/XorOperator";
+import { AddOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/arithmetic/PlusOperator";
+import { MinusOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/arithmetic/MinusOperator";
+import { MultiplicationOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/arithmetic/MultiplicationOperator";
+import { DivisionOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/arithmetic/DivisionOperator";
+import { RemainderDivisionOperator } from "$pkg/components/dialog_manager/behavior_tree/expression/operators/arithmetic/RemainderDivisionOperator";
 
 class OperatorMap {
 	_operatorLogicMap: Map<string, OperatorLogicNode> = new Map();

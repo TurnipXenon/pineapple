@@ -1,8 +1,8 @@
 import {
 	OperatorLogicNode,
 	OperatorType
-} from "$lib/components/dialog_manager/behavior_tree/expression/operators/OperatorLogicNode";
-import type { ExpressionArguments } from "$lib/components/dialog_manager/behavior_tree/expression/ExpressionArguments";
+} from "$pkg/components/dialog_manager/behavior_tree/expression/operators/OperatorLogicNode";
+import type { ExpressionArguments } from "$pkg/components/dialog_manager/behavior_tree/expression/ExpressionArguments";
 
 export class RemainderDivisionOperator extends OperatorLogicNode {
 	doOperation = (currentOperands: string[], nodeArgs: ExpressionArguments) => {

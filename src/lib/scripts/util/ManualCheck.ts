@@ -1,4 +1,4 @@
-import { getAllFiles } from "$lib/scripts/util/FileManagement";
+import { getAllFiles } from "$pkg/scripts/util/FileManagement";
 import { readFileSync } from "fs";
 
 /**

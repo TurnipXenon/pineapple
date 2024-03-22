@@ -1,7 +1,7 @@
-import type { CommandLogicNode } from "$lib/components/dialog_manager/behavior_tree/expression/commands/CommandLogicNode";
-import { RandomRangeCommand } from "$lib/components/dialog_manager/behavior_tree/expression/commands/RandomRangeCommand";
-import { VisitedCountCommand } from "$lib/components/dialog_manager/behavior_tree/expression/commands/VisitedCountCommand";
-import { VisitedCommand } from "$lib/components/dialog_manager/behavior_tree/expression/commands/VisitedCommand";
+import type { CommandLogicNode } from "$pkg/components/dialog_manager/behavior_tree/expression/commands/CommandLogicNode";
+import { RandomRangeCommand } from "$pkg/components/dialog_manager/behavior_tree/expression/commands/RandomRangeCommand";
+import { VisitedCountCommand } from "$pkg/components/dialog_manager/behavior_tree/expression/commands/VisitedCountCommand";
+import { VisitedCommand } from "$pkg/components/dialog_manager/behavior_tree/expression/commands/VisitedCommand";
 
 class CommandMap {
 	_commandMap: Map<string, CommandLogicNode> = new Map();

@@ -1,4 +1,4 @@
-import { dialogVariableStore } from "$lib/components/dialog_manager/DialogManagerStore";
+import { dialogVariableStore } from "$pkg/components/dialog_manager/DialogManagerStore";
 
 class _DialogUtils {
 	isNodeVisited = (dialogId: string): boolean => {
