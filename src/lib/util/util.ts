@@ -20,3 +20,15 @@ export const createGoToFunction = (path: string): (() => void) => {
 		location.href = path;
 	});
 };
+
+export interface ExternalLinkWarningArgs {
+	href: string;
+}
+
+export const createExternalLinkWarningFunction = (args: ExternalLinkWarningArgs): (() => void) => {
+	return (() => {
+		// todo: https://github.com/TurnipXenon/pineapple/issues/99
+		//  add the warning here for future functions
+		location.href = args.href;
+	});
+};
