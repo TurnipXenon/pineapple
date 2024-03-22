@@ -1,8 +1,9 @@
 <script>
 	import { PUBLIC_CRINGE_USERNAME } from "$env/static/public";
 
-	import { createGoToFunction } from "$pkg/util/create_go_to_function";
-	import PineappleBaseLayout from "$pkg/components/pineapple/PineappleBaseLayout.svelte";
+
+	import { createGoToFunction } from "$pkg/util/util";
+	import { Card } from "$pkg";
 </script>
 
 <svelte:head>
@@ -14,23 +15,32 @@
 	/>
 </svelte:head>
 
-<div class="card default-card">
-	<h1 class="mb-8">Directory</h1>
+<Card>
+	<div slot="content" class="content">
+		<h1 class="mb-8" style="font-weight: bolder">Directory</h1>
 
-	<div class="btn-group-vertical variant-filled-secondary">
-		<button on:click={createGoToFunction("pineapple")}><h2>Pineapple playground</h2></button>
-		<button on:click={createGoToFunction("portfolio")}><h2>Seaweed playrground</h2></button>
+		<div class="btn-group">
+			<button on:click={createGoToFunction("pineapple")}><h2>Pineapple playground</h2></button>
+			<button on:click={createGoToFunction("portfolio")}><h2>Seaweed playrground</h2></button>
+		</div>
 	</div>
-</div>
+</Card>
 
 <style lang="postcss">
-    .btn-group-vertical button {
+    .btn-group {
         padding: 2em;
+		    display: flex;
+		    gap: 2em;
+		    flex-direction: column;
+
     }
 
-    .default-card {
+    button {
+		    @apply btn variant-filled-secondary;
+    }
+
+    .content {
+        padding: 2em;
         text-align: center;
-        padding-inline-end: 0;
-        @apply p-16;
     }
 </style>

@@ -18,6 +18,7 @@
 	import { dialogManager, enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import Toast from "$pkg/components/pineapple/toast/Toast.svelte";
 	import DialogOverlay from "$pkg/components/DialogOverlay.svelte";
+	import { crossfade } from "svelte/transition";
 	// todo: clean up all these imports!
 
 	let pages: BreadcrumbData[] = [];
@@ -97,12 +98,12 @@
 				<ol class="breadcrumb">
 					{#each pages as crumb, i}
 						{#if i < pages.length - 1}
-							<li class="crumb">
+							<li class="crumb" transition:crossfade>
 								<a href={crumb.path}>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</a>
+							  &nbsp;&rsaquo;
 							</li>
-							<li class="crumb-separator" aria-hidden="true">&rsaquo;</li>
 						{:else}
-							<li class="crumb">{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
+							<li class="crumb" transition:crossfade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
 						{/if}
 					{/each}
 				</ol>
@@ -123,17 +124,7 @@
 		<slot />
 		<div class="footer-space" />
 	</div>
-	<!--{#if enableDialogueOverlayValue}-->
-	<!--	&lt;!&ndash; Page Route Content &ndash;&gt;-->
-	<!--	<div class="default-page-container">-->
-	<!--		<slot />-->
-	<!--		<div class="footer-space" />-->
-	<!--	</div>-->
-	<!--	<DialogOverlay />-->
-	<!--{:else}-->
-	<!--	<DialogOverlay />-->
-	<!--	<slot />-->
-	<!--{/if}-->
+
 </AppShell>
 
 <style lang="postcss">
@@ -177,16 +168,17 @@
        it likely disappeared due to code gen shenanigans and package magic */
     .breadcrumb,
     .breadcrumb-nonresponsive {
-        @apply flex items-center space-x-4 w-full overflow-x-auto;
+        @apply flex items-center w-full overflow-x-auto;
         /*@apply flex items-center space-x-4 w-full hide-scrollbar overflow-x-auto;*/
     }
 
     .crumb {
-        @apply flex justify-center items-center space-x-2;
+        @apply flex justify-center items-center;
     }
 
     .crumb-separator {
-        @apply flex text-surface-700-200-token opacity-50;
+        @apply flex;
+        color: var(--color-text-50);
     }
 
     /* === Auto-Responsive === */

@@ -8,4 +8,6 @@ export * from "./components/dialog_manager/DialogManager";
 export * from "./components/dialog_manager/DialogUtils";
 export * from "./types/pineapple_fiber/PortraitType";
 export * from "./types/pineapple_fiber/DialogDetail";
-export * from "./util/stable_random";
+export * from "./util/util";
+export { mulberry32Generator } from "$pkg/util/util";
+export { generatedDailySeed } from "$pkg/util/util";
