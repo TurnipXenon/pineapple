@@ -1,4 +1,4 @@
-import type { PortraitType } from "$pkg/types/pineapple_fiber/PortraitType";
+import type { PortraitType } from "$lib/types/pineapple_fiber/PortraitType";
 
 export interface DialogDetail {
 	textContent: string;

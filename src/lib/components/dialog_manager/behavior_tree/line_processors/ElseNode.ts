@@ -1,9 +1,9 @@
-import type { LineNodeArguments } from "$pkg/components/dialog_manager/behavior_tree/line_core/LineNodeArguments";
-import type { LineBehaviorResult } from "$pkg/components/dialog_manager/behavior_tree/line_core/LineBehaviorResult";
-import { BehaviorStatus } from "$pkg/components/dialog_manager/behavior_tree/core/BehaviorStatus";
-import { btreeUtils } from "$pkg/components/dialog_manager/behavior_tree/core/BTreeUtils";
-import { IfMode } from "$pkg/components/dialog_manager/behavior_tree/line_processors/IfMode";
-import type { LineBehaviorNode } from "$pkg/components/dialog_manager/behavior_tree/line_core/LineBehaviorNode";
+import type { LineNodeArguments } from "$lib/components/dialog_manager/behavior_tree/line_core/LineNodeArguments";
+import type { LineBehaviorResult } from "$lib/components/dialog_manager/behavior_tree/line_core/LineBehaviorResult";
+import { BehaviorStatus } from "$lib/components/dialog_manager/behavior_tree/core/BehaviorStatus";
+import { btreeUtils } from "$lib/components/dialog_manager/behavior_tree/core/BTreeUtils";
+import { IfMode } from "$lib/components/dialog_manager/behavior_tree/line_processors/IfMode";
+import type { LineBehaviorNode } from "$lib/components/dialog_manager/behavior_tree/line_core/LineBehaviorNode";
 
 /**
  * ElseNode is a leaf node that returns:

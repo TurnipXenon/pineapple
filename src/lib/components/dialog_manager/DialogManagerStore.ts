@@ -3,11 +3,11 @@
  * or is saved in local storage
  */
 
-import type { DialogMapStore } from "$pkg/types/pineapple_fiber/DialogVariableStore";
-import { createNewMapStore } from "$pkg/types/pineapple_fiber/DialogVariableStore";
+import type { DialogMapStore } from "$lib/types/pineapple_fiber/DialogVariableStore";
+import { createNewMapStore } from "$lib/types/pineapple_fiber/DialogVariableStore";
 import { writable } from "svelte/store";
-import type { DialogDetail } from "$pkg/types/pineapple_fiber/DialogDetail";
-import { DialogManager } from "$pkg/components/dialog_manager/DialogManager";
+import type { DialogDetail } from "$lib/types/pineapple_fiber/DialogDetail";
+import { DialogManager } from "$lib/components/dialog_manager/DialogManager";
 
 /**
  * Enables the dialogue overlay
@@ -16,7 +16,7 @@ import { DialogManager } from "$pkg/components/dialog_manager/DialogManager";
  * When updating to false, remember to restore the value to true, our default value, onDestroy.
  * Avoid async to prevent weird flashes of updates!
  * ```
- * import {enableDialogueOverlay} from "$pkg/store.ts";
+ * import {enableDialogueOverlay} from "$lib/store.ts";
  * enableDialogueOverlay.update(() => false);
  *
  * onDestroy(() => {

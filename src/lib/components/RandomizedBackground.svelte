@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { generatedDailySeed, mulberry32Generator } from "$pkg/util/stable_random";
-	import BgTiledAres from "$pkg/assets/bg_tiled/bg_tiled_ares.png";
-	import BgTiledCorn from "$pkg/assets/bg_tiled/bg_tiled_corn.png";
-	import BgTiledPineapple from "$pkg/assets/bg_tiled/bg_tiled_pineapple.png";
-	import BgTiledReinhard from "$pkg/assets/bg_tiled/bg_tiled_reinhard.png";
-	import BgTiledTomato from "$pkg/assets/bg_tiled/bg_tiled_tomato.png";
-	import BgTiledTurnip from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
-	import RandomizedImage from "$pkg/components/RandomizedImage.svelte";
+	import { generatedDailySeed, mulberry32Generator } from "$lib/util/stable_random";
+	import BgTiledAres from "$lib/assets/bg_tiled/bg_tiled_ares.png";
+	import BgTiledCorn from "$lib/assets/bg_tiled/bg_tiled_corn.png";
+	import BgTiledPineapple from "$lib/assets/bg_tiled/bg_tiled_pineapple.png";
+	import BgTiledReinhard from "$lib/assets/bg_tiled/bg_tiled_reinhard.png";
+	import BgTiledTomato from "$lib/assets/bg_tiled/bg_tiled_tomato.png";
+	import BgTiledTurnip from "$lib/assets/bg_tiled/bg_tiled_turnip.png";
+	import RandomizedImage from "$lib/components/RandomizedImage.svelte";
 
 	export let enable;
 

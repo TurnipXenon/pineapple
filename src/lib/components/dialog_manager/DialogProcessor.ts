@@ -1,19 +1,19 @@
-import type { DialogDetail } from "$pkg/types/pineapple_fiber/DialogDetail";
-import { BehaviorState } from "$pkg/components/dialog_manager/behavior_tree/line_processors/BehaviorState";
-import { IfNode } from "$pkg/components/dialog_manager/behavior_tree/line_processors/IfNode";
-import { EndIfNode } from "$pkg/components/dialog_manager/behavior_tree/line_processors/EndIfNode";
-import { ElseNode } from "$pkg/components/dialog_manager/behavior_tree/line_processors/ElseNode";
-import { ElseIfNode } from "$pkg/components/dialog_manager/behavior_tree/line_processors/ElseIfNode";
-import { SetVariableNode } from "$pkg/components/dialog_manager/behavior_tree/line_processors/SetVariableNode";
-import { IgnoreGuardNode } from "$pkg/components/dialog_manager/behavior_tree/line_processors/IgnoreGuardNode";
-import { NormalLineProcessorNode } from "$pkg/components/dialog_manager/behavior_tree/line_processors/NormalLineProcessorNode";
-import { LineSelectorNode } from "$pkg/components/dialog_manager/behavior_tree/line_core/LineSelectorNode";
+import type { DialogDetail } from "$lib/types/pineapple_fiber/DialogDetail";
+import { BehaviorState } from "$lib/components/dialog_manager/behavior_tree/line_processors/BehaviorState";
+import { IfNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/IfNode";
+import { EndIfNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/EndIfNode";
+import { ElseNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/ElseNode";
+import { ElseIfNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/ElseIfNode";
+import { SetVariableNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/SetVariableNode";
+import { IgnoreGuardNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/IgnoreGuardNode";
+import { NormalLineProcessorNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/NormalLineProcessorNode";
+import { LineSelectorNode } from "$lib/components/dialog_manager/behavior_tree/line_core/LineSelectorNode";
 import { browser } from "$app/environment";
-import { LineCommentNode } from "$pkg/components/dialog_manager/behavior_tree/line_processors/LineCommentNode";
-import { DeclareCommand } from "$pkg/components/dialog_manager/behavior_tree/line_processors/commands/DeclareCommand";
-import { JumpCommand } from "$pkg/components/dialog_manager/behavior_tree/line_processors/commands/JumpCommand";
-import { IgnoreJumpNode } from "$pkg/components/dialog_manager/behavior_tree/line_processors/IgnoreJumpNode";
-import { UnvisitCommand } from "$pkg/components/dialog_manager/behavior_tree/line_processors/commands/UnvisitCommand";
+import { LineCommentNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/LineCommentNode";
+import { DeclareCommand } from "$lib/components/dialog_manager/behavior_tree/line_processors/commands/DeclareCommand";
+import { JumpCommand } from "$lib/components/dialog_manager/behavior_tree/line_processors/commands/JumpCommand";
+import { IgnoreJumpNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/IgnoreJumpNode";
+import { UnvisitCommand } from "$lib/components/dialog_manager/behavior_tree/line_processors/commands/UnvisitCommand";
 
 /**
  * DialogProcessor processes dialogs

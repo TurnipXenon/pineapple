@@ -1,6 +1,6 @@
 <script lang="ts">
-    import {LazyAssetStatus, LazyAssetType} from "$pkg/components/LazyAssetType";
-    import BgTiledAres from "$pkg/assets/bg_tiled/bg_tiled_ares.png";
+    import {LazyAssetStatus, LazyAssetType} from "$lib/components/LazyAssetType";
+    import BgTiledAres from "$lib/assets/bg_tiled/bg_tiled_ares.png";
     import {onMount} from "svelte";
 
     export let src: string;

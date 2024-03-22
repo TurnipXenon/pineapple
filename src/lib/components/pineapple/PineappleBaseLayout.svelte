@@ -11,7 +11,7 @@
 	import { enableBackground } from "$pkg/store";
 	import type { BreadcrumbData } from "$pkg/types/BreadcrumbData";
 	// assets
-	// import DialogOverlay from "$pkg/components/DialogOverlay.svelte";
+	// import DialogOverlay from "$lib/components/DialogOverlay.svelte";
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import FABIcon from "$pkg/assets/placeholder/placeholder_circle.png";
 	import CloseIcon from "$pkg/assets/icons/close.svg";

@@ -312,8 +312,8 @@ In Typescript, this would look like:
 
 // auto-generated from About.yarn
 
-import { dialogManager } from "$pkg/store";
-import { PortraitType } from "$pkg/types/pineapple_fiber/PortraitType";
+import { dialogManager } from "$lib/store";
+import { PortraitType } from "$lib/types/pineapple_fiber/PortraitType";
 
 class _AboutYarn {
    setDialogTree = () => {

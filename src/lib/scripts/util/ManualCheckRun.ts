@@ -1,4 +1,4 @@
-import { runAll } from "$pkg/scripts/util/ManualCheck";
+import { runAll } from "$lib/scripts/util/ManualCheck";
 
 /**
  * todo: Integrate manual check into CI check#137

@@ -1,6 +1,6 @@
-import { CommandLogicNode } from "$pkg/components/dialog_manager/behavior_tree/expression/commands/CommandLogicNode";
-import type { ExpressionArguments } from "$pkg/components/dialog_manager/behavior_tree/expression/ExpressionArguments";
-import { dialogVariableStore } from "$pkg/components/dialog_manager/DialogManagerStore";
+import { CommandLogicNode } from "$lib/components/dialog_manager/behavior_tree/expression/commands/CommandLogicNode";
+import type { ExpressionArguments } from "$lib/components/dialog_manager/behavior_tree/expression/ExpressionArguments";
+import { dialogVariableStore } from "$lib/components/dialog_manager/DialogManagerStore";
 
 /**
  * Used for command like

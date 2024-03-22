@@ -1,10 +1,10 @@
-import type { LineNodeArguments } from "$pkg/components/dialog_manager/behavior_tree/line_core/LineNodeArguments";
-import type { LineBehaviorResult } from "$pkg/components/dialog_manager/behavior_tree/line_core/LineBehaviorResult";
-import { BehaviorStatus } from "$pkg/components/dialog_manager/behavior_tree/core/BehaviorStatus";
-import { IfMode } from "$pkg/components/dialog_manager/behavior_tree/line_processors/IfMode";
-import type { LineBehaviorNode } from "$pkg/components/dialog_manager/behavior_tree/line_core/LineBehaviorNode";
-import { expressionEvaluator } from "$pkg/components/dialog_manager/behavior_tree/expression/ExpressionEvaluator";
-import { btreeUtils } from "$pkg/components/dialog_manager/behavior_tree/core/BTreeUtils";
+import type { LineNodeArguments } from "$lib/components/dialog_manager/behavior_tree/line_core/LineNodeArguments";
+import type { LineBehaviorResult } from "$lib/components/dialog_manager/behavior_tree/line_core/LineBehaviorResult";
+import { BehaviorStatus } from "$lib/components/dialog_manager/behavior_tree/core/BehaviorStatus";
+import { IfMode } from "$lib/components/dialog_manager/behavior_tree/line_processors/IfMode";
+import type { LineBehaviorNode } from "$lib/components/dialog_manager/behavior_tree/line_core/LineBehaviorNode";
+import { expressionEvaluator } from "$lib/components/dialog_manager/behavior_tree/expression/ExpressionEvaluator";
+import { btreeUtils } from "$lib/components/dialog_manager/behavior_tree/core/BTreeUtils";
 
 /**
  * IfNode is a leaf node which tries to determine whether the current line is an
