@@ -98,12 +98,12 @@
 				<ol class="breadcrumb">
 					{#each pages as crumb, i}
 						{#if i < pages.length - 1}
-							<li class="crumb" transition:fade>
+							<li class="crumb" in:fade>
 								<a href={crumb.path}>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</a>
 							  &nbsp;&rsaquo;&nbsp;
 							</li>
 						{:else}
-							<li class="crumb" transition:fade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
+							<li class="crumb" in:fade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
 						{/if}
 					{/each}
 				</ol>
