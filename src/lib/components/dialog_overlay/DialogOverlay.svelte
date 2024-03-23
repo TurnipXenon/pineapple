@@ -1,8 +1,7 @@
 <script lang="ts">
-	import AresHappy from "$lib/assets/characters/ares/ares_happy.webp";
+	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 	import { onMount } from "svelte";
-
-	import { dialogManager } from "$lib/components/dialog_manager/DialogManagerStore";
+	import { dialogManager } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 
 	let currentMessage = "";
@@ -43,7 +42,9 @@
      hidden={isHidden}
      style="--hidePercentWidth: -{hidePercent}vw;
             --hidePercentHeight: {hidePercent}vh;">
-	<img src={currentPortrait} alt="Ares" class="dialog-portrait" />
+	<div class="dialog-portrait-container">
+		<img src={currentPortrait} alt="Ares" class="dialog-portrait" />
+	</div>
 	<div class="card dialog-box variant-ghost-primary" on:click={onDialogClick}>
 		<div class="card dialog-name">
 			<p><b>Turnip</b></p>
@@ -61,8 +62,12 @@
         z-index: 10;
     }
 
-    .dialog-elements > img {
-        transform: translateX(var(--hidePercentWidth));
+    .dialog-elements:dir(ltr) {
+        left: 0;
+    }
+
+    .dialog-elements:dir(rtl) {
+        right: 0;
     }
 
     .dialog-elements > div {
@@ -87,16 +92,40 @@
     .dialog-name {
         @apply pt-2 px-4;
         position: fixed;
+    }
 
+    .dialog-name:dir(ltr) {
         /* for centering vertically */
         transform: translateX(clamp(0em, 5vw - 0.5em, 1em)) translateY(-50%);
     }
 
-    .dialog-portrait {
+    .dialog-name:dir(rtl) {
+        /* for centering vertically */
+        transform: translateX(calc(clamp(0em, 5vw - 0.5em, 1em) * -1)) translateY(-50%);
+    }
+
+    .dialog-portrait-container {
         position: fixed;
         bottom: 0;
-        left: clamp(-4rem, calc(5vw - 5em), 0rem);
         height: clamp(30rem, 75vw, 40rem);
         width: auto;
+    }
+
+    .dialog-portrait-container:dir(ltr) {
+        transform: translateX(var(--hidePercentWidth));
+        left: clamp(-4rem, calc(5vw - 5em), 0rem);
+    }
+
+    .dialog-portrait-container:dir(rtl) {
+        transform: translateX(calc(var(--hidePercentWidth) * -1));
+        right: clamp(-4rem, calc(5vw - 5em), 0rem);
+    }
+
+    .dialog-portrait {
+        height: 100%;
+    }
+
+    .dialog-portrait:dir(rtl) {
+        transform: scaleX(-1);
     }
 </style>

@@ -17,7 +17,7 @@
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import { dialogManager, enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import Toast from "$pkg/components/pineapple/toast/Toast.svelte";
-	import DialogOverlay from "$pkg/components/DialogOverlay.svelte";
+	import DialogOverlay from "$pkg/components/dialog_overlay/DialogOverlay.svelte";
 	import { fade } from "svelte/transition";
 	// todo: clean up all these imports!
 
