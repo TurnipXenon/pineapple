@@ -7,7 +7,7 @@
 	export let linkedinSlug = "turnip-xenon";
 
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
-	import { Accordion, AccordionItem, getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
+	import { Accordion, AccordionItem, getModalStore, type ModalSettings, SlideToggle } from "@skeletonlabs/skeleton";
 	import { ItchLogoHotLink } from "$pkg/consts";
 	import { page } from "$app/stores";
 	import Card from "$pkg/components/Card.svelte";
@@ -25,25 +25,14 @@
 	import WeaverFootage from "$pkg/assets/others/weaver-footage.gif";
 	import WindowSetGraph from "$pkg/assets/others/window-set.png";
 	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
+	import GameSection from "$pkg/template/Seaweed/GameSection.svelte";
 
 	const modalStore = getModalStore();
 	let isVisible = true;
+	let isAdvanceSettingOn = false;
 
 	$: isSocialsGone = !isVisible;
 
-	const chefWingsWarning: ModalSettings = {
-		type: "confirm",
-		title: "Warning: please confirm",
-		body: "This will directly link to the game itself, since this game does not have any game page or any " +
-			"publicly viewable source code. The game is only playable on desktop. " +
-			`Are you sure you wish to proceed? If there are any bugs, please report at <a href='mailto:${email}' target='_blank'>` +
-			`${email}</a>.`,
-		response: (r: boolean) => {
-			if (r) {
-				window.open("https://selk.io/birb-project/trunk/");
-			}
-		}
-	};
 
 	const cmput401Info: ModalSettings = {
 		type: "confirm",
@@ -283,188 +272,7 @@
 
 		</div>
 
-		<Card>
-			<div class="section-card title-card" slot="content">
-				<h1 class="text-center">Games</h1>
-			</div>
-		</Card>
-
-		<section class="games-section">
-
-			<Card>
-				<section class="game-card" slot="content">
-					<video playsinline autoplay muted loop preload="none">
-						video unavailable. original video contains pengi gameplay showing the dynamic dialog
-						layout and character animation.
-						<source src={HeaderPengi} type="video/mp4">
-					</video>
-
-					<section class="game-card-body">
-
-						<h1>Pengi</h1>
-
-						<blockquote>
-							Well well, quite the dreamer, aren’t you? Might be hard to get in... costs a lot of
-							money...
-						</blockquote>
-
-						<p>
-							Pengi is a text-based adventure made in <span class="qt-unity">Unity</span>. I acted as the sole
-							programmer for the team. Most of the work revolves around UI and creating <a
-							href="https://yarnspinner.dev/" target="_blank">YarnSpinner</a> commands for writers
-							to use to create expressive stage directions in the script.
-						</p>
-
-						<section class="game-link-section">
-							<button type="button" class="game-button turnip-button"
-							        role="link"
-							        title="https://github.com/GreenTea-M/ProjectPengi"
-							        on:click={()=> window.open("https://github.com/GreenTea-M/ProjectPengi")}>
-								<img alt="github icon" src={GithubIcon}>
-							</button>
-							<button type="button" class="game-button turnip-button"
-							        role="link"
-							        title="https://turnipxenon.itch.io/pengi"
-							        on:click={()=> window.open("https://turnipxenon.itch.io/pengi")}>
-								<img alt="itch.io icon" src={ItchLogoHotLink}>
-							</button>
-						</section>
-					</section>
-				</section>
-			</Card>
-
-			<Card>
-				<section class="game-card" slot="content">
-					<!-- todo: move the image crop a bit lower -->
-					<video playsinline autoplay muted loop preload="none" id="hepcat-video">
-						<source src={HeaderHepCat} type="video/mp4">
-					</video>
-
-					<section class="game-card-body">
-
-						<h1>Hepcat</h1>
-
-						<blockquote>
-							"Cats, Jazz, and a little bit of Death. What more could anyone ask for?"
-						</blockquote>
-
-
-						<p>This is a course project made by a team of six for <a
-							href="https://sites.google.com/ualberta.ca/cmput250/">CMPUT 250</a>, and it won <a
-							href="https://webdocs.cs.ualberta.ca/~nathanst/certificate/">Game of the year.</a>
-						</p>
-
-						<p>
-							Hep Cat is a rhythm game made in <a
-							href="https://www.rpgmakerweb.com/products/programs/rpg-maker-mv" target="_blank" class="qt-rpgmaker">
-							RPG Maker MV</a> with the help of additional custom-made <span class="qt-js">Javascript</span> plugins. I
-							wrote the rhythm game plugin's framework. For this plugin to work, I
-							had to write a <span class="qt-python">Python</span> script that parses osu! files into readable JSON
-							files.
-						</p>
-
-
-						<section class="game-link-section">
-							<button type="button" class="game-button turnip-button"
-							        role="link"
-							        title="https://bitbucket.org/egginchicken/hep-cat/src/master/"
-							        on:click={()=> window.open("https://bitbucket.org/egginchicken/hep-cat/src/master/")}>
-								<img alt="bitbucket icon" src={BitbucketIcon}>
-							</button>
-							<button type="button" class="game-button turnip-button"
-							        role="link"
-							        title="https://just-a-phantom.itch.io/hep-cat"
-							        on:click={()=> window.open("https://just-a-phantom.itch.io/hep-cat")}>
-								<img alt="itch.io icon" src={ItchLogoHotLink}>
-							</button>
-						</section>
-					</section>
-				</section>
-			</Card>
-
-			<Card>
-				<section class="game-card" slot="content">
-					<img src={HeaderChefWings} alt="todo" loading="lazy">
-					<section class="game-card-body">
-
-						<h1>Chef Wings</h1>
-						<p>
-							A “roguelite-lite” where you gather ingredients in a procedurally-generated dungeon and use
-							them to cook for customers and then critics!
-						</p>
-						<p>
-							I built and documented several of the game’s systems including the game state management
-							system that extends <span class="qt-unity">Unity’s</span> existing Monobehavior lifecycle with new events,
-							and the dialogue, event, and level systems that coordinate the game flow using the interactive
-							dialogue tool YarnSpinner
-						</p>
-
-						<section class="game-link-section">
-							<button type="button" class="game-button turnip-button"
-							        title="https://selk.io/birb-project/trunk/"
-							        on:click={()=>modalStore.trigger(chefWingsWarning)}>
-								<img alt="itch.io icon" src={LinkIcon}>
-								<span>selk.io/birb-project/trunk/</span>
-							</button>
-						</section>
-					</section>
-				</section>
-			</Card>
-			<Card>
-				<section class="game-card" slot="content">
-					<video playsinline autoplay muted loop preload="none">
-						<source src={HeaderSoulwork} type="video/mp4">
-					</video>
-					<section class="game-card-body">
-
-						<h1>Soulwork</h1>
-
-						<p>
-							Soulwork is a 2D platforming game that uses unique physics to solve puzzle-based levels.
-							This project is a Time to Game Jam entry, restricting game development to be under 48
-							hours.
-						</p>
-						<p>
-							I helped make the level designing tools used by the designers to drag-and-drop objects
-							on the stage. I also helped program the unique physics-based gameplay mechanic. This was
-							was made in <span class="qt-unity">Unity</span> written using <span class="qt-cs">C#</span>.
-						</p>
-
-
-						<section class="game-link-section">
-							<button type="button" class="game-button turnip-button"
-							        role="link"
-							        title="https://github.com/Zeyu-Li/Clockwork"
-							        on:click={()=> window.open("https://github.com/Zeyu-Li/Clockwork")}>
-								<img alt="github icon" src={GithubIcon}>
-							</button>
-							<button type="button" class="game-button turnip-button"
-							        role="link"
-							        title="https://itch.io/jam/time-to-game-jam-gadec-fall-game-jam/rate/514331"
-							        on:click={()=> window.open("https://itch.io/jam/time-to-game-jam-gadec-fall-game-jam/rate/514331")}>
-								<img alt="itch.io icon" src={ItchLogoHotLink}>
-							</button>
-						</section>
-					</section>
-				</section>
-			</Card>
-			<Card overrideStyle="align-self: flex-start;">
-				<section class="game-card itch-promo" slot="content">
-					<h1 class="mb-12 text-center">Check out my itch.io page for more games</h1>
-
-					<section class="game-link-section">
-						<button type="button" class="btn variant-filled-primary turnip-button"
-						        role="link"
-						        title="https://turnipxenon.itch.io/"
-						        on:click={() => window.open("https://turnipxenon.itch.io/")}>
-							<img src={ItchLogoHotLink} class="long-btn-image" alt="itch icon">
-							<span>TurnipXenon</span>
-						</button>
-					</section>
-
-				</section>
-			</Card>
-		</section>
+		<GameSection></GameSection>
 
 		<Card>
 			<section class="section-card title-card" slot="content">
@@ -731,6 +539,21 @@
 
 		</section>
 
+		<div aria-hidden="true" style="height: 25vh" />
+
+		<Card>
+			<div slot="content" class="default-card">
+				<h1>Advanced settings</h1>
+				<p>This one is for those curious how I customize this page.</p>
+				<SlideToggle name="slider-label" bind:checked={isAdvanceSettingOn}>
+					Advanced settings: {isAdvanceSettingOn ? "On" : "Off"}
+				</SlideToggle>
+				{#if (isAdvanceSettingOn)}
+					<br>
+				{/if}
+			</div>
+		</Card>
+
 	</main>
 
 	<SocialSection slot="extraLeadingIcons"
@@ -872,6 +695,6 @@
     }
 
     .accordion-header {
-		    margin-top: 0.25em;
+        margin-top: 0.25em;
     }
 </style>
