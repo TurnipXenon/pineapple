@@ -9,15 +9,14 @@
 	import "$lib/styles/global.css";
 
 	// region Skeleton Store
-
 	// endregion Skeleton Store
-
 	// region highlightjs
 	import { initializeStores, storeHighlightJs } from "@skeletonlabs/skeleton";
 	import "highlight.js/styles/github-dark.css";
 
 	import xml from "highlight.js/lib/languages/xml"; // for HTML
 	import hljs from "highlight.js/lib/core";
+	import OverrideableMeta from "$pkg/components/overrideable_meta/OverridableMeta.svelte";
 
 	initializeStores();
 
@@ -26,5 +25,9 @@
 	storeHighlightJs.set(hljs);
 	// endregion highlightjs
 </script>
+
+<OverrideableMeta
+	rootUrl={import.meta.env.PROD ? "https://pineapple-gamma-blush.vercel.app" : "http://localhost:5173"}>
+</OverrideableMeta>
 
 <slot />

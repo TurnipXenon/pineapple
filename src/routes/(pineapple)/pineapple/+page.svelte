@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { PUBLIC_CRINGE_USERNAME } from "$env/static/public";
 	import { showComponentInToast, showTextInToast } from "$pkg/components/pineapple/toast/Toast";
 	import TestCard from "$pkg/components/pineapple/toast/custom-toast/TestCustomToast.svelte";
 	import TestDialogYarn from "./TestDialog.yarn?raw";
@@ -26,15 +25,6 @@
 		}
 	};
 </script>
-
-<svelte:head>
-	<title>Welcome to {PUBLIC_CRINGE_USERNAME}'s Home</title>
-	<meta content="Welcome to {PUBLIC_CRINGE_USERNAME}'s Home" name="og:title" />
-	<meta
-		content="Welcome to {PUBLIC_CRINGE_USERNAME}'s home! It's a neat place to be at if you're feeling lost. Come hang around!"
-		name="og:description"
-	/>
-</svelte:head>
 
 <Card>
 	<div slot="content" class="default-card">
