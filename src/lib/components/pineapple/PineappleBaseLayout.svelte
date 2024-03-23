@@ -13,11 +13,12 @@
 	// assets
 	// import DialogOverlay from "$lib/components/DialogOverlay.svelte";
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
-	import FABIcon from "$pkg/assets/placeholder/placeholder_circle.png";
+	import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import { dialogManager, enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import Toast from "$pkg/components/pineapple/toast/Toast.svelte";
 	import DialogOverlay from "$pkg/components/DialogOverlay.svelte";
+	import { fade } from "svelte/transition";
 	// todo: clean up all these imports!
 
 	let pages: BreadcrumbData[] = [];
@@ -69,13 +70,13 @@
 </svelte:head>
 
 <!--todo: turn off hidden when it's time-->
-<button type="button" class="fab" on:click={()=>{
+<button class="fab" on:click={()=>{
 	dialogManager.toggleDialogOverlay()
 }}>
 	{#if (enableDialogueOverlayValue)}
-		<img class="img-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
+		<img class="turnip-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
 	{:else }
-		<img src={FABIcon} alt="interactive floating action button represented as a turnip">
+		<img class="turnip-icon" src={FABIcon} alt="interactive floating action button represented as a turnip">
 	{/if}
 </button>
 
@@ -97,12 +98,12 @@
 				<ol class="breadcrumb">
 					{#each pages as crumb, i}
 						{#if i < pages.length - 1}
-							<li class="crumb">
+							<li class="crumb" in:fade>
 								<a href={crumb.path}>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</a>
+								&nbsp;&rsaquo;&nbsp;
 							</li>
-							<li class="crumb-separator" aria-hidden="true">&rsaquo;</li>
 						{:else}
-							<li class="crumb">{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
+							<li class="crumb" in:fade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
 						{/if}
 					{/each}
 				</ol>
@@ -123,17 +124,7 @@
 		<slot />
 		<div class="footer-space" />
 	</div>
-	<!--{#if enableDialogueOverlayValue}-->
-	<!--	&lt;!&ndash; Page Route Content &ndash;&gt;-->
-	<!--	<div class="default-page-container">-->
-	<!--		<slot />-->
-	<!--		<div class="footer-space" />-->
-	<!--	</div>-->
-	<!--	<DialogOverlay />-->
-	<!--{:else}-->
-	<!--	<DialogOverlay />-->
-	<!--	<slot />-->
-	<!--{/if}-->
+
 </AppShell>
 
 <style lang="postcss">
@@ -177,16 +168,18 @@
        it likely disappeared due to code gen shenanigans and package magic */
     .breadcrumb,
     .breadcrumb-nonresponsive {
-        @apply flex items-center space-x-4 w-full overflow-x-auto;
+        @apply flex items-center w-full overflow-x-auto;
         /*@apply flex items-center space-x-4 w-full hide-scrollbar overflow-x-auto;*/
     }
 
     .crumb {
-        @apply flex justify-center items-center space-x-2;
+        @apply flex justify-center items-center;
+        margin: 0.1em;
     }
 
     .crumb-separator {
-        @apply flex text-surface-700-200-token opacity-50;
+        @apply flex;
+        color: var(--color-text-50);
     }
 
     /* === Auto-Responsive === */
@@ -202,6 +195,8 @@
     }
 
     .fab {
+        @apply btn variant-filled-tertiary;
+        padding: 0;
         position: fixed;
         bottom: var(--fab-margin);
         width: 4em;
@@ -218,5 +213,9 @@
 
     .fab:dir(rtl) {
         left: var(--fab-margin);
+    }
+
+    .turnip-icon {
+		    margin: 4px;
     }
 </style>

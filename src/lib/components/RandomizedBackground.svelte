@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { generatedDailySeed, mulberry32Generator } from "$lib/util/stable_random";
 	import BgTiledAres from "$lib/assets/bg_tiled/bg_tiled_ares.png";
 	import BgTiledCorn from "$lib/assets/bg_tiled/bg_tiled_corn.png";
 	import BgTiledPineapple from "$lib/assets/bg_tiled/bg_tiled_pineapple.png";
@@ -7,6 +6,7 @@
 	import BgTiledTomato from "$lib/assets/bg_tiled/bg_tiled_tomato.png";
 	import BgTiledTurnip from "$lib/assets/bg_tiled/bg_tiled_turnip.png";
 	import RandomizedImage from "$lib/components/RandomizedImage.svelte";
+	import { generatedDailySeed, mulberry32Generator } from "$pkg/util/util";
 
 	export let enable;
 

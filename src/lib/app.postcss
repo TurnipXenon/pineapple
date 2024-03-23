@@ -45,8 +45,16 @@ html, body {
     filter: grayscale(100%) brightness(0%) invert(25%);
 }
 
+.turnip-icon {
+    filter: brightness(0%) invert(90%);
+}
+
 .dark .turnip-button > img, .dark .img-icon {
-    filter: grayscale(100%) brightness(0%) invert(100%);
+    filter: brightness(0%) invert(100%);
+}
+
+button {
+    color: var(--color-text-50);
 }
 
 /*
@@ -62,19 +70,9 @@ html, body {
 }
 */
 
-
-.variant-ghost-primary {
-    background-color: rgb(var(--color-primary-500) / 0.8);
-}
-
-.dark .variant-ghost-primary {
-    background-color: rgb(var(--color-primary-400) / 0.8);
-}
-
 .default-card {
-    @apply variant-ghost-primary text-center p-16;
+    padding: 2em;
     text-align: start;
-    padding-inline-end: clamp(0rem, 10vw, 8rem);
     max-width: var(--default-card-max-width);
 }
 
@@ -204,4 +202,8 @@ a:active {
     background-color: rgb(var(--color-surface-900) / 0.95);
     --tw-ring-color: rgb(var(--color-text-400));
     /*background-color: red;*/
+}
+
+.dark .ares-logo {
+    filter: invert(100%);
 }

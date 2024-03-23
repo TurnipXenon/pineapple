@@ -10,6 +10,10 @@
 		--turnip-card-margin-bottom: ${marginBottom};
 		${overrideStyle};
 	`;
+
+	if (!$$slots.content) {
+		console.error("Missing content slot in card. No content will be displayed.");
+	}
 </script>
 
 {#if (includeDataNoSnippet)}
