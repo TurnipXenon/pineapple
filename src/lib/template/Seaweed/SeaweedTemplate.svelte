@@ -1,35 +1,20 @@
 <script lang="ts">
-	import SocialSection from "$pkg/components/SocialSection.svelte";
-
 	export let letChaos = true;
 	export let name = "Turnip";
 	export let email = "turnipxenon@gmail.com";
 	export let linkedinSlug = "turnip-xenon";
 
+	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import "./seaweed.postcss";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
-	import { Accordion, AccordionItem, getModalStore, type ModalSettings, SlideToggle } from "@skeletonlabs/skeleton";
-	import { ItchLogoHotLink } from "$pkg/consts";
+	import { Accordion, AccordionItem, SlideToggle } from "@skeletonlabs/skeleton";
 	import { page } from "$app/stores";
 	import Card from "$pkg/components/Card.svelte";
-	import Chip from "$pkg/components/Chip.svelte";
 	import { onMount } from "svelte";
-
-	import HeaderPengi from "$pkg/assets/temp/header-pengi.mp4";
-	import HeaderSoulwork from "$pkg/assets/temp/header-soulwork.mp4";
-	import HeaderHepCat from "$pkg/assets/temp/header-hep-cat.mp4";
-	import HeaderChefWings from "$pkg/assets/game_dev/footage-chef-wings.gif";
 	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
-	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
-	import BitbucketIcon from "$pkg/assets/icons/bitbucket-icon.svg";
-	import LinkIcon from "$pkg/assets/icons/link-icon.svg";
-	import WeaverFootage from "$pkg/assets/others/weaver-footage.gif";
-	import WindowSetGraph from "$pkg/assets/others/window-set.png";
-	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
 	import GameSection from "$pkg/template/Seaweed/GameSection.svelte";
 	import ProjectSection from "$pkg/template/Seaweed/ProjectSection.svelte";
 
-	const modalStore = getModalStore();
 	let isVisible = true;
 	let isAdvanceSettingOn = false;
 
@@ -65,6 +50,7 @@
 		document.head.appendChild(style);
 	};
 
+	/* region chaos scripts */
 	const chaoticWordBank = ["niko", "toba", "seal", "aquarium", "ojisan", "baikal"];
 	let chaosDone = false;
 	const runChaos = (node: Element) => {
@@ -123,6 +109,7 @@
 
 	let mainVisibility = "visible";
 	$: mainVisibility = letChaos && !chaosDone ? "hidden" : "visible";
+	/* endregion chaos scripts */
 </script>
 
 <SeaweedBaseLayout bind:shouldDisplayLeadingIcons={isSocialsGone}>
