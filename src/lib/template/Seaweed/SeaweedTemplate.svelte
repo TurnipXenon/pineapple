@@ -3,11 +3,12 @@
 	export let name = "Turnip";
 	export let email = "turnipxenon@gmail.com";
 	export let linkedinSlug = "turnip-xenon";
+	export let domain = "http://localhost:5173/portfolio/actual/";
 
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import "./seaweed.postcss";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
-	import { Accordion, AccordionItem, SlideToggle } from "@skeletonlabs/skeleton";
+	import { Accordion, AccordionItem, CodeBlock, SlideToggle } from "@skeletonlabs/skeleton";
 	import { page } from "$app/stores";
 	import Card from "$pkg/components/Card.svelte";
 	import { onMount } from "svelte";
@@ -20,11 +21,71 @@
 
 	$: isSocialsGone = !isVisible;
 
+	// region query params
+	import gameContent from "./GameSection.svelte?raw";
+	import projectContent from "./ProjectSection.svelte?raw";
+	import selfContent from "./SeaweedTemplate.svelte?raw";
 
+	let qtMap = new Map<string, boolean>();
+	const paramQTSet = new Set<string>();
+
+	const syncQT = () => {
+		if (qtMap.size === 0 || paramQTSet.size === 0) {
+			return;
+		}
+
+		qtMap.forEach((_, k) => {
+			qtMap.set(k, paramQTSet.has(k));
+		});
+
+		// force svelte refresh
+		qtMap = qtMap;
+	};
+
+	const parseQTTerms = async () => {
+		const qtSet = new Set<string>();
+		const rawTermList: string[] = [];
+		[gameContent, projectContent, selfContent].forEach(body => {
+			// parse the qt-* term which exists within elements like:
+			// <span class="qt-*">TERM</span>
+			rawTermList.push(
+				...body // step 3: destructure the array
+					.split("\"") // step 1: split the text as double quotations (") as the delimiter
+					.filter(s => s.startsWith("qt-")) // step 2: filter out texts that does not begin with "qt-"
+			);
+		});
+
+		// step 4: some spans contain multiple classes, split them up
+		// then add them to qtTerms
+		// e.g. <span class="qt-1 qt-2">TERM</span>
+		rawTermList.forEach(t => {
+			t.split(" ").forEach(nt => {
+				// filter out some of this meta terms
+				if (["qt-1", "qt-2", "qt-*", "qt-"].includes(nt)) {
+					return;
+				}
+
+				// adding to set ensures the entry is unique
+				qtSet.add(nt);
+			});
+		});
+
+		// activate svelte reactivity
+		qtSet.forEach(t => qtMap.set(t, true));
+		syncQT();
+	};
+	parseQTTerms();
+
+	// todo: fix fragile relative reference to the root
+	// const fileList = import.meta.glob("./**/+page.svelte", { query: "?raw", eager: true });
+	// const titleToLink = new Map<string, string>();
+
+	let gameSectionFirst = true;
 	let qtfontWeight = "normal";
 	let additionalFontWeight = "";
 	/** qt values and what they mean:
 	 *  undefined: set all qt terms to font-weight: bold
+	 *  todo: implement clear
 	 *  clear: unset all terms to font-weight: normal
 	 *  <term>: only set qt-<term> to bold
 	 *  <term1>,<term2>: only set qt-<term1> and qt-<term2> to bold,
@@ -32,6 +93,12 @@
 	 *  ONLY CALL INSIDE onMount()
 	 **/
 	const filterSearchParams = (searchParams: URLSearchParams) => {
+		const gameSectionFirstParam = searchParams.get("game-section-first")?.trim();
+		if (gameSectionFirstParam === "false") {
+			gameSectionFirst = false;
+		}
+
+		// region Bold terms
 		const qtValue = searchParams.get("qt")?.trim();
 		if (qtValue === undefined) {
 			qtfontWeight = "bold";
@@ -39,6 +106,10 @@
 		}
 		qtfontWeight = "normal";
 		const dynamicStyle = qtValue.split(",").map((term) => {
+			// side-effect
+			paramQTSet.add(`qt-${term}`);
+
+			// main effect
 			return `span.qt-${term} { font-weight: bold !important; }`;
 		}).join("\n");
 
@@ -48,7 +119,10 @@
 		style.type = "text/css";
 		style.innerText = dynamicStyle;
 		document.head.appendChild(style);
+		syncQT();
+		// endregion Bold terms
 	};
+	// endregion query params
 
 	/* region chaos scripts */
 	const chaoticWordBank = ["niko", "toba", "seal", "aquarium", "ojisan", "baikal"];
@@ -96,6 +170,10 @@
 		}
 	};
 
+	let mainVisibility = "visible";
+	$: mainVisibility = letChaos && !chaosDone ? "hidden" : "visible";
+	/* endregion chaos scripts */
+
 	onMount(() => {
 		if (!letChaos && $page.url.searchParams) {
 			filterSearchParams($page.url.searchParams);
@@ -107,9 +185,45 @@
 		}
 	});
 
-	let mainVisibility = "visible";
-	$: mainVisibility = letChaos && !chaosDone ? "hidden" : "visible";
-	/* endregion chaos scripts */
+	const toggleTerm = (term: string) => {
+		qtMap.set(term, !qtMap.get(term));
+		qtMap = qtMap;
+	};
+
+	// when either gameSectionFirst or the queryTerms are updated, update advancedUrl
+	let advancedUrl = domain;
+	const updateUrl = () => {
+		const queryParams: string[] = [];
+
+		const qtList: string[] = [];
+		qtMap.forEach((shouldBold, term) => {
+			if (shouldBold) {
+				qtList.push(term);
+			}
+		});
+
+		if (qtList.length === 0) {
+			queryParams.push("qt=clear");
+		} else if (qtMap.size !== qtList.length) {
+			// we'll only add if the lengths are not equal
+			// dont need to add query if all terms in qtMap is true
+			queryParams.push(`qt=${qtList.map(t => t.slice(3, t.length)).join(",")}`);
+		}
+
+		if (!gameSectionFirst) {
+			queryParams.push("game-section-first=false");
+		}
+
+		if (queryParams.length > 0) {
+			advancedUrl = `${domain}?${queryParams.join("&")}`;
+		} else {
+			advancedUrl = domain;
+		}
+		// advancedUrl = `${domain}?${q}`;
+	};
+	$: // noinspection CommaExpressionJS
+		gameSectionFirst, qtMap, updateUrl();
+	// $: gameSectionQuery = gameSectionFirst ? "" : "game-section-first=false";
 </script>
 
 <SeaweedBaseLayout bind:shouldDisplayLeadingIcons={isSocialsGone}>
@@ -246,21 +360,46 @@
 
 		</div>
 
-		<GameSection email={email}></GameSection>
-
-		<ProjectSection email={email}></ProjectSection>
+		{#if (gameSectionFirst)}
+			<GameSection email={email}></GameSection>
+			<ProjectSection email={email}></ProjectSection>
+		{:else }
+			<ProjectSection email={email}></ProjectSection>
+			<GameSection email={email}></GameSection>
+		{/if}
 
 		<div aria-hidden="true" style="height: 25vh" />
 
 		<Card>
-			<div slot="content" class="default-card">
+			<div slot="content" class="default-card advanced-setting">
 				<h1>Advanced settings</h1>
 				<p>This one is for those curious how I customize this page.</p>
-				<SlideToggle name="slider-label" bind:checked={isAdvanceSettingOn}>
+				<SlideToggle name="advanced-setting-slider" bind:checked={isAdvanceSettingOn}>
 					Advanced settings: {isAdvanceSettingOn ? "On" : "Off"}
 				</SlideToggle>
 				{#if (isAdvanceSettingOn)}
+					<SlideToggle name="game-section-slider" bind:checked={gameSectionFirst}>
+						Should game section appear first over projects: {gameSectionFirst ? "On" : "Off"}
+					</SlideToggle>
+
+					<h3>Query terms to bold</h3>
+					<div class="query-term-grid">
+						{#each qtMap.entries() as [term, shouldBold]}
+							<!--{@const shouldBold = false}-->
+							<button
+								class="chip {shouldBold ? 'variant-filled-tertiary' : 'variant-soft-tertiary'}"
+								on:click={() => {toggleTerm(term)}}
+							>
+								<!-- todo: change shouldBold -->
+								{#if (shouldBold)}&check;{/if}
+								{term}
+							</button>
+						{/each}
+					</div>
+
 					<br>
+					<p>Copy the url below and open a new page with it</p>
+					<CodeBlock language="url" code={advancedUrl}></CodeBlock>
 				{/if}
 			</div>
 		</Card>
@@ -273,3 +412,22 @@
 	               linkedinSlug={linkedinSlug}
 	               isSmallVersion={true}></SocialSection>
 </SeaweedBaseLayout>
+
+<style lang="postcss">
+    .advanced-setting {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5lh;
+    }
+
+    h3 {
+        font-size: 1.5em;
+        line-height: 1.5lh;
+    }
+
+    .query-term-grid {
+        display: flex;
+        gap: 0.25em;
+        flex-wrap: wrap;
+    }
+</style>

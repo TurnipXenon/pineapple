@@ -32,3 +32,7 @@ export const createExternalLinkWarningFunction = (args: ExternalLinkWarningArgs)
 		location.href = args.href;
 	});
 };
+
+export interface RawGlob {
+	default: string;
+}

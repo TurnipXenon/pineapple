@@ -7,6 +7,24 @@
 	import "$lib/app.postcss";
 
 	import "$lib/styles/global.css";
+
+	// region Skeleton Store
+
+	// endregion Skeleton Store
+
+	// region highlightjs
+	import { initializeStores, storeHighlightJs } from "@skeletonlabs/skeleton";
+	import "highlight.js/styles/github-dark.css";
+
+	import xml from "highlight.js/lib/languages/xml"; // for HTML
+	import hljs from "highlight.js/lib/core";
+
+	initializeStores();
+
+	hljs.registerLanguage("xml", xml);
+	hljs.registerLanguage("url", xml);
+	storeHighlightJs.set(hljs);
+	// endregion highlightjs
 </script>
 
 <slot />
