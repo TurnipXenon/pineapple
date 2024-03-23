@@ -368,42 +368,43 @@
 			<GameSection email={email}></GameSection>
 		{/if}
 
-		<div aria-hidden="true" style="height: 25vh" />
+		{#if (!letChaos)}
+			<div aria-hidden="true" style="height: 25vh" />
 
-		<Card>
-			<div slot="content" class="default-card advanced-setting">
-				<h1>Advanced settings</h1>
-				<p>This one is for those curious how I customize this page.</p>
-				<SlideToggle name="advanced-setting-slider" bind:checked={isAdvanceSettingOn}>
-					Advanced settings: {isAdvanceSettingOn ? "On" : "Off"}
-				</SlideToggle>
-				{#if (isAdvanceSettingOn)}
-					<SlideToggle name="game-section-slider" bind:checked={gameSectionFirst}>
-						Should game section appear first over projects: {gameSectionFirst ? "On" : "Off"}
+			<Card>
+				<div slot="content" class="default-card advanced-setting">
+					<h1>Advanced settings</h1>
+					<p>This one is for those curious how I customize this page.</p>
+					<SlideToggle name="advanced-setting-slider" bind:checked={isAdvanceSettingOn}>
+						Advanced settings: {isAdvanceSettingOn ? "On" : "Off"}
 					</SlideToggle>
+					{#if (isAdvanceSettingOn)}
+						<SlideToggle name="game-section-slider" bind:checked={gameSectionFirst}>
+							Should game section appear first over projects: {gameSectionFirst ? "On" : "Off"}
+						</SlideToggle>
 
-					<h3>Query terms to bold</h3>
-					<div class="query-term-grid">
-						{#each qtMap.entries() as [term, shouldBold]}
-							<!--{@const shouldBold = false}-->
-							<button
-								class="chip {shouldBold ? 'variant-filled-tertiary' : 'variant-soft-tertiary'}"
-								on:click={() => {toggleTerm(term)}}
-							>
-								<!-- todo: change shouldBold -->
-								{#if (shouldBold)}&check;{/if}
-								{term}
-							</button>
-						{/each}
-					</div>
+						<h3>Query terms to bold</h3>
+						<div class="query-term-grid">
+							{#each qtMap.entries() as [term, shouldBold]}
+								<!--{@const shouldBold = false}-->
+								<button
+									class="chip {shouldBold ? 'variant-filled-tertiary' : 'variant-soft-tertiary'}"
+									on:click={() => {toggleTerm(term)}}
+								>
+									<!-- todo: change shouldBold -->
+									{#if (shouldBold)}&check;{/if}
+									{term}
+								</button>
+							{/each}
+						</div>
 
-					<br>
-					<p>Copy the url below and open a new page with it</p>
-					<CodeBlock language="url" code={advancedUrl}></CodeBlock>
-				{/if}
-			</div>
-		</Card>
-
+						<br>
+						<p>Copy the url below and open a new page with it</p>
+						<CodeBlock language="url" code={advancedUrl}></CodeBlock>
+					{/if}
+				</div>
+			</Card>
+		{/if}
 	</main>
 
 	<SocialSection slot="extraLeadingIcons"
