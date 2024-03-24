@@ -201,6 +201,7 @@
         bottom: var(--fab-margin);
         width: 4em;
         border-radius: 50%;
+		    z-index: 100;
     }
 
     .fab > img {

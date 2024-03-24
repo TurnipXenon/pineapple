@@ -26,29 +26,42 @@
 	};
 </script>
 
-<Card>
-	<div slot="content" class="default-card">
-		<button
-			class="btn variant-filled-secondary"
-			on:click={() => {
+<div class="pineapple-container">
+	<Card>
+		<div slot="content" class="default-card">
+			<button
+				class="btn variant-filled-secondary"
+				on:click={() => {
 			showComponentInToast({componentAndProps: {component: TestCard, props: undefined}});
 		}}><h3>Test custom toast</h3></button>
-		<button
-			class="btn variant-filled-secondary"
-			on:click={() => {
+			<button
+				class="btn variant-filled-secondary"
+				on:click={() => {
 			showTextInToast(`${testingQueueNumber} ${testingRandomPhrases[testingQueueNumber]}`);
 			testingQueueNumber = (testingQueueNumber + 1) % testingRandomPhrases.length;
 		}}><h3>Handy toast</h3></button>
-		<button
-			class="btn variant-filled-secondary"
-			on:click={onTestDialogClick}><h3>Test dialog</h3></button>
-	</div>
-</Card>
+			<button
+				class="btn variant-filled-secondary"
+				on:click={onTestDialogClick}><h3>Test dialog</h3></button>
+		</div>
+	</Card>
+	<Card><h1 class="filler" slot="content">Card</h1></Card>
+	<Card><h1 class="filler" slot="content">Card</h1></Card>
+</div>
 
 <style lang="postcss">
     .default-card {
         display: flex;
         flex-wrap: wrap;
         gap: 2em;
+    }
+
+    .pineapple-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .filler {
+        padding: 2em;
     }
 </style>
