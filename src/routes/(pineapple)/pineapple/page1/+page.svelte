@@ -1,6 +1,7 @@
 <!--{
 	"title": "Custom title for page 1",
-	"image": "$pkg/assets/characters/ares/ares_happy.webp"
+	"image": "/favicon.png",
+	"tags": ["random"]
 }-->
 <script>
 	import { Card } from "$pkg";

@@ -6,6 +6,10 @@ export interface PageMeta {
 	// defined meta
 	title: string; // defaults to directory name
 	tags: string[];
+
+	/**
+	 * Images are only limited to absolute paths (includes files in static folder)
+	 */
 	image?: string;
 	imageAlt?: string;
 	description?: string;

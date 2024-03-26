@@ -1,6 +1,9 @@
 <script lang="ts">
 	export let title: string | undefined = undefined;
 	export let fileList: Record<string, unknown>;
+	/**
+	 * Should include a slash before and after the path
+	 */
 	export let parentSubpath: string;
 
 	import { Card, createGoToFunction } from "$pkg";
@@ -26,7 +29,6 @@
 
 			// todo: consider
 			// subPath.unshift("/misc");
-			// const imageFile = await import("$pkg/assets/characters/ares/ares_happy.webp") as unknown as string;
 			const meta: PageMeta = {
 				relativeLink: subPath.join("/"),
 				title,
@@ -50,21 +52,12 @@
 
 				meta.image = metadata["image"];
 				if (meta.image) {
-					// todo: move to server side
-					// const imageGlob = import.meta.glob(meta.image, { eager: true });
-					// meta.image = Object.keys(imageGlob)[0];
-
 					meta.imageAlt = metadata["imageAlt"];
 					if (!meta.imageAlt) {
 						console.warn(`Accessibility issues: image alt missing for image ${meta.image}`);
 					}
 				}
-
-				// todo: we might have to do await import for image over here!
 			}
-
-			const imageGlob = import.meta.glob("$pkg/assets/characters/ares/ares_happy.webp", { eager: true });
-			let image = Object.keys(imageGlob)[0];
 
 			pageFlatList.push(meta);
 		}
