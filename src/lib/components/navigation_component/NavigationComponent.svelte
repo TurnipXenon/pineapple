@@ -5,108 +5,84 @@
 	 * Should include a slash before and after the path
 	 */
 	export let parentSubpath: string;
+	export let compareFn: undefined | ParsePageMetaCompareFn;
+	export let maxPageSize = 5;
+	export let currentIndex = 0;
 
 	import { Card, createGoToFunction } from "$pkg";
-	import type { PageMeta } from "$pkg/components/navigation_component/PageMeta";
-	import type { RawGlob } from "$pkg";
-	import { findPageMetaParent } from "$pkg/components/navigation_component/PageMeta";
+	import { parsePageMeta, type ParsePageMetaCompareFn } from "$pkg/components/navigation_component/PageMeta";
 
-	let pageFlatList: PageMeta[] = [];
-	let pageGroupedList: PageMeta[] = [];
-	const parseFileList = async () => {
-		for (const path in fileList) {
-			const pathParts = path.split("/");
-			pathParts.pop();
+	const pageFlatList = parsePageMeta(fileList, compareFn);
 
-			// get title
-			let title = pathParts[pathParts.length - 1].replaceAll("-", " ");
+	$: visiblePages = pageFlatList.slice(currentIndex * maxPageSize, (currentIndex * maxPageSize) + maxPageSize);
+	$: maxIndex = Math.floor(pageFlatList.length / maxPageSize);
 
-			// get url path
-			const subPath = pathParts.filter(s => {
-				return s !== "." && s.indexOf("(") !== 0;
-			});
-
-
-			// todo: consider
-			// subPath.unshift("/misc");
-			const meta: PageMeta = {
-				relativeLink: subPath.join("/"),
-				title,
-				tags: [],
-				nestedPages: []
-				// todo: transform the data in server.ts?
-			};
-
-
-			const body = (fileList[path] as RawGlob).default as string;
-			// let metadata : undefined | Map<string, string | string[]>;
-			if (body.startsWith("<!--")) {
-				// todo: absorb more metadata
-				const metadata = JSON.parse(body.slice("<!--".length, body.indexOf("-->")));
-				meta.title = metadata["title"] ?? meta.title;
-				meta.tags = metadata["tags"];
-				meta.description = metadata["description"];
-				meta.datePublished = metadata["datePublished"];
-				meta.lastUpdated = metadata["lastUpdated"];
-
-
-				meta.image = metadata["image"];
-				if (meta.image) {
-					meta.imageAlt = metadata["imageAlt"];
-					if (!meta.imageAlt) {
-						console.warn(`Accessibility issues: image alt missing for image ${meta.image}`);
-					}
-				}
-			}
-
-			pageFlatList.push(meta);
+	const movePage = (isNext: boolean) => {
+		if (isNext) {
+			currentIndex = currentIndex + 1;
+		} else {
+			currentIndex = currentIndex - 1;
 		}
-
-		pageFlatList.sort((a, b) => a.relativeLink.localeCompare(b.relativeLink));
-
-		pageFlatList.forEach(p => {
-			if (!findPageMetaParent(pageGroupedList, p)) {
-				pageGroupedList.push(p);
-			}
-		});
-
-		pageFlatList = pageFlatList;
 	};
-	parseFileList();
 </script>
 
-<div class="navigation-component">
-	{#if (title)}
-		<Card>
-			<h1 slot="content" class="default-card navigation-title">
-				{title}
-			</h1>
-		</Card>
-	{/if}
-	<!-- all the misc routes-->
-	{#each pageFlatList as pageMeta}
-		{@const fullPath=`${parentSubpath}${pageMeta.relativeLink}`}
-		<button class="navigation-element"
-		        title={fullPath}
-		        on:click={createGoToFunction(fullPath)}>
-			{#if pageMeta.image}
-				<img src={pageMeta.image} alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
-			{/if}
-			<section class="blurb-text">
-				<h2>{pageMeta.title}</h2>
-				<p>Published: {pageMeta.datePublished ?? "N/A"} | Last updated: {pageMeta.lastUpdated ?? "N/A"}</p>
-				<p>{pageMeta.description ?? ""}</p>
-				Tags:
-				{#if (pageMeta.tags && pageMeta.tags.length !== 0)}
-					{#each pageMeta.tags as tagValue}
-						&nbsp;<span class="badge variant-filled">{tagValue}</span>
-					{/each}
-				{:else}
-					None
+<div class="navigation-wrapper">
+
+	<div class="navigation-control-container">
+		<button class="navigation-control-button"
+		        disabled={currentIndex <= 0}
+		        on:click={() => {movePage(false)}}>{"<"}</button>
+		<Card marginBottom="0"><p slot="content" style="margin: 1em">Page {currentIndex + 1}</p></Card>
+		<button class="navigation-control-button"
+		        disabled={currentIndex >= maxIndex}
+		        on:click={() => {movePage(true)}}>{">"}</button>
+	</div>
+
+	<div class="navigation-component">
+		{#if (title)}
+			<Card>
+				<h1 slot="content" class="default-card navigation-title">
+					{title}
+				</h1>
+			</Card>
+		{/if}
+		<!-- all the misc routes-->
+		{#each visiblePages as pageMeta}
+			{@const fullPath=`${parentSubpath}${pageMeta.relativeLink}`}
+			<button class="navigation-element"
+			        title={fullPath}
+			        on:click={createGoToFunction(fullPath)}>
+				{#if pageMeta.image}
+					<img src={pageMeta.image} alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
 				{/if}
-			</section>
-		</button>
-	{/each}
+				<section class="blurb-text">
+					<h2>{pageMeta.title}</h2>
+					<p>Published: {pageMeta.datePublished ?? "N/A"} | Last updated: {pageMeta.lastUpdated ?? "N/A"}</p>
+					<p>{pageMeta.description ?? ""}</p>
+					Tags:
+					{#if (pageMeta.tags && pageMeta.tags.length !== 0)}
+						{#each pageMeta.tags as tagValue}
+							&nbsp;<span class="badge variant-filled">{tagValue}</span>
+						{/each}
+					{:else}
+						None
+					{/if}
+				</section>
+			</button>
+		{/each}
+
+		{#if visiblePages.length === 0}
+			<Card>
+				<p class="default-card" slot="content">Sorry, no content was found</p>
+			</Card>
+		{/if}
+	</div>
+
+	<div class="navigation-control-container">
+		<button class="navigation-control-button">{"<"}</button>
+		<button class="navigation-control-button">{">"}</button>
+	</div>
+
 </div>
 
 <style lang="postcss">
@@ -148,5 +124,20 @@
     .blurb-text {
         flex: 1;
         padding: 2em;
+    }
+
+    .navigation-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navigation-control-container {
+        display: flex;
+        justify-content: space-between;
+        margin: 1lh 0;
+    }
+
+    .navigation-control-button {
+        @apply btn variant-filled-secondary;
     }
 </style>
