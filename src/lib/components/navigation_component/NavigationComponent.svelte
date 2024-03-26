@@ -1,5 +1,7 @@
 <script lang="ts">
 	import NavigationControl from "$pkg/components/navigation_component/NavigationControl.svelte";
+	import { Card, createGoToFunction } from "$pkg";
+	import { parsePageMeta, type ParsePageMetaCompareFn } from "$pkg/components/navigation_component/PageMeta";
 
 	export let title: string | undefined = undefined;
 	export let fileList: Record<string, unknown>;
@@ -8,22 +10,19 @@
 	 */
 	export let parentSubpath: string;
 	export let compareFn: undefined | ParsePageMetaCompareFn;
-	export let maxPageSize = 5;
+	export let pageSize = 5;
 	export let currentIndex = 0;
-
-	import { Card, createGoToFunction } from "$pkg";
-	import { parsePageMeta, type ParsePageMetaCompareFn } from "$pkg/components/navigation_component/PageMeta";
 
 	const pageFlatList = parsePageMeta(fileList, compareFn);
 
-	$: visiblePages = pageFlatList.slice(currentIndex * maxPageSize, (currentIndex * maxPageSize) + maxPageSize);
+	$: visiblePages = pageFlatList.slice(currentIndex * pageSize, (currentIndex * pageSize) + pageSize);
 </script>
 
 <div class="navigation-wrapper">
 
 	<NavigationControl bind:currentIndex={currentIndex}
 	                   bind:contentLength={pageFlatList.length}
-	                   bind:maxPageSize={maxPageSize}></NavigationControl>
+	                   bind:pageSize={pageSize}></NavigationControl>
 
 	<div class="navigation-component">
 		{#if (title)}
@@ -67,7 +66,7 @@
 
 	<NavigationControl bind:currentIndex={currentIndex}
 	                   bind:contentLength={pageFlatList.length}
-	                   bind:maxPageSize={maxPageSize}></NavigationControl>
+	                   bind:pageSize={pageSize}></NavigationControl>
 
 </div>
 
@@ -115,15 +114,5 @@
     .navigation-wrapper {
         display: flex;
         flex-direction: column;
-    }
-
-    .navigation-control-container {
-        display: flex;
-        justify-content: space-between;
-        margin: 1lh 0;
-    }
-
-    .navigation-control-button {
-        @apply btn variant-filled-secondary;
     }
 </style>
