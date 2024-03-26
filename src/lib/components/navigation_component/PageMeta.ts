@@ -1,8 +1,16 @@
 export interface PageMeta {
+	// generated meta
 	relativeLink: string;
-	title: string;
-	tags: string[];
 	nestedPages: PageMeta[];
+
+	// defined meta
+	title: string; // defaults to directory name
+	tags: string[];
+	image?: string;
+	imageAlt?: string;
+	description?: string;
+	datePublished?: string;
+	lastUpdated?: string;
 }
 
 /**
@@ -28,4 +36,3 @@ export const findPageMetaParent = (parentList: PageMeta[], child: PageMeta): boo
 
 	return isChild;
 };
-
