@@ -4,6 +4,7 @@
 	import TestDialogYarn from "./TestDialog.yarn?raw";
 	import { Card, dialogManager } from "$pkg";
 	import NavigationComponent from "$pkg/components/navigation_component/NavigationComponent.svelte";
+	import { ImageMap } from "./(extra-pages)/ImageMap";
 
 	// region Toast test scripts
 	let testingQueueNumber = 1;
@@ -29,7 +30,8 @@
 
 
 	// todo: fix fragile relative reference to the root
-	const fileList = import.meta.glob("./**/+page.svelte", { query: "?raw", eager: true });
+	const fileList = import.meta.glob("./**/+page.svelte", { query: "?raw" });
+	const jsonList = import.meta.glob("./**/meta.json", { query: "?raw", eager: true });
 </script>
 
 <div class="pineapple-container">
@@ -54,6 +56,8 @@
 
 	<NavigationComponent title="Navigation Component Test"
 	                     fileList={fileList}
+	                     jsonList={jsonList}
+	                     imageMap={ImageMap}
 	                     parentSubpath="/pineapple/">
 	</NavigationComponent>
 </div>

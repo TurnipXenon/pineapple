@@ -1,8 +1,3 @@
-<!--{
-	"title": "Custom title for page 1",
-	"image": "/favicon.png",
-	"tags": ["random"]
-}-->
 <script>
 	import { Card } from "$pkg";
 	import { page } from "$app/stores";

@@ -5,6 +5,8 @@
 
 	export let title: string | undefined = undefined;
 	export let fileList: Record<string, unknown>;
+	export let jsonList: Record<string, unknown>;
+	export let imageMap = new Map<string, string>();
 
 	/**
 	 * Should include a slash before and after the path
@@ -15,7 +17,7 @@
 	export let pageSize = 5;
 	export let currentIndex = 0;
 
-	const pageFlatList = parsePageMeta(fileList, compareFn);
+	const pageFlatList = parsePageMeta(fileList, jsonList, imageMap, compareFn);
 
 	$: visiblePages = pageFlatList.slice(currentIndex * pageSize, (currentIndex * pageSize) + pageSize);
 </script>
@@ -40,8 +42,8 @@
 			<button class="navigation-element"
 			        title={fullPath}
 			        on:click={createGoToFunction(fullPath)}>
-				{#if pageMeta.image}
-					<img src={pageMeta.image} alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
+				{#if pageMeta.imageUrl}
+					<img src={pageMeta.imageUrl} alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
 				{/if}
 				<section class="blurb-text">
 					<h2>{pageMeta.title}</h2>
