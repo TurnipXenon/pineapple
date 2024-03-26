@@ -1,4 +1,6 @@
 <script lang="ts">
+	import NavigationControl from "$pkg/components/navigation_component/NavigationControl.svelte";
+
 	export let title: string | undefined = undefined;
 	export let fileList: Record<string, unknown>;
 	/**
@@ -15,28 +17,13 @@
 	const pageFlatList = parsePageMeta(fileList, compareFn);
 
 	$: visiblePages = pageFlatList.slice(currentIndex * maxPageSize, (currentIndex * maxPageSize) + maxPageSize);
-	$: maxIndex = Math.floor(pageFlatList.length / maxPageSize);
-
-	const movePage = (isNext: boolean) => {
-		if (isNext) {
-			currentIndex = currentIndex + 1;
-		} else {
-			currentIndex = currentIndex - 1;
-		}
-	};
 </script>
 
 <div class="navigation-wrapper">
 
-	<div class="navigation-control-container">
-		<button class="navigation-control-button"
-		        disabled={currentIndex <= 0}
-		        on:click={() => {movePage(false)}}>{"<"}</button>
-		<Card marginBottom="0"><p slot="content" style="margin: 1em">Page {currentIndex + 1}</p></Card>
-		<button class="navigation-control-button"
-		        disabled={currentIndex >= maxIndex}
-		        on:click={() => {movePage(true)}}>{">"}</button>
-	</div>
+	<NavigationControl bind:currentIndex={currentIndex}
+	                   bind:contentLength={pageFlatList.length}
+	                   bind:maxPageSize={maxPageSize}></NavigationControl>
 
 	<div class="navigation-component">
 		{#if (title)}
@@ -78,10 +65,9 @@
 		{/if}
 	</div>
 
-	<div class="navigation-control-container">
-		<button class="navigation-control-button">{"<"}</button>
-		<button class="navigation-control-button">{">"}</button>
-	</div>
+	<NavigationControl bind:currentIndex={currentIndex}
+	                   bind:contentLength={pageFlatList.length}
+	                   bind:maxPageSize={maxPageSize}></NavigationControl>
 
 </div>
 
