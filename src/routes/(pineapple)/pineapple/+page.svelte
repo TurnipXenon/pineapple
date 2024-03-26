@@ -2,9 +2,11 @@
 	import { showComponentInToast, showTextInToast } from "$pkg/components/pineapple/toast/Toast";
 	import TestCard from "$pkg/components/pineapple/toast/custom-toast/TestCustomToast.svelte";
 	import TestDialogYarn from "./TestDialog.yarn?raw";
-	import { Card, dialogManager } from "$pkg";
+	import { Card, createGoToFunction, dialogManager, type RawGlob } from "$pkg";
+	import { findPageMetaParent, type PageMeta } from "$pkg/components/navigation_component/PageMeta";
 
 
+	// region Toast test scripts
 	let testingQueueNumber = 1;
 	const testingRandomPhrases = [
 		"Niko",
@@ -24,6 +26,48 @@
 			dialogManager.toggleDialogOverlay();
 		}
 	};
+	// endregion
+
+
+	// todo: fix fragile relative reference to the root
+	const fileList = import.meta.glob("./**/+page.svelte", { query: "?raw", eager: true });
+	const pageFlatList: PageMeta[] = [];
+	for (const path in fileList) {
+		const pathParts = path.split("/");
+		pathParts.pop();
+
+		// get title
+		let title = pathParts[pathParts.length - 1].replaceAll("-", " ");
+		const body = (fileList[path] as RawGlob).default as string;
+		if (body.startsWith("<!--")) {
+			title = JSON.parse(body.slice("<!--".length, body.indexOf("-->")))["title"];
+		}
+
+		// get url path
+		const subPath = pathParts.filter(s => {
+			return s !== "." && s.indexOf("(") !== 0;
+		});
+
+
+		// todo: consider
+		// subPath.unshift("/misc");
+		const meta: PageMeta = {
+			relativeLink: subPath.join("/"),
+			title,
+			tags: [],
+			nestedPages: []
+		};
+		pageFlatList.push(meta);
+	}
+
+	pageFlatList.sort((a, b) => a.relativeLink.localeCompare(b.relativeLink));
+
+	const pageGroupedList: PageMeta[] = [];
+	pageFlatList.forEach(p => {
+		if (!findPageMetaParent(pageGroupedList, p)) {
+			pageGroupedList.push(p);
+		}
+	});
 </script>
 
 <div class="pineapple-container">
@@ -47,6 +91,18 @@
 	</Card>
 	<Card><h1 class="filler" slot="content">Card</h1></Card>
 	<Card><h1 class="filler" slot="content">Card</h1></Card>
+
+	<div class="navigation-component">
+		<Card><h1 class="filler" slot="content">Title</h1></Card>
+		<!-- all the misc routes-->
+		{#each pageFlatList as page}
+			<button class="navigation-element">
+				<h3>{page.title}</h3>
+			</button>
+		{/each}
+	</div>
+
+
 </div>
 
 <style lang="postcss">
@@ -63,5 +119,15 @@
 
     .filler {
         padding: 2em;
+    }
+
+    .navigation-component {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+    }
+
+    .navigation-element {
+        @apply btn card card-hover bg-surface-100 dark:bg-surface-900;
     }
 </style>
