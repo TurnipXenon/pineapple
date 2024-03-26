@@ -18,6 +18,7 @@ export interface PageMeta {
 	datePublished?: string;
 	lastUpdated?: string;
 	shouldGroup?: boolean;
+	shouldHide?: boolean;
 }
 
 /**
@@ -80,20 +81,25 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 		// let metadata : undefined | Map<string, string | string[]>;
 		if (body.startsWith("<!--")) {
 			// todo: absorb more metadata
-			const metadata = JSON.parse(body.slice("<!--".length, body.indexOf("-->")));
-			meta.title = metadata["title"] ?? meta.title;
-			meta.tags = metadata["tags"];
-			meta.description = metadata["description"];
-			meta.datePublished = metadata["datePublished"];
-			meta.lastUpdated = metadata["lastUpdated"];
-			meta.shouldGroup = metadata["shouldGroup"] as boolean;
+			try {
+				const metadata = JSON.parse(body.slice("<!--".length, body.indexOf("-->")));
+				meta.title = metadata["title"] ?? meta.title;
+				meta.tags = metadata["tags"];
+				meta.description = metadata["description"];
+				meta.datePublished = metadata["datePublished"];
+				meta.lastUpdated = metadata["lastUpdated"];
+				meta.shouldGroup = metadata["shouldGroup"] as boolean;
+				meta.shouldHide = metadata["shouldHide"] as boolean;
 
-			meta.image = metadata["image"];
-			if (meta.image) {
-				meta.imageAlt = metadata["imageAlt"];
-				if (!meta.imageAlt) {
-					console.warn(`Accessibility issues: image alt missing for image ${meta.image}`);
+				meta.image = metadata["image"];
+				if (meta.image) {
+					meta.imageAlt = metadata["imageAlt"];
+					if (!meta.imageAlt) {
+						console.warn(`Accessibility issues: image alt missing for image ${meta.image}`);
+					}
 				}
+			} catch (e) {
+				console.error(`Error at ${meta.relativeLink}: ${e}`);
 			}
 		}
 
@@ -103,6 +109,7 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 	pageFlatList.sort((a, b) => a.relativeLink.localeCompare(b.relativeLink));
 
 	// find groupings
+	// grouping should be BEFORE the external sort
 	// todo: we don't even have use for this yet!
 	// pageFlatList.forEach(p => {
 	// 	if (!findPageMetaParent(pageGroupedList, p)) {

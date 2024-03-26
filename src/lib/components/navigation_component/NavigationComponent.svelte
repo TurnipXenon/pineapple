@@ -5,11 +5,13 @@
 
 	export let title: string | undefined = undefined;
 	export let fileList: Record<string, unknown>;
+
 	/**
 	 * Should include a slash before and after the path
 	 */
 	export let parentSubpath: string;
-	export let compareFn: undefined | ParsePageMetaCompareFn;
+
+	export let compareFn: undefined | ParsePageMetaCompareFn = undefined;
 	export let pageSize = 5;
 	export let currentIndex = 0;
 
@@ -19,19 +21,19 @@
 </script>
 
 <div class="navigation-wrapper">
+	{#if (title)}
+		<Card>
+			<h1 slot="content" class="default-card navigation-title">
+				{title}
+			</h1>
+		</Card>
+	{/if}
 
 	<NavigationControl bind:currentIndex={currentIndex}
 	                   bind:contentLength={pageFlatList.length}
 	                   bind:pageSize={pageSize}></NavigationControl>
 
 	<div class="navigation-component">
-		{#if (title)}
-			<Card>
-				<h1 slot="content" class="default-card navigation-title">
-					{title}
-				</h1>
-			</Card>
-		{/if}
 		<!-- all the misc routes-->
 		{#each visiblePages as pageMeta}
 			{@const fullPath=`${parentSubpath}${pageMeta.relativeLink}`}
