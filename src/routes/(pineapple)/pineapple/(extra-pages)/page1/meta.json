@@ -1,5 +1,14 @@
 {
-  "title": "Custom title for page 1",
-  "imageUrl": "/favicon.png",
-  "tags": ["random"]
+  "datePublished": "23-01-01",
+  "description": "random description but look at Ares!",
+  "imageAlt": "Image of Ares being excited",
+  "imageID": "testImageID",
+  "imageURL": "./favicon.png/?q=imageIDTakesPrecedence",
+  "lastUpdated": "23-02-02",
+  "shouldGroup": false,
+  "shouldHide": false,
+  "tags": [
+    "random"
+  ],
+  "title": "Custom title for page 1!!!"
 }

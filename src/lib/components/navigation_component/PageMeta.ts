@@ -1,14 +1,10 @@
 import type { RawGlob } from "$pkg/util/util";
 
 export interface PageMeta {
-	// generated meta
-	relativeLink: string;
-	nestedPages: PageMeta[];
+	datePublished?: string;
+	description?: string;
 
-	// defined meta
-	title: string; // defaults to directory name
-	tags: string[];
-
+	imageAlt?: string; // defaults to directory name
 	/**
 	 * imageID is an ID that NavigationComponent can use to identify imported images
 	 *
@@ -23,19 +19,33 @@ export interface PageMeta {
 	 * - Your image map typescript: ImageMap.ts
 	 * - The page you want with an image represented in the navigation: ./topic1/+page.svelte
 	 * - The meta for that page: ./topic1/meta.json
+	 *
+	 * imageID takes precedence over imageURL
 	 */
 	imageID?: string;
 
 	/**
 	 * imageURL is only limited to absolute paths (includes files in static folder)
+	 *
+	 * if imageID is defined, this will be ignored
 	 */
 	imageUrl?: string;
-	imageAlt?: string;
-	description?: string;
-	datePublished?: string;
+
 	lastUpdated?: string;
+	nestedPages: PageMeta[];
+
+	/**
+	 * relativeLink is generated automatically. This will be ignored in meta.json.
+	 */
+	relativeLink: string;
 	shouldGroup?: boolean;
 	shouldHide?: boolean;
+	tags: string[];
+
+	/**
+	 * title defaults to the directory name if it's an empty string.
+	 */
+	title: string;
 }
 
 /**
@@ -135,7 +145,10 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 					console.warn(`Accessibility issues: image alt missing for image ${meta.imageUrl}`);
 				}
 			}
+		}
 
+		if (meta.shouldHide) {
+			continue;
 		}
 
 		pageFlatList.push(meta);
@@ -154,7 +167,45 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 
 	if (compareFn) {
 		pageFlatList.sort(compareFn);
+	} else {
+		pageFlatList.sort(DefaultPageMetaSorter);
 	}
 
 	return pageFlatList;
+};
+
+const AWins = -1;
+const BWins = 1;
+
+/**
+ * Prioritizes, in order, lastUpdated, datePublished, has description, then title
+ *
+ * @param a
+ * @param b
+ * @constructor
+ */
+export const DefaultPageMetaSorter: ParsePageMetaCompareFn = (a, b) => {
+	if (a.lastUpdated && !b.lastUpdated) {
+		return AWins;
+	} else if (!a.lastUpdated && b.lastUpdated) {
+		return BWins;
+	} else if (a.lastUpdated && b.lastUpdated) {
+		return a.lastUpdated.localeCompare(b.lastUpdated);
+	}
+
+	if (a.datePublished && !b.datePublished) {
+		return AWins;
+	} else if (!a.lastUpdated && b.datePublished) {
+		return BWins;
+	} else if (a.datePublished && b.datePublished) {
+		return a.datePublished.localeCompare(b.datePublished);
+	}
+
+	if (a.description && !b.description) {
+		return AWins;
+	} else if (!a.description && b.description) {
+		return BWins;
+	}
+
+	return a.title.localeCompare(b.title);
 };
