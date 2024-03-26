@@ -6,6 +6,7 @@ export { default as LazyAsset } from "./components/LazyAsset.svelte";
 export { default as Card } from "./components/Card.svelte";
 
 export * from "$pkg/components/overrideable_meta/index";
+export * from "$pkg/components/navigation_component/index";
 export * from "./components/dialog_manager/DialogManagerStore";
 export * from "./components/dialog_manager/DialogManager";
 export * from "./components/dialog_manager/DialogUtils";
