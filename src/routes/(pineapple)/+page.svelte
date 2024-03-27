@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { createGoToFunction } from "$pkg/util/util";
 	import { Card } from "$pkg";
 </script>
