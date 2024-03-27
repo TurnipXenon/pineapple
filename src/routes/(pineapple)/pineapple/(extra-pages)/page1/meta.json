@@ -1,10 +1,10 @@
 {
-  "datePublished": "23-01-01",
+  "datePublished": "2023-01-01",
   "description": "random description but look at Ares! Let's try out a long-ish text to see how things would wrap and all that. I don't know what else to say. Please stream Umpah Umpah.",
   "imageAlt": "Image of Ares being excited",
   "imageID": "testImageID",
   "imageURL": "./favicon.png/?q=imageIDTakesPrecedence",
-  "lastUpdated": "23-02-02",
+  "lastUpdated": "2023-02-02",
   "shouldGroup": false,
   "shouldHide": false,
   "tags": [

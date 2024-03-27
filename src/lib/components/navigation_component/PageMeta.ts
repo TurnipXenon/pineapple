@@ -178,27 +178,23 @@ const AWins = -1;
 const BWins = 1;
 
 /**
- * Prioritizes, in order, lastUpdated, datePublished, has description, then title
+ * Prioritizes, in order, recently lastUpdated or datePublished, has description, then title
  *
  * @param a
  * @param b
  * @constructor
  */
 export const DefaultPageMetaSorter: ParsePageMetaCompareFn = (a, b) => {
-	if (a.lastUpdated && !b.lastUpdated) {
-		return AWins;
-	} else if (!a.lastUpdated && b.lastUpdated) {
-		return BWins;
-	} else if (a.lastUpdated && b.lastUpdated) {
-		return a.lastUpdated.localeCompare(b.lastUpdated);
-	}
+	const aDate = a.lastUpdated || a.datePublished;
+	const bDate = b.lastUpdated || b.datePublished;
 
-	if (a.datePublished && !b.datePublished) {
+	if (aDate && !bDate) {
 		return AWins;
-	} else if (!a.lastUpdated && b.datePublished) {
+	} else if (!aDate && bDate) {
 		return BWins;
-	} else if (a.datePublished && b.datePublished) {
-		return a.datePublished.localeCompare(b.datePublished);
+	} else if (aDate && bDate) {
+		// we invert the value because we want the dates to be in descending order
+		return -aDate.localeCompare(bDate);
 	}
 
 	if (a.description && !b.description) {
