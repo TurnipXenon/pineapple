@@ -43,7 +43,8 @@
 			        title={fullPath}
 			        on:click={createGoToFunction(fullPath)}>
 				{#if pageMeta.imageUrl}
-					<img src={pageMeta.imageUrl} alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
+					<img src={pageMeta.imageUrl}
+					     alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
 				{/if}
 				<section class="blurb-text">
 					<h2>{pageMeta.title}</h2>
@@ -52,7 +53,7 @@
 					Tags:
 					{#if (pageMeta.tags && pageMeta.tags.length !== 0)}
 						{#each pageMeta.tags as tagValue}
-							&nbsp;<span class="badge variant-filled">{tagValue}</span>
+							&nbsp;<span class="badge variant-filled tag-container">{tagValue}</span>
 						{/each}
 					{:else}
 						None
@@ -75,21 +76,43 @@
 </div>
 
 <style lang="postcss">
-    img {
-        height: 20em;
-        width: 20em;
-        object-fit: cover;
-        padding: var(--theme-border-base);
-        border-radius: var(--theme-rounded-container) 0 0 var(--theme-rounded-container);
-    }
-
-    @media (max-width: 50rem) {
+    @media (max-width: 800px) {
         img {
             max-height: 20rem;
             width: 100%;
             flex-basis: 100%;
             border-radius: var(--theme-rounded-container) var(--theme-rounded-container) 0 0;
         }
+
+        .navigation-element {
+            flex-direction: column;
+        }
+    }
+
+    @media (min-width: 801px) {
+        .navigation-element {
+            flex-direction: row;
+        }
+
+        img {
+            width: 20em;
+        }
+    }
+
+    .navigation-element {
+        @apply btn card card-hover bg-surface-100 dark:bg-surface-900;
+        display: flex;
+        /*flex-direction: row;*/
+        text-align: start;
+        align-items: flex-start;
+        padding: 0;
+    }
+
+    img {
+        height: 20em;
+        object-fit: cover;
+        padding: var(--theme-border-base);
+        border-radius: var(--theme-rounded-container) 0 0 var(--theme-rounded-container);
     }
 
     .navigation-component {
@@ -98,25 +121,24 @@
         gap: 2em;
     }
 
-    .navigation-element {
-        @apply btn card card-hover bg-surface-100 dark:bg-surface-900;
-        display: flex;
-        flex-wrap: wrap;
-        text-align: start;
-        padding: 0;
-    }
-
     .navigation-title {
         text-align: center;
     }
 
     .blurb-text {
-        flex: 1;
         padding: 2em;
+        flex-grow: 1;
+        white-space: initial;
+        min-width: 0;
     }
 
     .navigation-wrapper {
         display: flex;
         flex-direction: column;
+        max-width: 1000px;
+    }
+
+    .tag-container {
+        margin: 0.25lh 0;
     }
 </style>
