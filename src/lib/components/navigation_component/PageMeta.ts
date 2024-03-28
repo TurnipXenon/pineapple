@@ -83,11 +83,9 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 	// let pageGroupedList: PageMeta[] = [];
 	const jsonMap = new Map<string, { [k: string]: unknown }>();
 	Object.keys(jsonList).forEach(path => {
-		const pathParts = path.split("/");
+		const pathEnd = path.split("../").pop() as string;
+		const pathParts = pathEnd.split("/");
 		pathParts.pop();
-
-		// get title
-		// const title = pathParts[pathParts.length - 1].replaceAll("-", " ");
 
 		// get url path
 		const subPath = pathParts.filter(s => {
@@ -103,7 +101,8 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 	});
 
 	for (const path in fileList) {
-		const pathParts = path.split("/");
+		const pathEnd = path.split("../").pop() as string;
+		const pathParts = pathEnd.split("/");
 		pathParts.pop();
 
 		// get title
