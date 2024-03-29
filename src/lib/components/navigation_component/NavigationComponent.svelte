@@ -81,7 +81,7 @@
 </div>
 
 <style lang="postcss">
-    @media (max-width: 800px) {
+    @container (max-width: 800px) {
         img {
             max-height: 20rem;
             width: 100%;
@@ -94,7 +94,7 @@
         }
     }
 
-    @media (min-width: 801px) {
+    @container (min-width: 801px) {
         .navigation-element {
             flex-direction: row;
         }
@@ -106,8 +106,8 @@
 
     .navigation-element {
         @apply btn card card-hover bg-surface-100 dark:bg-surface-900;
+        container-type: inline-size;
         display: flex;
-        /*flex-direction: row;*/
         text-align: start;
         align-items: flex-start;
         padding: 0;
@@ -121,6 +121,7 @@
     }
 
     .navigation-component {
+        container-type: inline-size;
         display: flex;
         flex-direction: column;
         gap: 2em;
