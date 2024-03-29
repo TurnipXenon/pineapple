@@ -3,6 +3,7 @@
 	export let email = "turnipxenon@gmail.com";
 	export let linkedinSlug = "turnip-xenon";
 	export let isSlot = false;
+	export let allowLinkedIn = true;
 
 	import { ItchLogoHotLink } from "$pkg/consts";
 	import { onMount } from "svelte";
@@ -19,7 +20,7 @@
 	`;
 
 	onMount(() => {
-		shouldShowExtra = window.screen.availWidth >= 440;
+		shouldShowExtra = allowLinkedIn && window.screen.availWidth >= 440;
 	});
 </script>
 
@@ -37,7 +38,7 @@
 	        role="link"
 	        title={`https://www.linkedin.com/in/${linkedinSlug}/`}
 	        on:click={() => window.open(`https://www.linkedin.com/in/${linkedinSlug}/`)}>
-		<img src={LinkedinIcon} alt="linkedikn icon">
+		<img src={LinkedinIcon} alt="linkedin icon">
 		{#if (!isSmallVersion)}
 			<span>{linkedinSlug}</span>
 		{/if}
