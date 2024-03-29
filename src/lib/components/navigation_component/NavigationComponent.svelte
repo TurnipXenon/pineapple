@@ -3,10 +3,11 @@
 	import { Card, createGoToFunction } from "$pkg";
 	import { parsePageMeta, type ParsePageMetaCompareFn } from "$pkg/components/navigation_component/PageMeta";
 
-	export let title: string | undefined = undefined;
 	export let fileList: Record<string, unknown>;
 	export let jsonList: Record<string, unknown>;
+	export let title: string | undefined = undefined;
 	export let imageMap = new Map<string, string>();
+	export let shouldAllowControl = true;
 
 	/**
 	 * Should include a slash before and after the path
@@ -31,9 +32,11 @@
 		</Card>
 	{/if}
 
-	<NavigationControl bind:currentIndex={currentIndex}
-	                   bind:contentLength={pageFlatList.length}
-	                   bind:pageSize={pageSize}></NavigationControl>
+	{#if shouldAllowControl}
+		<NavigationControl bind:currentIndex={currentIndex}
+		                   bind:contentLength={pageFlatList.length}
+		                   bind:pageSize={pageSize}></NavigationControl>
+	{/if}
 
 	<div class="navigation-component">
 		<!-- all the misc routes-->
@@ -69,9 +72,11 @@
 		{/if}
 	</div>
 
-	<NavigationControl bind:currentIndex={currentIndex}
-	                   bind:contentLength={pageFlatList.length}
-	                   bind:pageSize={pageSize}></NavigationControl>
+	{#if shouldAllowControl}
+		<NavigationControl bind:currentIndex={currentIndex}
+		                   bind:contentLength={pageFlatList.length}
+		                   bind:pageSize={pageSize}></NavigationControl>
+	{/if}
 
 </div>
 
@@ -137,7 +142,7 @@
         display: flex;
         flex-direction: column;
         max-width: 1000px;
-		    width: 100%;
+        width: 100%;
     }
 
     .tag-container {

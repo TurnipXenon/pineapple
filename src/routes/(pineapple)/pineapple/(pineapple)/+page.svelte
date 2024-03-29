@@ -59,6 +59,7 @@
                      fileList={fileList}
                      jsonList={jsonList}
                      imageMap={ImageMap}
+                     shouldAllowControl={false}
                      parentSubpath="/pineapple/">
 </NavigationComponent>
 
