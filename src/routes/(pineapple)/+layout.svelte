@@ -2,7 +2,7 @@
 	import PinyaBaseLayout from "$pkg/components/pineapple/PineappleBaseLayout.svelte";
 </script>
 
-<PinyaBaseLayout>
+<PinyaBaseLayout showDialogByDefault={true}>
 	<slot />
 </PinyaBaseLayout>
 

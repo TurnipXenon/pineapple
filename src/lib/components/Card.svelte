@@ -3,6 +3,7 @@
 	export let marginBottom = "2lh";
 	export let overrideStyle = "";
 	export let includeDataNoSnippet = true;
+	export let additionalClass: string[] = [];
 
 	// warning: don't forget the semi-colon when adding new style!
 	const style = `
@@ -14,10 +15,12 @@
 	if (!$$slots.content) {
 		console.error("Missing content slot in card. No content will be displayed.");
 	}
+
+	const classes = ["card", "turnip-card"].concat(additionalClass).join(" ");
 </script>
 
 {#if (includeDataNoSnippet)}
-	<div class="card turnip-card" style={style} data-no-snippet>
+	<div class={classes} style={style} data-no-snippet>
 		<slot name="content" class="card" />
 	</div>
 {:else }

@@ -16,26 +16,25 @@
 		}
 	});
 
-	onMount(() => {
-		dialogManager.update(0);
-	});
-
 	let hidePercent = 100;
 	let isHidden = true;
-	dialogManager.hidePercent.subscribe((value) => {
-		hidePercent = value * 0.4;
-		isHidden = false;
-	});
+	onMount(() => {
+		dialogManager.hidePercent.subscribe((value) => {
+			hidePercent = value * 0.4;
+			isHidden = false;
+		});
 
-	dialogManager.currentReadableState.subscribe((value) => {
-		isHidden = value === DialogState.Invisible;
-		if (value === DialogState.Invisible) {
-		}
+		dialogManager.currentReadableState.subscribe((value) => {
+			isHidden = value === DialogState.Invisible;
+		});
+
+		dialogManager.update(0);
 	});
 
 	const onDialogClick = () => {
 		dialogManager.skipAnimation();
 	};
+
 </script>
 
 <div class="dialog-elements"

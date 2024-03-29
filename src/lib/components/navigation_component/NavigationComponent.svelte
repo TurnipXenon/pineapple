@@ -123,6 +123,7 @@
 
     .navigation-title {
         text-align: center;
+        max-width: initial;
     }
 
     .blurb-text {
@@ -136,6 +137,7 @@
         display: flex;
         flex-direction: column;
         max-width: 1000px;
+		    width: 100%;
     }
 
     .tag-container {

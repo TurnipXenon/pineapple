@@ -15,7 +15,8 @@
     "check-requirements": "npx vite-node src/lib/scripts/SetDefaultEnvironment.ts",
     "custom-check": "npx vite-node src/lib/scripts/util/ManualCheckRun.ts",
     "preview": "vite preview",
-    "prepublishOnly": "yarn package"
+    "prepublishOnly": "yarn package",
+    "to-dev": "git checkout main && git pull origin main && git checkout -b turnip/dev"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^3.1.1",
