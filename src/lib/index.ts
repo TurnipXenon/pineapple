@@ -4,6 +4,7 @@ export { default as PineappleLayoutBase } from "./components/pineapple/Pineapple
 export { default as SeaweedTemplate } from "./template/Seaweed/SeaweedTemplate.svelte";
 export { default as LazyAsset } from "./components/LazyAsset.svelte";
 export { default as Card } from "./components/Card.svelte";
+export { default as SocialSection } from "./components/SocialSection.svelte";
 
 export * from "$pkg/components/overrideable_meta/index";
 export * from "$pkg/components/navigation_component/index";

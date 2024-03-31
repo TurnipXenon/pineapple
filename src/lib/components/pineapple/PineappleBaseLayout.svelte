@@ -149,8 +149,8 @@
 
     .default-page-container {
         @apply flex justify-center items-center;
-        margin-top: 4em;
-        margin-right: 1em;
+        width: 100%;
+        padding: 1lh clamp(8px, 10vw, 2em);
         flex-direction: column;
         z-index: 0;
     }
@@ -201,7 +201,7 @@
         bottom: var(--fab-margin);
         width: 4em;
         border-radius: 50%;
-		    z-index: 100;
+        z-index: 100;
     }
 
     .fab > img {
@@ -217,6 +217,6 @@
     }
 
     .turnip-icon {
-		    margin: 4px;
+        margin: 4px;
     }
 </style>

@@ -3,6 +3,7 @@
 	export let email = "turnipxenon@gmail.com";
 	export let linkedinSlug = "turnip-xenon";
 	export let isSlot = false;
+	export let allowLinkedIn = true;
 
 	import { ItchLogoHotLink } from "$pkg/consts";
 	import { onMount } from "svelte";
@@ -33,15 +34,17 @@
 			<span>TurnipXenon</span>
 		{/if}
 	</button>
-	<button type="button" class="social-button turnip-button"
-	        role="link"
-	        title={`https://www.linkedin.com/in/${linkedinSlug}/`}
-	        on:click={() => window.open(`https://www.linkedin.com/in/${linkedinSlug}/`)}>
-		<img src={LinkedinIcon} alt="linkedikn icon">
-		{#if (!isSmallVersion)}
-			<span>{linkedinSlug}</span>
-		{/if}
-	</button>
+	{#if allowLinkedIn}
+		<button type="button" class="social-button turnip-button"
+		        role="link"
+		        title={`https://www.linkedin.com/in/${linkedinSlug}/`}
+		        on:click={() => window.open(`https://www.linkedin.com/in/${linkedinSlug}/`)}>
+			<img src={LinkedinIcon} alt="linkedin icon">
+			{#if (!isSmallVersion)}
+				<span>{linkedinSlug}</span>
+			{/if}
+		</button>
+	{/if}
 	<button type="button" class="social-button turnip-button"
 	        role="link"
 	        title={`mailto:${email}`}

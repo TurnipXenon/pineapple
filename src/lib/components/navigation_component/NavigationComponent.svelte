@@ -3,10 +3,11 @@
 	import { Card, createGoToFunction } from "$pkg";
 	import { parsePageMeta, type ParsePageMetaCompareFn } from "$pkg/components/navigation_component/PageMeta";
 
-	export let title: string | undefined = undefined;
 	export let fileList: Record<string, unknown>;
 	export let jsonList: Record<string, unknown>;
+	export let title: string | undefined = undefined;
 	export let imageMap = new Map<string, string>();
+	export let shouldAllowControl = true;
 
 	/**
 	 * Should include a slash before and after the path
@@ -31,9 +32,11 @@
 		</Card>
 	{/if}
 
-	<NavigationControl bind:currentIndex={currentIndex}
-	                   bind:contentLength={pageFlatList.length}
-	                   bind:pageSize={pageSize}></NavigationControl>
+	{#if shouldAllowControl}
+		<NavigationControl bind:currentIndex={currentIndex}
+		                   bind:contentLength={pageFlatList.length}
+		                   bind:pageSize={pageSize}></NavigationControl>
+	{/if}
 
 	<div class="navigation-component">
 		<!-- all the misc routes-->
@@ -69,14 +72,16 @@
 		{/if}
 	</div>
 
-	<NavigationControl bind:currentIndex={currentIndex}
-	                   bind:contentLength={pageFlatList.length}
-	                   bind:pageSize={pageSize}></NavigationControl>
+	{#if shouldAllowControl}
+		<NavigationControl bind:currentIndex={currentIndex}
+		                   bind:contentLength={pageFlatList.length}
+		                   bind:pageSize={pageSize}></NavigationControl>
+	{/if}
 
 </div>
 
 <style lang="postcss">
-    @media (max-width: 800px) {
+    @container (max-width: 800px) {
         img {
             max-height: 20rem;
             width: 100%;
@@ -89,7 +94,7 @@
         }
     }
 
-    @media (min-width: 801px) {
+    @container (min-width: 801px) {
         .navigation-element {
             flex-direction: row;
         }
@@ -101,8 +106,8 @@
 
     .navigation-element {
         @apply btn card card-hover bg-surface-100 dark:bg-surface-900;
+        container-type: inline-size;
         display: flex;
-        /*flex-direction: row;*/
         text-align: start;
         align-items: flex-start;
         padding: 0;
@@ -116,6 +121,7 @@
     }
 
     .navigation-component {
+        container-type: inline-size;
         display: flex;
         flex-direction: column;
         gap: 2em;
@@ -123,6 +129,7 @@
 
     .navigation-title {
         text-align: center;
+        max-width: initial;
     }
 
     .blurb-text {
@@ -136,6 +143,7 @@
         display: flex;
         flex-direction: column;
         max-width: 1000px;
+        width: 100%;
     }
 
     .tag-container {
