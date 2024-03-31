@@ -5,6 +5,7 @@
 	import { Card, dialogManager, enableDialogueOverlay } from "$pkg";
 	import NavigationComponent from "$pkg/components/navigation_component/NavigationComponent.svelte";
 	import { ImageMap } from "./ImageMap";
+	import { SlideToggle } from "@skeletonlabs/skeleton";
 
 	enableDialogueOverlay.set(false);
 
@@ -34,6 +35,7 @@
 	// todo: fix fragile relative reference to the root
 	const fileList = import.meta.glob("./../**/+page.svelte", { query: "?raw" });
 	const jsonList = import.meta.glob("./../**/meta.json", { query: "?raw", eager: true });
+	let allowPagination = true;
 </script>
 
 <Card>
@@ -52,6 +54,11 @@
 		<button
 			class="btn variant-filled-secondary"
 			on:click={onTestDialogClick}><h3>Test dialog</h3></button>
+		<div>
+			<SlideToggle name="advanced-setting-slider" bind:checked={allowPagination}>
+				Allow pagination: {allowPagination ? "On" : "Off"}
+			</SlideToggle>
+		</div>
 	</div>
 </Card>
 
@@ -59,7 +66,7 @@
                      fileList={fileList}
                      jsonList={jsonList}
                      imageMap={ImageMap}
-                     shouldAllowControl={false}
+                     shouldAllowControl={allowPagination}
                      parentSubpath="/pineapple/">
 </NavigationComponent>
 
