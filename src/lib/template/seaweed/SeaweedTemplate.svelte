@@ -2,15 +2,23 @@
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import "./seaweed.postcss";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
-	import { Accordion, AccordionItem, CodeBlock, SlideToggle } from "@skeletonlabs/skeleton";
+	import {
+		Accordion,
+		AccordionItem,
+		CodeBlock,
+		ListBox, ListBoxItem,
+		type PopupSettings,
+		SlideToggle
+	} from "@skeletonlabs/skeleton";
 	import { page } from "$app/stores";
 	import Card from "$pkg/components/Card.svelte";
-	import { onMount } from "svelte";
+	import { type ComponentType, onMount } from "svelte";
 	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
 	import selfContent from "./SeaweedTemplate.svelte?raw";
-	import { SeaweedTemplateData } from "$pkg/template/seaweed/SeaweedTemplateData";
+	import { type EntryGroup, SeaweedTemplateData } from "$pkg/template/seaweed/SeaweedTemplateData";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 	import type { RawGlob } from "$pkg/util/util";
+	import { popup } from "@skeletonlabs/skeleton";
 	// region query params
 
 	const entryList = import.meta.glob("./entries/*.svelte", { query: "?raw", eager: true });
@@ -83,6 +91,7 @@
 	let gameSectionFirst = true;
 	let qtfontWeight = "normal";
 	let additionalFontWeight = "";
+	let originalEntryList = new Map<string, ComponentType>();
 	/** qt values and what they mean:
 	 *  undefined: set all qt terms to font-weight: bold
 	 *  todo: implement clear
@@ -97,6 +106,37 @@
 		if (gameSectionFirstParam === "false") {
 			gameSectionFirst = false;
 		}
+
+		// region Order
+		const orderParam = searchParams.get("order")?.trim();
+		if (orderParam) {
+			orderParam.split(",").forEach(groupDefinition => {
+				const pair = groupDefinition.split(":");
+				console.log(pair);
+				if (pair.length >= 2) {
+					const group: EntryGroup = {
+						name: pair[0],
+						items: [],
+						gridClass: pair[2]
+					};
+
+					pair[1].split("|").forEach(e => {
+						const component = originalEntryList.get(e);
+						if (component) {
+							group.items.push(component);
+						}
+					});
+
+					seaweedTemplateData.push(group);
+				}
+
+			});
+
+			seaweedTemplateData = seaweedTemplateData;
+		} else {
+			seaweedTemplateData = SeaweedTemplateData.slice();
+		}
+		// endregion
 
 		// region Bold terms
 		const qtValue = searchParams.get("qt")?.trim();
@@ -174,9 +214,20 @@
 	$: mainVisibility = letChaos && !chaosDone ? "hidden" : "visible";
 	/* endregion chaos scripts */
 
-	onMount(() => {
+	onMount(async () => {
+		// originalEntryList
+		SeaweedTemplateData.forEach(g => g.items.forEach(e => {
+			originalEntryList.set(removeProxyWrapperOnString(e.name), e);
+		}));
+		originalEntryList = originalEntryList;
+		console.log(originalEntryList);
+
 		if (!letChaos && $page.url.searchParams) {
 			filterSearchParams($page.url.searchParams);
+			// todo: based on query adjust!
+			// seaweedTemplateData = SeaweedTemplateData;
+		} else {
+			seaweedTemplateData = SeaweedTemplateData.slice();
 		}
 
 		if (letChaos) {
@@ -191,9 +242,14 @@
 	};
 
 	// when either gameSectionFirst or the queryTerms are updated, update advancedUrl
+	let orderUrl = "";
 	let advancedUrl = domain;
 	const updateUrl = () => {
 		const queryParams: string[] = [];
+
+		if (orderUrl) {
+			queryParams.push(orderUrl);
+		}
 
 		const qtList: string[] = [];
 		qtMap.forEach((shouldBold, term) => {
@@ -226,6 +282,76 @@
 
 	const entryProps: EntryProps = {
 		email
+	};
+
+	const removeProxyWrapperOnString = (wrapped: string): string => {
+		return wrapped.slice("Proxy<".length, wrapped.length - 1);
+	};
+
+	const updateOrderQuery = () => {
+		orderUrl = "order=" + seaweedTemplateData.map(g => {
+			const groupUrl = g.items.map(
+				e => removeProxyWrapperOnString(e.name)
+			).join("|");
+			return `${g.name}:${groupUrl}:${g.gridClass}`;
+		}).join(",");
+		updateUrl();
+	};
+
+	const removeEntry = (entry: ComponentType, group: EntryGroup): (() => void) => {
+		return () => {
+			console.log("Clicked!");
+			for (let i = group.items.length - 1; i >= 0; i--) {
+				if (group.items[i].name === entry.name) {
+					console.log("Reduce");
+					group.items.splice(i, 1);
+					seaweedTemplateData = seaweedTemplateData;
+					updateOrderQuery();
+					break;
+				}
+			}
+		};
+	};
+
+	let seaweedTemplateData: EntryGroup[] = [];
+
+	let comboboxValue: string;
+
+	const popupCombobox: PopupSettings = {
+		event: "click",
+		target: "popupCombobox",
+		placement: "bottom",
+		closeQuery: ".listbox-item"
+	};
+
+	const addEntry = (comboboxValue: string, group: EntryGroup): (() => void) => {
+		return () => {
+			const c = originalEntryList.get(comboboxValue);
+			if (c) {
+				group.items.push(c);
+				seaweedTemplateData = seaweedTemplateData;
+				updateOrderQuery();
+			}
+		};
+	};
+	const swapEntry = (index: number, group: EntryGroup, shouldDecrement: boolean): (() => void) => {
+		return () => {
+			let newIndex = index;
+			if (shouldDecrement && index >= 1) {
+				newIndex--;
+			} else if (!shouldDecrement && index <= group.items.length - 2) {
+				newIndex++;
+			} else {
+				return;
+			}
+			console.log(index, newIndex);
+
+			const tempVar = group.items[newIndex];
+			group.items[newIndex] = group.items[index];
+			group.items[index] = tempVar;
+			seaweedTemplateData = seaweedTemplateData;
+			updateOrderQuery();
+		};
 	};
 </script>
 
@@ -363,14 +489,14 @@
 
 		</div>
 
-		{#each SeaweedTemplateData as group}
+		{#each seaweedTemplateData as group}
 			<Card>
 				<section class="section-card title-card" slot="content">
 					<h1 class="text-center">{group.name}</h1>
 				</section>
 			</Card>
 
-			<section class={group.gridClass.toString()}>
+			<section class={group.gridClass}>
 				{#each group.items as entry}
 					<svelte:component this={entry} props={entryProps}></svelte:component>
 				{/each}
@@ -384,9 +510,11 @@
 				<div slot="content" class="default-card advanced-setting">
 					<h1>Advanced settings</h1>
 					<p>This one is for those curious how I customize this page.</p>
+
 					<SlideToggle name="advanced-setting-slider" bind:checked={isAdvanceSettingOn}>
 						Advanced settings: {isAdvanceSettingOn ? "On" : "Off"}
 					</SlideToggle>
+
 					{#if (isAdvanceSettingOn)}
 						<SlideToggle name="game-section-slider" bind:checked={gameSectionFirst}>
 							Should game section appear first over projects: {gameSectionFirst ? "On" : "Off"}
@@ -404,6 +532,49 @@
 									{#if (shouldBold)}&check;{/if}
 									{term}
 								</button>
+							{/each}
+						</div>
+
+						<h3>Site ordering</h3>
+						<blockquote>Sorry! This part of the website is still WIP, but here it is anyway</blockquote>
+
+						<!-- formatting: group1:entry1|entry2,group2:entry3
+						 : <= separates the group header, the entries, and the class
+						 | <= separates each entries
+						 , <= separates each group
+						 -->
+						<div class="advanced-setting-list">
+							{#each seaweedTemplateData as group}
+								<div>
+									{group.name}
+									<div class="advanced-setting-list card">
+										{#each group.items as entry, entryIndex}
+											<div class="editable-entry">
+												<button on:click={removeEntry(entry, group)}>-</button>
+												<button on:click={swapEntry(entryIndex, group, true)}>^</button>
+												<button on:click={swapEntry(entryIndex, group, false)}>v</button>
+												{entry.name}
+											</div>
+										{/each}
+									</div>
+									<div>
+										<!-- todo: fix -->
+										<button class="editable-button" on:click={addEntry(comboboxValue, group)}>+</button>
+										<button class="btn variant-filled w-48 justify-between" use:popup={popupCombobox}>
+											<span class="capitalize">{comboboxValue ?? 'Trigger'}</span>
+											<span>↓</span>
+										</button>
+										<div class="card w-48 shadow-xl py-2" data-popup="popupCombobox">
+											<ListBox rounded="rounded-none">
+												{#each originalEntryList as [key, _]}
+													<ListBoxItem bind:group={comboboxValue} name="medium" value={key}>{key}</ListBoxItem>
+												{/each}
+											</ListBox>
+											<div class="arrow bg-surface-100-800-token" />
+										</div>
+
+									</div>
+								</div>
 							{/each}
 						</div>
 
@@ -439,5 +610,14 @@
         display: flex;
         gap: 0.25em;
         flex-wrap: wrap;
+    }
+
+    .advanced-setting-list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .editable-entry > button, .editable-button {
+        @apply btn variant-filled-primary;
     }
 </style>

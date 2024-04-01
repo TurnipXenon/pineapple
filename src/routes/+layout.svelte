@@ -24,6 +24,13 @@
 	hljs.registerLanguage("url", xml);
 	storeHighlightJs.set(hljs);
 	// endregion highlightjs
+
+	// region popups
+	import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
+	import { storePopup } from "@skeletonlabs/skeleton";
+
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
+	// endregion popups
 </script>
 
 <OverrideableMeta

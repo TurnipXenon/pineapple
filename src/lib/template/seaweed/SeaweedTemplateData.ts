@@ -18,21 +18,21 @@ export enum GroupGridClass {
 	Projects = "projects-section"
 }
 
-export interface EntryGroups {
+export interface EntryGroup {
 	name: string;
 	items: ComponentType[];
-	gridClass: GroupGridClass;
+	gridClass: string;
 }
 
-export const SeaweedTemplateData: EntryGroups[] = [
+export const SeaweedTemplateData: ReadonlyArray<EntryGroup> = [
 	{
 		name: DefaultHeader.Games.toString(),
 		items: [Pengi, Hepcat, ChefWings, Soulwork, ItchPromo],
-		gridClass: GroupGridClass.Games
+		gridClass: GroupGridClass.Games.toString()
 	},
 	{
 		name: DefaultHeader.Projects.toString(),
 		items: [MigranteAlberta, DecentralizedSocialMedia, CustomizedYarnspinner, FullStackC, Workset, ThisWebpage, MockUberApp],
-		gridClass: GroupGridClass.Projects
+		gridClass: GroupGridClass.Projects.toString()
 	}
 ];
