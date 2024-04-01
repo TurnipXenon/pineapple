@@ -353,6 +353,21 @@
 			updateOrderQuery();
 		};
 	};
+
+	const removeGroup = (group: EntryGroup): (() => void) => {
+		return () => {
+			const index = seaweedTemplateData.indexOf(group);
+			if (index === -1) {
+				return;
+			}
+
+			seaweedTemplateData.splice(index, 1);
+			seaweedTemplateData = seaweedTemplateData;
+			updateOrderQuery();
+		};
+	};
+
+	// const addGroup =
 </script>
 
 <SeaweedBaseLayout bind:shouldDisplayLeadingIcons={isSocialsGone}>
@@ -544,9 +559,11 @@
 						 , <= separates each group
 						 -->
 						<div class="advanced-setting-list">
+							<!-- todo: we might have to extract this into it's own component -->
+							<!-- todo: NOW!!! -->
 							{#each seaweedTemplateData as group}
 								<div>
-									{group.name}
+									<button class="editable-button" on:click={removeGroup(group)}>X</button>  {group.name}
 									<div class="advanced-setting-list card">
 										{#each group.items as entry, entryIndex}
 											<div class="editable-entry">
@@ -557,23 +574,31 @@
 											</div>
 										{/each}
 									</div>
+
+									<select class="select">
+										{#each originalEntryList as [key, _]}
+											<option value={key}>{key}</option>
+										{/each}
+									</select>
+									<button class="editable-button" on:click={addEntry(comboboxValue, group)}>+</button>
 									<div>
 										<!-- todo: fix -->
-										<button class="editable-button" on:click={addEntry(comboboxValue, group)}>+</button>
-										<button class="btn variant-filled w-48 justify-between" use:popup={popupCombobox}>
-											<span class="capitalize">{comboboxValue ?? 'Trigger'}</span>
-											<span>↓</span>
-										</button>
+
 										<div class="card w-48 shadow-xl py-2" data-popup="popupCombobox">
 											<ListBox rounded="rounded-none">
-												{#each originalEntryList as [key, _]}
-													<ListBoxItem bind:group={comboboxValue} name="medium" value={key}>{key}</ListBoxItem>
-												{/each}
+
 											</ListBox>
 											<div class="arrow bg-surface-100-800-token" />
 										</div>
-
 									</div>
+
+									<select class="select">
+										<option value="1">Option 1</option>
+										<option value="2">Option 2</option>
+										<option value="3">Option 3</option>
+										<option value="4">Option 4</option>
+										<option value="5">Option 5</option>
+									</select>
 								</div>
 							{/each}
 						</div>
