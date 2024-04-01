@@ -1,10 +1,4 @@
 <script lang="ts">
-	export let letChaos = true;
-	export let name = "Turnip";
-	export let email = "turnipxenon@gmail.com";
-	export let linkedinSlug = "turnip-xenon";
-	export let domain = "http://localhost:5173/portfolio/actual/";
-
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import "./seaweed.postcss";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
@@ -13,18 +7,24 @@
 	import Card from "$pkg/components/Card.svelte";
 	import { onMount } from "svelte";
 	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
-	import GameSection from "$pkg/template/seaweed/GameSection.svelte";
-	import ProjectSection from "$pkg/template/seaweed/ProjectSection.svelte";
+	import selfContent from "./SeaweedTemplate.svelte?raw";
+	import { SeaweedTemplateData } from "$pkg/template/seaweed/SeaweedTemplateData";
+	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
+	import type { RawGlob } from "$pkg/util/util";
+	// region query params
+
+	const entryList = import.meta.glob("./entries/*.svelte", { query: "?raw", eager: true });
+
+	export let letChaos = true;
+	export let name = "Turnip";
+	export let email = "turnipxenon@gmail.com";
+	export let linkedinSlug = "turnip-xenon";
+	export let domain = "http://localhost:5173/portfolio/actual/";
 
 	let isVisible = true;
 	let isAdvanceSettingOn = false;
 
 	$: isSocialsGone = !isVisible;
-
-	// region query params
-	import gameContent from "./GameSection.svelte?raw";
-	import projectContent from "./ProjectSection.svelte?raw";
-	import selfContent from "./SeaweedTemplate.svelte?raw";
 
 	let qtMap = new Map<string, boolean>();
 	const paramQTSet = new Set<string>();
@@ -45,7 +45,7 @@
 	const parseQTTerms = async () => {
 		const qtSet = new Set<string>();
 		const rawTermList: string[] = [];
-		[gameContent, projectContent, selfContent].forEach(body => {
+		[...Object.values(entryList).map(e => (e as RawGlob).default), selfContent].forEach(body => {
 			// parse the qt-* term which exists within elements like:
 			// <span class="qt-*">TERM</span>
 			rawTermList.push(
@@ -223,7 +223,10 @@
 	};
 	$: // noinspection CommaExpressionJS
 		gameSectionFirst, qtMap, updateUrl();
-	// $: gameSectionQuery = gameSectionFirst ? "" : "game-section-first=false";
+
+	const entryProps: EntryProps = {
+		email
+	};
 </script>
 
 <SeaweedBaseLayout bind:shouldDisplayLeadingIcons={isSocialsGone}>
@@ -360,13 +363,19 @@
 
 		</div>
 
-		{#if (gameSectionFirst)}
-			<GameSection email={email}></GameSection>
-			<ProjectSection email={email}></ProjectSection>
-		{:else }
-			<ProjectSection email={email}></ProjectSection>
-			<GameSection email={email}></GameSection>
-		{/if}
+		{#each SeaweedTemplateData as group}
+			<Card>
+				<section class="section-card title-card" slot="content">
+					<h1 class="text-center">{group.name}</h1>
+				</section>
+			</Card>
+
+			<section class={group.gridClass.toString()}>
+				{#each group.items as entry}
+					<svelte:component this={entry} props={entryProps}></svelte:component>
+				{/each}
+			</section>
+		{/each}
 
 		{#if (!letChaos)}
 			<div aria-hidden="true" style="height: 25vh" />
