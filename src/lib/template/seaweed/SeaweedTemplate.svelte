@@ -13,8 +13,8 @@
 	import Card from "$pkg/components/Card.svelte";
 	import { onMount } from "svelte";
 	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
-	import GameSection from "$pkg/template/Seaweed/GameSection.svelte";
-	import ProjectSection from "$pkg/template/Seaweed/ProjectSection.svelte";
+	import GameSection from "$pkg/template/seaweed/GameSection.svelte";
+	import ProjectSection from "$pkg/template/seaweed/ProjectSection.svelte";
 
 	let isVisible = true;
 	let isAdvanceSettingOn = false;

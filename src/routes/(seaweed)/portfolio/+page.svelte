@@ -1,5 +1,5 @@
 <script>
-	import SeaweedTemplate from "$pkg/template/Seaweed/SeaweedTemplate.svelte";
+	import SeaweedTemplate from "$pkg/template/seaweed/SeaweedTemplate.svelte";
 
 	export let metaWebsite = "https://www.crouton.com/test/portfolio-base-layout";
 
