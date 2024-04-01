@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "2.4.42",
+  "version": "2.4.43",
   "scripts": {
     "dev": "vite dev",
     "build": "npm run check-requirements && vite build && yarn package",
