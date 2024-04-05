@@ -94,6 +94,11 @@
 	 *  ONLY CALL INSIDE onMount()
 	 **/
 	const filterSearchParams = (searchParams: URLSearchParams) => {
+		const isFunOn = searchParams.get("fun")?.trim();
+		if (isFunOn === "true") {
+			shouldAddFunNote = true;
+		}
+
 		const gameSectionFirstParam = searchParams.get("game-section-first")?.trim();
 		if (gameSectionFirstParam === "false") {
 			gameSectionFirst = false;
@@ -211,6 +216,10 @@
 			queryParams.push(`qt=${qtList.map(t => t.slice(3, t.length)).join(",")}`);
 		}
 
+		if (shouldAddFunNote) {
+			queryParams.push("fun=true");
+		}
+
 		if (!gameSectionFirst) {
 			queryParams.push("game-section-first=false");
 		}
@@ -220,10 +229,9 @@
 		} else {
 			advancedUrl = domain;
 		}
-		// advancedUrl = `${domain}?${q}`;
 	};
 	$: // noinspection CommaExpressionJS
-		gameSectionFirst, qtMap, updateUrl();
+		gameSectionFirst, qtMap, shouldAddFunNote, updateUrl();
 	// $: gameSectionQuery = gameSectionFirst ? "" : "game-section-first=false";
 </script>
 
