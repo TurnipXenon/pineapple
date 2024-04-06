@@ -1,28 +1,29 @@
 <script lang="ts">
-	export let letChaos = true;
-	export let name = "Turnip";
-	export let email = "turnipxenon@gmail.com";
-	export let linkedinSlug = "turnip-xenon";
-	export let domain = "http://localhost:5173/portfolio/actual/";
-
+	import EntryOrderConfig from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig.svelte";
 	import { runChaos } from "$pkg/template/seaweed/RunChaos";
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import "./seaweed.postcss";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
-	import { Accordion, AccordionItem, CodeBlock, ListBox, SlideToggle } from "@skeletonlabs/skeleton";
+	import { Accordion, AccordionItem, CodeBlock, SlideToggle } from "@skeletonlabs/skeleton";
 	import { page } from "$app/stores";
 	import Card from "$pkg/components/Card.svelte";
-	import { type ComponentType, onMount } from "svelte";
+	import { onMount } from "svelte";
 	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
 	import selfContent from "./SeaweedTemplate.svelte?raw";
 	import {
-		AllGroupedEntries,
 		type EntryGroup,
+		GetEntryFromGlobal,
 		type SeaweedTemplateData,
 		seaweedTemplateData
 	} from "./SeaweedTemplateData";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 	import type { RawGlob } from "$pkg/util/util";
+
+	export let letChaos = true;
+	export let name = "Turnip";
+	export let email = "turnipxenon@gmail.com";
+	export let linkedinSlug = "turnip-xenon";
+	export let domain = "http://localhost:5173/portfolio/actual/";
 
 	// region query params
 	const entryProps: EntryProps = {
@@ -34,12 +35,10 @@
 
 	let isVisible = true;
 	let isAdvanceSettingOn = false;
-	let qtMap = new Map<string, boolean>();
 	$: isSocialsGone = !isVisible;
 
 	let qtfontWeight = "normal";
 	let additionalFontWeight = "";
-	let originalEntryList = new Map<string, ComponentType>();
 
 	let chaosDone = false;
 	let mainVisibility = "visible";
@@ -126,20 +125,18 @@
 					};
 
 					pair[1].split("|").forEach(e => {
-						const component = originalEntryList.get(e);
+						const component = GetEntryFromGlobal(e);
 						if (component) {
 							group.items.push(component);
 						}
 					});
 
-					seaweedEntries.push(group);
+					seaweedTemplateData.groupedEntries.push(group);
 				}
 
 			});
 
-			seaweedEntries = seaweedEntries;
-		} else {
-			seaweedEntries = AllGroupedEntries.slice();
+			seaweedTemplateData.groupedEntries = seaweedTemplateData.groupedEntries;
 		}
 		// endregion
 
@@ -173,19 +170,10 @@
 	/* endregion chaos scripts */
 
 	onMount(async () => {
-		// originalEntryList
-		AllGroupedEntries.forEach(g => g.items.forEach(e => {
-			originalEntryList.set(removeProxyWrapperOnString(e.name), e);
-		}));
-		originalEntryList = originalEntryList;
-		console.log(originalEntryList);
-
 		if (!letChaos && $page.url.searchParams) {
 			filterSearchParams($page.url.searchParams);
 			// todo: based on query adjust!
 			// seaweedTemplateData = SeaweedTemplateData;
-		} else {
-			seaweedEntries = AllGroupedEntries.slice();
 		}
 
 		if (letChaos) {
@@ -240,84 +228,6 @@
 	};
 	$: updateUrl(seaweedTemplateData);
 
-
-	const removeProxyWrapperOnString = (wrapped: string): string => {
-		return wrapped.slice("Proxy<".length, wrapped.length - 1);
-	};
-
-	const updateOrderQuery = () => {
-		orderUrl = "order=" + seaweedEntries.map(g => {
-			const groupUrl = g.items.map(
-				e => removeProxyWrapperOnString(e.name)
-			).join("|");
-			return `${g.name}:${groupUrl}:${g.gridClass}`;
-		}).join(",");
-		updateUrl(seaweedTemplateData);
-	};
-
-	const removeEntry = (entry: ComponentType, group: EntryGroup): (() => void) => {
-		return () => {
-			console.log("Clicked!");
-			for (let i = group.items.length - 1; i >= 0; i--) {
-				if (group.items[i].name === entry.name) {
-					console.log("Reduce");
-					group.items.splice(i, 1);
-					seaweedEntries = seaweedEntries;
-					updateOrderQuery();
-					break;
-				}
-			}
-		};
-	};
-
-	let seaweedEntries: EntryGroup[] = [];
-
-	let comboboxValue: string;
-
-	const addEntry = (comboboxValue: string, group: EntryGroup): (() => void) => {
-		return () => {
-			const c = originalEntryList.get(comboboxValue);
-			if (c) {
-				group.items.push(c);
-				seaweedEntries = seaweedEntries;
-				updateOrderQuery();
-			}
-		};
-	};
-	const swapEntry = (index: number, group: EntryGroup, shouldDecrement: boolean): (() => void) => {
-		return () => {
-			let newIndex = index;
-			if (shouldDecrement && index >= 1) {
-				newIndex--;
-			} else if (!shouldDecrement && index <= group.items.length - 2) {
-				newIndex++;
-			} else {
-				return;
-			}
-			console.log(index, newIndex);
-
-			const tempVar = group.items[newIndex];
-			group.items[newIndex] = group.items[index];
-			group.items[index] = tempVar;
-			seaweedEntries = seaweedEntries;
-			updateOrderQuery();
-		};
-	};
-
-	const removeGroup = (group: EntryGroup): (() => void) => {
-		return () => {
-			const index = seaweedEntries.indexOf(group);
-			if (index === -1) {
-				return;
-			}
-
-			seaweedEntries.splice(index, 1);
-			seaweedEntries = seaweedEntries;
-			updateOrderQuery();
-		};
-	};
-
-	// const addGroup =
 </script>
 
 <SeaweedBaseLayout bind:shouldDisplayLeadingIcons={isSocialsGone}>
@@ -462,7 +372,7 @@
 
 		</div>
 
-		{#each seaweedEntries as group}
+		{#each seaweedTemplateData.groupedEntries as group}
 			<Card>
 				<section class="section-card title-card" slot="content">
 					<h1 class="text-center">{group.name}</h1>
@@ -511,58 +421,9 @@
 							{/each}
 						</div>
 
-						<h3>Site ordering</h3>
-						<blockquote>Sorry! This part of the website is still WIP, but here it is anyway</blockquote>
-
-						<!-- formatting: group1:entry1|entry2,group2:entry3
-						 : <= separates the group header, the entries, and the class
-						 | <= separates each entries
-						 , <= separates each group
-						 -->
-						<div class="advanced-setting-list">
-							<!-- todo: we might have to extract this into it's own component -->
-							<!-- todo: NOW!!! -->
-							{#each seaweedEntries as group}
-								<div>
-									<button class="editable-button" on:click={removeGroup(group)}>X</button>  {group.name}
-									<div class="advanced-setting-list card">
-										{#each group.items as entry, entryIndex}
-											<div class="editable-entry">
-												<button on:click={removeEntry(entry, group)}>-</button>
-												<button on:click={swapEntry(entryIndex, group, true)}>^</button>
-												<button on:click={swapEntry(entryIndex, group, false)}>v</button>
-												{entry.name}
-											</div>
-										{/each}
-									</div>
-
-									<select class="select">
-										{#each originalEntryList as [key]}
-											<option value={key}>{key}</option>
-										{/each}
-									</select>
-									<button class="editable-button" on:click={addEntry(comboboxValue, group)}>+</button>
-									<div>
-										<!-- todo: fix -->
-
-										<div class="card w-48 shadow-xl py-2" data-popup="popupCombobox">
-											<ListBox rounded="rounded-none">
-
-											</ListBox>
-											<div class="arrow bg-surface-100-800-token" />
-										</div>
-									</div>
-
-									<select class="select">
-										<option value="1">Option 1</option>
-										<option value="2">Option 2</option>
-										<option value="3">Option 3</option>
-										<option value="4">Option 4</option>
-										<option value="5">Option 5</option>
-									</select>
-								</div>
-							{/each}
-						</div>
+						<EntryOrderConfig bind:seaweedEntries={seaweedTemplateData.groupedEntries}
+						                  bind:orderUrl={orderUrl}
+						                  updateUrl={updateUrl}></EntryOrderConfig>
 
 						<br>
 						<p>Copy the url below and open a new page with it</p>
@@ -596,14 +457,5 @@
         display: flex;
         gap: 0.25em;
         flex-wrap: wrap;
-    }
-
-    .advanced-setting-list {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .editable-entry > button, .editable-button {
-        @apply btn variant-filled-primary;
     }
 </style>

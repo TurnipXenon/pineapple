@@ -12,6 +12,7 @@ import FullStackC from "$pkg/template/seaweed/entries/FullStackC.svelte";
 import Workset from "$pkg/template/seaweed/entries/Workset.svelte";
 import ThisWebpage from "$pkg/template/seaweed/entries/ThisWebpage.svelte";
 import MockUberApp from "$pkg/template/seaweed/entries/MockUberApp.svelte";
+import { removeProxyWrapperOnString } from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig";
 
 export enum GroupGridClass {
 	Games = "games-section",
@@ -41,8 +42,29 @@ export const AllGroupedEntries: ReadonlyArray<EntryGroup> = [
 	ProjectEntries
 ];
 
+const allFlatEntries: Map<string, ComponentType> = new Map<string, ComponentType>();
+
+export const lazyInitializeAllFlatEntries = () => {
+	if (allFlatEntries.size === 0) {
+		[...ProjectEntries.items, ...GameEntries.items].forEach(e => {
+			allFlatEntries.set(removeProxyWrapperOnString(e.name), e);
+		});
+	}
+}
+
+export const GetAllEntryFromGlobal = () => {
+	lazyInitializeAllFlatEntries();
+	return allFlatEntries;
+}
+
+
+export const GetEntryFromGlobal = (name: string) => {
+	lazyInitializeAllFlatEntries()
+	return allFlatEntries.get(name);
+};
+
 export interface SeaweedTemplateData {
-	allEntries: EntryGroup[];
+	groupedEntries: EntryGroup[];
 	shouldAddFunNote: boolean;
 	queryTermMap: Map<string, boolean>;
 	gameSectionFirst: boolean;
@@ -54,7 +76,7 @@ export const seaweedTemplateData: SeaweedTemplateData = {
 	// todo: gameSectionFirst currently has no functionality
 	gameSectionFirst: false,
 	// copy the readonly properties into mutable values
-	allEntries: AllGroupedEntries.map(g => {
+	groupedEntries: AllGroupedEntries.map(g => {
 		return {
 			name: g.name,
 			gridClass: g.gridClass,
