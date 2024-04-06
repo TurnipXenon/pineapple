@@ -12,7 +12,7 @@
 		Accordion,
 		AccordionItem,
 		CodeBlock,
-		ListBox, ListBoxItem,
+		ListBox,
 		type PopupSettings,
 		SlideToggle
 	} from "@skeletonlabs/skeleton";
@@ -24,7 +24,6 @@
 	import { type EntryGroup, SeaweedTemplateData } from "$pkg/template/seaweed/SeaweedTemplateData";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 	import type { RawGlob } from "$pkg/util/util";
-	import { popup } from "@skeletonlabs/skeleton";
 	// region query params
 
 	const entryList = import.meta.glob("./entries/*.svelte", { query: "?raw", eager: true });
@@ -289,7 +288,6 @@
 	$: // noinspection CommaExpressionJS
 		gameSectionFirst, qtMap, shouldAddFunNote, updateUrl();
 	// $: gameSectionQuery = gameSectionFirst ? "" : "game-section-first=false";
-		gameSectionFirst, qtMap, updateUrl();
 
 	const entryProps: EntryProps = {
 		email
