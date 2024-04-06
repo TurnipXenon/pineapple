@@ -45,11 +45,14 @@ export interface SeaweedTemplateData {
 	allEntries: EntryGroup[];
 	shouldAddFunNote: boolean;
 	queryTermMap: Map<string, boolean>;
+	gameSectionFirst: boolean;
 }
 
 export const seaweedTemplateData: SeaweedTemplateData = {
 	shouldAddFunNote: false,
 	queryTermMap: new Map<string, boolean>(),
+	// todo: gameSectionFirst currently has no functionality
+	gameSectionFirst: false,
 	// copy the readonly properties into mutable values
 	allEntries: AllGroupedEntries.map(g => {
 		return {

@@ -1,8 +1,8 @@
 const chaoticWordBank = ["niko", "toba", "seal", "aquarium", "ojisan", "baikal"];
 
-const runChaos = (node: Element) => {
+export const runChaos = (node: Element) => {
 	// change all text content to gibberish
-	for (let child of Array.from(node.children)) {
+	for (const child of Array.from(node.children)) {
 		if (child.nodeType === Node.ELEMENT_NODE) {
 			runChaos(child);
 			for (const childOfChild of child.childNodes) {

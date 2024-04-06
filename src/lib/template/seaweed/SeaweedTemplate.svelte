@@ -5,6 +5,7 @@
 	export let linkedinSlug = "turnip-xenon";
 	export let domain = "http://localhost:5173/portfolio/actual/";
 
+	import { runChaos } from "$pkg/template/seaweed/RunChaos";
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import "./seaweed.postcss";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
@@ -36,21 +37,25 @@
 	let qtMap = new Map<string, boolean>();
 	$: isSocialsGone = !isVisible;
 
+	let qtfontWeight = "normal";
+	let additionalFontWeight = "";
+	let originalEntryList = new Map<string, ComponentType>();
+
 	let chaosDone = false;
 	let mainVisibility = "visible";
 	$: mainVisibility = letChaos && !chaosDone ? "hidden" : "visible";
 
 	const syncQT = () => {
-		if (qtMap.size === 0 || paramQTSet.size === 0) {
+		if (seaweedTemplateData.queryTermMap.size === 0 || paramQTSet.size === 0) {
 			return;
 		}
 
-		qtMap.forEach((_, k) => {
-			qtMap.set(k, paramQTSet.has(k));
+		seaweedTemplateData.queryTermMap.forEach((_, k) => {
+			seaweedTemplateData.queryTermMap.set(k, paramQTSet.has(k));
 		});
 
 		// force svelte refresh
-		qtMap = qtMap;
+		seaweedTemplateData.queryTermMap = seaweedTemplateData.queryTermMap;
 	};
 
 	const parseQTTerms = async () => {
@@ -82,15 +87,11 @@
 		});
 
 		// activate svelte reactivity
-		qtSet.forEach(t => qtMap.set(t, true));
+		qtSet.forEach(t => seaweedTemplateData.queryTermMap.set(t, true));
 		syncQT();
 	};
 	parseQTTerms();
 
-	let gameSectionFirst = true;
-	let qtfontWeight = "normal";
-	let additionalFontWeight = "";
-	let originalEntryList = new Map<string, ComponentType>();
 	/** qt values and what they mean:
 	 *  undefined: set all qt terms to font-weight: bold
 	 *  todo: implement clear
@@ -108,7 +109,7 @@
 
 		const gameSectionFirstParam = searchParams.get("game-section-first")?.trim();
 		if (gameSectionFirstParam === "false") {
-			gameSectionFirst = false;
+			seaweedTemplateData.gameSectionFirst = false;
 		}
 
 		// region Order
@@ -144,26 +145,26 @@
 
 		// region Bold terms
 		const qtValue = searchParams.get("qt")?.trim();
-		if (qtValue === undefined) {
+		if (qtValue !== undefined) {
+			qtfontWeight = "normal";
+			const dynamicStyle = qtValue.split(",").map((term) => {
+				// side-effect
+				paramQTSet.add(`qt-${term}`);
+
+				// main effect
+				return `span.qt-${term} { font-weight: bold !important; }`;
+			}).join("\n");
+
+			// https://stackoverflow.com/a/24285947/17836168
+			const style = document.createElement("style");
+			// noinspection JSDeprecatedSymbols
+			style.type = "text/css";
+			style.innerText = dynamicStyle;
+			document.head.appendChild(style);
+			syncQT();
+		} else {
 			qtfontWeight = "bold";
-			return;
 		}
-		qtfontWeight = "normal";
-		const dynamicStyle = qtValue.split(",").map((term) => {
-			// side-effect
-			paramQTSet.add(`qt-${term}`);
-
-			// main effect
-			return `span.qt-${term} { font-weight: bold !important; }`;
-		}).join("\n");
-
-		// https://stackoverflow.com/a/24285947/17836168
-		const style = document.createElement("style");
-		// noinspection JSDeprecatedSymbols
-		style.type = "text/css";
-		style.innerText = dynamicStyle;
-		document.head.appendChild(style);
-		syncQT();
 		// endregion Bold terms
 	};
 	// endregion query params
@@ -194,8 +195,8 @@
 	});
 
 	const toggleTerm = (term: string) => {
-		qtMap.set(term, !qtMap.get(term));
-		qtMap = qtMap;
+		seaweedTemplateData.queryTermMap.set(term, !seaweedTemplateData.queryTermMap.get(term));
+		seaweedTemplateData.queryTermMap = seaweedTemplateData.queryTermMap;
 	};
 
 	// when either gameSectionFirst or the queryTerms are updated, update advancedUrl
@@ -209,7 +210,7 @@
 		}
 
 		const qtList: string[] = [];
-		qtMap.forEach((shouldBold, term) => {
+		seaweedTemplateData.queryTermMap.forEach((shouldBold, term) => {
 			if (shouldBold) {
 				qtList.push(term);
 			}
@@ -217,7 +218,7 @@
 
 		if (qtList.length === 0) {
 			queryParams.push("qt=clear");
-		} else if (qtMap.size !== qtList.length) {
+		} else if (seaweedTemplateData.queryTermMap.size !== qtList.length) {
 			// we'll only add if the lengths are not equal
 			// dont need to add query if all terms in qtMap is true
 			queryParams.push(`qt=${qtList.map(t => t.slice(3, t.length)).join(",")}`);
@@ -227,7 +228,7 @@
 			queryParams.push("fun=true");
 		}
 
-		if (!gameSectionFirst) {
+		if (!seaweedTemplateData.gameSectionFirst) {
 			queryParams.push("game-section-first=false");
 		}
 
@@ -237,9 +238,7 @@
 			advancedUrl = domain;
 		}
 	};
-	$: // noinspection CommaExpressionJS
-		gameSectionFirst, qtMap, updateUrl(seaweedTemplateData);
-	// $: gameSectionQuery = gameSectionFirst ? "" : "game-section-first=false";
+	$: updateUrl(seaweedTemplateData);
 
 
 	const removeProxyWrapperOnString = (wrapped: string): string => {
@@ -490,8 +489,8 @@
 					</SlideToggle>
 
 					{#if (isAdvanceSettingOn)}
-						<SlideToggle name="game-section-slider" bind:checked={gameSectionFirst}>
-							Should game section appear first over projects: {gameSectionFirst ? "On" : "Off"}
+						<SlideToggle name="game-section-slider" bind:checked={seaweedTemplateData.gameSectionFirst}>
+							Should game section appear first over projects: {seaweedTemplateData.gameSectionFirst ? "On" : "Off"}
 						</SlideToggle>
 						<SlideToggle name="fun-note-slider" bind:checked={seaweedTemplateData.shouldAddFunNote}>
 							Should add fun note in description: {seaweedTemplateData.shouldAddFunNote ? "On" : "Off"}
@@ -499,7 +498,7 @@
 
 						<h3>Query terms to bold</h3>
 						<div class="query-term-grid">
-							{#each qtMap.entries() as [term, shouldBold]}
+							{#each seaweedTemplateData.queryTermMap.entries() as [term, shouldBold]}
 								<!--{@const shouldBold = false}-->
 								<button
 									class="chip {shouldBold ? 'variant-filled-tertiary' : 'variant-soft-tertiary'}"
