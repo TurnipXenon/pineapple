@@ -19,7 +19,7 @@
     "to-dev": "git checkout main && git pull origin main && git checkout -b turnip/dev"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^3.1.1",
+    "@sveltejs/adapter-node": "^5.0.1",
     "@sveltejs/kit": "^2.5.2",
     "@sveltejs/package": "^2.2.1",
     "@tailwindcss/forms": "^0.5.3",
