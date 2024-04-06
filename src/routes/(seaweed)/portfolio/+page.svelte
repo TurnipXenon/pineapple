@@ -3,4 +3,4 @@
 </script>
 
 <!--todo: maybe add check that this is always false? -->
-<SeaweedTemplate letChaos={false}></SeaweedTemplate>
+<SeaweedTemplate letChaos={true}></SeaweedTemplate>

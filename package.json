@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "2.4.42",
+  "version": "2.4.44",
   "scripts": {
     "dev": "vite dev",
     "build": "npm run check-requirements && vite build && yarn package",
@@ -19,7 +19,7 @@
     "to-dev": "git checkout main && git pull origin main && git checkout -b turnip/dev"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^3.1.1",
+    "@sveltejs/adapter-node": "^5.0.1",
     "@sveltejs/kit": "^2.5.2",
     "@sveltejs/package": "^2.2.1",
     "@tailwindcss/forms": "^0.5.3",
@@ -45,7 +45,6 @@
     "@floating-ui/dom": "^1.6.3",
     "@skeletonlabs/skeleton": "^2.9.0",
     "@skeletonlabs/tw-plugin": "^0.3.1",
-    "@sveltejs/adapter-vercel": "^5.1.0",
     "@sveltejs/kit": "^2.5.2",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "@types/htmlparser2": "^3.10.7",
@@ -73,6 +72,9 @@
     "./src/lib/app.postcss",
     "./src/lib/theme.postcss"
   ],
+  "resolutions": {
+    "**/@azure/msal-node": "2.3.0"
+  },
   "repository": "https://github.com/TurnipXenon/pineapple",
   "author": "turnipxenon <turnipxenon@gmail.com>",
   "license": "MIT",

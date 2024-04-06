@@ -1,4 +1,10 @@
 <script lang="ts">
+	export let letChaos = true;
+	export let name = "Turnip";
+	export let email = "turnipxenon@gmail.com";
+	export let linkedinSlug = "turnip-xenon";
+	export let domain = "http://localhost:5173/portfolio/actual/";
+
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import "./seaweed.postcss";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
@@ -23,14 +29,9 @@
 
 	const entryList = import.meta.glob("./entries/*.svelte", { query: "?raw", eager: true });
 
-	export let letChaos = true;
-	export let name = "Turnip";
-	export let email = "turnipxenon@gmail.com";
-	export let linkedinSlug = "turnip-xenon";
-	export let domain = "http://localhost:5173/portfolio/actual/";
-
 	let isVisible = true;
 	let isAdvanceSettingOn = false;
+	let shouldAddFunNote = false;
 
 	$: isSocialsGone = !isVisible;
 
@@ -102,6 +103,11 @@
 	 *  ONLY CALL INSIDE onMount()
 	 **/
 	const filterSearchParams = (searchParams: URLSearchParams) => {
+		const isFunOn = searchParams.get("fun")?.trim();
+		if (isFunOn === "true") {
+			shouldAddFunNote = true;
+		}
+
 		const gameSectionFirstParam = searchParams.get("game-section-first")?.trim();
 		if (gameSectionFirstParam === "false") {
 			gameSectionFirst = false;
@@ -266,6 +272,10 @@
 			queryParams.push(`qt=${qtList.map(t => t.slice(3, t.length)).join(",")}`);
 		}
 
+		if (shouldAddFunNote) {
+			queryParams.push("fun=true");
+		}
+
 		if (!gameSectionFirst) {
 			queryParams.push("game-section-first=false");
 		}
@@ -275,9 +285,10 @@
 		} else {
 			advancedUrl = domain;
 		}
-		// advancedUrl = `${domain}?${q}`;
 	};
 	$: // noinspection CommaExpressionJS
+		gameSectionFirst, qtMap, shouldAddFunNote, updateUrl();
+	// $: gameSectionQuery = gameSectionFirst ? "" : "game-section-first=false";
 		gameSectionFirst, qtMap, updateUrl();
 
 	const entryProps: EntryProps = {
@@ -396,10 +407,12 @@
 							I also graduated with BS Computing Science, Specializing in Software Practice, and a
 							certificate in Computer Game Development at University of Alberta.
 						</p>
-						<p>
-							I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
-							Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
-						</p>
+						{#if shouldAddFunNote}
+							<p>
+								I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
+								Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
+							</p>
+						{/if}
 
 						<!-- todo: maybe put cute stuff here -->
 						<!--						</ToggleableContent>-->
@@ -420,23 +433,32 @@
 				<section class="section-card" slot="content">
 					<h1>Experience</h1>
 
+					<h2>Highlight</h2>
+					<p>Worked on Go backend microservices and Typescript React frontend app, serving <b>over 30 million daily
+						active users</b> at Twitch</p>
+
 					<h2>Software Engineer</h2>
 					<div class="two-column-separated">
 						<div>July 2023 – January 2024</div>
 						<div style="text-align: end">Twitch, Remote</div>
 					</div>
 					<ul>
-						<li>Contributed to <span class="qt-go">Golang</span> and <span class="qt-ts">Typescript</span> codebases,
-							across several teams, to accommodate adjustments for public-facing user safety related features, to better
-							comply with EU’s <a target="_blank"
-							                    href="https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/europe-fit-digital-age/digital-services-act/europe-fit-digital-age-new-online-rules-platforms_en">
-								Digital Services Act</a>, also including feature flags, alarms, unit tests, end-to-end testing, and
-							documentation
+						<li>
+							Contributed to
+							<span class="qt-go">Golang</span>
+							microservices and
+							<span class="qt-ts">Typescript</span>
+							<span class="qt-react">React</span> codebases, across several teams, to accommodate public-facing user safety features to better comply with EU’s Digital Services Act, which applies to no more than
+							<a href="https://safety.twitch.tv/s/article/Digital-Services-Act-Information?language=en_US">30.5 million users</a>
+							. Work includes feature flags, alarms, unit tests, end-to-end testing, and documentation.
 						</li>
-						<li>Improved observability for upcoming features by setting up new <span class="qt-aws qt-infra">AWS</span>
-							resources to integrate internal data platform tools with existing alarms in our team’s microservice,
-							utilizing <span class="qt-aws qt-infra">Cloudwatch</span> and <span class="qt-aws qt-infra">Kinesis Data Stream</span>,
-							while adhering to best practices for <span class="qt-aws qt-infra">AWS CDK</span> (infrastructure as code)
+						<li>
+							Improved observability for upcoming features by setting up new AWS resources to integrate internal data platform tools with existing alarms in our team’s microservice, utilizing
+							<span class="qt-aws qt-observability">Cloudwatch</span>,
+							<span class="qt-aws qt-observability">Grafana</span>,
+							<span class="qt-aws">Kinesis Data Stream</span>,
+							<span class="qt-aws qt-infra">AWS CDK (infrastructure as code)</span>, and
+							<span class="qt-aws qt-cicd">CodePipeline (CI/CD)</span>
 						</li>
 					</ul>
 					<br>
@@ -481,14 +503,11 @@
 										</div>
 										<ul>
 											<li>
-												Implemented and wrote tests for a feature in Twitch’s backend authentication
-												systems and frontend web application that will help suggest security improvements to
-												over hundreds of thousands of users daily
-											</li>
-											<li>
-												Learned <span class="qt-go">Go</span>, <span class="qt-ts">Typescript</span>, <span
-												class="qt-react">React</span>, and other new technologies on the go to contribute to
-												the codebase
+												Implemented and wrote tests for a feature in Twitch’s
+												<span class="qt-go">Golang</span> backend authentication microservices and
+												<span class="qt-ts">Typescript</span>
+												<span class="qt-react">React</span> frontend web app that will help suggest security improvements to
+												<b>over 100k+ users daily</b>
 											</li>
 										</ul>
 									{:else}
@@ -533,6 +552,9 @@
 					{#if (isAdvanceSettingOn)}
 						<SlideToggle name="game-section-slider" bind:checked={gameSectionFirst}>
 							Should game section appear first over projects: {gameSectionFirst ? "On" : "Off"}
+						</SlideToggle>
+						<SlideToggle name="fun-note-slider" bind:checked={shouldAddFunNote}>
+							Should add fun note in description: {shouldAddFunNote ? "On" : "Off"}
 						</SlideToggle>
 
 						<h3>Query terms to bold</h3>
