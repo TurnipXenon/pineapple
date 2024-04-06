@@ -1,5 +1,9 @@
 # Migration to Azure
 
+## Update
+
+I realized that migrating to Azure, and wanting to be on the same parity to what we have right now would cost more. I am fine with the possible charges Vercel may give in the future.
+
 ## Overview
 
 We're moving from hosting our two sites, from Vercel to Azure.
