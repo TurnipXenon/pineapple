@@ -92,3 +92,7 @@ Work:
 **We want our infra to be defined in Pulumi**
 
 **TODO (we will probably know more when we have the DB and multiple stage deploys)**
+
+## Acknowledgments
+
+- Kudos to 0gust1, specifically with their guide to [Use node-adapter](https://gist.github.com/0gust1/1fc3c461ace390df556b2231b7284e70#use-node-adapter) and [adjust the launch script](https://gist.github.com/0gust1/1fc3c461ace390df556b2231b7284e70#adjust-the-launch-script).
