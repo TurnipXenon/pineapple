@@ -22,17 +22,23 @@
 	} from "./SeaweedTemplateData";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 	import type { RawGlob } from "$pkg/util/util";
+
 	// region query params
+	const entryProps: EntryProps = {
+		email
+	};
 
 	const entryList = import.meta.glob("./entries/*.svelte", { query: "?raw", eager: true });
 	const paramQTSet = new Set<string>();
 
 	let isVisible = true;
 	let isAdvanceSettingOn = false;
-	let shouldAddFunNote = false;
 	let qtMap = new Map<string, boolean>();
-
 	$: isSocialsGone = !isVisible;
+
+	let chaosDone = false;
+	let mainVisibility = "visible";
+	$: mainVisibility = letChaos && !chaosDone ? "hidden" : "visible";
 
 	const syncQT = () => {
 		if (qtMap.size === 0 || paramQTSet.size === 0) {
@@ -80,10 +86,6 @@
 		syncQT();
 	};
 	parseQTTerms();
-
-	// todo: fix fragile relative reference to the root
-	// const fileList = import.meta.glob("./**/+page.svelte", { query: "?raw", eager: true });
-	// const titleToLink = new Map<string, string>();
 
 	let gameSectionFirst = true;
 	let qtfontWeight = "normal";
@@ -167,53 +169,6 @@
 	// endregion query params
 
 	/* region chaos scripts */
-	const chaoticWordBank = ["niko", "toba", "seal", "aquarium", "ojisan", "baikal"];
-	let chaosDone = false;
-	const runChaos = (node: Element) => {
-		// change all text content to gibberish
-		for (let child of Array.from(node.children)) {
-			if (child.nodeType === Node.ELEMENT_NODE) {
-				runChaos(child);
-				for (const childOfChild of child.childNodes) {
-					if (childOfChild.nodeType === Node.TEXT_NODE && childOfChild.textContent?.trim()) {
-						const max = childOfChild.textContent.length;
-						childOfChild.textContent = "";
-						while (childOfChild.textContent.length < max) {
-							childOfChild.textContent += (chaoticWordBank[Math.floor(Math.random() * chaoticWordBank.length)] + " ");
-						}
-					}
-				}
-
-				// change all links to crouton
-				if (child.hasAttribute("href")) {
-					child.setAttribute("href", "https://crouton.net/");
-				}
-
-				// change all images to niko if aria != hidden?
-				if (child.hasAttribute("src") && !child.hasAttribute("aria-hidden")) {
-					if (child.hasAttribute("alt")) {
-						child.setAttribute("src", "https://p.potaufeu.asahi.com/a2b9-p/picture/21583312/5c3310aec77068e24844c663aa62b37c.jpg");
-					} else {
-						child.setAttribute("src", "https://video.twimg.com/ext_tw_video/1318728494256410624/pu/vid/640x360/TMklz6hiTkQu3xhn.mp4");
-						child.setAttribute("muted", "true");
-					}
-				}
-				if (child.tagName.trim() === "VIDEO") {
-					child.setAttribute("src", "https://video.twimg.com/ext_tw_video/1318728494256410624/pu/vid/640x360/TMklz6hiTkQu3xhn.mp4");
-					child.setAttribute("muted", "true");
-				}
-
-				// change all button events
-				if (child.tagName.trim() === "BUTTON") {
-					// remove anon function: https://stackoverflow.com/a/41343451/17836168
-					child.setAttribute("disabled", "true");
-				}
-			}
-		}
-	};
-
-	let mainVisibility = "visible";
-	$: mainVisibility = letChaos && !chaosDone ? "hidden" : "visible";
 	/* endregion chaos scripts */
 
 	onMount(async () => {
@@ -286,9 +241,6 @@
 		gameSectionFirst, qtMap, updateUrl(seaweedTemplateData);
 	// $: gameSectionQuery = gameSectionFirst ? "" : "game-section-first=false";
 
-	const entryProps: EntryProps = {
-		email
-	};
 
 	const removeProxyWrapperOnString = (wrapped: string): string => {
 		return wrapped.slice("Proxy<".length, wrapped.length - 1);
