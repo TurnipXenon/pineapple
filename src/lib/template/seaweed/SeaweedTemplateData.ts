@@ -24,15 +24,40 @@ export interface EntryGroup {
 	gridClass: string;
 }
 
-export const SeaweedTemplateData: ReadonlyArray<EntryGroup> = [
-	{
-		name: DefaultHeader.Games.toString(),
-		items: [Pengi, Hepcat, ChefWings, Soulwork, ItchPromo],
-		gridClass: GroupGridClass.Games.toString()
-	},
-	{
-		name: DefaultHeader.Projects.toString(),
-		items: [MigranteAlberta, DecentralizedSocialMedia, CustomizedYarnspinner, FullStackC, Workset, ThisWebpage, MockUberApp],
-		gridClass: GroupGridClass.Projects.toString()
-	}
+export const GameEntries: Readonly<EntryGroup> = {
+	name: DefaultHeader.Games.toString(),
+	items: [Pengi, Hepcat, ChefWings, Soulwork, ItchPromo],
+	gridClass: GroupGridClass.Games.toString()
+};
+
+export const ProjectEntries: Readonly<EntryGroup> = {
+	name: DefaultHeader.Projects.toString(),
+	items: [MigranteAlberta, DecentralizedSocialMedia, CustomizedYarnspinner, FullStackC, Workset, ThisWebpage, MockUberApp],
+	gridClass: GroupGridClass.Projects.toString()
+};
+
+export const AllGroupedEntries: ReadonlyArray<EntryGroup> = [
+	GameEntries,
+	ProjectEntries
 ];
+
+export interface SeaweedTemplateData {
+	allEntries: EntryGroup[];
+	shouldAddFunNote: boolean;
+	queryTermMap: Map<string, boolean>;
+}
+
+export const seaweedTemplateData: SeaweedTemplateData = {
+	shouldAddFunNote: false,
+	queryTermMap: new Map<string, boolean>(),
+	// copy the readonly properties into mutable values
+	allEntries: AllGroupedEntries.map(g => {
+		return {
+			name: g.name,
+			gridClass: g.gridClass,
+			items: g.items.map(e => e)
+		};
+	})
+};
+
+

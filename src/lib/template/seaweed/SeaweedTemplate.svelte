@@ -8,34 +8,31 @@
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import "./seaweed.postcss";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
-	import {
-		Accordion,
-		AccordionItem,
-		CodeBlock,
-		ListBox,
-		type PopupSettings,
-		SlideToggle
-	} from "@skeletonlabs/skeleton";
+	import { Accordion, AccordionItem, CodeBlock, ListBox, SlideToggle } from "@skeletonlabs/skeleton";
 	import { page } from "$app/stores";
 	import Card from "$pkg/components/Card.svelte";
 	import { type ComponentType, onMount } from "svelte";
 	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
 	import selfContent from "./SeaweedTemplate.svelte?raw";
-	import { type EntryGroup, SeaweedTemplateData } from "$pkg/template/seaweed/SeaweedTemplateData";
+	import {
+		AllGroupedEntries,
+		type EntryGroup,
+		type SeaweedTemplateData,
+		seaweedTemplateData
+	} from "./SeaweedTemplateData";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 	import type { RawGlob } from "$pkg/util/util";
 	// region query params
 
 	const entryList = import.meta.glob("./entries/*.svelte", { query: "?raw", eager: true });
+	const paramQTSet = new Set<string>();
 
 	let isVisible = true;
 	let isAdvanceSettingOn = false;
 	let shouldAddFunNote = false;
+	let qtMap = new Map<string, boolean>();
 
 	$: isSocialsGone = !isVisible;
-
-	let qtMap = new Map<string, boolean>();
-	const paramQTSet = new Set<string>();
 
 	const syncQT = () => {
 		if (qtMap.size === 0 || paramQTSet.size === 0) {
@@ -104,7 +101,7 @@
 	const filterSearchParams = (searchParams: URLSearchParams) => {
 		const isFunOn = searchParams.get("fun")?.trim();
 		if (isFunOn === "true") {
-			shouldAddFunNote = true;
+			seaweedTemplateData.shouldAddFunNote = true;
 		}
 
 		const gameSectionFirstParam = searchParams.get("game-section-first")?.trim();
@@ -132,14 +129,14 @@
 						}
 					});
 
-					seaweedTemplateData.push(group);
+					seaweedEntries.push(group);
 				}
 
 			});
 
-			seaweedTemplateData = seaweedTemplateData;
+			seaweedEntries = seaweedEntries;
 		} else {
-			seaweedTemplateData = SeaweedTemplateData.slice();
+			seaweedEntries = AllGroupedEntries.slice();
 		}
 		// endregion
 
@@ -221,7 +218,7 @@
 
 	onMount(async () => {
 		// originalEntryList
-		SeaweedTemplateData.forEach(g => g.items.forEach(e => {
+		AllGroupedEntries.forEach(g => g.items.forEach(e => {
 			originalEntryList.set(removeProxyWrapperOnString(e.name), e);
 		}));
 		originalEntryList = originalEntryList;
@@ -232,7 +229,7 @@
 			// todo: based on query adjust!
 			// seaweedTemplateData = SeaweedTemplateData;
 		} else {
-			seaweedTemplateData = SeaweedTemplateData.slice();
+			seaweedEntries = AllGroupedEntries.slice();
 		}
 
 		if (letChaos) {
@@ -249,7 +246,7 @@
 	// when either gameSectionFirst or the queryTerms are updated, update advancedUrl
 	let orderUrl = "";
 	let advancedUrl = domain;
-	const updateUrl = () => {
+	const updateUrl = (seaweedTemplateData: SeaweedTemplateData) => {
 		const queryParams: string[] = [];
 
 		if (orderUrl) {
@@ -271,7 +268,7 @@
 			queryParams.push(`qt=${qtList.map(t => t.slice(3, t.length)).join(",")}`);
 		}
 
-		if (shouldAddFunNote) {
+		if (seaweedTemplateData.shouldAddFunNote) {
 			queryParams.push("fun=true");
 		}
 
@@ -286,7 +283,7 @@
 		}
 	};
 	$: // noinspection CommaExpressionJS
-		gameSectionFirst, qtMap, shouldAddFunNote, updateUrl();
+		gameSectionFirst, qtMap, updateUrl(seaweedTemplateData);
 	// $: gameSectionQuery = gameSectionFirst ? "" : "game-section-first=false";
 
 	const entryProps: EntryProps = {
@@ -298,13 +295,13 @@
 	};
 
 	const updateOrderQuery = () => {
-		orderUrl = "order=" + seaweedTemplateData.map(g => {
+		orderUrl = "order=" + seaweedEntries.map(g => {
 			const groupUrl = g.items.map(
 				e => removeProxyWrapperOnString(e.name)
 			).join("|");
 			return `${g.name}:${groupUrl}:${g.gridClass}`;
 		}).join(",");
-		updateUrl();
+		updateUrl(seaweedTemplateData);
 	};
 
 	const removeEntry = (entry: ComponentType, group: EntryGroup): (() => void) => {
@@ -314,7 +311,7 @@
 				if (group.items[i].name === entry.name) {
 					console.log("Reduce");
 					group.items.splice(i, 1);
-					seaweedTemplateData = seaweedTemplateData;
+					seaweedEntries = seaweedEntries;
 					updateOrderQuery();
 					break;
 				}
@@ -322,23 +319,16 @@
 		};
 	};
 
-	let seaweedTemplateData: EntryGroup[] = [];
+	let seaweedEntries: EntryGroup[] = [];
 
 	let comboboxValue: string;
-
-	const popupCombobox: PopupSettings = {
-		event: "click",
-		target: "popupCombobox",
-		placement: "bottom",
-		closeQuery: ".listbox-item"
-	};
 
 	const addEntry = (comboboxValue: string, group: EntryGroup): (() => void) => {
 		return () => {
 			const c = originalEntryList.get(comboboxValue);
 			if (c) {
 				group.items.push(c);
-				seaweedTemplateData = seaweedTemplateData;
+				seaweedEntries = seaweedEntries;
 				updateOrderQuery();
 			}
 		};
@@ -358,20 +348,20 @@
 			const tempVar = group.items[newIndex];
 			group.items[newIndex] = group.items[index];
 			group.items[index] = tempVar;
-			seaweedTemplateData = seaweedTemplateData;
+			seaweedEntries = seaweedEntries;
 			updateOrderQuery();
 		};
 	};
 
 	const removeGroup = (group: EntryGroup): (() => void) => {
 		return () => {
-			const index = seaweedTemplateData.indexOf(group);
+			const index = seaweedEntries.indexOf(group);
 			if (index === -1) {
 				return;
 			}
 
-			seaweedTemplateData.splice(index, 1);
-			seaweedTemplateData = seaweedTemplateData;
+			seaweedEntries.splice(index, 1);
+			seaweedEntries = seaweedEntries;
 			updateOrderQuery();
 		};
 	};
@@ -405,7 +395,7 @@
 							I also graduated with BS Computing Science, Specializing in Software Practice, and a
 							certificate in Computer Game Development at University of Alberta.
 						</p>
-						{#if shouldAddFunNote}
+						{#if seaweedTemplateData.shouldAddFunNote}
 							<p>
 								I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
 								Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
@@ -521,7 +511,7 @@
 
 		</div>
 
-		{#each seaweedTemplateData as group}
+		{#each seaweedEntries as group}
 			<Card>
 				<section class="section-card title-card" slot="content">
 					<h1 class="text-center">{group.name}</h1>
@@ -551,8 +541,8 @@
 						<SlideToggle name="game-section-slider" bind:checked={gameSectionFirst}>
 							Should game section appear first over projects: {gameSectionFirst ? "On" : "Off"}
 						</SlideToggle>
-						<SlideToggle name="fun-note-slider" bind:checked={shouldAddFunNote}>
-							Should add fun note in description: {shouldAddFunNote ? "On" : "Off"}
+						<SlideToggle name="fun-note-slider" bind:checked={seaweedTemplateData.shouldAddFunNote}>
+							Should add fun note in description: {seaweedTemplateData.shouldAddFunNote ? "On" : "Off"}
 						</SlideToggle>
 
 						<h3>Query terms to bold</h3>
@@ -581,7 +571,7 @@
 						<div class="advanced-setting-list">
 							<!-- todo: we might have to extract this into it's own component -->
 							<!-- todo: NOW!!! -->
-							{#each seaweedTemplateData as group}
+							{#each seaweedEntries as group}
 								<div>
 									<button class="editable-button" on:click={removeGroup(group)}>X</button>  {group.name}
 									<div class="advanced-setting-list card">
@@ -596,7 +586,7 @@
 									</div>
 
 									<select class="select">
-										{#each originalEntryList as [key, _]}
+										{#each originalEntryList as [key]}
 											<option value={key}>{key}</option>
 										{/each}
 									</select>
