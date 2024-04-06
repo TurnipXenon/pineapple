@@ -71,6 +71,9 @@
     "./src/lib/app.postcss",
     "./src/lib/theme.postcss"
   ],
+  "resolutions": {
+    "**/@azure/msal-node": "2.3.0"
+  },
   "repository": "https://github.com/TurnipXenon/pineapple",
   "author": "turnipxenon <turnipxenon@gmail.com>",
   "license": "MIT",
