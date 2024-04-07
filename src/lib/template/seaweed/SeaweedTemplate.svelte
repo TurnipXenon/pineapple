@@ -7,7 +7,7 @@
 	import { Accordion, AccordionItem, CodeBlock, SlideToggle } from "@skeletonlabs/skeleton";
 	import { page } from "$app/stores";
 	import Card from "$pkg/components/Card.svelte";
-	import { onMount } from "svelte";
+	import { type ComponentType, onMount } from "svelte";
 	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
 	import selfContent from "./SeaweedTemplate.svelte?raw";
 	import {
@@ -24,6 +24,8 @@
 	export let email = "turnipxenon@gmail.com";
 	export let linkedinSlug = "turnip-xenon";
 	export let domain = "http://localhost:5173/portfolio/actual/";
+	export let serverSideQueryParams = "";
+	export let extraComponent: ComponentType | undefined = undefined;
 
 	// region query params
 	const entryProps: EntryProps = {
@@ -172,10 +174,12 @@
 	/* endregion chaos scripts */
 
 	onMount(async () => {
+		if (!letChaos && serverSideQueryParams) {
+			filterSearchParams(new URLSearchParams(serverSideQueryParams));
+		}
+
 		if (!letChaos && $page.url.searchParams) {
 			filterSearchParams($page.url.searchParams);
-			// todo: based on query adjust!
-			// seaweedTemplateData = SeaweedTemplateData;
 		}
 
 		if (letChaos) {
@@ -432,6 +436,8 @@
 						<br>
 						<p>Copy the url below and open a new page with it</p>
 						<CodeBlock language="url" code={advancedUrl}></CodeBlock>
+
+						<svelte:component this={extraComponent}></svelte:component>
 					{/if}
 				</div>
 			</Card>
