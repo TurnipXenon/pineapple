@@ -93,7 +93,6 @@
 		qtSet.forEach(t => seaweedTemplateData.queryTermMap.set(t, true));
 		syncQT();
 	};
-	parseQTTerms();
 
 	/** qt values and what they mean:
 	 *  undefined: set all qt terms to font-weight: bold
@@ -185,6 +184,8 @@
 		if (letChaos) {
 			runChaos(document.body);
 			chaosDone = true;
+		} else {
+			await parseQTTerms();
 		}
 	});
 
