@@ -1,19 +1,18 @@
 <script lang="ts">
 	import {
-		type EntryGroup, GetAllEntryFromGlobal, GetEntryFromGlobal,
+		type EntryGroup,
+		GetAllEntryFromGlobal,
+		GetEntryFromGlobal,
 		type SeaweedTemplateData,
 		seaweedTemplateData
 	} from "$pkg/template/seaweed/SeaweedTemplateData";
+	import type { ComponentType } from "svelte";
+	import { removeProxyWrapperOnString } from "./EntryOrderConfig";
+	import ComboBoxWithButton from "$pkg/components/combo_box/ComboBoxWithButton.svelte";
 
 	export let seaweedEntries: EntryGroup[];
 	export let orderUrl: string;
 	export let updateUrl: (data: SeaweedTemplateData) => void;
-
-	import { ListBox } from "@skeletonlabs/skeleton";
-	import type { ComponentType } from "svelte";
-	import { removeProxyWrapperOnString } from "./EntryOrderConfig";
-
-	let comboboxValue: string;
 
 	const updateOrderQuery = () => {
 		orderUrl = "order=" + seaweedEntries.map(g => {
@@ -25,10 +24,10 @@
 		updateUrl(seaweedTemplateData);
 	};
 
-	const addEntry = (comboboxValue: string, group: EntryGroup): (() => void) => {
-		return () => {
-			const c = GetEntryFromGlobal(comboboxValue);
-			console.log(comboboxValue, c);
+	const addEntry = (group: EntryGroup): ((selected: string) => void) => {
+		return (selected: string) => {
+			const c = GetEntryFromGlobal(selected);
+			console.log(selected, c);
 			if (c) {
 				group.items.push(c);
 				seaweedEntries = seaweedEntries;
@@ -55,6 +54,36 @@
 			updateOrderQuery();
 		};
 	};
+	const swapGroups = (index: number, shouldDecrement: boolean): (() => void) => {
+		return () => {
+			let newIndex = index;
+			if (shouldDecrement && index >= 1) {
+				newIndex--;
+			} else if (!shouldDecrement && index <= seaweedEntries.length - 2) {
+				newIndex++;
+			} else {
+				return;
+			}
+
+			const tempVar = seaweedEntries[newIndex];
+			seaweedEntries[newIndex] = seaweedEntries[index];
+			seaweedEntries[index] = tempVar;
+			seaweedEntries = seaweedEntries;
+			updateOrderQuery();
+		};
+	};
+
+	// todo: add group; we might not need it now
+	// const addGroup = (group: EntryGroup): (() => void) => {
+	// 	return () => {
+	// 		seaweedEntries.push({
+	// 			name: "",
+	// 			items: [],
+	// 			gridClass: GroupGridClass.Projects.toString()
+	// 		});
+	// 		updateOrderQuery();
+	// 	};
+	// };
 
 	const removeGroup = (group: EntryGroup): (() => void) => {
 		return () => {
@@ -82,10 +111,13 @@
 			}
 		};
 	};
+
+	const allDefaultEntries = Array.from(GetAllEntryFromGlobal().keys());
+	console.log("Test", Array.from(GetAllEntryFromGlobal().keys()));
 </script>
 
 <h3>Site ordering</h3>
-<blockquote>Sorry! This part of the website is still WIP, but here it is anyway</blockquote>
+<blockquote>Sorry! This part of the website is still WIP, but here it is anyway. As long as it functions</blockquote>
 
 <!-- formatting: group1:entry1|entry2,group2:entry3
  : <= separates the group header, the entries, and the class
@@ -95,9 +127,15 @@
 <div class="advanced-setting-list">
 	<!-- todo: we might have to extract this into it's own component -->
 	<!-- todo: NOW!!! -->
-	{#each seaweedEntries as group}
+	{#each seaweedEntries as group, groupIndex}
 		<div>
-			<button class="editable-button" on:click={removeGroup(group)}>X</button>  {group.name}
+			<div>
+				<button class="editable-button" on:click={removeGroup(group)}>X</button>
+				<!-- todo: move group up or down -->
+				<button class="editable-button" on:click={swapGroups(groupIndex, true)}>^</button>
+				<button class="editable-button" on:click={swapGroups(groupIndex, false)}>v</button>
+				{group.name}
+			</div>
 			<div class="advanced-setting-list card">
 				{#each group.items as entry, entryIndex}
 					<div class="editable-entry">
@@ -109,36 +147,14 @@
 				{/each}
 			</div>
 
-			<select bind:value={comboboxValue} class="select">
-				{#each GetAllEntryFromGlobal() as [key]}
-					<option value={key}>{key}</option>
-				{/each}
-			</select>
-			<button class="editable-button" on:click={addEntry(comboboxValue, group)}>+</button>
-			<div>
-				<!-- todo: fix -->
+			<ComboBoxWithButton stringItems={allDefaultEntries}
+			                    onClick={addEntry(group)}></ComboBoxWithButton>
 
-				<div class="card w-48 shadow-xl py-2" data-popup="popupCombobox">
-					<ListBox rounded="rounded-none">
-
-					</ListBox>
-					<div class="arrow bg-surface-100-800-token" />
-				</div>
-			</div>
-
-			<select class="select">
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
-				<option value="4">Option 4</option>
-				<option value="5">Option 5</option>
-			</select>
 		</div>
 	{/each}
 </div>
 
 <style lang="postcss">
-
     .advanced-setting-list {
         display: flex;
         flex-direction: column;

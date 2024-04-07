@@ -1,0 +1,22 @@
+.combo-box-wrapper {
+    display: flex;
+}
+
+.select {
+    flex-grow: 1;
+    @apply variant-filled-primary;
+}
+
+.dark .select option {
+    background-color: rgb(var(--color-primary-500) / var(--tw-bg-opacity));
+}
+
+.combo-box-side-button {
+    @apply btn variant-filled-primary;
+}
+
+.dark .option,
+.dark .select,
+.dark .combo-box-side-button {
+    color: var(--color-text-50);
+}

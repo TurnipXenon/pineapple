@@ -114,6 +114,8 @@
 		// region Order
 		const orderParam = searchParams.get("order")?.trim();
 		if (orderParam) {
+			seaweedTemplateData.groupedEntries = [];
+
 			orderParam.split(",").forEach(groupDefinition => {
 				const pair = groupDefinition.split(":");
 				console.log(pair);
@@ -373,17 +375,19 @@
 		</div>
 
 		{#each seaweedTemplateData.groupedEntries as group}
-			<Card>
-				<section class="section-card title-card" slot="content">
-					<h1 class="text-center">{group.name}</h1>
-				</section>
-			</Card>
+			{#if group.items.length > 0}
+				<Card>
+					<section class="section-card title-card" slot="content">
+						<h1 class="text-center">{group.name}</h1>
+					</section>
+				</Card>
 
-			<section class={group.gridClass}>
-				{#each group.items as entry}
-					<svelte:component this={entry} props={entryProps}></svelte:component>
-				{/each}
-			</section>
+				<section class={group.gridClass}>
+					{#each group.items as entry}
+						<svelte:component this={entry} props={entryProps}></svelte:component>
+					{/each}
+				</section>
+			{/if}
 		{/each}
 
 		{#if (!letChaos)}

@@ -38,6 +38,11 @@ export const ProjectEntries: Readonly<EntryGroup> = {
 };
 
 export const AllGroupedEntries: ReadonlyArray<EntryGroup> = [
+	{
+		name: "Relevant projects",
+		items: [],
+		gridClass: GroupGridClass.Games.toString()
+	},
 	GameEntries,
 	ProjectEntries
 ];
@@ -50,16 +55,16 @@ export const lazyInitializeAllFlatEntries = () => {
 			allFlatEntries.set(removeProxyWrapperOnString(e.name), e);
 		});
 	}
-}
+};
 
 export const GetAllEntryFromGlobal = () => {
 	lazyInitializeAllFlatEntries();
 	return allFlatEntries;
-}
+};
 
 
 export const GetEntryFromGlobal = (name: string) => {
-	lazyInitializeAllFlatEntries()
+	lazyInitializeAllFlatEntries();
 	return allFlatEntries.get(name);
 };
 
