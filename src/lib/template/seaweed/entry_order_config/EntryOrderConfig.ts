@@ -1,3 +1,7 @@
 export const removeProxyWrapperOnString = (wrapped: string): string => {
-	return wrapped.slice("Proxy<".length, wrapped.length - 1);
+	if (!wrapped.includes("Proxy")) {
+		return wrapped;
+	} else {
+		return wrapped.slice("Proxy<".length, wrapped.length - 1);
+	}
 };
