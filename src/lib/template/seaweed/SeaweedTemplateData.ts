@@ -1,5 +1,5 @@
 import type { ComponentType } from "svelte";
-import { DefaultHeader } from "$pkg/template/seaweed/entries/EntryProps";
+import { DefaultHeader, type GroupedEntry } from "$pkg/template/seaweed/entries/EntryProps";
 import Pengi from "$pkg/template/seaweed/entries/Pengi.svelte";
 import Hepcat from "$pkg/template/seaweed/entries/Hepcat.svelte";
 import ChefWings from "$pkg/template/seaweed/entries/ChefWings.svelte";
@@ -37,14 +37,22 @@ export const ProjectEntries: Readonly<EntryGroup> = {
 	gridClass: GroupGridClass.Projects.toString()
 };
 
+export const EmptyRelevantProjects: Readonly<EntryGroup> = {
+	name: "Relevant projects",
+	items: [],
+	gridClass: GroupGridClass.Games.toString()
+};
+
 export const AllGroupedEntries: ReadonlyArray<EntryGroup> = [
-	{
-		name: "Relevant projects",
-		items: [],
-		gridClass: GroupGridClass.Games.toString()
-	},
+	EmptyRelevantProjects,
 	GameEntries,
 	ProjectEntries
+];
+
+export const AllGroupedEntriesProjectFirst: ReadonlyArray<EntryGroup> = [
+	EmptyRelevantProjects,
+	ProjectEntries,
+	GameEntries
 ];
 
 const allFlatEntries: Map<string, ComponentType> = new Map<string, ComponentType>();
@@ -68,6 +76,16 @@ export const GetEntryFromGlobal = (name: string) => {
 	return allFlatEntries.get(name);
 };
 
+export const TurnGroupEntriesMutable = (allEntries: ReadonlyArray<EntryGroup>): EntryGroup[] => {
+	return allEntries.map(g => {
+		return {
+			name: g.name,
+			gridClass: g.gridClass,
+			items: g.items.map(e => e)
+		};
+	});
+};
+
 export interface SeaweedTemplateData {
 	groupedEntries: EntryGroup[];
 	shouldAddFunNote: boolean;
@@ -81,13 +99,7 @@ export const seaweedTemplateData: SeaweedTemplateData = {
 	// todo: gameSectionFirst currently has no functionality
 	gameSectionFirst: false,
 	// copy the readonly properties into mutable values
-	groupedEntries: AllGroupedEntries.map(g => {
-		return {
-			name: g.name,
-			gridClass: g.gridClass,
-			items: g.items.map(e => e)
-		};
-	})
+	groupedEntries: TurnGroupEntriesMutable(AllGroupedEntries)
 };
 
 

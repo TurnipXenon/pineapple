@@ -1,23 +1,5 @@
 <script lang="ts">
-	import EntryOrderConfig from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig.svelte";
-	import { runChaos } from "$pkg/template/seaweed/RunChaos";
-	import SocialSection from "$pkg/components/SocialSection.svelte";
-	import "./seaweed.postcss";
-	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
-	import { Accordion, AccordionItem, CodeBlock, SlideToggle } from "@skeletonlabs/skeleton";
-	import { page } from "$app/stores";
-	import Card from "$pkg/components/Card.svelte";
 	import { type ComponentType, onMount } from "svelte";
-	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
-	import selfContent from "./SeaweedTemplate.svelte?raw";
-	import {
-		type EntryGroup,
-		GetEntryFromGlobal,
-		type SeaweedTemplateData,
-		seaweedTemplateData
-	} from "./SeaweedTemplateData";
-	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
-	import type { RawGlob } from "$pkg/util/util";
 
 	export let letChaos = true;
 	export let name = "Turnip";
@@ -26,6 +8,27 @@
 	export let domain = "http://localhost:5173/portfolio/actual/";
 	export let serverSideQueryParams = "";
 	export let extraComponent: ComponentType | undefined = undefined;
+
+	import EntryOrderConfig from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig.svelte";
+	import { runChaos } from "$pkg/template/seaweed/RunChaos";
+	import SocialSection from "$pkg/components/SocialSection.svelte";
+	import "./seaweed.postcss";
+	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
+	import { Accordion, AccordionItem, CodeBlock, SlideToggle } from "@skeletonlabs/skeleton";
+	import { page } from "$app/stores";
+	import Card from "$pkg/components/Card.svelte";
+	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
+	import selfContent from "./SeaweedTemplate.svelte?raw";
+	import {
+		AllGroupedEntriesProjectFirst,
+		type EntryGroup,
+		GetEntryFromGlobal,
+		type SeaweedTemplateData,
+		seaweedTemplateData,
+		TurnGroupEntriesMutable
+	} from "./SeaweedTemplateData";
+	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
+	import type { RawGlob } from "$pkg/util/util";
 
 	// region query params
 	const entryProps: EntryProps = {
@@ -108,12 +111,8 @@
 			seaweedTemplateData.shouldAddFunNote = true;
 		}
 
-		const gameSectionFirstParam = searchParams.get("game-section-first")?.trim();
-		if (gameSectionFirstParam === "false") {
-			seaweedTemplateData.gameSectionFirst = false;
-		}
-
 		// region Order
+		const gameSectionFirstParam = searchParams.get("game-section-first")?.trim();
 		const orderParam = searchParams.get("order")?.trim();
 		if (orderParam) {
 			seaweedTemplateData.groupedEntries = [];
@@ -141,6 +140,8 @@
 			});
 
 			seaweedTemplateData.groupedEntries = seaweedTemplateData.groupedEntries;
+		} else if (gameSectionFirstParam === "false") {
+			seaweedTemplateData.groupedEntries = TurnGroupEntriesMutable(AllGroupedEntriesProjectFirst);
 		}
 		// endregion
 
