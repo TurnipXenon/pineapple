@@ -4,7 +4,7 @@
   "version": "2.4.46",
   "scripts": {
     "dev": "vite dev",
-    "build": "npm run check-requirements && vite build && yarn package",
+    "build": "vite build && yarn package",
     "package": "svelte-kit sync && svelte-package && publint",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
