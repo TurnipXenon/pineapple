@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type ComponentType, onMount } from "svelte";
+	import { afterUpdate, type ComponentType, onMount } from "svelte";
 	import EntryOrderConfig from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig.svelte";
 	import { runChaos } from "$pkg/template/seaweed/RunChaos";
 	import SocialSection from "$pkg/components/SocialSection.svelte";
@@ -184,7 +184,15 @@
 		if (letChaos) {
 			runChaos(document.body);
 			chaosDone = true;
-		} else {
+		}
+	});
+
+	// the page may not yet be updated in onMount, so let's wait for the page to render according to what we
+	// want before proceeding the parsing the page
+	let isParsed = false;
+	afterUpdate(async () => {
+		if (!letChaos && !isParsed) {
+			isParsed = true;
 			await parseQTTerms();
 		}
 	});
