@@ -1,14 +1,5 @@
 <script lang="ts">
 	import { type ComponentType, onMount } from "svelte";
-
-	export let letChaos = true;
-	export let name = "Turnip";
-	export let email = "turnipxenon@gmail.com";
-	export let linkedinSlug = "turnip-xenon";
-	export let domain = "http://localhost:5173/portfolio/actual/";
-	export let serverSideQueryParams = "";
-	export let extraComponent: ComponentType | undefined = undefined;
-
 	import EntryOrderConfig from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig.svelte";
 	import { runChaos } from "$pkg/template/seaweed/RunChaos";
 	import SocialSection from "$pkg/components/SocialSection.svelte";
@@ -29,6 +20,14 @@
 	} from "./SeaweedTemplateData";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 	import type { RawGlob } from "$pkg/util/util";
+
+	export let letChaos = true;
+	export let name = "Turnip";
+	export let email = "turnipxenon@gmail.com";
+	export let linkedinSlug = "turnip-xenon";
+	export let domain = "http://localhost:5173/portfolio/actual/";
+	export let serverSideQueryParams = "";
+	export let extraComponent: ComponentType | undefined = undefined;
 
 	// region query params
 	const entryProps: EntryProps = {
@@ -411,6 +410,7 @@
 						<SlideToggle name="game-section-slider" bind:checked={seaweedTemplateData.gameSectionFirst}>
 							Should game section appear first over projects: {seaweedTemplateData.gameSectionFirst ? "On" : "Off"}
 						</SlideToggle>
+						<p>Note: the above configuration was made before the dynamic entry list and to support links sent with that params, we will act like it only swaps the two groups, and nothing more dynamic if order query param does not exist. The configuration only happens during page load with query param, and it does not apply when changed here.</p>
 						<SlideToggle name="fun-note-slider" bind:checked={seaweedTemplateData.shouldAddFunNote}>
 							Should add fun note in description: {seaweedTemplateData.shouldAddFunNote ? "On" : "Off"}
 						</SlideToggle>

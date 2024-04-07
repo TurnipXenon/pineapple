@@ -43,7 +43,7 @@ export const EmptyRelevantProjects: Readonly<EntryGroup> = {
 	gridClass: GroupGridClass.Games.toString()
 };
 
-export const AllGroupedEntries: ReadonlyArray<EntryGroup> = [
+export const AllGroupedEntriesGameFirst: ReadonlyArray<EntryGroup> = [
 	EmptyRelevantProjects,
 	GameEntries,
 	ProjectEntries
@@ -97,9 +97,9 @@ export const seaweedTemplateData: SeaweedTemplateData = {
 	shouldAddFunNote: false,
 	queryTermMap: new Map<string, boolean>(),
 	// todo: gameSectionFirst currently has no functionality
-	gameSectionFirst: false,
+	gameSectionFirst: true,
 	// copy the readonly properties into mutable values
-	groupedEntries: TurnGroupEntriesMutable(AllGroupedEntries)
+	groupedEntries: TurnGroupEntriesMutable(AllGroupedEntriesGameFirst)
 };
 
 
