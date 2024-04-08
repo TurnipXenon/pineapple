@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type ComponentType, onMount, afterUpdate } from "svelte";
+	import { afterUpdate, type ComponentType, onMount } from "svelte";
 	import EntryOrderConfig from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig.svelte";
 	import { runChaos } from "$pkg/template/seaweed/RunChaos";
 	import SocialSection from "$pkg/components/SocialSection.svelte";
@@ -9,7 +9,6 @@
 	import { page } from "$app/stores";
 	import Card from "$pkg/components/Card.svelte";
 	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
-	import selfContent from "./SeaweedTemplate.svelte?raw";
 	import {
 		AllGroupedEntriesProjectFirst,
 		type EntryGroup,
@@ -19,7 +18,7 @@
 		TurnGroupEntriesMutable
 	} from "./SeaweedTemplateData";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
-	import type { RawGlob } from "$pkg/util/util";
+	import { parseQueryTerms } from "$pkg/template/seaweed/ParseQueryTerms";
 
 	export let letChaos = true;
 	export let name = "Turnip";
@@ -34,7 +33,6 @@
 		email
 	};
 
-	const entryList = import.meta.glob("./entries/*.svelte", { query: "?raw", eager: true });
 	const paramQTSet = new Set<string>();
 
 	let isVisible = true;
@@ -61,36 +59,9 @@
 		seaweedTemplateData.queryTermMap = seaweedTemplateData.queryTermMap;
 	};
 
-	const parseQTTerms = async () => {
-		console.log("parsing", seaweedTemplateData.queryTermMap.size);
+	const parseQueryTermsLocal = async () => {
 		const qtSet = new Set<string>();
-		const rawTermList: string[] = [];
-		[...Object.values(entryList).map(e => (e as RawGlob).default), selfContent].forEach(body => {
-			// parse the qt-* term which exists within elements like:
-			// <span class="qt-*">TERM</span>
-			console.log("parsing", body);
-			rawTermList.push(
-				...body // step 3: destructure the array
-					.split("\"") // step 1: split the text as double quotations (") as the delimiter
-					.filter(s => s.startsWith("qt-")) // step 2: filter out texts that does not begin with "qt-"
-			);
-		});
-
-		// step 4: some spans contain multiple classes, split them up
-		// then add them to qtTerms
-		// e.g. <span class="qt-1 qt-2">TERM</span>
-		rawTermList.forEach(t => {
-			t.split(" ").forEach(nt => {
-				// filter out some of this meta terms
-				if (["qt-1", "qt-2", "qt-*", "qt-"].includes(nt)) {
-					return;
-				}
-
-				// adding to set ensures the entry is unique
-				qtSet.add(nt);
-			});
-		});
-
+		parseQueryTerms(document.body, qtSet);
 		qtSet.forEach(t => seaweedTemplateData.queryTermMap.set(t, true));
 		// force svelte update
 		seaweedTemplateData.queryTermMap = seaweedTemplateData.queryTermMap;
@@ -194,7 +165,7 @@
 	afterUpdate(async () => {
 		if (!letChaos && !isParsed) {
 			isParsed = true;
-			await parseQTTerms();
+			await parseQueryTermsLocal();
 		}
 	});
 
