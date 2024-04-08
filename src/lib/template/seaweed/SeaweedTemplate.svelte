@@ -19,6 +19,7 @@
 	} from "./SeaweedTemplateData";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 	import { parseQueryTerms } from "$pkg/template/seaweed/ParseQueryTerms";
+	import UrlShortenerForm from "$pkg/template/seaweed/CreateUrlForm.svelte";
 
 	export let letChaos = true;
 	export let name = "Turnip";
@@ -26,7 +27,6 @@
 	export let linkedinSlug = "turnip-xenon";
 	export let domain = "http://localhost:5173/portfolio/actual/";
 	export let serverSideQueryParams = "";
-	export let extraComponent: ComponentType | undefined = undefined;
 
 	// region query params
 	const entryProps: EntryProps = {
@@ -177,6 +177,7 @@
 	// when either gameSectionFirst or the queryTerms are updated, update advancedUrl
 	let orderUrl = "";
 	let advancedUrl = domain;
+	let advancedQuery = "";
 	const updateUrl = (seaweedTemplateData: SeaweedTemplateData) => {
 		const queryParams: string[] = [];
 
@@ -208,7 +209,8 @@
 		}
 
 		if (queryParams.length > 0) {
-			advancedUrl = `${domain}?${queryParams.join("&")}`;
+			advancedQuery = queryParams.join("&");
+			advancedUrl = `${domain}?${advancedQuery}`;
 		} else {
 			advancedUrl = domain;
 		}
@@ -419,7 +421,7 @@
 						<p>Copy the url below and open a new page with it</p>
 						<CodeBlock language="url" code={advancedUrl}></CodeBlock>
 
-						<svelte:component this={extraComponent}></svelte:component>
+						<UrlShortenerForm queryParams={advancedQuery}></UrlShortenerForm>
 					{/if}
 				</div>
 			</Card>

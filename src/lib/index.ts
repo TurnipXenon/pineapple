@@ -8,6 +8,7 @@ export { default as SocialSection } from "./components/SocialSection.svelte";
 
 export * from "$pkg/components/overrideable_meta/index";
 export * from "$pkg/components/navigation_component/index";
+export * from "$pkg/types/api/index";
 export * from "./components/dialog_manager/DialogManagerStore";
 export * from "./components/dialog_manager/DialogManager";
 export * from "./components/dialog_manager/DialogUtils";
