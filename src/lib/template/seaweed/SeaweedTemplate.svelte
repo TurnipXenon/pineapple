@@ -62,6 +62,7 @@
 	};
 
 	const parseQTTerms = async () => {
+		console.log("parsing", seaweedTemplateData.queryTermMap.size);
 		const qtSet = new Set<string>();
 		const rawTermList: string[] = [];
 		[...Object.values(entryList).map(e => (e as RawGlob).default), selfContent].forEach(body => {
@@ -89,8 +90,9 @@
 			});
 		});
 
-		// activate svelte reactivity
 		qtSet.forEach(t => seaweedTemplateData.queryTermMap.set(t, true));
+		// force svelte update
+		seaweedTemplateData.queryTermMap = seaweedTemplateData.queryTermMap;
 		syncQT();
 	};
 
@@ -184,15 +186,7 @@
 		if (letChaos) {
 			runChaos(document.body);
 			chaosDone = true;
-		}
-	});
-
-	// the page may not yet be updated in onMount, so let's wait for the page to render according to what we
-	// want before proceeding the parsing the page
-	let isParsed = false;
-	afterUpdate(async () => {
-		if (!letChaos && !isParsed) {
-			isParsed = true;
+		} else {
 			await parseQTTerms();
 		}
 	});
