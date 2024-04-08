@@ -33,6 +33,8 @@
 				<Chip>Typescript</Chip>
 				<Chip>Vercel</Chip>
 				<Chip>YarnSpinner</Chip>
+				<Chip>Postgres (SQL database)</Chip>
+				<Chip>Prisma ORM</Chip>
 			</p>
 
 			<section class="game-link-section">

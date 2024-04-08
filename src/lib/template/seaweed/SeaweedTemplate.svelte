@@ -371,7 +371,7 @@
 
 				<section class={group.gridClass}>
 					{#each group.items as entry}
-						<svelte:component this={entry} props={entryProps}></svelte:component>
+						<svelte:component this={entry.component} props={entryProps}></svelte:component>
 					{/each}
 				</section>
 			{/if}

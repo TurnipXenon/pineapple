@@ -19,21 +19,40 @@ export enum GroupGridClass {
 	Projects = "projects-section"
 }
 
+export interface ComponentMeta {
+	name: string;
+	component: ComponentType;
+}
+
 export interface EntryGroup {
 	name: string;
-	items: ComponentType[];
+	items: ComponentMeta[];
 	gridClass: string;
 }
 
 export const GameEntries: Readonly<EntryGroup> = {
 	name: DefaultHeader.Games.toString(),
-	items: [Pengi, Hepcat, ChefWings, Soulwork, ItchPromo],
+	items: [
+		{ name: "Pengi", component: Pengi },
+		{ name: "Hepcat", component: Hepcat },
+		{ name: "Chef Wings", component: ChefWings },
+		{ name: "Soulwork", component: Soulwork },
+		{ name: "Itch Promo", component: ItchPromo }
+	],
 	gridClass: GroupGridClass.Games.toString()
 };
 
 export const ProjectEntries: Readonly<EntryGroup> = {
 	name: DefaultHeader.Projects.toString(),
-	items: [MigranteAlberta, DecentralizedSocialMedia, CustomizedYarnspinner, FullStackC, Workset, ThisWebpage, MockUberApp],
+	items: [
+		{ name: "Migrante Alberta", component: MigranteAlberta },
+		{ name: "Decentralized Social Media", component: DecentralizedSocialMedia },
+		{ name: "Customized YarnSpinner", component: CustomizedYarnspinner },
+		{ name: "Full Stack C", component: FullStackC },
+		{ name: "Workset", component: Workset },
+		{ name: "This Webpage", component: ThisWebpage },
+		{ name: "Mock Uber App", component: MockUberApp }
+	],
 	gridClass: GroupGridClass.Projects.toString()
 };
 
@@ -55,7 +74,7 @@ export const AllGroupedEntriesProjectFirst: ReadonlyArray<EntryGroup> = [
 	GameEntries
 ];
 
-const allFlatEntries: Map<string, ComponentType> = new Map<string, ComponentType>();
+const allFlatEntries = new Map<string, ComponentMeta>();
 
 export const lazyInitializeAllFlatEntries = () => {
 	if (allFlatEntries.size === 0) {
