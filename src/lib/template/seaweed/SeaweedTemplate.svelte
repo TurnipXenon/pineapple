@@ -68,6 +68,7 @@
 		[...Object.values(entryList).map(e => (e as RawGlob).default), selfContent].forEach(body => {
 			// parse the qt-* term which exists within elements like:
 			// <span class="qt-*">TERM</span>
+			console.log("parsing", body);
 			rawTermList.push(
 				...body // step 3: destructure the array
 					.split("\"") // step 1: split the text as double quotations (") as the delimiter
