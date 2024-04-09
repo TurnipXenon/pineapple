@@ -1,9 +1,10 @@
-<span class="chip variant-filled-tertiary">
+<span class="local-chip">
 <slot />
 </span>
 
-<style>
-    .chip {
+<style lang="postcss">
+    .local-chip {
+        @apply chip variant-filled-tertiary;
         border-radius: 1em;
         margin: 0.25em;
         font-weight: bold;
