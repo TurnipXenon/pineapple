@@ -227,6 +227,7 @@
     }
 
     .entry-group {
+        border-radius: var(--theme-rounded-container);
         background-color: rgb(var(--color-surface-600));
         margin-top: 1.5lh;
         margin-bottom: 0.5lh;
