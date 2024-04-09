@@ -53,6 +53,8 @@
 	       name="password"
 	       class="input"
 	       type="password"
-	       placeholder="Input" />
+	       placeholder="ILoveTurnips" />
+	<br>
+	<br>
 	<button class="btn variant-filled" on:click={post}>Send link</button>
 </div>

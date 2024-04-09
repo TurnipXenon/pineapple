@@ -1,5 +1,6 @@
 <script lang="ts">
 	import {
+		type ComponentMeta,
 		type EntryGroup,
 		GetAllEntryFromGlobal,
 		GetEntryFromGlobal,
@@ -9,6 +10,9 @@
 	import type { ComponentType } from "svelte";
 	import { removeProxyWrapperOnString } from "./EntryOrderConfig";
 	import ComboBoxWithButton from "$pkg/components/combo_box/ComboBoxWithButton.svelte";
+	import CloseIcon from "$pkg/assets/icons/close.svg";
+	import UpwardIcon from "$pkg/assets/icons/arrow-upward.svg";
+	import "./entry-order-config.postcss";
 
 	export let seaweedEntries: EntryGroup[];
 	export let orderUrl: string;
@@ -27,7 +31,6 @@
 	const addEntry = (group: EntryGroup): ((selected: string) => void) => {
 		return (selected: string) => {
 			const c = GetEntryFromGlobal(selected);
-			console.log(selected, c);
 			if (c) {
 				group.items.push(c);
 				seaweedEntries = seaweedEntries;
@@ -45,7 +48,6 @@
 			} else {
 				return;
 			}
-			console.log(index, newIndex);
 
 			const tempVar = group.items[newIndex];
 			group.items[newIndex] = group.items[index];
@@ -97,12 +99,10 @@
 			updateOrderQuery();
 		};
 	};
-	const removeEntry = (entry: ComponentType, group: EntryGroup): (() => void) => {
+	const removeEntry = (entry: ComponentMeta, group: EntryGroup): (() => void) => {
 		return () => {
-			console.log("Clicked!");
 			for (let i = group.items.length - 1; i >= 0; i--) {
 				if (group.items[i].name === entry.name) {
-					console.log("Reduce");
 					group.items.splice(i, 1);
 					seaweedEntries = seaweedEntries;
 					updateOrderQuery();
@@ -113,10 +113,10 @@
 	};
 
 	const allDefaultEntries = Array.from(GetAllEntryFromGlobal().keys());
-	console.log("Test", Array.from(GetAllEntryFromGlobal().keys()));
 </script>
 
-<h3>Site ordering</h3>
+<br>
+<h2>Site ordering</h2>
 <blockquote>Sorry! This part of the website is still WIP, but here it is anyway. As long as it functions</blockquote>
 
 <!-- formatting: group1:entry1|entry2,group2:entry3
@@ -125,30 +125,75 @@
  , <= separates each group
  -->
 <div class="advanced-setting-list">
-	<!-- todo: we might have to extract this into it's own component -->
-	<!-- todo: NOW!!! -->
 	{#each seaweedEntries as group, groupIndex}
-		<div>
-			<div>
-				<button class="editable-button" on:click={removeGroup(group)}>X</button>
-				<!-- todo: move group up or down -->
-				<button class="editable-button" on:click={swapGroups(groupIndex, true)}>^</button>
-				<button class="editable-button" on:click={swapGroups(groupIndex, false)}>v</button>
-				{group.name}
-			</div>
-			<div class="advanced-setting-list card">
-				{#each group.items as entry, entryIndex}
-					<div class="editable-entry">
-						<button on:click={removeEntry(entry, group)}>-</button>
-						<button on:click={swapEntry(entryIndex, group, true)}>^</button>
-						<button on:click={swapEntry(entryIndex, group, false)}>v</button>
-						{entry.name}
-					</div>
-				{/each}
+		<div class="entry-group card">
+
+			<div class="btn-group-header">
+				<button title={`Remove ${group.name}`}
+				        on:click={removeGroup(group)}>
+					<img class="img-icon" src={CloseIcon} alt={`Remove ${group.name}`}>
+				</button>
+
+				<button title={`Move group ${group.name} upwards`}
+				        on:click={swapGroups(groupIndex, true)}
+				        disabled="{groupIndex === 0}">
+					<img class="img-icon" src={UpwardIcon} alt={`Move group ${group.name} upwards`}>
+				</button>
+
+				<button title={`Move group ${group.name} downwards`}
+				        disabled={groupIndex === seaweedEntries.length - 1}
+				        on:click={swapGroups(groupIndex, false)}>
+					<img class="img-icon flipped-vertically" src={UpwardIcon} alt={`Move group ${group.name} downwards`}>
+				</button>
+
+				<h2>{group.name}</h2>
 			</div>
 
-			<ComboBoxWithButton stringItems={allDefaultEntries}
-			                    onClick={addEntry(group)}></ComboBoxWithButton>
+			<table class="advanced-setting-list table">
+				<thead>
+				<tr>
+					<th>Entries</th>
+				</tr>
+				</thead>
+				<tbody>
+				{#each group.items as entry, entryIndex}
+					<tr class="entry-row">
+						<td class="btn-group-entry">
+
+							<button title={`Remove ${group.name}`}
+							        on:click={removeEntry(entry, group)}>
+								<img class="img-icon" src={CloseIcon} alt={`Remove ${group.name}`}>
+							</button>
+
+							<button title={`Move group ${group.name} upwards`}
+							        on:click={swapEntry(entryIndex, group, true)}
+							        disabled="{entryIndex === 0}">
+								<img class="img-icon" src={UpwardIcon} alt={`Move group ${group.name} upwards`}>
+							</button>
+
+							<button title={`Move group ${group.name} downwards`}
+							        disabled={entryIndex === group.items.length - 1}
+							        on:click={swapEntry(entryIndex, group, false)}>
+								<img class="img-icon flipped-vertically" src={UpwardIcon} alt={`Move group ${group.name} downwards`}>
+							</button>
+							<div class="entry-name">
+								{entry.name}
+							</div>
+						</td>
+					</tr>
+				{/each}
+				</tbody>
+
+				<tfoot>
+				<tr>
+					<td>
+						<ComboBoxWithButton stringItems={allDefaultEntries}
+						                    onClick={addEntry(group)}></ComboBoxWithButton>
+					</td>
+				</tr>
+				</tfoot>
+			</table>
+
 
 		</div>
 	{/each}
@@ -160,7 +205,48 @@
         flex-direction: column;
     }
 
-    .editable-entry > button, .editable-button {
-        @apply btn variant-filled-primary;
+    .btn-group-header {
+        @apply btn-group variant-filled-tertiary;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5lh;
+    }
+
+    .btn-group-entry {
+        @apply btn-group;
+        display: flex;
+        padding: 0;
+    }
+
+    .btn-group-entry > div {
+        padding: 1em;
+    }
+
+    .flipped-vertically {
+        transform: rotate(180deg);
+    }
+
+    .entry-group {
+        background-color: rgb(var(--color-surface-600));
+        margin-top: 1.5lh;
+        margin-bottom: 0.5lh;
+        padding: 0.5lh 0.5em;
+    }
+
+    .entry-row {
+        display: flex;
+        align-items: center;
+    }
+
+    .entry-name {
+        flex-grow: 1;
+    }
+
+    tr, td, th {
+        width: 100%;
+    }
+
+    tfoot > tr {
+        display: flex;
     }
 </style>

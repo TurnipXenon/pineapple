@@ -16,3 +16,10 @@
 	<ComboBox bind:selectedValue={selectedValue}
 	          bind:stringItems={stringItems}></ComboBox>
 </div>
+
+<style>
+    .combo-box-wrapper {
+        display: flex;
+        gap: 1em;
+    }
+</style>
