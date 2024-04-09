@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Chip from "$pkg/components/Chip.svelte";
+	import { Chip } from "$pkg";
 	import { type EntryProps } from "./EntryProps";
 	import LinkIcon from "$pkg/assets/icons/link-icon.svg";
 	import Card from "$pkg/components/Card.svelte";

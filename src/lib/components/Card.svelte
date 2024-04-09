@@ -4,6 +4,7 @@
 	export let overrideStyle = "";
 	export let includeDataNoSnippet = true;
 	export let additionalClass: string[] = [];
+	export let turnOnLightModeBorder = true;
 
 	// warning: don't forget the semi-colon when adding new style!
 	const style = `
@@ -16,7 +17,15 @@
 		console.error("Missing content slot in card. No content will be displayed.");
 	}
 
-	const classes = ["card", "turnip-card"].concat(additionalClass).join(" ");
+	const originalClasses = ["card", "turnip-card"].concat(additionalClass).join(" ");
+	let classes = originalClasses.slice();
+	const toggleLightModeBorder = (turnOnLightModeBorder: boolean) => {
+		classes = originalClasses;
+		if (turnOnLightModeBorder) {
+			classes += " light-mode-border";
+		}
+	};
+	$: toggleLightModeBorder(turnOnLightModeBorder);
 </script>
 
 {#if (includeDataNoSnippet)}
@@ -24,12 +33,18 @@
 		<slot name="content" class="card" />
 	</div>
 {:else }
-	<div class="card turnip-card" style={style}>
+	<div class={classes} style={style}>
 		<slot name="content" class="card" />
 	</div>
 {/if}
 
 <style lang="postcss">
+    /*noinspection CssUnusedSymbol*/
+    .light-mode-border {
+        @apply border-surface-600 border-2 dark:border-0;
+    }
+
+    /*noinspection CssUnusedSymbol*/
     .turnip-card {
         @apply bg-surface-100 dark:bg-surface-900;
         margin: var(--turnip-card-margin);
