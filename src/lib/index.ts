@@ -5,6 +5,7 @@ export { default as SeaweedTemplate } from "$pkg/template/seaweed/SeaweedTemplat
 export { default as LazyAsset } from "./components/LazyAsset.svelte";
 export { default as Card } from "./components/Card.svelte";
 export { default as Chip } from "./components/chip/Chip.svelte";
+export { default as PineappleSlideToggle } from "./components/PineappleSlideToggle.svelte";
 export { default as SocialSection } from "./components/SocialSection.svelte";
 
 export * from "$pkg/components/overrideable_meta/index";

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { afterUpdate, type ComponentType, onMount } from "svelte";
+	import { afterUpdate, onMount } from "svelte";
 	import EntryOrderConfig from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig.svelte";
 	import { runChaos } from "$pkg/template/seaweed/RunChaos";
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import "./seaweed.postcss";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
-	import { Accordion, AccordionItem, CodeBlock, SlideToggle } from "@skeletonlabs/skeleton";
+	import { Accordion, AccordionItem, CodeBlock } from "@skeletonlabs/skeleton";
 	import { page } from "$app/stores";
 	import Card from "$pkg/components/Card.svelte";
 	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
@@ -21,6 +21,7 @@
 	import { parseQueryTerms } from "$pkg/template/seaweed/ParseQueryTerms";
 	import UrlShortenerForm from "$pkg/template/seaweed/CreateUrlForm.svelte";
 	import PineappleSlideToggle from "$pkg/components/PineappleSlideToggle.svelte";
+	import { Chip } from "$pkg/index";
 
 	export let letChaos = true;
 	export let name = "Turnip";
@@ -406,14 +407,14 @@
 						<div class="query-term-grid">
 							{#each seaweedTemplateData.queryTermMap.entries() as [term, shouldBold]}
 								<!--{@const shouldBold = false}-->
-								<button
-									class="chip {shouldBold ? 'variant-filled-tertiary' : 'variant-soft-tertiary'}"
-									on:click={() => {toggleTerm(term)}}
-								>
+								<Chip onClick={() => {toggleTerm(term)}}
+								      checked={shouldBold}>
 									<!-- todo: change shouldBold -->
-									{#if (shouldBold)}&check;{/if}
-									{term}
-								</button>
+									<span style={`font-weight: ${shouldBold ? "bold" : "normal"}`}>
+										{#if (shouldBold)}&check;{/if}
+										{term}
+									</span>
+								</Chip>
 							{/each}
 						</div>
 
