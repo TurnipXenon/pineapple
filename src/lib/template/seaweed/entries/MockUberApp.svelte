@@ -2,9 +2,6 @@
 	import { type EntryProps } from "./EntryProps";
 	import Card from "$pkg/components/Card.svelte";
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
-	import WindowSetGraph from "$pkg/assets/others/window-set.png";
-	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
-	import Chip from "$pkg/components/chip/Chip.svelte";
 
 	// noinspection JSUnusedGlobalSymbols
 	export let props: EntryProps;
