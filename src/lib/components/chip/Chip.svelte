@@ -2,28 +2,27 @@
 	import { modeCurrent as isLightMode } from "@skeletonlabs/skeleton";
 
 	export let onClick: undefined | (() => void) = undefined;
-	export let checked = false;
+	export let checked = true;
 
 	$: textColorClass = $isLightMode ? "local-light" : "local-dark";
 	let buttonClass = "variant-filled-tertiary";
 	const toggleChipColor = (isLightMode: boolean, checked: boolean) => {
 		if (isLightMode) {
-			buttonClass = checked ? "variant-filled-tertiary" : "variant-filled-primary";
+			buttonClass = checked ? "normal-bg" : "light-unchecked-bg";
 		} else {
-			buttonClass = checked ? "variant-filled-tertiary" : "variant-soft-tertiary";
+			buttonClass = checked ? "normal-bg" : "dark-unchecked-bg";
 		}
 	};
 	$: toggleChipColor($isLightMode, checked);
 </script>
 
-<!-- aria wanrning is okay to ignore since it dynamically shifts between button or span -->
 {#if onClick}
 	<button class={`chip ${buttonClass} ${textColorClass}`}
 	        on:click={onClick}>
 		<slot />
 	</button>
 {:else }
-	<span class={`local-chip variant-filled-tertiary ${textColorClass}`}>
+	<span class={`local-chip normal-bg ${textColorClass}`}>
 		<slot />
 	</span>
 {/if}
@@ -35,7 +34,19 @@
         margin: 0.25em;
         font-weight: bold;
         pointer-events: none;
+    }
+
+    .normal-bg {
+        --tw-bg-opacity: 1;
         background-color: rgb(var(--color-tertiary-500) / var(--tw-bg-opacity));
+    }
+
+    .dark-unchecked-bg {
+        background-color: rgb(var(--color-tertiary-500) / 0.2);
+    }
+
+    .light-unchecked-bg {
+        background-color: rgb(var(--color-primary-500) / var(--tw-bg-opacity));
     }
 
     .local-light {
