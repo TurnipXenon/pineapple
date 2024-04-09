@@ -2,7 +2,7 @@
 <slot />
 </span>
 
-<style lang="postcss">
+<style>
     .chip {
         border-radius: 1em;
         margin: 0.25em;
