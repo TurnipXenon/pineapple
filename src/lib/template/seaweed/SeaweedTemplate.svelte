@@ -20,6 +20,7 @@
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 	import { parseQueryTerms } from "$pkg/template/seaweed/ParseQueryTerms";
 	import UrlShortenerForm from "$pkg/template/seaweed/CreateUrlForm.svelte";
+	import PineappleSlideToggle from "$pkg/components/PineappleSlideToggle.svelte";
 
 	export let letChaos = true;
 	export let name = "Turnip";
@@ -385,18 +386,21 @@
 					<h1>Advanced settings</h1>
 					<p>This one is for those curious how I customize this page.</p>
 
-					<SlideToggle name="advanced-setting-slider" bind:checked={isAdvanceSettingOn}>
+					<PineappleSlideToggle name="advanced-setting-slider"
+					                      bind:checked={isAdvanceSettingOn}>
 						Advanced settings: {isAdvanceSettingOn ? "On" : "Off"}
-					</SlideToggle>
+					</PineappleSlideToggle>
 
 					{#if (isAdvanceSettingOn)}
-						<SlideToggle name="game-section-slider" bind:checked={seaweedTemplateData.gameSectionFirst}>
+						<PineappleSlideToggle name="game-section-slider"
+						                      bind:checked={seaweedTemplateData.gameSectionFirst}>
 							Should game section appear first over projects: {seaweedTemplateData.gameSectionFirst ? "On" : "Off"}
-						</SlideToggle>
+						</PineappleSlideToggle>
 						<p>Note: the above configuration was made before the dynamic entry list and to support links sent with that params, we will act like it only swaps the two groups, and nothing more dynamic if order query param does not exist. The configuration only happens during page load with query param, and it does not apply when changed here.</p>
-						<SlideToggle name="fun-note-slider" bind:checked={seaweedTemplateData.shouldAddFunNote}>
+						<PineappleSlideToggle name="fun-note-slider"
+						                      bind:checked={seaweedTemplateData.shouldAddFunNote}>
 							Should add fun note in description: {seaweedTemplateData.shouldAddFunNote ? "On" : "Off"}
-						</SlideToggle>
+						</PineappleSlideToggle>
 
 						<h3>Query terms to bold</h3>
 						<div class="query-term-grid">

@@ -80,7 +80,9 @@
 {#if (localComponent !== undefined)}
 	<div class="toast-positioner" style={`bottom: ${$position}lh;`}>
 		<!-- todo: adjust shadow to be more dynamic or transparent -->
-		<Card marginBottom="1lh" overrideStyle="box-shadow: 3px 3px 3px var(--shadow-color);">
+		<Card marginBottom="1lh"
+		      turnOnLightModeBorder={false}
+		      overrideStyle="box-shadow: 3px 3px 3px var(--shadow-color);">
 			<div slot="content">
 				{#if (localProps !== undefined)}
 					<svelte:component this={localComponent}
@@ -101,7 +103,7 @@
         position: fixed;
         /* 12em = this component's margin (4em) + fab margin + width (8em) */
         max-width: calc(100vw - 12em);
-		    z-index: 100;
+        z-index: 100;
     }
 
     .toast-positioner:dir(ltr) {

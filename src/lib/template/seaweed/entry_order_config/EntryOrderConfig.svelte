@@ -160,21 +160,21 @@
 					<tr class="entry-row">
 						<td class="btn-group-entry">
 
-							<button title={`Remove ${group.name}`}
+							<button title={`Remove ${entry.name}`}
 							        on:click={removeEntry(entry, group)}>
-								<img class="img-icon" src={CloseIcon} alt={`Remove ${group.name}`}>
+								<img class="img-icon" src={CloseIcon} alt={`Remove ${entry.name}`}>
 							</button>
 
-							<button title={`Move group ${group.name} upwards`}
+							<button title={`Move ${entry.name} upwards`}
 							        on:click={swapEntry(entryIndex, group, true)}
 							        disabled="{entryIndex === 0}">
-								<img class="img-icon" src={UpwardIcon} alt={`Move group ${group.name} upwards`}>
+								<img class="img-icon" src={UpwardIcon} alt={`Move ${entry.name} upwards`}>
 							</button>
 
-							<button title={`Move group ${group.name} downwards`}
+							<button title={`Move ${entry.name} downwards`}
 							        disabled={entryIndex === group.items.length - 1}
 							        on:click={swapEntry(entryIndex, group, false)}>
-								<img class="img-icon flipped-vertically" src={UpwardIcon} alt={`Move group ${group.name} downwards`}>
+								<img class="img-icon flipped-vertically" src={UpwardIcon} alt={`Move ${entry.name} downwards`}>
 							</button>
 							<div class="entry-name">
 								{entry.name}
@@ -249,4 +249,5 @@
     tfoot > tr {
         display: flex;
     }
+
 </style>

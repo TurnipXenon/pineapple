@@ -5,7 +5,7 @@
 	import { Card, dialogManager, enableDialogueOverlay } from "$pkg";
 	import NavigationComponent from "$pkg/components/navigation_component/NavigationComponent.svelte";
 	import { ImageMap } from "./ImageMap";
-	import { SlideToggle } from "@skeletonlabs/skeleton";
+	import PineappleSlideToggle from "$pkg/components/PineappleSlideToggle.svelte";
 
 	enableDialogueOverlay.set(false);
 
@@ -55,9 +55,10 @@
 			class="btn variant-filled-secondary"
 			on:click={onTestDialogClick}><h3>Test dialog</h3></button>
 		<div>
-			<SlideToggle name="advanced-setting-slider" bind:checked={allowPagination}>
+			<PineappleSlideToggle name="advanced-setting-slider"
+			                      bind:checked={allowPagination}>
 				Allow pagination: {allowPagination ? "On" : "Off"}
-			</SlideToggle>
+			</PineappleSlideToggle>
 		</div>
 	</div>
 </Card>
