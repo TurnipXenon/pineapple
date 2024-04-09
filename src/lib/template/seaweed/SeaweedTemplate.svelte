@@ -1,89 +1,73 @@
 <script lang="ts">
-	export let letChaos = true;
-	export let name = "Turnip";
-	export let email = "turnipxenon@gmail.com";
-	export let linkedinSlug = "turnip-xenon";
-	export let domain = "http://localhost:5173/portfolio/actual/";
-
+	import { afterUpdate, type ComponentType, onMount } from "svelte";
+	import EntryOrderConfig from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig.svelte";
+	import { runChaos } from "$pkg/template/seaweed/RunChaos";
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import "./seaweed.postcss";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
 	import { Accordion, AccordionItem, CodeBlock, SlideToggle } from "@skeletonlabs/skeleton";
 	import { page } from "$app/stores";
 	import Card from "$pkg/components/Card.svelte";
-	import { onMount } from "svelte";
 	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
-	import GameSection from "$pkg/template/Seaweed/GameSection.svelte";
-	import ProjectSection from "$pkg/template/Seaweed/ProjectSection.svelte";
+	import {
+		AllGroupedEntriesProjectFirst,
+		type EntryGroup,
+		GetEntryFromGlobal,
+		type SeaweedTemplateData,
+		seaweedTemplateData,
+		TurnGroupEntriesMutable
+	} from "./SeaweedTemplateData";
+	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
+	import { parseQueryTerms } from "$pkg/template/seaweed/ParseQueryTerms";
+	import UrlShortenerForm from "$pkg/template/seaweed/CreateUrlForm.svelte";
+
+	export let letChaos = true;
+	export let name = "Turnip";
+	export let email = "turnipxenon@gmail.com";
+	export let linkedinSlug = "turnip-xenon";
+	export let domain = "http://localhost:5173/portfolio/actual/";
+	export let serverSideQueryParams = "";
+
+	// region query params
+	const entryProps: EntryProps = {
+		email
+	};
+
+	const paramQTSet = new Set<string>();
 
 	let isVisible = true;
 	let isAdvanceSettingOn = false;
-	let shouldAddFunNote = false;
-
 	$: isSocialsGone = !isVisible;
 
-	// region query params
-	import gameContent from "./GameSection.svelte?raw";
-	import projectContent from "./ProjectSection.svelte?raw";
-	import selfContent from "./SeaweedTemplate.svelte?raw";
+	let qtfontWeight = "normal";
+	let additionalFontWeight = "";
 
-	let qtMap = new Map<string, boolean>();
-	const paramQTSet = new Set<string>();
+	let chaosDone = false;
+	let mainVisibility = "visible";
+	$: mainVisibility = letChaos && !chaosDone ? "hidden" : "visible";
 
 	const syncQT = () => {
-		if (qtMap.size === 0 || paramQTSet.size === 0) {
+		if (seaweedTemplateData.queryTermMap.size === 0 || paramQTSet.size === 0) {
 			return;
 		}
 
-		qtMap.forEach((_, k) => {
-			qtMap.set(k, paramQTSet.has(k));
+		seaweedTemplateData.queryTermMap.forEach((_, k) => {
+			seaweedTemplateData.queryTermMap.set(k, paramQTSet.has(k));
 		});
 
 		// force svelte refresh
-		qtMap = qtMap;
+		seaweedTemplateData.queryTermMap = seaweedTemplateData.queryTermMap;
 	};
 
-	const parseQTTerms = async () => {
+	const parseQueryTermsLocal = async () => {
 		const qtSet = new Set<string>();
-		const rawTermList: string[] = [];
-		[gameContent, projectContent, selfContent].forEach(body => {
-			// parse the qt-* term which exists within elements like:
-			// <span class="qt-*">TERM</span>
-			rawTermList.push(
-				...body // step 3: destructure the array
-					.split("\"") // step 1: split the text as double quotations (") as the delimiter
-					.filter(s => s.startsWith("qt-")) // step 2: filter out texts that does not begin with "qt-"
-			);
-		});
-
-		// step 4: some spans contain multiple classes, split them up
-		// then add them to qtTerms
-		// e.g. <span class="qt-1 qt-2">TERM</span>
-		rawTermList.forEach(t => {
-			t.split(" ").forEach(nt => {
-				// filter out some of this meta terms
-				if (["qt-1", "qt-2", "qt-*", "qt-"].includes(nt)) {
-					return;
-				}
-
-				// adding to set ensures the entry is unique
-				qtSet.add(nt);
-			});
-		});
-
-		// activate svelte reactivity
-		qtSet.forEach(t => qtMap.set(t, true));
+		parseQueryTerms(document.body, qtSet);
+		qtSet.forEach(t => seaweedTemplateData.queryTermMap.set(t, true));
+		// force svelte update
+		seaweedTemplateData.queryTermMap = seaweedTemplateData.queryTermMap;
 		syncQT();
 	};
-	parseQTTerms();
 
-	// todo: fix fragile relative reference to the root
-	// const fileList = import.meta.glob("./**/+page.svelte", { query: "?raw", eager: true });
-	// const titleToLink = new Map<string, string>();
-
-	let gameSectionFirst = true;
-	let qtfontWeight = "normal";
-	let additionalFontWeight = "";
 	/** qt values and what they mean:
 	 *  undefined: set all qt terms to font-weight: bold
 	 *  todo: implement clear
@@ -96,91 +80,77 @@
 	const filterSearchParams = (searchParams: URLSearchParams) => {
 		const isFunOn = searchParams.get("fun")?.trim();
 		if (isFunOn === "true") {
-			shouldAddFunNote = true;
+			seaweedTemplateData.shouldAddFunNote = true;
 		}
 
+		// region Order
 		const gameSectionFirstParam = searchParams.get("game-section-first")?.trim();
-		if (gameSectionFirstParam === "false") {
-			gameSectionFirst = false;
+		const orderParam = searchParams.get("order")?.trim();
+		if (orderParam) {
+			seaweedTemplateData.groupedEntries = [];
+
+			orderParam.split(",").forEach(groupDefinition => {
+				const pair = groupDefinition.split(":");
+				console.log(pair);
+				if (pair.length >= 2) {
+					const group: EntryGroup = {
+						name: pair[0],
+						items: [],
+						gridClass: pair[2]
+					};
+
+					pair[1].split("|").forEach(e => {
+						const component = GetEntryFromGlobal(e);
+						if (component) {
+							group.items.push(component);
+						}
+					});
+
+					seaweedTemplateData.groupedEntries.push(group);
+				}
+
+			});
+
+			seaweedTemplateData.groupedEntries = seaweedTemplateData.groupedEntries;
+		} else if (gameSectionFirstParam === "false") {
+			seaweedTemplateData.groupedEntries = TurnGroupEntriesMutable(AllGroupedEntriesProjectFirst);
 		}
+		// endregion
 
 		// region Bold terms
 		const qtValue = searchParams.get("qt")?.trim();
-		if (qtValue === undefined) {
+		if (qtValue !== undefined) {
+			qtfontWeight = "normal";
+			const dynamicStyle = qtValue.split(",").map((term) => {
+				// side-effect
+				paramQTSet.add(`qt-${term}`);
+
+				// main effect
+				return `span.qt-${term} { font-weight: bold !important; }`;
+			}).join("\n");
+
+			// https://stackoverflow.com/a/24285947/17836168
+			const style = document.createElement("style");
+			// noinspection JSDeprecatedSymbols
+			style.type = "text/css";
+			style.innerText = dynamicStyle;
+			document.head.appendChild(style);
+			syncQT();
+		} else {
 			qtfontWeight = "bold";
-			return;
 		}
-		qtfontWeight = "normal";
-		const dynamicStyle = qtValue.split(",").map((term) => {
-			// side-effect
-			paramQTSet.add(`qt-${term}`);
-
-			// main effect
-			return `span.qt-${term} { font-weight: bold !important; }`;
-		}).join("\n");
-
-		// https://stackoverflow.com/a/24285947/17836168
-		const style = document.createElement("style");
-		// noinspection JSDeprecatedSymbols
-		style.type = "text/css";
-		style.innerText = dynamicStyle;
-		document.head.appendChild(style);
-		syncQT();
 		// endregion Bold terms
 	};
 	// endregion query params
 
 	/* region chaos scripts */
-	const chaoticWordBank = ["niko", "toba", "seal", "aquarium", "ojisan", "baikal"];
-	let chaosDone = false;
-	const runChaos = (node: Element) => {
-		// change all text content to gibberish
-		for (let child of Array.from(node.children)) {
-			if (child.nodeType === Node.ELEMENT_NODE) {
-				runChaos(child);
-				for (const childOfChild of child.childNodes) {
-					if (childOfChild.nodeType === Node.TEXT_NODE && childOfChild.textContent?.trim()) {
-						const max = childOfChild.textContent.length;
-						childOfChild.textContent = "";
-						while (childOfChild.textContent.length < max) {
-							childOfChild.textContent += (chaoticWordBank[Math.floor(Math.random() * chaoticWordBank.length)] + " ");
-						}
-					}
-				}
-
-				// change all links to crouton
-				if (child.hasAttribute("href")) {
-					child.setAttribute("href", "https://crouton.net/");
-				}
-
-				// change all images to niko if aria != hidden?
-				if (child.hasAttribute("src") && !child.hasAttribute("aria-hidden")) {
-					if (child.hasAttribute("alt")) {
-						child.setAttribute("src", "https://p.potaufeu.asahi.com/a2b9-p/picture/21583312/5c3310aec77068e24844c663aa62b37c.jpg");
-					} else {
-						child.setAttribute("src", "https://video.twimg.com/ext_tw_video/1318728494256410624/pu/vid/640x360/TMklz6hiTkQu3xhn.mp4");
-						child.setAttribute("muted", "true");
-					}
-				}
-				if (child.tagName.trim() === "VIDEO") {
-					child.setAttribute("src", "https://video.twimg.com/ext_tw_video/1318728494256410624/pu/vid/640x360/TMklz6hiTkQu3xhn.mp4");
-					child.setAttribute("muted", "true");
-				}
-
-				// change all button events
-				if (child.tagName.trim() === "BUTTON") {
-					// remove anon function: https://stackoverflow.com/a/41343451/17836168
-					child.setAttribute("disabled", "true");
-				}
-			}
-		}
-	};
-
-	let mainVisibility = "visible";
-	$: mainVisibility = letChaos && !chaosDone ? "hidden" : "visible";
 	/* endregion chaos scripts */
 
-	onMount(() => {
+	onMount(async () => {
+		if (!letChaos && serverSideQueryParams) {
+			filterSearchParams(new URLSearchParams(serverSideQueryParams));
+		}
+
 		if (!letChaos && $page.url.searchParams) {
 			filterSearchParams($page.url.searchParams);
 		}
@@ -191,18 +161,32 @@
 		}
 	});
 
+	let isParsed = false;
+	afterUpdate(async () => {
+		if (!letChaos && !isParsed) {
+			isParsed = true;
+			await parseQueryTermsLocal();
+		}
+	});
+
 	const toggleTerm = (term: string) => {
-		qtMap.set(term, !qtMap.get(term));
-		qtMap = qtMap;
+		seaweedTemplateData.queryTermMap.set(term, !seaweedTemplateData.queryTermMap.get(term));
+		seaweedTemplateData.queryTermMap = seaweedTemplateData.queryTermMap;
 	};
 
 	// when either gameSectionFirst or the queryTerms are updated, update advancedUrl
+	let orderUrl = "";
 	let advancedUrl = domain;
-	const updateUrl = () => {
+	let advancedQuery = "";
+	const updateUrl = (seaweedTemplateData: SeaweedTemplateData) => {
 		const queryParams: string[] = [];
 
+		if (orderUrl) {
+			queryParams.push(orderUrl);
+		}
+
 		const qtList: string[] = [];
-		qtMap.forEach((shouldBold, term) => {
+		seaweedTemplateData.queryTermMap.forEach((shouldBold, term) => {
 			if (shouldBold) {
 				qtList.push(term);
 			}
@@ -210,29 +194,29 @@
 
 		if (qtList.length === 0) {
 			queryParams.push("qt=clear");
-		} else if (qtMap.size !== qtList.length) {
+		} else if (seaweedTemplateData.queryTermMap.size !== qtList.length) {
 			// we'll only add if the lengths are not equal
 			// dont need to add query if all terms in qtMap is true
 			queryParams.push(`qt=${qtList.map(t => t.slice(3, t.length)).join(",")}`);
 		}
 
-		if (shouldAddFunNote) {
+		if (seaweedTemplateData.shouldAddFunNote) {
 			queryParams.push("fun=true");
 		}
 
-		if (!gameSectionFirst) {
+		if (!seaweedTemplateData.gameSectionFirst) {
 			queryParams.push("game-section-first=false");
 		}
 
 		if (queryParams.length > 0) {
-			advancedUrl = `${domain}?${queryParams.join("&")}`;
+			advancedQuery = queryParams.join("&");
+			advancedUrl = `${domain}?${advancedQuery}`;
 		} else {
 			advancedUrl = domain;
 		}
 	};
-	$: // noinspection CommaExpressionJS
-		gameSectionFirst, qtMap, shouldAddFunNote, updateUrl();
-	// $: gameSectionQuery = gameSectionFirst ? "" : "game-section-first=false";
+	$: updateUrl(seaweedTemplateData);
+
 </script>
 
 <SeaweedBaseLayout bind:shouldDisplayLeadingIcons={isSocialsGone}>
@@ -261,7 +245,7 @@
 							I also graduated with BS Computing Science, Specializing in Software Practice, and a
 							certificate in Computer Game Development at University of Alberta.
 						</p>
-						{#if shouldAddFunNote}
+						{#if seaweedTemplateData.shouldAddFunNote}
 							<p>
 								I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
 								Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
@@ -377,13 +361,21 @@
 
 		</div>
 
-		{#if (gameSectionFirst)}
-			<GameSection email={email}></GameSection>
-			<ProjectSection email={email}></ProjectSection>
-		{:else }
-			<ProjectSection email={email}></ProjectSection>
-			<GameSection email={email}></GameSection>
-		{/if}
+		{#each seaweedTemplateData.groupedEntries as group}
+			{#if group.items.length > 0}
+				<Card>
+					<section class="section-card title-card" slot="content">
+						<h1 class="text-center">{group.name}</h1>
+					</section>
+				</Card>
+
+				<section class={group.gridClass}>
+					{#each group.items as entry}
+						<svelte:component this={entry.component} props={entryProps}></svelte:component>
+					{/each}
+				</section>
+			{/if}
+		{/each}
 
 		{#if (!letChaos)}
 			<div aria-hidden="true" style="height: 25vh" />
@@ -392,20 +384,23 @@
 				<div slot="content" class="default-card advanced-setting">
 					<h1>Advanced settings</h1>
 					<p>This one is for those curious how I customize this page.</p>
+
 					<SlideToggle name="advanced-setting-slider" bind:checked={isAdvanceSettingOn}>
 						Advanced settings: {isAdvanceSettingOn ? "On" : "Off"}
 					</SlideToggle>
+
 					{#if (isAdvanceSettingOn)}
-						<SlideToggle name="game-section-slider" bind:checked={gameSectionFirst}>
-							Should game section appear first over projects: {gameSectionFirst ? "On" : "Off"}
+						<SlideToggle name="game-section-slider" bind:checked={seaweedTemplateData.gameSectionFirst}>
+							Should game section appear first over projects: {seaweedTemplateData.gameSectionFirst ? "On" : "Off"}
 						</SlideToggle>
-						<SlideToggle name="fun-note-slider" bind:checked={shouldAddFunNote}>
-							Should add fun note in description: {shouldAddFunNote ? "On" : "Off"}
+						<p>Note: the above configuration was made before the dynamic entry list and to support links sent with that params, we will act like it only swaps the two groups, and nothing more dynamic if order query param does not exist. The configuration only happens during page load with query param, and it does not apply when changed here.</p>
+						<SlideToggle name="fun-note-slider" bind:checked={seaweedTemplateData.shouldAddFunNote}>
+							Should add fun note in description: {seaweedTemplateData.shouldAddFunNote ? "On" : "Off"}
 						</SlideToggle>
 
 						<h3>Query terms to bold</h3>
 						<div class="query-term-grid">
-							{#each qtMap.entries() as [term, shouldBold]}
+							{#each seaweedTemplateData.queryTermMap.entries() as [term, shouldBold]}
 								<!--{@const shouldBold = false}-->
 								<button
 									class="chip {shouldBold ? 'variant-filled-tertiary' : 'variant-soft-tertiary'}"
@@ -418,9 +413,15 @@
 							{/each}
 						</div>
 
+						<EntryOrderConfig bind:seaweedEntries={seaweedTemplateData.groupedEntries}
+						                  bind:orderUrl={orderUrl}
+						                  updateUrl={updateUrl}></EntryOrderConfig>
+
 						<br>
 						<p>Copy the url below and open a new page with it</p>
 						<CodeBlock language="url" code={advancedUrl}></CodeBlock>
+
+						<UrlShortenerForm queryParams={advancedQuery}></UrlShortenerForm>
 					{/if}
 				</div>
 			</Card>

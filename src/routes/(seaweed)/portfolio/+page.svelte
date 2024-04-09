@@ -1,5 +1,5 @@
 <script>
-	import SeaweedTemplate from "$pkg/template/Seaweed/SeaweedTemplate.svelte";
+	import SeaweedTemplate from "$pkg/template/seaweed/SeaweedTemplate.svelte";
 </script>
 
 <!--todo: maybe add check that this is always false? -->
