@@ -13,7 +13,7 @@
 	 * Should include a slash before and after the path
 	 */
 	export let parentSubpath: string;
-
+	export let allowUpperControl: boolean;
 	export let compareFn: undefined | ParsePageMetaCompareFn = undefined;
 	export let pageSize = 5;
 	export let currentIndex = 0;
@@ -32,7 +32,7 @@
 		</Card>
 	{/if}
 
-	{#if shouldAllowControl}
+	{#if allowUpperControl && shouldAllowControl}
 		<NavigationControl bind:currentIndex={currentIndex}
 		                   bind:contentLength={pageFlatList.length}
 		                   bind:pageSize={pageSize}></NavigationControl>
