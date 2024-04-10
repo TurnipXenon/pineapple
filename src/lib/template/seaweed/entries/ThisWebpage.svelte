@@ -21,10 +21,9 @@
 			<h2>This webpage!</h2>
 
 			<p>
-				The webpage is made of two parts. The webpage that has the content for everything here, I've
-				lovingly called Seaweed. I kept seaweed as a private package. On the other hand, the base package which I
-				want to use for all spin offs of my websites is called Pineapple and have kept that codebase public.
+				The webpage is made with two parts. The webpage that has the content for everything here, I've lovingly called Seaweed. I kept seaweed as a private package. On the other hand, the base package which I want to use for all spin offs of my websites is called Pineapple and have kept that codebase public.
 			</p>
+			<p>The webpage can dynamically emphasize terms, rearrange the layout, use different terms, and save all these configurations as a shortened link. Additionally fetches the latest blog entries from turnipxenon.com via REST calls.</p>
 
 			<p>
 				<Chip>Svelte</Chip>
@@ -34,6 +33,7 @@
 				<Chip>YarnSpinner</Chip>
 				<Chip>Postgres (SQL database)</Chip>
 				<Chip>Prisma ORM</Chip>
+				<Chip>RESTful API</Chip>
 			</p>
 
 			<section class="game-link-section">
