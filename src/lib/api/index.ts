@@ -1,3 +1,3 @@
-// noinspection ES6UnusedImports
+// noinspection JSUnusedGlobalSymbols
 
-import { GetLatestBlogs } from "$pkg/api/GetLatestBlogs";
+export * from "./GetLatestBlogs";
