@@ -13,7 +13,7 @@
 	 * Should include a slash before and after the path
 	 */
 	export let parentSubpath: string;
-	export let allowUpperControl: boolean;
+	export let allowUpperControl = true;
 	export let compareFn: undefined | ParsePageMetaCompareFn = undefined;
 	export let pageSize = 5;
 	export let currentIndex = 0;
