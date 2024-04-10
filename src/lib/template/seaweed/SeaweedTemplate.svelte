@@ -22,6 +22,7 @@
 	import UrlShortenerForm from "$pkg/template/seaweed/CreateUrlForm.svelte";
 	import PineappleSlideToggle from "$pkg/components/PineappleSlideToggle.svelte";
 	import { Chip } from "$pkg/index";
+	import ChumBucket from "$pkg/template/seaweed/ChumBucket.svelte";
 
 	export let letChaos = true;
 	export let name = "Turnip";
@@ -379,8 +380,10 @@
 			{/if}
 		{/each}
 
+		<ChumBucket></ChumBucket>
+
 		{#if (!letChaos)}
-			<div aria-hidden="true" style="height: 25vh" />
+			<div aria-hidden="true" style="height: 3lh" />
 
 			<Card>
 				<div slot="content" class="default-card advanced-setting">
