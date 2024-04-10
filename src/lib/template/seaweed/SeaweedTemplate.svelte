@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { afterUpdate, type ComponentType, onMount } from "svelte";
+	import { afterUpdate, onMount } from "svelte";
 	import EntryOrderConfig from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig.svelte";
 	import { runChaos } from "$pkg/template/seaweed/RunChaos";
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import "./seaweed.postcss";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
-	import { Accordion, AccordionItem, CodeBlock, SlideToggle } from "@skeletonlabs/skeleton";
+	import { Accordion, AccordionItem, CodeBlock } from "@skeletonlabs/skeleton";
 	import { page } from "$app/stores";
 	import Card from "$pkg/components/Card.svelte";
 	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
@@ -20,6 +20,8 @@
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 	import { parseQueryTerms } from "$pkg/template/seaweed/ParseQueryTerms";
 	import UrlShortenerForm from "$pkg/template/seaweed/CreateUrlForm.svelte";
+	import PineappleSlideToggle from "$pkg/components/PineappleSlideToggle.svelte";
+	import { Chip } from "$pkg/index";
 
 	export let letChaos = true;
 	export let name = "Turnip";
@@ -385,31 +387,34 @@
 					<h1>Advanced settings</h1>
 					<p>This one is for those curious how I customize this page.</p>
 
-					<SlideToggle name="advanced-setting-slider" bind:checked={isAdvanceSettingOn}>
+					<PineappleSlideToggle name="advanced-setting-slider"
+					                      bind:checked={isAdvanceSettingOn}>
 						Advanced settings: {isAdvanceSettingOn ? "On" : "Off"}
-					</SlideToggle>
+					</PineappleSlideToggle>
 
 					{#if (isAdvanceSettingOn)}
-						<SlideToggle name="game-section-slider" bind:checked={seaweedTemplateData.gameSectionFirst}>
+						<PineappleSlideToggle name="game-section-slider"
+						                      bind:checked={seaweedTemplateData.gameSectionFirst}>
 							Should game section appear first over projects: {seaweedTemplateData.gameSectionFirst ? "On" : "Off"}
-						</SlideToggle>
+						</PineappleSlideToggle>
 						<p>Note: the above configuration was made before the dynamic entry list and to support links sent with that params, we will act like it only swaps the two groups, and nothing more dynamic if order query param does not exist. The configuration only happens during page load with query param, and it does not apply when changed here.</p>
-						<SlideToggle name="fun-note-slider" bind:checked={seaweedTemplateData.shouldAddFunNote}>
+						<PineappleSlideToggle name="fun-note-slider"
+						                      bind:checked={seaweedTemplateData.shouldAddFunNote}>
 							Should add fun note in description: {seaweedTemplateData.shouldAddFunNote ? "On" : "Off"}
-						</SlideToggle>
+						</PineappleSlideToggle>
 
 						<h3>Query terms to bold</h3>
 						<div class="query-term-grid">
 							{#each seaweedTemplateData.queryTermMap.entries() as [term, shouldBold]}
 								<!--{@const shouldBold = false}-->
-								<button
-									class="chip {shouldBold ? 'variant-filled-tertiary' : 'variant-soft-tertiary'}"
-									on:click={() => {toggleTerm(term)}}
-								>
+								<Chip onClick={() => {toggleTerm(term)}}
+								      checked={shouldBold}>
 									<!-- todo: change shouldBold -->
-									{#if (shouldBold)}&check;{/if}
-									{term}
-								</button>
+									<span style={`font-weight: ${shouldBold ? "bold" : "normal"}`}>
+										{#if (shouldBold)}&check;{/if}
+										{term}
+									</span>
+								</Chip>
 							{/each}
 						</div>
 

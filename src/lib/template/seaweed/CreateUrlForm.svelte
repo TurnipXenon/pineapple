@@ -41,7 +41,7 @@
 	};
 </script>
 
-<div>
+<div class="local-list">
 	<label for="short-url">Short URL for url shortener</label>
 	<input bind:value={request.shortUrl}
 	       name="short-url"
@@ -53,6 +53,18 @@
 	       name="password"
 	       class="input"
 	       type="password"
-	       placeholder="Input" />
-	<button class="btn variant-filled" on:click={post}>Send link</button>
+	       placeholder="ILoveTurnips" />
+	<button class="send-link btn variant-filled" on:click={post}>Send link</button>
 </div>
+
+<style>
+    .local-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25lh;
+    }
+
+    .send-link {
+        margin-top: 0.75lh;
+    }
+</style>

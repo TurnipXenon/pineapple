@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "2.4.56",
+  "version": "2.4.64",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && yarn package",
@@ -16,7 +16,7 @@
     "custom-check": "npx vite-node src/lib/scripts/util/ManualCheckRun.ts",
     "preview": "vite preview",
     "prepublishOnly": "yarn package",
-    "to-dev": "git checkout main && git pull origin main && git checkout -b turnip/dev"
+    "to-dev": "git checkout main && git pull origin main && git branch -d turnip/dev && git checkout -b turnip/dev"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^3.1.1",
