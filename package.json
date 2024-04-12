@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "2.4.70",
+  "version": "2.4.71",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && yarn package",
@@ -33,16 +33,17 @@
     "postcss": "8.4.35",
     "prettier": "^3.2.5",
     "prettier-plugin-svelte": "^3.2.2",
+    "prisma": "^5.12.1",
     "svelte": "^4.2.12",
     "svelte-check": "^3.6.6",
     "svelte2tsx": "^0.6.20",
     "tailwindcss": "^3.3.2",
     "tslib": "^2.4.1",
     "typescript": "^5.1.6",
-    "vite": "^5.1.5",
-    "prisma": "^5.12.1"
+    "vite": "^5.1.5"
   },
   "dependencies": {
+    "@prisma/client": "^5.12.1",
     "@skeletonlabs/skeleton": "^2.9.0",
     "@skeletonlabs/tw-plugin": "^0.3.1",
     "@sveltejs/kit": "^2.5.2",
@@ -55,8 +56,7 @@
     "publint": "^0.2.7",
     "string-width": "^7.1.0",
     "svelte": "^4.2.12",
-    "ts-node": "^10.9.1",
-    "@prisma/client": "^5.12.1"
+    "ts-node": "^10.9.1"
   },
   "exports": {
     ".": {
