@@ -12,7 +12,7 @@ export interface PageMeta {
 	 * 1. Add the imageID entry to the meta.json for the page
 	 * 2. Create a typescript file with the variable ImageMap: Map<string, string>
 	 * 3. Add a new entry with your imageID as key, and the image url as the value. Since this is
-	 * Typescript, you can use import ImageUrl from "./path.png" as you would normally do.
+	 * Typescript, you can use import ImageUrl from "./path.png" as you would normally do.N
 	 * 4. Add ImageMap as an argument to your NavigationComponent.
 	 * Overall, this involves four files
 	 * - Your navigation page: ./+page.svelte

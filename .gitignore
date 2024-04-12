@@ -12,3 +12,7 @@ vite.config.ts.timestamp-*
 .idea
 dist
 /.vercel/
+
+# Prisma for debugging; need to migrate some Prisma function to Seaweed
+./prisma
+

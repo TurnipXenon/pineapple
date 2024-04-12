@@ -17,3 +17,4 @@ export * from "./components/dialog_manager/DialogUtils";
 export * from "./types/pineapple_fiber/PortraitType";
 export * from "./types/pineapple_fiber/DialogDetail";
 export * from "./util/util";
+export * from "./api/index";
