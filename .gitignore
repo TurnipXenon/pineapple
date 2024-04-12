@@ -14,5 +14,9 @@ dist
 /.vercel/
 
 # Prisma for debugging; need to migrate some Prisma function to Seaweed
-./prisma
+prisma
 
+#/prisma/migrations/20240408050417_init/migration.sql
+#/prisma/migrations/migration_lock.toml
+#/src/lib/server-temp/prisma.ts
+#/prisma/schema.prisma
