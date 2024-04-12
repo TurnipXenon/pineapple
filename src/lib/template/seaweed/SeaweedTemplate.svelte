@@ -274,12 +274,12 @@
 
 					<h2>Highlight</h2>
 					<p>Worked on Go backend microservices and Typescript React frontend app, serving <b>over 30 million daily
-						active users</b> at Twitch</p>
+						active users</b> at Twitch (an Amazon Web Services subsidiary)</p>
 
 					<h2>Software Engineer</h2>
 					<div class="two-column-separated">
 						<div>July 2023 – January 2024</div>
-						<div style="text-align: end">Twitch, Remote</div>
+						<div style="text-align: end">Twitch (Amazon Web Services), Remote</div>
 					</div>
 					<ul>
 						<li>
@@ -305,7 +305,7 @@
 					<h2>Software Engineer Intern</h2>
 					<div class="two-column-separated">
 						<div>May 2022 – Aug 2022</div>
-						<div style="text-align: end">Twitch, San Francisco</div>
+						<div style="text-align: end">Twitch (Amazon Web Services), San Francisco</div>
 					</div>
 					<ul>
 						<li>
@@ -338,7 +338,7 @@
 										<h2>Software Engineer Intern</h2>
 										<div class="two-column-separated">
 											<div>May 2021 – Dec 2021</div>
-											<div style="text-align: end">Twitch / Amazon Web Services Canada, Remote</div>
+											<div style="text-align: end">Twitch (Amazon Web Services), Remote</div>
 										</div>
 										<ul>
 											<li>
