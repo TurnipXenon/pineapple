@@ -39,7 +39,8 @@
     "tailwindcss": "^3.3.2",
     "tslib": "^2.4.1",
     "typescript": "^5.1.6",
-    "vite": "^5.1.5"
+    "vite": "^5.1.5",
+    "prisma": "^5.12.1"
   },
   "dependencies": {
     "@skeletonlabs/skeleton": "^2.9.0",
@@ -54,7 +55,8 @@
     "publint": "^0.2.7",
     "string-width": "^7.1.0",
     "svelte": "^4.2.12",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "@prisma/client": "^5.12.1"
   },
   "exports": {
     ".": {

@@ -152,9 +152,7 @@
 	onMount(async () => {
 		if (!letChaos && serverSideQueryParams) {
 			filterSearchParams(new URLSearchParams(serverSideQueryParams));
-		}
-
-		if (!letChaos && $page.url.searchParams) {
+		} else if (!letChaos && $page.url.searchParams) {
 			filterSearchParams($page.url.searchParams);
 		}
 
