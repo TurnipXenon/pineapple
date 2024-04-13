@@ -5,15 +5,14 @@
 		GetAllEntryFromGlobal,
 		GetEntryFromGlobal,
 		type SeaweedTemplateData,
-		seaweedTemplateData
 	} from "$pkg/template/seaweed/SeaweedTemplateData";
-	import type { ComponentType } from "svelte";
 	import { removeProxyWrapperOnString } from "./EntryOrderConfig";
 	import ComboBoxWithButton from "$pkg/components/combo_box/ComboBoxWithButton.svelte";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import UpwardIcon from "$pkg/assets/icons/arrow-upward.svg";
 	import "./entry-order-config.postcss";
 
+	export let seaweedTemplateData: SeaweedTemplateData;
 	export let seaweedEntries: EntryGroup[];
 	export let orderUrl: string;
 	export let updateUrl: (data: SeaweedTemplateData) => void;

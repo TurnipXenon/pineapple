@@ -10,12 +10,9 @@
 	import Card from "$pkg/components/Card.svelte";
 	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
 	import {
-		AllGroupedEntriesProjectFirst,
 		type EntryGroup,
-		GetEntryFromGlobal,
 		type SeaweedTemplateData,
-		seaweedTemplateData,
-		TurnGroupEntriesMutable
+		TurnGroupEntriesMutable, type ComponentMeta
 	} from "./SeaweedTemplateData";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 	import { parseQueryTerms } from "$pkg/template/seaweed/ParseQueryTerms";
@@ -24,6 +21,9 @@
 	import { Chip } from "$pkg/index";
 	import ChumBucket from "$pkg/template/seaweed/ChumBucket.svelte";
 
+	export let seaweedTemplateData: SeaweedTemplateData;
+	export let projectFirstGroupedEntries: ReadonlyArray<EntryGroup>;
+	export let getEntryFromGlobal: (name: string) => undefined | ComponentMeta;
 	export let letChaos = true;
 	export let name = "Turnip";
 	export let email = "turnipxenon@gmail.com";
@@ -103,7 +103,7 @@
 					};
 
 					pair[1].split("|").forEach(e => {
-						const component = GetEntryFromGlobal(e);
+						const component = getEntryFromGlobal(e);
 						if (component) {
 							group.items.push(component);
 						}
@@ -116,7 +116,7 @@
 
 			seaweedTemplateData.groupedEntries = seaweedTemplateData.groupedEntries;
 		} else if (gameSectionFirstParam === "false") {
-			seaweedTemplateData.groupedEntries = TurnGroupEntriesMutable(AllGroupedEntriesProjectFirst);
+			seaweedTemplateData.groupedEntries = TurnGroupEntriesMutable(projectFirstGroupedEntries);
 		}
 		// endregion
 
@@ -180,6 +180,10 @@
 	let advancedUrl = domain;
 	let advancedQuery = "";
 	const updateUrl = (seaweedTemplateData: SeaweedTemplateData) => {
+		if (seaweedTemplateData === undefined) {
+			return;
+		}
+
 		const queryParams: string[] = [];
 
 		if (orderUrl) {
@@ -246,7 +250,7 @@
 							I also graduated with BS Computing Science, Specializing in Software Practice, and a
 							certificate in Computer Game Development at University of Alberta.
 						</p>
-						{#if seaweedTemplateData.shouldAddFunNote}
+						{#if seaweedTemplateData?.shouldAddFunNote}
 							<p>
 								I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
 								Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
@@ -362,21 +366,23 @@
 
 		</div>
 
-		{#each seaweedTemplateData.groupedEntries as group}
-			{#if group.items.length > 0}
-				<Card>
-					<section class="section-card title-card" slot="content">
-						<h1 class="text-center">{group.name}</h1>
-					</section>
-				</Card>
+		{#if seaweedTemplateData}
+			{#each seaweedTemplateData.groupedEntries as group}
+				{#if group.items.length > 0}
+					<Card>
+						<section class="section-card title-card" slot="content">
+							<h1 class="text-center">{group.name}</h1>
+						</section>
+					</Card>
 
-				<section class={group.gridClass}>
-					{#each group.items as entry}
-						<svelte:component this={entry.component} props={entryProps}></svelte:component>
-					{/each}
-				</section>
-			{/if}
-		{/each}
+					<section class={group.gridClass}>
+						{#each group.items as entry}
+							<svelte:component this={entry.component} props={entryProps}></svelte:component>
+						{/each}
+					</section>
+				{/if}
+			{/each}
+		{/if}
 
 		<ChumBucket></ChumBucket>
 
@@ -420,6 +426,7 @@
 						</div>
 
 						<EntryOrderConfig bind:seaweedEntries={seaweedTemplateData.groupedEntries}
+						                  seaweedTemplateData={seaweedTemplateData}
 						                  bind:orderUrl={orderUrl}
 						                  updateUrl={updateUrl}></EntryOrderConfig>
 
