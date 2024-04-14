@@ -1,17 +1,11 @@
 import type { ComponentType } from "svelte";
-import { DefaultHeader, type GroupedEntry } from "$pkg/template/seaweed/entries/EntryProps";
+import { DefaultHeader } from "$pkg/template/seaweed/entries/EntryProps";
 import Pengi from "$pkg/template/seaweed/entries/Pengi.svelte";
 import Hepcat from "$pkg/template/seaweed/entries/Hepcat.svelte";
 import ChefWings from "$pkg/template/seaweed/entries/ChefWings.svelte";
 import Soulwork from "$pkg/template/seaweed/entries/Soulwork.svelte";
-import ItchPromo from "$pkg/template/seaweed/entries/ItchPromo.svelte";
-import MigranteAlberta from "$pkg/template/seaweed/entries/MigranteAlberta.svelte";
-import DecentralizedSocialMedia from "$pkg/template/seaweed/entries/DecentralizedSocialMedia.svelte";
 import CustomizedYarnspinner from "$pkg/template/seaweed/entries/CustomizedYarnspinner.svelte";
-import FullStackC from "$pkg/template/seaweed/entries/FullStackC.svelte";
-import Workset from "$pkg/template/seaweed/entries/Workset.svelte";
 import ThisWebpage from "$pkg/template/seaweed/entries/ThisWebpage.svelte";
-import MockUberApp from "$pkg/template/seaweed/entries/MockUberApp.svelte";
 import { removeProxyWrapperOnString } from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig";
 
 export enum GroupGridClass {

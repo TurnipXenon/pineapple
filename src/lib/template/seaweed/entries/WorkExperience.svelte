@@ -56,31 +56,19 @@
 			<h1>Experience</h1>
 
 			<h2>Highlight</h2>
-			<p>Worked on Go backend microservices and Typescript React frontend app, serving <b>over 30 million daily
-				active users</b> at Twitch (an Amazon Web Services subsidiary)</p>
+			<p>I like French Fries</p>
 
 			<h2>Software Engineer</h2>
 			<div class="two-column-separated">
 				<div>July 2023 – January 2024</div>
-				<div style="text-align: end">Twitch (Amazon Web Services), Remote</div>
+				<div style="text-align: end">Control, Remote</div>
 			</div>
 			<ul>
 				<li>
-					Contributed to
-					<span class="qt-go">Golang</span>
-					microservices and
-					<span class="qt-ts">Typescript</span>
-					<span class="qt-react">React</span> codebases, across several teams, to accommodate public-facing user safety features to better comply with EU’s Digital Services Act, which applies to no more than
-					<a href="https://safety.twitch.tv/s/article/Digital-Services-Act-Information?language=en_US">30.5 million users</a>
-					. Work includes feature flags, alarms, unit tests, end-to-end testing, and documentation.
+					Developed things
 				</li>
 				<li>
-					Improved observability for upcoming features by setting up new AWS resources to integrate internal data platform tools with existing alarms in our team’s microservice, utilizing
-					<span class="qt-aws qt-observability">Cloudwatch</span>,
-					<span class="qt-aws qt-observability">Grafana</span>,
-					<span class="qt-aws">Kinesis Data Stream</span>,
-					<span class="qt-aws qt-infra">AWS CDK (infrastructure as code)</span>, and
-					<span class="qt-aws qt-cicd">CodePipeline (CI/CD)</span>
+					Woah
 				</li>
 			</ul>
 			<br>
@@ -88,24 +76,14 @@
 			<h2>Software Engineer Intern</h2>
 			<div class="two-column-separated">
 				<div>May 2022 – Aug 2022</div>
-				<div style="text-align: end">Twitch (Amazon Web Services), San Francisco</div>
+				<div style="text-align: end">Pou Company</div>
 			</div>
 			<ul>
 				<li>
-					Built a <span class="qt-infra">load testing service</span> that can be configured to generate different
-					message types at different volumes that can be easily extended to target different chat services
+					Stuff
 				</li>
 				<li>
-					Used Twitch’s set of custom tools, including Twitch’s custom RPC protocol, to create a backend
-					service with business logic written in <span class="qt-go">Go</span> and cloud infrastructure utilizing
-					<span
-						class="qt-infra qt-aws">ECS on Fargate, Cloudwatch, and DynamoDB</span>
-					, defined in <span class="qt-ts">Typescript</span>-flavored CDK
-				</li>
-				<li>
-					Wrote a technical specification document for the service’s MVP and possible future features, and
-					additional documentation on how to use the service and how to extend the load testing service to include
-					new services to test
+					Golang
 				</li>
 			</ul>
 			<br>
@@ -117,24 +95,16 @@
 					</div>
 					<svelte:fragment slot="content">
 						<section class="more-section">
-							{#if (!letChaos)}
-								<h2>Software Engineer Intern</h2>
-								<div class="two-column-separated">
-									<div>May 2021 – Dec 2021</div>
-									<div style="text-align: end">Twitch (Amazon Web Services), Remote</div>
-								</div>
-								<ul>
-									<li>
-										Implemented and wrote tests for a feature in Twitch’s
-										<span class="qt-go">Golang</span> backend authentication microservices and
-										<span class="qt-ts">Typescript</span>
-										<span class="qt-react">React</span> frontend web app that will help suggest security improvements to
-										<b>over 100k+ users daily</b>
-									</li>
-								</ul>
-							{:else}
-								niko baikal seal from toba aquarium
-							{/if}
+							<h2>Software Engineer Intern</h2>
+							<div class="two-column-separated">
+								<div>May 2021 – Dec 2021</div>
+								<div style="text-align: end">Testing</div>
+							</div>
+							<ul>
+								<li>
+									Amazing
+								</li>
+							</ul>
 							<br>
 						</section>
 					</svelte:fragment>
