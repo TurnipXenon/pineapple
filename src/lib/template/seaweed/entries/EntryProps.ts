@@ -11,7 +11,6 @@ export interface EntryProps {
 	linkedinSlug: string;
 	name: string;
 	seaweedTemplateData: SeaweedTemplateData;
-	isVisible: boolean;
 }
 
 export interface GroupedEntry {

@@ -33,7 +33,7 @@
 	export let experienceSection: ComponentType;
 
 	// region query params
-	const entryProps: EntryProps = {
+	let entryProps: EntryProps = {
 		email,
 		letChaos,
 		linkedinSlug,
@@ -226,6 +226,11 @@
 	};
 	$: updateUrl(seaweedTemplateData);
 
+	// eslint-disable-next-line
+	const updateSeaweedWhenFunNoteChanged = (_: boolean) => {
+		entryProps = entryProps;
+	};
+	$: updateSeaweedWhenFunNoteChanged(seaweedTemplateData.shouldAddFunNote);
 </script>
 
 <SeaweedBaseLayout bind:shouldDisplayLeadingIcons={isSocialsGone}>

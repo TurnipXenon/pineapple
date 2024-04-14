@@ -7,7 +7,7 @@
 
 	export let entryProps: EntryProps;
 	export let isVisible: boolean;
-	let { email, letChaos, linkedinSlug, name, seaweedTemplateData } = entryProps;
+	let { email, letChaos, linkedinSlug, name } = entryProps;
 </script>
 
 <div class="experience-and-about-div">
@@ -29,7 +29,7 @@
 					I also graduated with BS Computing Science, Specializing in Software Practice, and a
 					certificate in Computer Game Development at University of Alberta.
 				</p>
-				{#if seaweedTemplateData?.shouldAddFunNote}
+				{#if entryProps.seaweedTemplateData.shouldAddFunNote}
 					<p>
 						I'm inspired by games like Harvest Moon: Friends of Mineral Town, Rune Factory 4, Theatrhythm,
 						Bravely Default: Flying Fairy, Boku no Natsuyasumi 2, and A Short Hike.
