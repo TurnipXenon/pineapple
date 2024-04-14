@@ -5,6 +5,7 @@
 		GetEntryFromGlobal,
 		seaweedTemplateData
 	} from "$pkg/template/seaweed/SeaweedTemplateData";
+	import WorkExperience from "$pkg/template/seaweed/entries/WorkExperience.svelte";
 </script>
 
 <!--todo: maybe add check that this is always false? -->
@@ -12,4 +13,5 @@
 	seaweedTemplateData={seaweedTemplateData}
 	projectFirstGroupedEntries={AllGroupedEntriesProjectFirst}
 	getEntryFromGlobal={GetEntryFromGlobal}
-	letChaos={true}></SeaweedTemplate>
+	experienceSection={WorkExperience}
+	letChaos={false}></SeaweedTemplate>

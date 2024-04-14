@@ -12,7 +12,6 @@
     "format": "prettier --plugin-search-dir . --write .",
     "generate": "npx vite-node src/routes/blogs/blog_list_data_generator.ts && npx vite-node src/routes/toyay/toya_files_generator.ts && npm run generate-yarn",
     "generate-yarn": "npx vite-node src/lib/scripts/pineapple_fiber/PineappleWeaver.ts",
-    "check-requirements": "npx vite-node src/lib/scripts/SetDefaultEnvironment.ts",
     "custom-check": "npx vite-node src/lib/scripts/util/ManualCheckRun.ts",
     "preview": "vite preview",
     "prepublishOnly": "yarn package",

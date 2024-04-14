@@ -1,3 +1,5 @@
+import type { SeaweedTemplateData } from "$pkg/template/seaweed/SeaweedTemplateData";
+
 export enum DefaultHeader {
 	Games = "Games",
 	Projects = "Projects"
@@ -5,6 +7,11 @@ export enum DefaultHeader {
 
 export interface EntryProps {
 	email: string;
+	letChaos: boolean;
+	linkedinSlug: string;
+	name: string;
+	seaweedTemplateData: SeaweedTemplateData;
+	isVisible: boolean;
 }
 
 export interface GroupedEntry {

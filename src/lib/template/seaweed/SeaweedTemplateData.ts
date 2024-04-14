@@ -35,9 +35,7 @@ export const GameEntries: Readonly<EntryGroup> = {
 	items: [
 		{ name: "Pengi", component: Pengi },
 		{ name: "Hepcat", component: Hepcat },
-		{ name: "Chef Wings", component: ChefWings },
-		{ name: "Soulwork", component: Soulwork },
-		{ name: "Itch Promo", component: ItchPromo }
+		{ name: "Chef Wings", component: ChefWings }
 	],
 	gridClass: GroupGridClass.Games.toString()
 };
@@ -45,13 +43,9 @@ export const GameEntries: Readonly<EntryGroup> = {
 export const ProjectEntries: Readonly<EntryGroup> = {
 	name: DefaultHeader.Projects.toString(),
 	items: [
-		{ name: "Migrante Alberta", component: MigranteAlberta },
-		{ name: "Decentralized Social Media", component: DecentralizedSocialMedia },
+		{ name: "Soulwork", component: Soulwork },
 		{ name: "Customized YarnSpinner", component: CustomizedYarnspinner },
-		{ name: "Full Stack C", component: FullStackC },
-		{ name: "Workset", component: Workset },
-		{ name: "This Webpage", component: ThisWebpage },
-		{ name: "Mock Uber App", component: MockUberApp }
+		{ name: "This Webpage", component: ThisWebpage }
 	],
 	gridClass: GroupGridClass.Projects.toString()
 };
