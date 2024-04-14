@@ -18,3 +18,4 @@ export * from "./types/pineapple_fiber/PortraitType";
 export * from "./types/pineapple_fiber/DialogDetail";
 export * from "./util/util";
 export * from "./api/index";
+export * from "./template/seaweed/SeaweedTemplateData";
