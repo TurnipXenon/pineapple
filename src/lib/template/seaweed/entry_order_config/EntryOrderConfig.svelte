@@ -2,9 +2,7 @@
 	import {
 		type ComponentMeta,
 		type EntryGroup,
-		GetAllEntryFromGlobal,
-		GetEntryFromGlobal,
-		type SeaweedTemplateData,
+		type SeaweedTemplateData
 	} from "$pkg/template/seaweed/SeaweedTemplateData";
 	import { removeProxyWrapperOnString } from "./EntryOrderConfig";
 	import ComboBoxWithButton from "$pkg/components/combo_box/ComboBoxWithButton.svelte";
@@ -16,6 +14,8 @@
 	export let seaweedEntries: EntryGroup[];
 	export let orderUrl: string;
 	export let updateUrl: (data: SeaweedTemplateData) => void;
+	export let getAllEntryFromGlobal: () => Map<string, ComponentMeta>;
+	export let getEntryFromGlobal: (s: string) => ComponentMeta | undefined;
 
 	const updateOrderQuery = () => {
 		orderUrl = "order=" + seaweedEntries.map(g => {
@@ -29,7 +29,7 @@
 
 	const addEntry = (group: EntryGroup): ((selected: string) => void) => {
 		return (selected: string) => {
-			const c = GetEntryFromGlobal(selected);
+			const c = getEntryFromGlobal(selected);
 			if (c) {
 				group.items.push(c);
 				seaweedEntries = seaweedEntries;
@@ -111,7 +111,7 @@
 		};
 	};
 
-	const allDefaultEntries = Array.from(GetAllEntryFromGlobal().keys());
+	const allDefaultEntries = Array.from(getAllEntryFromGlobal().keys());
 </script>
 
 <br>

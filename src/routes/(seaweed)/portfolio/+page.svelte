@@ -2,6 +2,7 @@
 	import SeaweedTemplate from "$pkg/template/seaweed/SeaweedTemplate.svelte";
 	import {
 		AllGroupedEntriesProjectFirst,
+		GetAllEntryFromGlobal,
 		GetEntryFromGlobal,
 		seaweedTemplateData
 	} from "$pkg/template/seaweed/SeaweedTemplateData";
@@ -10,6 +11,7 @@
 
 <!--todo: maybe add check that this is always false? -->
 <SeaweedTemplate
+	getAllEntryFromGlobal={GetAllEntryFromGlobal}
 	seaweedTemplateData={seaweedTemplateData}
 	projectFirstGroupedEntries={AllGroupedEntriesProjectFirst}
 	getEntryFromGlobal={GetEntryFromGlobal}

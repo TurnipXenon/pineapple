@@ -23,6 +23,7 @@
 
 	export let seaweedTemplateData: SeaweedTemplateData;
 	export let projectFirstGroupedEntries: ReadonlyArray<EntryGroup>;
+	export let getAllEntryFromGlobal: () => Map<string, ComponentMeta>;
 	export let getEntryFromGlobal: (name: string) => undefined | ComponentMeta;
 	export let letChaos = true;
 	export let name = "Turnip";
@@ -306,6 +307,8 @@
 						<EntryOrderConfig bind:seaweedEntries={seaweedTemplateData.groupedEntries}
 						                  seaweedTemplateData={seaweedTemplateData}
 						                  bind:orderUrl={orderUrl}
+						                  getAllEntryFromGlobal={getAllEntryFromGlobal}
+						                  getEntryFromGlobal={getEntryFromGlobal}
 						                  updateUrl={updateUrl}></EntryOrderConfig>
 
 						<br>
