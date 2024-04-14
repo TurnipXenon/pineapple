@@ -2,7 +2,7 @@
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import Card from "$pkg/components/Card.svelte";
 	import { Accordion, AccordionItem } from "@skeletonlabs/skeleton";
-	import ElementVisbilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
+	import ElementVisibilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 
 	export let entryProps: EntryProps;
@@ -44,8 +44,8 @@
 		<Card>
 			<section class="section-card" slot="content">
 				<SocialSection email={email} linkedinSlug={linkedinSlug}></SocialSection>
-				<ElementVisbilityDetector bind:isVisible={isVisible}>
-				</ElementVisbilityDetector>
+				<ElementVisibilityDetector bind:isVisible={isVisible}>
+				</ElementVisibilityDetector>
 			</section>
 		</Card>
 

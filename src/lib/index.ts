@@ -1,13 +1,8 @@
 // noinspection JSUnusedGlobalSymbols
 
 export { default as PineappleLayoutBase } from "./components/pineapple/PineappleBaseLayout.svelte";
-export { default as SeaweedTemplate } from "$pkg/template/seaweed/SeaweedTemplate.svelte";
-export { default as LazyAsset } from "./components/LazyAsset.svelte";
-export { default as Card } from "./components/Card.svelte";
-export { default as Chip } from "./components/chip/Chip.svelte";
-export { default as PineappleSlideToggle } from "./components/PineappleSlideToggle.svelte";
-export { default as SocialSection } from "./components/SocialSection.svelte";
 
+export * from "./components/index";
 export * from "$pkg/components/overrideable_meta/index";
 export * from "$pkg/components/navigation_component/index";
 export * from "$pkg/types/api/index";
@@ -18,4 +13,4 @@ export * from "./types/pineapple_fiber/PortraitType";
 export * from "./types/pineapple_fiber/DialogDetail";
 export * from "./util/util";
 export * from "./api/index";
-export * from "./template/seaweed/SeaweedTemplateData";
+export * from "./template/seaweed/index";
