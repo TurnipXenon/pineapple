@@ -1,8 +1,11 @@
-<script>
-	import { Card } from "$pkg";
+<script lang="ts">
+	import pageMeta from "./meta.json";
 	import { page } from "$app/stores";
+	import BlogTemplate from "$pkg/components/blog_template/BlogTemplate.svelte";
 </script>
 
-<Card>
-	<h1 slot="content" class="default-card">{$page.url}</h1>
-</Card>
+<BlogTemplate pageMeta={pageMeta}>
+	<p>{$page.url}</p>
+	<p>Testing paragraph</p>
+	<p>Another one</p>
+</BlogTemplate>
