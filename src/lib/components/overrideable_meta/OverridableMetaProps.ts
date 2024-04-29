@@ -4,4 +4,6 @@ export interface OverridableMetaProps {
 	ogTitle?: string;
 	ogDescription?: string;
 	ogImage?: string;
+	datePublished?: string;
+	lastUpdated?: string;
 }

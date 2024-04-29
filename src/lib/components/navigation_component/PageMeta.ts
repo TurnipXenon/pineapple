@@ -48,6 +48,49 @@ export interface PageMeta {
 	title: string;
 }
 
+export interface SimplePageMeta {
+	datePublished?: string;
+	description?: string;
+
+	imageAlt?: string; // defaults to directory name
+	/**
+	 * imageID is an ID that NavigationComponent can use to identify imported images
+	 *
+	 * To use imageID:
+	 * 1. Add the imageID entry to the meta.json for the page
+	 * 2. Create a typescript file with the variable ImageMap: Map<string, string>
+	 * 3. Add a new entry with your imageID as key, and the image url as the value. Since this is
+	 * Typescript, you can use import ImageUrl from "./path.png" as you would normally do.N
+	 * 4. Add ImageMap as an argument to your NavigationComponent.
+	 * Overall, this involves four files
+	 * - Your navigation page: ./+page.svelte
+	 * - Your image map typescript: ImageMap.ts
+	 * - The page you want with an image represented in the navigation: ./topic1/+page.svelte
+	 * - The meta for that page: ./topic1/meta.json
+	 *
+	 * imageID takes precedence over imageURL
+	 */
+	imageID?: string;
+
+	/**
+	 * imageURL is only limited to absolute paths (includes files in static folder)
+	 *
+	 * if imageID is defined, this will be ignored
+	 */
+	imageUrl?: string;
+
+	lastUpdated?: string;
+
+	shouldGroup?: boolean;
+	shouldHide?: boolean;
+	tags: string[];
+
+	/**
+	 * title defaults to the directory name if it's an empty string.
+	 */
+	title: string;
+}
+
 /**
  * todo: doc
  * @param parentList
