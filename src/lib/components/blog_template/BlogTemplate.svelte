@@ -1,5 +1,6 @@
-<script lang="ts" xmlns="http://www.w3.org/1999/html">
+<script lang="ts">
 	import { Card, type SimplePageMeta } from "$pkg";
+	import "./blog-template.css";
 
 	// grab page meta from the adjacent meta.json
 	export let pageMeta: SimplePageMeta;
@@ -28,7 +29,9 @@
 				{/if}
 			</hgroup>
 
-			<slot />
+			<div class="article-content">
+				<slot />
+			</div>
 		</article>
 	</div>
 </Card>

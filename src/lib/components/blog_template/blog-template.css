@@ -1,0 +1,7 @@
+.article-content p {
+    text-indent: 2em;
+}
+
+.article-content > * {
+    margin-bottom: 1lh;
+}
