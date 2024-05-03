@@ -1,47 +1,50 @@
 <script lang="ts">
-	import { Card, type SimplePageMeta } from "$pkg";
+	import { Card, enableDialogueOverlay, type SimplePageMeta } from "$pkg";
 	import "./blog-template.css";
+	import { enableBackground } from "$pkg/store";
+	import { onDestroy, onMount } from "svelte";
+	import BlogTemplateInner from "$pkg/components/blog_template/BlogTemplateInner.svelte";
 
 	// grab page meta from the adjacent meta.json
 	export let pageMeta: SimplePageMeta;
+	export let shouldFillWholePage = false;
+	export let shouldEnableDialogOverlay = false;
+
+	enableBackground.set(shouldEnableDialogOverlay);
+	let initialDialogState = false;
+
+	onMount(() => {
+		initialDialogState = $enableDialogueOverlay;
+		enableDialogueOverlay.set(false);
+	});
+
+	onDestroy(() => {
+		enableBackground.set(true);
+		enableDialogueOverlay.set(initialDialogState);
+	});
+
 </script>
 
-<Card>
-	<div slot="content" class="default-card">
-		<article>
-			<hgroup>
-				{#if pageMeta.title}
-					<h1>{pageMeta.title}</h1>
-				{/if}
-				{#if pageMeta.datePublished}
-					<p>Published: {pageMeta.datePublished}</p>
-				{/if}
-				{#if pageMeta.lastUpdated}
-					<p>Last updated: {pageMeta.lastUpdated}</p>
-				{/if}
-				{#if pageMeta.tags.length > 0}
-					<section id="article-tags">
-						Tags:
-						{#each pageMeta.tags as tag}
-							<span class="badge variant-filled">{tag}</span>
-						{/each}
-					</section>
-				{/if}
-			</hgroup>
-
-			<div class="article-content">
-				<slot />
-			</div>
-		</article>
+{#if shouldFillWholePage}
+	<div class="whole-page">
+		<BlogTemplateInner pageMeta={pageMeta}>
+			<slot />
+		</BlogTemplateInner>
 	</div>
-</Card>
+{:else}
+	<Card>
+		<div slot="content" class="default-card">
+			<BlogTemplateInner pageMeta={pageMeta}>
+				<slot />
+			</BlogTemplateInner>
+		</div>
+	</Card>
+{/if}
 
 <style>
-    hgroup {
-        margin-bottom: 1lh;
-    }
-
-    .badge {
-        margin-inline-end: 0.5em;
+    .whole-page {
+        height: 100%;
+        width: 100%;
+        max-width: var(--default-card-max-width);
     }
 </style>
