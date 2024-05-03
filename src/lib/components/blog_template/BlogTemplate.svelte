@@ -10,12 +10,12 @@
 	export let shouldFillWholePage = false;
 	export let shouldEnableDialogOverlay = false;
 
-	enableBackground.set(shouldEnableDialogOverlay);
+	enableBackground.set(!shouldFillWholePage);
 	let initialDialogState = false;
 
 	onMount(() => {
 		initialDialogState = $enableDialogueOverlay;
-		enableDialogueOverlay.set(false);
+		enableDialogueOverlay.set(shouldEnableDialogOverlay);
 	});
 
 	onDestroy(() => {
