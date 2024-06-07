@@ -263,7 +263,7 @@
 			{/each}
 		{/if}
 
-		<ChumBucket></ChumBucket>
+		<!--<ChumBucket></ChumBucket>-->
 
 		{#if (!letChaos)}
 			<div aria-hidden="true" style="height: 3lh" />
