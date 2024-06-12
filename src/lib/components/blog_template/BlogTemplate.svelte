@@ -9,6 +9,7 @@
 	export let pageMeta: SimplePageMeta;
 	export let shouldFillWholePage = false;
 	export let shouldEnableDialogOverlay = false;
+	export let includeDataNoSnippet = false;
 
 	enableBackground.set(!shouldFillWholePage);
 	let initialDialogState = false;
@@ -32,7 +33,7 @@
 		</BlogTemplateInner>
 	</div>
 {:else}
-	<Card>
+	<Card includeDataNoSnippet={includeDataNoSnippet}>
 		<div slot="content" class="default-card">
 			<BlogTemplateInner pageMeta={pageMeta}>
 				<slot />
