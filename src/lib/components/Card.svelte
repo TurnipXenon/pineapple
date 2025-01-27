@@ -29,7 +29,7 @@
 </script>
 
 {#if (includeDataNoSnippet)}
-	<div class={classes} style={style} data-no-snippet>
+	<div class={classes} style={style} data-nosnippet>
 		<slot name="content" class="card" />
 	</div>
 {:else }
