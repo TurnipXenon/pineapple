@@ -7,3 +7,4 @@ export { default as PineappleSlideToggle } from "./PineappleSlideToggle.svelte";
 export { default as SocialSection } from "./SocialSection.svelte";
 export { default as ElementVisbilityDetector } from "./ElementVisbilityDetector.svelte";
 export { default as BlogTemplate } from "./blog_template/BlogTemplate.svelte";
+export { default as DialogOverlay } from "./dialog_overlay/DialogOverlay.svelte";
