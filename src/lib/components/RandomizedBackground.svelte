@@ -8,7 +8,11 @@
 	import RandomizedImage from "$lib/components/RandomizedImage.svelte";
 	import { generatedDailySeed, mulberry32Generator } from "$pkg/util/util";
 
-	export let enable;
+	interface Props {
+		enable: any;
+	}
+
+	let { enable }: Props = $props();
 
 	const imageList = [BgTiledAres, BgTiledCorn, BgTiledPineapple, BgTiledReinhard, BgTiledTomato, BgTiledTurnip];
 
@@ -33,7 +37,7 @@
 		return array;
 	};
 
-	let generatedImageList: string[] = [];
+	let generatedImageList: string[] = $state([]);
 
 	for (let i = 0; i < 20; i++) {
 		shuffle(imageList);
@@ -57,7 +61,7 @@
 {#if enable}
 	<div class="default-background" aria-hidden="true">
 		{#each generatedImageList as imageItem}
-			<svelte:component this={RandomizedImage} src={imageItem} {rng} />
+			<RandomizedImage src={imageItem} {rng} />
 		{/each}
 	</div>
 {/if}

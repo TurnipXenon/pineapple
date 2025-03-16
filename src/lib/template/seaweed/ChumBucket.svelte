@@ -3,8 +3,8 @@
 	import { type PageMeta } from "$pkg";
 	import { onMount } from "svelte";
 
-	let hasTriedGettingChumBucket = false;
-	let pageMetaList: PageMeta[] = [];
+	let hasTriedGettingChumBucket = $state(false);
+	let pageMetaList: PageMeta[] = $state([]);
 	const loadPageMeta = async () => {
 		fetch("/api/get-latest-blogs").then(resp => resp.json()).then(json => {
 			pageMetaList = json as PageMeta[];
@@ -20,44 +20,46 @@
 </script>
 
 <Card>
-	<div slot="content" class="chum-bucket">
-		<h2>More about me...</h2>
-		<p>Check out the latest things I've been rambling about at
-			<a href="https://turnipxenon.com" target="_blank">turnipxenon.com</a> or at
-			<a href="https://turnipxenon.com/blogs/coding-chagrin" target="_blank">turnipxenon.com/blogs/coding-chagrin.</a>
-		</p>
+	{#snippet content()}
+		<div  class="chum-bucket">
+			<h2>More about me...</h2>
+			<p>Check out the latest things I've been rambling about at
+				<a href="https://turnipxenon.com" target="_blank">turnipxenon.com</a> or at
+				<a href="https://turnipxenon.com/blogs/coding-chagrin" target="_blank">turnipxenon.com/blogs/coding-chagrin.</a>
+			</p>
 
-		{#if pageMetaList.length > 0}
-			<h3><b>My latest blogs (sounds too fancy)</b></h3>
-		{/if}
-
-		<div class="chum-bucket-grid">
-			{#if hasTriedGettingChumBucket}
-				{#each pageMetaList as pageMeta}
-					<div class="chum-bucket-item">
-						{#if pageMeta.imageUrl}
-							<img src={`https://turnipxenon.com${pageMeta.imageUrl}`}
-							     class="chum-bucket-image"
-							     alt={pageMeta.imageAlt}>
-						{/if}
-						<div>
-							<h3><a href={`https://turnipxenon.com/${pageMeta.relativeLink}`}>{pageMeta.title}</a></h3>
-							<p>Published: {pageMeta.datePublished}
-								{#if pageMeta.lastUpdated}
-									| Last updated: {pageMeta.lastUpdated}
-								{/if}
-							</p>
-							<p>{pageMeta.description}</p>
-						</div>
-					</div>
-				{/each}
-			{:else}
-				{#each { length: 10 } as _}
-					<div class="placeholder" />
-				{/each}
+			{#if pageMetaList.length > 0}
+				<h3><b>My latest blogs (sounds too fancy)</b></h3>
 			{/if}
+
+			<div class="chum-bucket-grid">
+				{#if hasTriedGettingChumBucket}
+					{#each pageMetaList as pageMeta}
+						<div class="chum-bucket-item">
+							{#if pageMeta.imageUrl}
+								<img src={`https://turnipxenon.com${pageMeta.imageUrl}`}
+								     class="chum-bucket-image"
+								     alt={pageMeta.imageAlt}>
+							{/if}
+							<div>
+								<h3><a href={`https://turnipxenon.com/${pageMeta.relativeLink}`}>{pageMeta.title}</a></h3>
+								<p>Published: {pageMeta.datePublished}
+									{#if pageMeta.lastUpdated}
+										| Last updated: {pageMeta.lastUpdated}
+									{/if}
+								</p>
+								<p>{pageMeta.description}</p>
+							</div>
+						</div>
+					{/each}
+				{:else}
+					{#each { length: 10 } as _}
+						<div class="placeholder"></div>
+					{/each}
+				{/if}
+			</div>
 		</div>
-	</div>
+	{/snippet}
 </Card>
 
 <style lang="postcss">

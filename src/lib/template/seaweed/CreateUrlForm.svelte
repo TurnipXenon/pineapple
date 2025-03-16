@@ -2,16 +2,24 @@
 	import { type CreateUrlRequest, CreateUrlResult, jsonToCreateUrlResponse } from "$pkg/types/api/CreateUrl";
 	import { getToastStore, type ToastSettings } from "@skeletonlabs/skeleton";
 
-	export let queryParams = "";
+	interface Props {
+		queryParams?: string;
+	}
+
+	let { queryParams = "" }: Props = $props();
 
 	const toastStore = getToastStore();
 
-	let request: CreateUrlRequest = {
+	let request: CreateUrlRequest = $state({
 		queryParams: "",
 		shortUrl: "",
 		password: ""
-	};
-	$: request.queryParams = queryParams;
+	});
+
+	$effect(() => {
+		request.queryParams = queryParams;
+	});
+
 
 	const failToast: ToastSettings = {
 		message: "Adding new url failed"
@@ -54,7 +62,7 @@
 	       class="input"
 	       type="password"
 	       placeholder="ILoveTurnips" />
-	<button class="send-link btn variant-filled" on:click={post}>Send link</button>
+	<button class="send-link btn variant-filled" onclick={post}>Send link</button>
 </div>
 
 <style>

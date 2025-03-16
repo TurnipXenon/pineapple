@@ -1,9 +1,14 @@
 <script lang="ts">
     import {onMount} from "svelte";
 
-    export let isVisible = true;
+    interface Props {
+        isVisible?: boolean;
+        children?: import('svelte').Snippet;
+    }
 
-    let stickyElem: HTMLElement;
+    let { isVisible = $bindable(true), children }: Props = $props();
+
+    let stickyElem: HTMLElement = $state();
 
     let observer: undefined | IntersectionObserver;
     onMount(() => {
@@ -18,5 +23,5 @@
 </script>
 
 <span bind:this={stickyElem}>
-	<slot/>
+	{@render children?.()}
 </span>

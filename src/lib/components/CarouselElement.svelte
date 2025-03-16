@@ -1,8 +1,13 @@
 <script lang="ts">
-    export let activeGameIndex: number;
-    export let selfIndex: number;
 
     import {fly, slide, scale} from "svelte/transition";
+    interface Props {
+        activeGameIndex: number;
+        selfIndex: number;
+        children?: import('svelte').Snippet;
+    }
+
+    let { activeGameIndex, selfIndex, children }: Props = $props();
 
 </script>
 
@@ -10,7 +15,7 @@
 	<!--todo: make section consistent size for all-->
 	<section class="game-showcase"
 	         in:fly={{x: '100%'}} out:fly={{x: '-100%'}}>
-		<slot/>
+		{@render children?.()}
 	</section>
 {/if}
 

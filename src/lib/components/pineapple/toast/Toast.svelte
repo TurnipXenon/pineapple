@@ -9,8 +9,8 @@
 	import Card from "$pkg/components/Card.svelte";
 	import { spring, tweened } from "svelte/motion";
 
-	let localComponent: ComponentType | undefined;
-	let localProps: CustomToastPairs["props"];
+	let localComponent: ComponentType | undefined = $state();
+	let localProps: CustomToastPairs["props"] = $state();
 
 	// todo: make hidden value reliant on current vh
 	const HIDDEN_VALUE = -15;
@@ -19,7 +19,7 @@
 	const position = spring(HIDDEN_VALUE);
 	position.damping = 0.4;
 	let isDismissed = false;
-	let shouldEnableButton = false;
+	let shouldEnableButton = $state(false);
 
 	const onToastDisappear = () => {
 		// clear the local component to undefined to make the component disappear
@@ -83,17 +83,21 @@
 		<Card marginBottom="1lh"
 		      turnOnLightModeBorder={false}
 		      overrideStyle="box-shadow: 3px 3px 3px var(--shadow-color);">
-			<div slot="content">
-				{#if (localProps !== undefined)}
-					<svelte:component this={localComponent}
-					                  props={localProps}
-					                  dismissToastCallback={dismissToast}
-					                  shouldEnableButton={shouldEnableButton} />
-				{:else }
-					<svelte:component this={localComponent} />
-				{/if}
-				<progress id="toast-progress" value={$progress/100}></progress>
-			</div>
+			{#snippet content()}
+						<div >
+					{#if (localProps !== undefined)}
+						{@const SvelteComponent = localComponent}
+					<SvelteComponent
+						                  props={localProps}
+						                  dismissToastCallback={dismissToast}
+						                  shouldEnableButton={shouldEnableButton} />
+					{:else }
+						{@const SvelteComponent_1 = localComponent}
+					<SvelteComponent_1 />
+					{/if}
+					<progress id="toast-progress" value={$progress/100}></progress>
+				</div>
+					{/snippet}
 		</Card>
 	</div>
 {/if}

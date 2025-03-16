@@ -3,16 +3,26 @@
     import BgTiledAres from "$lib/assets/bg_tiled/bg_tiled_ares.png";
     import {onMount} from "svelte";
 
-    export let src: string;
-	export let alt: string;
 
 	// in pixels
-	export let width: string;
-	export let height: string;
 
 	// playsinline autoplay muted loop
 	// whatever your heart's content
-	export let props = {};
+	interface Props {
+		src: string;
+		alt: string;
+		width: string;
+		height: string;
+		props?: any;
+	}
+
+	let {
+		src,
+		alt,
+		width,
+		height,
+		props = $bindable({})
+	}: Props = $props();
 	// todo: add size and alt text
 
 	props = {
@@ -23,7 +33,7 @@
 	};
 
 	// auto detect asset type
-	let extension = "";
+	let extension = $state("");
 	const getAssetType = (): LazyAssetType => {
 		const srcArray = src.split(".");
 		extension = srcArray[srcArray.length - 1];
@@ -44,8 +54,8 @@
 	};
 	const assetType: LazyAssetType = getAssetType();
 
-	let actualSrc = "";
-	let status: LazyAssetStatus = LazyAssetStatus.Loading;
+	let actualSrc = $state("");
+	let status: LazyAssetStatus = $state(LazyAssetStatus.Loading);
 
 	onMount(async () => {
 		const path = src.includes("https://") ? src : `${window.location.origin}${src}`;

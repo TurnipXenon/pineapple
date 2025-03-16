@@ -4,17 +4,19 @@
 </script>
 
 <Card>
-	<div slot="content" class="content">
-		<h1 class="mb-8" style="font-weight: bolder">Directory</h1>
+	{#snippet content()}
+		<div  class="content">
+			<h1 class="mb-8" style="font-weight: bolder">Directory</h1>
 
-		<div class="turnip-menu">
-			<button on:click={createGoToFunction("pineapple")}><h2>Pineapple playground</h2></button>
-			<button on:click={createGoToFunction("portfolio")}><h2>Seaweed playground</h2></button>
+			<div class="turnip-menu">
+				<button onclick={createGoToFunction("pineapple")}><h2>Pineapple playground</h2></button>
+				<button onclick={createGoToFunction("portfolio")}><h2>Seaweed playground</h2></button>
+			</div>
 		</div>
-	</div>
+	{/snippet}
 </Card>
 
-<style lang="postcss">
+<style>
     .turnip-menu {
         padding: 2em;
         display: flex;

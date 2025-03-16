@@ -10,12 +10,23 @@
 	import UpwardIcon from "$pkg/assets/icons/arrow-upward.svg";
 	import "./entry-order-config.postcss";
 
-	export let seaweedTemplateData: SeaweedTemplateData;
-	export let seaweedEntries: EntryGroup[];
-	export let orderUrl: string;
-	export let updateUrl: (data: SeaweedTemplateData) => void;
-	export let getAllEntryFromGlobal: () => Map<string, ComponentMeta>;
-	export let getEntryFromGlobal: (s: string) => ComponentMeta | undefined;
+	interface Props {
+		seaweedTemplateData: SeaweedTemplateData;
+		seaweedEntries: EntryGroup[];
+		orderUrl: string;
+		updateUrl: (data: SeaweedTemplateData) => void;
+		getAllEntryFromGlobal: () => Map<string, ComponentMeta>;
+		getEntryFromGlobal: (s: string) => ComponentMeta | undefined;
+	}
+
+	let {
+		seaweedTemplateData,
+		seaweedEntries = $bindable(),
+		orderUrl = $bindable(),
+		updateUrl,
+		getAllEntryFromGlobal,
+		getEntryFromGlobal
+	}: Props = $props();
 
 	const updateOrderQuery = () => {
 		orderUrl = "order=" + seaweedEntries.map(g => {
@@ -129,19 +140,19 @@
 
 			<div class="btn-group-header">
 				<button title={`Remove ${group.name}`}
-				        on:click={removeGroup(group)}>
+				        onclick={removeGroup(group)}>
 					<img class="img-icon" src={CloseIcon} alt={`Remove ${group.name}`}>
 				</button>
 
 				<button title={`Move group ${group.name} upwards`}
-				        on:click={swapGroups(groupIndex, true)}
+				        onclick={swapGroups(groupIndex, true)}
 				        disabled="{groupIndex === 0}">
 					<img class="img-icon" src={UpwardIcon} alt={`Move group ${group.name} upwards`}>
 				</button>
 
 				<button title={`Move group ${group.name} downwards`}
 				        disabled={groupIndex === seaweedEntries.length - 1}
-				        on:click={swapGroups(groupIndex, false)}>
+				        onclick={swapGroups(groupIndex, false)}>
 					<img class="img-icon flipped-vertically" src={UpwardIcon} alt={`Move group ${group.name} downwards`}>
 				</button>
 
@@ -160,19 +171,19 @@
 						<td class="btn-group-entry">
 
 							<button title={`Remove ${entry.name}`}
-							        on:click={removeEntry(entry, group)}>
+							        onclick={removeEntry(entry, group)}>
 								<img class="img-icon" src={CloseIcon} alt={`Remove ${entry.name}`}>
 							</button>
 
 							<button title={`Move ${entry.name} upwards`}
-							        on:click={swapEntry(entryIndex, group, true)}
+							        onclick={swapEntry(entryIndex, group, true)}
 							        disabled="{entryIndex === 0}">
 								<img class="img-icon" src={UpwardIcon} alt={`Move ${entry.name} upwards`}>
 							</button>
 
 							<button title={`Move ${entry.name} downwards`}
 							        disabled={entryIndex === group.items.length - 1}
-							        on:click={swapEntry(entryIndex, group, false)}>
+							        onclick={swapEntry(entryIndex, group, false)}>
 								<img class="img-icon flipped-vertically" src={UpwardIcon} alt={`Move ${entry.name} downwards`}>
 							</button>
 							<div class="entry-name">

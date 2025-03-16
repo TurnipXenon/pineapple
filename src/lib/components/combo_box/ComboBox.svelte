@@ -1,8 +1,12 @@
 <script lang="ts">
 	import "./combo-box.postcss";
 
-	export let stringItems: string[] = ["Select item"];
-	export let selectedValue = "";
+	interface Props {
+		stringItems?: string[];
+		selectedValue?: string;
+	}
+
+	let { stringItems = ["Select item"], selectedValue = $bindable("") }: Props = $props();
 	selectedValue = stringItems.length === 0 ? "" : stringItems[0];
 </script>
 

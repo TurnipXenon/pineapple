@@ -1,13 +1,17 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 
-	export let currentIndex = 0;
-	export let contentLength: number;
-	export let pageSize: number;
 
 	import { Card } from "$pkg";
 	import { page } from "$app/stores";
 	import { goto } from "$app/navigation";
+	interface Props {
+		currentIndex?: number;
+		contentLength: number;
+		pageSize: number;
+	}
+
+	let { currentIndex = $bindable(0), contentLength, pageSize = $bindable() }: Props = $props();
 
 	const queryIndex = $page.url.searchParams.get("index");
 	if (queryIndex) {
@@ -41,11 +45,13 @@
 <div class="navigation-control-container">
 	<button class="navigation-control-button"
 	        disabled={currentIndex <= 0}
-	        on:click={() => {movePage(false)}}>{"<"}</button>
-	<Card marginBottom="0"><p slot="content" style="margin: 1em">Page {currentIndex + 1}</p></Card>
+	        onclick={() => {movePage(false)}}>{"<"}</button>
+	<Card marginBottom="0">{#snippet content()}
+				<p  style="margin: 1em">Page {currentIndex + 1}</p>
+			{/snippet}</Card>
 	<button class="navigation-control-button"
 	        disabled={(currentIndex + 1) * pageSize >= contentLength}
-	        on:click={() => {movePage(true)}}>{">"}</button>
+	        onclick={() => {movePage(true)}}>{">"}</button>
 </div>
 
 <style lang="postcss">

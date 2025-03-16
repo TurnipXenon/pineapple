@@ -17,6 +17,11 @@
 	import xml from "highlight.js/lib/languages/xml"; // for HTML
 	import hljs from "highlight.js/lib/core";
 	import OverrideableMeta from "$pkg/components/overrideable_meta/OverridableMeta.svelte";
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 
 	initializeStores();
 
@@ -30,4 +35,4 @@
 	rootUrl={import.meta.env.PROD ? "https://pineapple-gamma-blush.vercel.app" : "http://localhost:5173"}>
 </OverrideableMeta>
 
-<slot />
+{@render children?.()}

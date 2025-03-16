@@ -1,14 +1,24 @@
 <script lang="ts">
-	export let checked = false;
-	export let name: string;
-	export let onChange: undefined | (() => void) = undefined;
 
 	import { SlideToggle } from "@skeletonlabs/skeleton";
+	interface Props {
+		checked?: boolean;
+		name: string;
+		onChange?: undefined | (() => void);
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		checked = $bindable(false),
+		name,
+		onChange = undefined,
+		children
+	}: Props = $props();
 </script>
 
 <SlideToggle name={name}
              background="bg-surface-700 dark:bg-surface-700"
              bind:checked={checked}
              on:change={onChange}>
-	<slot />
+	{@render children?.()}
 </SlideToggle>

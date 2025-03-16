@@ -2,10 +2,15 @@
     import {onMount} from "svelte";
     import {fly} from "svelte/transition";
 
-    export let isFirst = false;
+    interface Props {
+        isFirst?: boolean;
+        children?: import('svelte').Snippet;
+    }
 
-    let stickyElem: HTMLElement;
-    let isSticky = false;
+    let { isFirst = false, children }: Props = $props();
+
+    let stickyElem: HTMLElement = $state();
+    let isSticky = $state(false);
 
     let observer: undefined | IntersectionObserver;
     onMount(() => {
@@ -28,7 +33,7 @@
 	<br>
 {/if}
 	<span class="sticky-div" bind:this={stickyElem}>
-		<slot/>
+		{@render children?.()}
 	</span>
 </span>
 

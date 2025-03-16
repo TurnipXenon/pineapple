@@ -11,9 +11,21 @@
 	import { fly } from "svelte/transition";
 	// todo: clean up all these imports!
 
-	export let shouldDisplayLeadingIcons = false;
+	interface Props {
+		shouldDisplayLeadingIcons?: boolean;
+		extraLeadingIcons?: import('svelte').Snippet;
+		s?: import('svelte').Snippet;
+		children?: import('svelte').Snippet<[any]>;
+	}
 
-	let enableBackgroundValue = true;
+	let {
+		shouldDisplayLeadingIcons = false,
+		extraLeadingIcons,
+		s,
+		children
+	}: Props = $props();
+
+	let enableBackgroundValue = $state(true);
 	enableBackground.subscribe((value) => {
 		enableBackgroundValue = value;
 	});
@@ -29,36 +41,42 @@
 </svelte:head>
 
 <AppShell>
-	<svelte:fragment slot="header">
-		<!-- App Bar -->
-		<AppBar slotDefault="place-content-start"
-		        background="app-shell-token">
-			<svelte:fragment slot="lead">
-				<span class="lead-slot-placeholder"></span>
+	{#snippet header()}
+	
+			<!-- App Bar -->
+			<AppBar slotDefault="place-content-start"
+			        background="app-shell-token">
+				{#snippet lead()}
+					
+						<span class="lead-slot-placeholder"></span>
 
-				{#if $$slots.extraLeadingIcons && shouldDisplayLeadingIcons}
-					<div transition:fly={{x:-10}}>
-						<slot name="extraLeadingIcons" />
-					</div>
-				{:else if $$slots.extraLeadingIcons}
-					<div hidden>
-						<slot name="s" />
-					</div>
-				{/if}
-			</svelte:fragment>
-			<svelte:fragment slot="trail">
-				<LightSwitch bgLight="bg-surface-400" />
-			</svelte:fragment>
-		</AppBar>
-	</svelte:fragment>
+						{#if extraLeadingIcons && shouldDisplayLeadingIcons}
+							<div transition:fly={{x:-10}}>
+								{@render extraLeadingIcons?.()}
+							</div>
+						{:else if extraLeadingIcons}
+							<div hidden>
+								{@render s?.()}
+							</div>
+						{/if}
+					
+					{/snippet}
+				{#snippet trail()}
+					
+						<LightSwitch bgLight="bg-surface-400" />
+					
+					{/snippet}
+			</AppBar>
+		
+	{/snippet}
 
 	<RandomizedBackground enable={enableBackgroundValue} />
 
 	<!--{#if enableDialogueOverlayValue}-->
 	<!-- Page Route Content -->
 	<div class="default-page-container">
-		<slot shouldDisplaySocialIcons={shouldDisplaySocialIcons} />
-		<div class="footer-space" />
+		{@render children?.({ shouldDisplaySocialIcons, })}
+		<div class="footer-space"></div>
 	</div>
 	<!-- todo: eventually re-add	-->
 	<!--	<DialogOverlay />-->

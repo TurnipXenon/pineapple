@@ -1,7 +1,12 @@
 <script lang="ts">
 	import type { SimplePageMeta } from "$pkg";
 
-	export let pageMeta: SimplePageMeta;
+	interface Props {
+		pageMeta: SimplePageMeta;
+		children?: import('svelte').Snippet;
+	}
+
+	let { pageMeta, children }: Props = $props();
 </script>
 
 <article>
@@ -26,7 +31,7 @@
 	</hgroup>
 
 	<div class="article-content">
-		<slot />
+		{@render children?.()}
 	</div>
 </article>
 

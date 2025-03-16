@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: Can't migrate code with afterUpdate. Please migrate by hand. -->
 <script lang="ts">
 	import { afterUpdate, type ComponentType, onMount } from "svelte";
 	import EntryOrderConfig from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig.svelte";
@@ -167,13 +168,14 @@
 		}
 	});
 
-	let isParsed = false;
-	afterUpdate(async () => {
-		if (!letChaos && !isParsed) {
-			isParsed = true;
-			await parseQueryTermsLocal();
-		}
-	});
+	// todo: figure out what this does #migration
+	// let isParsed = false;
+	// afterUpdate(async () => {
+	// 	if (!letChaos && !isParsed) {
+	// 		isParsed = true;
+	// 		await parseQueryTermsLocal();
+	// 	}
+	// });
 
 	const toggleTerm = (term: string) => {
 		seaweedTemplateData.queryTermMap.set(term, !seaweedTemplateData.queryTermMap.get(term));
@@ -329,21 +331,4 @@
 	               isSmallVersion={true}></SocialSection>
 </SeaweedBaseLayout>
 
-<style lang="postcss">
-    .advanced-setting {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5lh;
-    }
-
-    h3 {
-        font-size: 1.5em;
-        line-height: 1.5lh;
-    }
-
-    .query-term-grid {
-        display: flex;
-        gap: 0.25em;
-        flex-wrap: wrap;
-    }
-</style>
+<style lang="postcss">/*$$__STYLE_CONTENT__$$*/</style>

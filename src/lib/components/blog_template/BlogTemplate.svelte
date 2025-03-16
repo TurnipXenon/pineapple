@@ -6,10 +6,21 @@
 	import BlogTemplateInner from "$pkg/components/blog_template/BlogTemplateInner.svelte";
 
 	// grab page meta from the adjacent meta.json
-	export let pageMeta: SimplePageMeta;
-	export let shouldFillWholePage = false;
-	export let shouldEnableDialogOverlay = false;
-	export let includeDataNoSnippet = false;
+	interface Props {
+		pageMeta: SimplePageMeta;
+		shouldFillWholePage?: boolean;
+		shouldEnableDialogOverlay?: boolean;
+		includeDataNoSnippet?: boolean;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		pageMeta,
+		shouldFillWholePage = false,
+		shouldEnableDialogOverlay = false,
+		includeDataNoSnippet = false,
+		children
+	}: Props = $props();
 
 	enableBackground.set(!shouldFillWholePage);
 	let initialDialogState = false;
@@ -29,16 +40,18 @@
 {#if shouldFillWholePage}
 	<div class="whole-page">
 		<BlogTemplateInner pageMeta={pageMeta}>
-			<slot />
+			{@render children?.()}
 		</BlogTemplateInner>
 	</div>
 {:else}
 	<Card includeDataNoSnippet={includeDataNoSnippet}>
-		<div slot="content" class="default-card">
-			<BlogTemplateInner pageMeta={pageMeta}>
-				<slot />
-			</BlogTemplateInner>
-		</div>
+		{#snippet content()}
+				<div  class="default-card">
+				<BlogTemplateInner pageMeta={pageMeta}>
+					{@render children?.()}
+				</BlogTemplateInner>
+			</div>
+			{/snippet}
 	</Card>
 {/if}
 

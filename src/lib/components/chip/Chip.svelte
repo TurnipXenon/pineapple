@@ -1,11 +1,18 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { modeCurrent as isLightMode } from "@skeletonlabs/skeleton";
 
-	export let onClick: undefined | (() => void) = undefined;
-	export let checked = true;
+	interface Props {
+		onClick?: undefined | (() => void);
+		checked?: boolean;
+		children?: import('svelte').Snippet;
+	}
 
-	$: textColorClass = $isLightMode ? "local-light" : "local-dark";
-	let buttonClass = "variant-filled-tertiary";
+	let { onClick = undefined, checked = true, children }: Props = $props();
+
+	let textColorClass = $derived($isLightMode ? "local-light" : "local-dark");
+	let buttonClass = $state("variant-filled-tertiary");
 	const toggleChipColor = (isLightMode: boolean, checked: boolean) => {
 		if (isLightMode) {
 			buttonClass = checked ? "normal-bg" : "light-unchecked-bg";
@@ -13,17 +20,19 @@
 			buttonClass = checked ? "normal-bg" : "dark-unchecked-bg";
 		}
 	};
-	$: toggleChipColor($isLightMode, checked);
+	run(() => {
+		toggleChipColor($isLightMode, checked);
+	});
 </script>
 
 {#if onClick}
 	<button class={`chip ${buttonClass} ${textColorClass}`}
-	        on:click={onClick}>
-		<slot />
+	        onclick={onClick}>
+		{@render children?.()}
 	</button>
 {:else }
 	<span class={`local-chip normal-bg ${textColorClass}`}>
-		<slot />
+		{@render children?.()}
 	</span>
 {/if}
 

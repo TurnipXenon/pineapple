@@ -10,7 +10,7 @@
 	enableDialogueOverlay.set(false);
 
 	// region Toast test scripts
-	let testingQueueNumber = 1;
+	let testingQueueNumber = $state(1);
 	const testingRandomPhrases = [
 		"Niko",
 		"Niko the Baikal seal",
@@ -35,32 +35,34 @@
 	// todo: fix fragile relative reference to the root
 	const fileList = import.meta.glob("./../**/+page.svelte", { query: "?raw" });
 	const jsonList = import.meta.glob("./../**/meta.json", { query: "?raw", eager: true });
-	let allowPagination = true;
+	let allowPagination = $state(true);
 </script>
 
 <Card>
-	<div slot="content" class="default-card">
-		<button
-			class="btn variant-filled-secondary"
-			on:click={() => {
+	{#snippet content()}
+		<div  class="default-card">
+			<button
+				class="btn variant-filled-secondary"
+				onclick={() => {
 			showComponentInToast({componentAndProps: {component: TestCard, props: undefined}});
 		}}><h3>Test custom toast</h3></button>
-		<button
-			class="btn variant-filled-secondary"
-			on:click={() => {
+			<button
+				class="btn variant-filled-secondary"
+				onclick={() => {
 			showTextInToast(`${testingQueueNumber} ${testingRandomPhrases[testingQueueNumber]}`);
 			testingQueueNumber = (testingQueueNumber + 1) % testingRandomPhrases.length;
 		}}><h3>Handy toast</h3></button>
-		<button
-			class="btn variant-filled-secondary"
-			on:click={onTestDialogClick}><h3>Test dialog</h3></button>
-		<div>
-			<PineappleSlideToggle name="advanced-setting-slider"
-			                      bind:checked={allowPagination}>
-				Allow pagination: {allowPagination ? "On" : "Off"}
-			</PineappleSlideToggle>
+			<button
+				class="btn variant-filled-secondary"
+				onclick={onTestDialogClick}><h3>Test dialog</h3></button>
+			<div>
+				<PineappleSlideToggle name="advanced-setting-slider"
+				                      bind:checked={allowPagination}>
+					Allow pagination: {allowPagination ? "On" : "Off"}
+				</PineappleSlideToggle>
+			</div>
 		</div>
-	</div>
+	{/snippet}
 </Card>
 
 <NavigationComponent title="Navigation Component Test"

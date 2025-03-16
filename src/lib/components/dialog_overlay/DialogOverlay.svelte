@@ -4,20 +4,20 @@
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 
-	let currentMessage = "";
+	let currentMessage = $state("");
 	dialogManager.currentMessage.subscribe((value) => {
 		currentMessage = value;
 	});
 
-	let currentPortrait = AresHappy;
+	let currentPortrait = $state(AresHappy);
 	dialogManager.currentPortrait.subscribe((value) => {
 		if (value) {
 			currentPortrait = value;
 		}
 	});
 
-	let hidePercent = 100;
-	let isHidden = true;
+	let hidePercent = $state(100);
+	let isHidden = $state(true);
 	onMount(() => {
 		dialogManager.hidePercent.subscribe((value) => {
 			hidePercent = value * 0.4;
@@ -44,7 +44,7 @@
 	<div class="dialog-portrait-container">
 		<img src={currentPortrait} alt="Ares" class="dialog-portrait" />
 	</div>
-	<div class="card dialog-box variant-ghost-primary" on:click={onDialogClick}>
+	<div class="card dialog-box variant-ghost-primary" onclick={onDialogClick}>
 		<div class="card dialog-name">
 			<p><b>Turnip</b></p>
 		</div>

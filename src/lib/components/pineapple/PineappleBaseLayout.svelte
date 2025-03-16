@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let showDialogByDefault = false;
+	import { run } from 'svelte/legacy';
+
 
 	// For auto dark/light mode
 	import { AppBar, AppShell, autoModeWatcher, LightSwitch } from "@skeletonlabs/skeleton";
@@ -19,9 +20,15 @@
 	import Toast from "$pkg/components/pineapple/toast/Toast.svelte";
 	import DialogOverlay from "$pkg/components/dialog_overlay/DialogOverlay.svelte";
 	import { fade } from "svelte/transition";
+	interface Props {
+		showDialogByDefault?: boolean;
+		children?: import('svelte').Snippet;
+	}
+
+	let { showDialogByDefault = false, children }: Props = $props();
 	// todo: clean up all these imports!
 
-	let pages: BreadcrumbData[] = [];
+	let pages: BreadcrumbData[] = $state([]);
 
 	const updateBreadcrumb = (pathname: string) => {
 		pages = [];
@@ -49,14 +56,16 @@
 		pages = pages;
 	};
 
-	$: updateBreadcrumb($page.url.pathname); // run every time we navigate
+	run(() => {
+		updateBreadcrumb($page.url.pathname);
+	}); // run every time we navigate
 
-	let enableBackgroundValue = true;
+	let enableBackgroundValue = $state(true);
 	enableBackground.subscribe((value) => {
 		enableBackgroundValue = value;
 	});
 
-	let enableDialogueOverlayValue = true;
+	let enableDialogueOverlayValue = $state(true);
 	enableDialogueOverlay.subscribe((value) => {
 		enableDialogueOverlayValue = value;
 	});
@@ -70,7 +79,7 @@
 </svelte:head>
 
 <!--todo: turn off hidden when it's time-->
-<button class="fab" on:click={()=>{
+<button class="fab" onclick={()=>{
 	dialogManager.toggleDialogOverlay()
 }}>
 	{#if (enableDialogueOverlayValue)}
@@ -81,38 +90,44 @@
 </button>
 
 <AppShell>
-	<svelte:fragment slot="header">
-		<!-- App Bar -->
-		<AppBar
-			background="app-shell-token"
-			slotDefault="place-content-start"
-			slotTrail="place-content-end">
-			<svelte:fragment slot="lead">
-				<!--TODO: add logo or something for the lead in layout-->
-				<img
-					alt="Ares's head titled towards the left with his tongue out and winking"
-					class="ares-logo"
-					src={AresLogo}
-				/>
-				<span class="mr-2" />
-				<ol class="breadcrumb">
-					{#each pages as crumb, i}
-						{#if i < pages.length - 1}
-							<li class="crumb" in:fade>
-								<a href={crumb.path}>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</a>
-								&nbsp;&rsaquo;&nbsp;
-							</li>
-						{:else}
-							<li class="crumb" in:fade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
-						{/if}
-					{/each}
-				</ol>
-			</svelte:fragment>
-			<svelte:fragment slot="trail">
-				<LightSwitch bgLight="bg-surface-400" />
-			</svelte:fragment>
-		</AppBar>
-	</svelte:fragment>
+	{#snippet header()}
+	
+			<!-- App Bar -->
+			<AppBar
+				background="app-shell-token"
+				slotDefault="place-content-start"
+				slotTrail="place-content-end">
+				{#snippet lead()}
+					
+						<!--TODO: add logo or something for the lead in layout-->
+						<img
+							alt="Ares's head titled towards the left with his tongue out and winking"
+							class="ares-logo"
+							src={AresLogo}
+						/>
+						<span class="mr-2"></span>
+						<ol class="breadcrumb">
+							{#each pages as crumb, i}
+								{#if i < pages.length - 1}
+									<li class="crumb" in:fade>
+										<a href={crumb.path}>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</a>
+										&nbsp;&rsaquo;&nbsp;
+									</li>
+								{:else}
+									<li class="crumb" in:fade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
+								{/if}
+							{/each}
+						</ol>
+					
+					{/snippet}
+				{#snippet trail()}
+					
+						<LightSwitch bgLight="bg-surface-400" />
+					
+					{/snippet}
+			</AppBar>
+		
+	{/snippet}
 
 	<RandomizedBackground enable={enableBackgroundValue} />
 
@@ -121,8 +136,8 @@
 	<DialogOverlay></DialogOverlay>
 
 	<div class="default-page-container">
-		<slot />
-		<div class="footer-space" />
+		{@render children?.()}
+		<div class="footer-space"></div>
 	</div>
 
 </AppShell>

@@ -4,5 +4,7 @@
 </script>
 
 <Card>
-	<h1 slot="content" class="default-card">{$page.url}</h1>
+	{#snippet content()}
+		<h1  class="default-card">{$page.url}</h1>
+	{/snippet}
 </Card>
