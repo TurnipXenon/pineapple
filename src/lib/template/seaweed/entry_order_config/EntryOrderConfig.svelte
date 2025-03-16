@@ -250,7 +250,7 @@
     }
 
     .entry-name {
-        flex-grow: 1;
+        grow: 1;
     }
 
     tr, td, th {

@@ -154,7 +154,7 @@
 
     .blurb-text {
         padding: 2em;
-        flex-grow: 1;
+        grow: 1;
         white-space: initial;
         min-width: 0;
     }
