@@ -50,16 +50,34 @@
     "@types/node": "^20.11.25",
     "highlight.js": "^11.8.0",
     "htmlparser2": "^9.1.0",
+    "mode-watcher": "^0.5.1",
     "node-html-parser": "^6.1.5",
     "publint": "^0.2.7",
     "string-width": "^7.1.0",
     "svelte": "^5.0.0",
+    "svelte-modals": "^2.0.1",
     "ts-node": "^10.9.1"
   },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js"
+    },
+    "./components": {
+      "types": "./dist/ui/components/index.d.ts",
+      "svelte": "./dist/ui/components/index.js"
+    },
+    "./elements": {
+      "types": "./dist/ui/elements/index.d.ts",
+      "svelte": "./dist/ui/elements/index.js"
+    },
+    "./modules": {
+      "types": "./dist/ui/modules/index.d.ts",
+      "svelte": "./dist/ui/modules/index.js"
+    },
+    "./templates": {
+      "types": "./dist/ui/templates/index.d.ts",
+      "svelte": "./dist/ui/templates/index.js"
     },
     "./app.postcss": "./src/lib/app.postcss",
     "./theme.postcss": "./src/lib/theme.postcss"
