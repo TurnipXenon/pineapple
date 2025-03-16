@@ -22,14 +22,12 @@
     "@sveltejs/kit": "^2.5.27",
     "@sveltejs/package": "^2.3.7",
     "@tailwindcss/forms": "^0.5.3",
-    "@tailwindcss/postcss": "^4.0.14",
     "@tailwindcss/typography": "^0.5.9",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte3": "^4.0.0",
-    "postcss": "8.4.35",
     "prettier": "^3.2.5",
     "prettier-plugin-svelte": "^3.2.6",
     "prisma": "^5.12.1",
@@ -47,6 +45,7 @@
     "@skeletonlabs/tw-plugin": "^0.3.1",
     "@sveltejs/kit": "^2.5.27",
     "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "@tailwindcss/vite": "^4.0.14",
     "@types/htmlparser2": "^3.10.7",
     "@types/node": "^20.11.25",
     "highlight.js": "^11.8.0",
@@ -67,8 +66,8 @@
   },
   "files": [
     "dist",
-    "src/lib/app.css",
-    "./src/lib/theme.postcss"
+    "src/app.css",
+    "src/lib/theme.css"
   ],
   "repository": "https://github.com/TurnipXenon/pineapple",
   "author": "turnipxenon <turnipxenon@gmail.com>",
