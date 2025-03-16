@@ -32,12 +32,12 @@
 		console.error("Missing content slot in card. No content will be displayed.");
 	}
 
-	const originalClasses = ["card", "turnip-card"].concat(additionalClass).join(" ");
+	const originalClasses = ["card", "turnip-card bg-surface-100 dark:bg-surface-900"].concat(additionalClass).join(" ");
 	let classes = $state(originalClasses.slice());
 	const toggleLightModeBorder = (turnOnLightModeBorder: boolean) => {
 		classes = originalClasses;
 		if (turnOnLightModeBorder) {
-			classes += " light-mode-border";
+			classes += " light-mode-border border-surface-600 border-2 dark:border-0";
 		}
 	};
 	run(() => {
@@ -55,15 +55,8 @@
 	</div>
 {/if}
 
-<style lang="postcss">
-    /*noinspection CssUnusedSymbol*/
-    .light-mode-border {
-        @apply border-surface-600 border-2 dark:border-0;
-    }
-
-    /*noinspection CssUnusedSymbol*/
+<style>
     .turnip-card {
-        @apply bg-surface-100 dark:bg-surface-900;
         margin: var(--turnip-card-margin);
         margin-bottom: var(--turnip-card-margin-bottom);
         border-radius: var(--theme-rounded-container);

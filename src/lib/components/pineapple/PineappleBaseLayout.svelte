@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
+	import { run } from "svelte/legacy";
 
 
 	// For auto dark/light mode
@@ -20,9 +20,10 @@
 	import Toast from "$pkg/components/pineapple/toast/Toast.svelte";
 	import DialogOverlay from "$pkg/components/dialog_overlay/DialogOverlay.svelte";
 	import { fade } from "svelte/transition";
+
 	interface Props {
 		showDialogByDefault?: boolean;
-		children?: import('svelte').Snippet;
+		children?: import("svelte").Snippet;
 	}
 
 	let { showDialogByDefault = false, children }: Props = $props();
@@ -73,11 +74,6 @@
 	enableDialogueOverlay.set(showDialogByDefault);
 </script>
 
-<!-- App Shell -->
-<svelte:head>
-	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
-</svelte:head>
-
 <!--todo: turn off hidden when it's time-->
 <button class="fab" onclick={()=>{
 	dialogManager.toggleDialogOverlay()
@@ -89,45 +85,42 @@
 	{/if}
 </button>
 
-<AppShell>
-	{#snippet header()}
-	
-			<!-- App Bar -->
-			<AppBar
-				background="app-shell-token"
-				slotDefault="place-content-start"
-				slotTrail="place-content-end">
-				{#snippet lead()}
-					
-						<!--TODO: add logo or something for the lead in layout-->
-						<img
-							alt="Ares's head titled towards the left with his tongue out and winking"
-							class="ares-logo"
-							src={AresLogo}
-						/>
-						<span class="mr-2"></span>
-						<ol class="breadcrumb">
-							{#each pages as crumb, i}
-								{#if i < pages.length - 1}
-									<li class="crumb" in:fade>
-										<a href={crumb.path}>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</a>
-										 › 
-									</li>
-								{:else}
-									<li class="crumb" in:fade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
-								{/if}
-							{/each}
-						</ol>
-					
-					{/snippet}
-				{#snippet trail()}
-					
-						<LightSwitch bgLight="bg-surface-400" />
-					
-					{/snippet}
-			</AppBar>
-		
-	{/snippet}
+<div>
+	<!-- todo: header #migration -->
+	<!-- App Bar -->
+	<AppBar
+		background="bg-surface-600 dark:bg-surface-900">
+		{#snippet lead()}
+
+			<!--TODO: add logo or something for the lead in layout-->
+			<img
+				alt="Ares's head titled towards the left with his tongue out and winking"
+				class="ares-logo"
+				src={AresLogo}
+			/>
+			<span class="mr-2"></span>
+			<ol class="breadcrumb">
+				{#each pages as crumb, i}
+					{#if i < pages.length - 1}
+						<li class="crumb" in:fade>
+							<a href={crumb.path}>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</a>
+							 › 
+						</li>
+					{:else}
+						<li class="crumb" in:fade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
+					{/if}
+				{/each}
+			</ol>
+
+		{/snippet}
+		{#snippet trail()}
+
+			<!--			todo: light switch #migration -->
+			<!--			<LightSwitch bgLight="bg-surface-400" />-->
+
+		{/snippet}
+	</AppBar>
+
 
 	<RandomizedBackground enable={enableBackgroundValue} />
 
@@ -140,7 +133,7 @@
 		<div class="footer-space"></div>
 	</div>
 
-</AppShell>
+</div>
 
 <style lang="postcss">
     :root {
@@ -162,8 +155,10 @@
         --fab-margin: clamp(1em, 4.44vw, 2em);
     }
 
+    /*todo*/
+    /*@apply flex justify-center items-center;*/
     .default-page-container {
-        @apply flex justify-center items-center;
+        display: flex;
         width: 100%;
         padding: 1lh clamp(8px, 10vw, 2em);
         flex-direction: column;
@@ -183,34 +178,36 @@
        it likely disappeared due to code gen shenanigans and package magic */
     .breadcrumb,
     .breadcrumb-nonresponsive {
-        @apply flex items-center w-full overflow-x-auto;
-        /*@apply flex items-center space-x-4 w-full hide-scrollbar overflow-x-auto;*/
+        /*todo: */
+        /*@apply flex items-center w-full overflow-x-auto;*/
     }
 
     .crumb {
-        @apply flex justify-center items-center;
+        /*todo: */
+        /*@apply flex justify-center items-center;*/
         margin: 0.1em;
     }
 
     .crumb-separator {
-        @apply flex;
+        /*todo: */
+        /*@apply flex;*/
         color: var(--color-text-50);
     }
 
     /* === Auto-Responsive === */
 
     .breadcrumb li {
-        @apply hidden md:block;
+        /*@apply hidden md:block;*/
     }
 
     .breadcrumb li:nth-last-child(3),
     .breadcrumb li:nth-last-child(2),
     .breadcrumb li:nth-last-child(1) {
-        @apply block;
+        /*@apply block;*/
     }
 
     .fab {
-        @apply btn preset-filled-tertiary-500;
+        /*@apply btn preset-filled-tertiary-500;*/
         padding: 0;
         position: fixed;
         bottom: var(--fab-margin);

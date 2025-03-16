@@ -111,7 +111,3 @@
     --color-text-800: 38 29 28; /* ⬅ #261d1c */
     --color-text-900: 31 24 23; /* ⬅ #1f1817 */
 }
-
-.app-shell-token {
-    @apply bg-surface-600 dark:bg-surface-900;
-}

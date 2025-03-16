@@ -125,7 +125,8 @@
     }
 
     .navigation-element {
-        @apply btn card card-hover bg-surface-100 dark:bg-surface-900;
+		    /* todo: migration */
+        /*@apply btn card card-hover bg-surface-100 dark:bg-surface-900;*/
         container-type: inline-size;
         display: flex;
         text-align: start;

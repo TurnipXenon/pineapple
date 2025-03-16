@@ -22,11 +22,12 @@
 
 	let { children }: Props = $props();
 
-	initializeStores();
-
-	hljs.registerLanguage("xml", xml);
-	hljs.registerLanguage("url", xml);
-	storeHighlightJs.set(hljs);
+	// todo: migrate codeblock #migration
+	// initializeStores();
+	//
+	// hljs.registerLanguage("xml", xml);
+	// hljs.registerLanguage("url", xml);
+	// storeHighlightJs.set(hljs);
 	// endregion highlightjs
 </script>
 

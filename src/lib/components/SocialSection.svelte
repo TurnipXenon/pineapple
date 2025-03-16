@@ -73,7 +73,8 @@
 
 <style lang="postcss">
     .social-button {
-        @apply btn preset-filled-primary-500;
+		    /*todo: migration*/
+        /*@apply btn preset-filled-primary-500;*/
     }
 
     button > img {

@@ -20,7 +20,9 @@
 	     aria-hidden="true"
 	     style="--rotateRandom:{rotateRandom}deg;"
 	     alt=""
-	     class:darkMode={modeCurrent} />
+	/>
+<!--	todo: migration -->
+<!--	     class:darkMode={modeCurrent} />-->
 </div>
 
 <style>

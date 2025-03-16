@@ -14,7 +14,7 @@
 
 <div class="body-container">
 	<!-- todo: support markdown? -->
-	<button class="btn"
+	<button class="btn bg-surface-100 dark:bg-surface-900"
 	        disabled={!shouldEnableButton}
 	        onclick={dismissToastCallback}>
 		<img class="img-icon" src={CloseIcon} alt="close button">
@@ -24,7 +24,7 @@
 	</div>
 </div>
 
-<style lang="postcss">
+<style>
     .body-container {
         display: flex;
         gap: 1em;
@@ -40,7 +40,6 @@
     }
 
     .btn {
-        @apply bg-surface-100 dark:bg-surface-900;
         border-radius: 8px;
 		    padding: 0.5em;
     }

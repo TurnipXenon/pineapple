@@ -45,7 +45,7 @@
 	
 			<!-- App Bar -->
 			<AppBar slotDefault="place-content-start"
-			        background="app-shell-token">
+			        background="bg-surface-600 dark:bg-surface-900">
 				{#snippet lead()}
 					
 						<span class="lead-slot-placeholder"></span>

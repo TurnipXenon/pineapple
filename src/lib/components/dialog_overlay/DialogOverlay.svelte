@@ -89,7 +89,9 @@
     }
 
     .dialog-name {
-        @apply pt-2 px-4;
+		    padding-top: 2rem;
+		    padding-left: 4rem;
+		    padding-right: 4rem;
         position: fixed;
     }
 
