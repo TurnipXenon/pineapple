@@ -24,7 +24,7 @@ import { DialogManager } from "$lib/components/dialog_manager/DialogManager";
  * });
  * ```
  */
-export const enableDialogueOverlay = writable(true);
+export const enableDialogueOverlay = writable(false);
 
 export const dialogVariableStore: DialogMapStore = createNewMapStore();
 export const updateRate: number = 40 / 1000; // *at least* 40ms per letter

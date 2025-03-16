@@ -1,5 +1,6 @@
 @tailwind variants;
 
+/*todo: delete after all downstream works #migration*/
 :root {
     /* =~= Theme Properties =~= */
     --theme-font-family-base: system-ui;
