@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { modeCurrent } from "@skeletonlabs/skeleton";
-
-    interface Props {
+	    interface Props {
         src: string;
         rng: () => number;
     }

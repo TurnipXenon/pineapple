@@ -42,7 +42,7 @@
 				</p>
 
 				<section class="game-link-section">
-					<button type="button" class="btn variant-filled-primary turnip-button"
+					<button type="button" class="btn preset-filled-primary-500 turnip-button"
 					        role="link"
 					        title="https://github.com/TurnipXenon/pineapple"
 					        onclick={() => window.open("https://github.com/TurnipXenon/pineapple")}>

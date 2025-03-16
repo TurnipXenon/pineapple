@@ -16,7 +16,7 @@
 </script>
 
 <div class="combo-box-wrapper">
-	<button class="combo-box-side-button btn variant-filled-primary" onclick={onClickInternal}>+ Add entry</button>
+	<button class="combo-box-side-button btn preset-filled-primary-500" onclick={onClickInternal}>+ Add entry</button>
 	<ComboBox bind:selectedValue={selectedValue}
 	          bind:stringItems={stringItems}></ComboBox>
 </div>

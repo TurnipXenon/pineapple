@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { initializeStores, Toast } from "@skeletonlabs/skeleton";
-	import { Modal } from "@skeletonlabs/skeleton";
+	import { ToastProvider } from "@skeletonlabs/skeleton-svelte";
+
 	interface Props {
 		children?: import('svelte').Snippet;
 	}
@@ -10,7 +10,8 @@
 	initializeStores();
 </script>
 
-<Modal />
-<Toast />
+<!--todo: figure out modal-->
+<!--<Modal />-->
+<ToastProvider />
 
 {@render children?.()}

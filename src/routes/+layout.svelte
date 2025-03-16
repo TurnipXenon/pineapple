@@ -11,7 +11,6 @@
 	// region Skeleton Store
 	// endregion Skeleton Store
 	// region highlightjs
-	import { initializeStores, storeHighlightJs } from "@skeletonlabs/skeleton";
 	import "highlight.js/styles/github-dark.css";
 
 	import xml from "highlight.js/lib/languages/xml"; // for HTML

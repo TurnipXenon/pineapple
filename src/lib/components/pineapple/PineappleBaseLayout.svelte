@@ -3,7 +3,7 @@
 
 
 	// For auto dark/light mode
-	import { AppBar, AppShell, autoModeWatcher, LightSwitch } from "@skeletonlabs/skeleton";
+	import { AppBar } from "@skeletonlabs/skeleton-svelte";
 	import RandomizedBackground from "$pkg/components/RandomizedBackground.svelte";
 
 	// navigation
@@ -111,7 +111,7 @@
 								{#if i < pages.length - 1}
 									<li class="crumb" in:fade>
 										<a href={crumb.path}>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</a>
-										&nbsp;&rsaquo;&nbsp;
+										 › 
 									</li>
 								{:else}
 									<li class="crumb" in:fade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
@@ -210,7 +210,7 @@
     }
 
     .fab {
-        @apply btn variant-filled-tertiary;
+        @apply btn preset-filled-tertiary-500;
         padding: 0;
         position: fixed;
         bottom: var(--fab-margin);

@@ -1,6 +1,6 @@
 <script lang="ts">
 	// For auto dark/light mode
-	import { AppBar, AppShell, autoModeWatcher, LightSwitch } from "@skeletonlabs/skeleton";
+	import { AppBar } from "@skeletonlabs/skeleton-svelte";
 	import RandomizedBackground from "$lib/components/RandomizedBackground.svelte";
 
 	// store

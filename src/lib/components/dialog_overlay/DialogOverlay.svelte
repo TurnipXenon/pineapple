@@ -44,7 +44,7 @@
 	<div class="dialog-portrait-container">
 		<img src={currentPortrait} alt="Ares" class="dialog-portrait" />
 	</div>
-	<div class="card dialog-box variant-ghost-primary" onclick={onDialogClick}>
+	<div class="card dialog-box preset-tonal-primary border border-primary-500" onclick={onDialogClick}>
 		<div class="card dialog-name">
 			<p><b>Turnip</b></p>
 		</div>

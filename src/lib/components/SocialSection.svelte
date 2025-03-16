@@ -73,7 +73,7 @@
 
 <style lang="postcss">
     .social-button {
-        @apply btn variant-filled-primary;
+        @apply btn preset-filled-primary-500;
     }
 
     button > img {

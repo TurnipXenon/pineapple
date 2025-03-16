@@ -4,8 +4,8 @@
 	import HeaderChefWings from "$pkg/assets/game_dev/footage-chef-wings.gif";
 	import LinkIcon from "$pkg/assets/icons/link-icon.svg";
 	import Card from "$pkg/components/Card.svelte";
-	import type { ModalSettings } from "@skeletonlabs/skeleton";
-	import { getModalStore } from "@skeletonlabs/skeleton";
+	import type { ModalSettings } from "@skeletonlabs/skeleton-svelte";
+
 	interface Props {
 		props: EntryProps;
 	}

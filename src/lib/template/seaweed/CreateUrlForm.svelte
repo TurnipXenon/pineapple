@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { type CreateUrlRequest, CreateUrlResult, jsonToCreateUrlResponse } from "$pkg/types/api/CreateUrl";
-	import { getToastStore, type ToastSettings } from "@skeletonlabs/skeleton";
+	import { type ToastSettings } from "@skeletonlabs/skeleton-svelte";
 
 	interface Props {
 		queryParams?: string;
@@ -62,7 +62,7 @@
 	       class="input"
 	       type="password"
 	       placeholder="ILoveTurnips" />
-	<button class="send-link btn variant-filled" onclick={post}>Send link</button>
+	<button class="send-link btn preset-filled" onclick={post}>Send link</button>
 </div>
 
 <style>

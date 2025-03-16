@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { run } from 'svelte/legacy';
 
-	import { modeCurrent as isLightMode } from "@skeletonlabs/skeleton";
-
 	interface Props {
 		onClick?: undefined | (() => void);
 		checked?: boolean;
@@ -12,7 +10,7 @@
 	let { onClick = undefined, checked = true, children }: Props = $props();
 
 	let textColorClass = $derived($isLightMode ? "local-light" : "local-dark");
-	let buttonClass = $state("variant-filled-tertiary");
+	let buttonClass = $state("preset-filled-tertiary-500");
 	const toggleChipColor = (isLightMode: boolean, checked: boolean) => {
 		if (isLightMode) {
 			buttonClass = checked ? "normal-bg" : "light-unchecked-bg";

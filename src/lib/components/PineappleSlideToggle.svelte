@@ -1,6 +1,6 @@
 <script lang="ts">
 
-	import { SlideToggle } from "@skeletonlabs/skeleton";
+	import { Switch } from "@skeletonlabs/skeleton-svelte";
 	interface Props {
 		checked?: boolean;
 		name: string;
@@ -16,9 +16,9 @@
 	}: Props = $props();
 </script>
 
-<SlideToggle name={name}
+<Switch name={name}
              background="bg-surface-700 dark:bg-surface-700"
              bind:checked={checked}
              on:change={onChange}>
 	{@render children?.()}
-</SlideToggle>
+</Switch>

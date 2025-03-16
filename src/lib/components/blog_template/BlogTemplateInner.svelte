@@ -24,7 +24,7 @@
 			<section id="article-tags">
 				Tags:
 				{#each pageMeta.tags as tag}
-					<span class="badge variant-filled">{tag}</span>
+					<span class="badge preset-filled">{tag}</span>
 				{/each}
 			</section>
 		{/if}

@@ -25,7 +25,7 @@
     }
 
     button {
-        @apply btn variant-filled-secondary;
+        @apply btn preset-filled-secondary-500;
     }
 
     .content {

@@ -6,7 +6,6 @@
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import "./seaweed.postcss";
 	import SeaweedBaseLayout from "$pkg/components/layouts/SeaweedBaseLayout.svelte";
-	import { CodeBlock } from "@skeletonlabs/skeleton";
 	import { page } from "$app/stores";
 	import Card from "$pkg/components/Card.svelte";
 	import {
@@ -299,7 +298,7 @@
 								      checked={shouldBold}>
 									<!-- todo: change shouldBold -->
 									<span style={`font-weight: ${shouldBold ? "bold" : "normal"}`}>
-										{#if (shouldBold)}&check;{/if}
+										{#if (shouldBold)}✓{/if}
 										{term}
 									</span>
 								</Chip>

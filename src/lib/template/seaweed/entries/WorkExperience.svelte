@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SocialSection from "$pkg/components/SocialSection.svelte";
 	import Card from "$pkg/components/Card.svelte";
-	import { Accordion, AccordionItem } from "@skeletonlabs/skeleton";
+	import { Accordion } from "@skeletonlabs/skeleton-svelte";
 	import ElementVisibilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 
@@ -98,7 +98,7 @@
 				<br>
 				<!-- todo: turn off flashing when accordion is expanded -->
 				<Accordion>
-					<AccordionItem>
+					<Accordion.Item>
 						{#snippet summary()}
 										<div >
 								<h2 class="accordion-header">More experience</h2>
@@ -121,7 +121,7 @@
 								</section>
 							
 									{/snippet}
-					</AccordionItem>
+					</Accordion.Item>
 				</Accordion>
 			</section>
 			{/snippet}

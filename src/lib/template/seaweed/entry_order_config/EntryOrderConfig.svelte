@@ -138,7 +138,7 @@
 	{#each seaweedEntries as group, groupIndex}
 		<div class="entry-group card">
 
-			<div class="btn-group-header">
+			<div class="-header">
 				<button title={`Remove ${group.name}`}
 				        onclick={removeGroup(group)}>
 					<img class="img-icon" src={CloseIcon} alt={`Remove ${group.name}`}>
@@ -168,7 +168,7 @@
 				<tbody>
 				{#each group.items as entry, entryIndex}
 					<tr class="entry-row">
-						<td class="btn-group-entry">
+						<td class="-entry">
 
 							<button title={`Remove ${entry.name}`}
 							        onclick={removeEntry(entry, group)}>
@@ -216,14 +216,14 @@
     }
 
     .btn-group-header {
-        @apply btn-group variant-filled-tertiary;
+        @apply  preset-filled-tertiary-500;
         display: flex;
         align-items: center;
         margin-bottom: 0.5lh;
     }
 
     .btn-group-entry {
-        @apply btn-group;
+        @apply ;
         display: flex;
         padding: 0;
     }

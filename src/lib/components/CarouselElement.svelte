@@ -21,7 +21,7 @@
 
 <style>
     .game-showcase {
-        @apply snap-center rounded-container-token;
+        @apply snap-center rounded-container;
         margin: auto;
         width: 100%;
     }

@@ -42,18 +42,18 @@
 	{#snippet content()}
 		<div  class="default-card">
 			<button
-				class="btn variant-filled-secondary"
+				class="btn preset-filled-secondary-500"
 				onclick={() => {
 			showComponentInToast({componentAndProps: {component: TestCard, props: undefined}});
 		}}><h3>Test custom toast</h3></button>
 			<button
-				class="btn variant-filled-secondary"
+				class="btn preset-filled-secondary-500"
 				onclick={() => {
 			showTextInToast(`${testingQueueNumber} ${testingRandomPhrases[testingQueueNumber]}`);
 			testingQueueNumber = (testingQueueNumber + 1) % testingRandomPhrases.length;
 		}}><h3>Handy toast</h3></button>
 			<button
-				class="btn variant-filled-secondary"
+				class="btn preset-filled-secondary-500"
 				onclick={onTestDialogClick}><h3>Test dialog</h3></button>
 			<div>
 				<PineappleSlideToggle name="advanced-setting-slider"
