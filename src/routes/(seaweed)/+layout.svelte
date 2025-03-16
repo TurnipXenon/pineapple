@@ -7,7 +7,7 @@
 
 	let { children }: Props = $props();
 
-	initializeStores();
+	// initializeStores();
 </script>
 
 <!--todo: figure out modal-->

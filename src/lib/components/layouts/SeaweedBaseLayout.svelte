@@ -9,13 +9,14 @@
 	import { enableDialogueOverlay } from "$lib/components/dialog_manager/DialogManagerStore";
 	import { writable } from "svelte/store";
 	import { fly } from "svelte/transition";
+
 	// todo: clean up all these imports!
 
 	interface Props {
 		shouldDisplayLeadingIcons?: boolean;
-		extraLeadingIcons?: import('svelte').Snippet;
-		s?: import('svelte').Snippet;
-		children?: import('svelte').Snippet<[any]>;
+		extraLeadingIcons?: import("svelte").Snippet;
+		s?: import("svelte").Snippet;
+		children?: import("svelte").Snippet<[any]>;
 	}
 
 	let {
@@ -36,39 +37,37 @@
 </script>
 
 <!-- App Shell -->
-<svelte:head>
-	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
-</svelte:head>
+<!--<svelte:head>-->
+<!--	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}-->
+<!--</svelte:head>-->
 
-<AppShell>
-	{#snippet header()}
-	
-			<!-- App Bar -->
-			<AppBar slotDefault="place-content-start"
-			        background="bg-surface-600 dark:bg-surface-900">
-				{#snippet lead()}
-					
-						<span class="lead-slot-placeholder"></span>
+<div>
 
-						{#if extraLeadingIcons && shouldDisplayLeadingIcons}
-							<div transition:fly={{x:-10}}>
-								{@render extraLeadingIcons?.()}
-							</div>
-						{:else if extraLeadingIcons}
-							<div hidden>
-								{@render s?.()}
-							</div>
-						{/if}
-					
-					{/snippet}
-				{#snippet trail()}
-					
-						<LightSwitch bgLight="bg-surface-400" />
-					
-					{/snippet}
-			</AppBar>
-		
-	{/snippet}
+	<!-- App Bar -->
+	<AppBar background="bg-surface-600 dark:bg-surface-900">
+		{#snippet lead()}
+
+			<span class="lead-slot-placeholder"></span>
+
+			{#if extraLeadingIcons && shouldDisplayLeadingIcons}
+				<div transition:fly={{x:-10}}>
+					{@render extraLeadingIcons?.()}
+				</div>
+			{:else if extraLeadingIcons}
+				<div hidden>
+					{@render s?.()}
+				</div>
+			{/if}
+
+		{/snippet}
+		{#snippet trail()}
+
+			<!-- todo: -->
+			<!--						<LightSwitch bgLight="bg-surface-400" />-->
+
+		{/snippet}
+	</AppBar>
+
 
 	<RandomizedBackground enable={enableBackgroundValue} />
 
@@ -80,7 +79,7 @@
 	</div>
 	<!-- todo: eventually re-add	-->
 	<!--	<DialogOverlay />-->
-</AppShell>
+</div>
 
 <style lang="postcss">
     :root {

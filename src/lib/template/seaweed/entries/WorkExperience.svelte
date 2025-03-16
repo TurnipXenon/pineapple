@@ -20,7 +20,7 @@
 
 		<Card includeDataNoSnippet={false}>
 			{#snippet content()}
-						<section class="section-card" >
+				<section class="section-card">
 
 					<h1>About</h1>
 
@@ -44,24 +44,24 @@
 					<!-- todo: maybe put cute stuff here -->
 					<!--						</ToggleableContent>-->
 				</section>
-					{/snippet}
+			{/snippet}
 		</Card>
 
 		<Card>
 			{#snippet content()}
-						<section class="section-card" >
+				<section class="section-card">
 					<SocialSection email={email} linkedinSlug={linkedinSlug}></SocialSection>
 					<ElementVisibilityDetector bind:isVisible={isVisible}>
 					</ElementVisibilityDetector>
 				</section>
-					{/snippet}
+			{/snippet}
 		</Card>
 
 	</div>
 
 	<Card>
 		{#snippet content()}
-				<section class="section-card" >
+			<section class="section-card">
 				<h1>Experience</h1>
 
 				<h2>Highlight</h2>
@@ -97,34 +97,35 @@
 				</ul>
 				<br>
 				<!-- todo: turn off flashing when accordion is expanded -->
-				<Accordion>
-					<Accordion.Item>
-						{#snippet summary()}
-										<div >
-								<h2 class="accordion-header">More experience</h2>
-							</div>
-									{/snippet}
-						{#snippet content()}
-									
-								<section class="more-section">
-									<h2>Software Engineer Intern</h2>
-									<div class="two-column-separated">
-										<div>May 2021 – Dec 2021</div>
-										<div style="text-align: end">Testing</div>
-									</div>
-									<ul>
-										<li>
-											Amazing
-										</li>
-									</ul>
-									<br>
-								</section>
-							
-									{/snippet}
-					</Accordion.Item>
-				</Accordion>
+				<!-- todo: migrate accordion -->
+				<!--				<Accordion>-->
+				<!--					<Accordion.Item>-->
+				<!--						{#snippet summary()}-->
+				<!--							<div>-->
+				<!--								<h2 class="accordion-header">More experience</h2>-->
+				<!--							</div>-->
+				<!--						{/snippet}-->
+				<!--						{#snippet content()}-->
+
+				<!--							<section class="more-section">-->
+				<!--								<h2>Software Engineer Intern</h2>-->
+				<!--								<div class="two-column-separated">-->
+				<!--									<div>May 2021 – Dec 2021</div>-->
+				<!--									<div style="text-align: end">Testing</div>-->
+				<!--								</div>-->
+				<!--								<ul>-->
+				<!--									<li>-->
+				<!--										Amazing-->
+				<!--									</li>-->
+				<!--								</ul>-->
+				<!--								<br>-->
+				<!--							</section>-->
+
+				<!--						{/snippet}-->
+				<!--					</Accordion.Item>-->
+				<!--				</Accordion>-->
 			</section>
-			{/snippet}
+		{/snippet}
 	</Card>
 
 </div>

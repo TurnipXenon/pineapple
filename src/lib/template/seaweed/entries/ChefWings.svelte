@@ -4,7 +4,6 @@
 	import HeaderChefWings from "$pkg/assets/game_dev/footage-chef-wings.gif";
 	import LinkIcon from "$pkg/assets/icons/link-icon.svg";
 	import Card from "$pkg/components/Card.svelte";
-	import type { ModalSettings } from "@skeletonlabs/skeleton-svelte";
 
 	interface Props {
 		props: EntryProps;
@@ -12,20 +11,6 @@
 
 	let { props }: Props = $props();
 
-	const modalStore = getModalStore();
-	const chefWingsWarning: ModalSettings = {
-		type: "confirm",
-		title: "Warning: please confirm",
-		body: "This will directly link to the game itself, since this game does not have any game page or any " +
-			"publicly viewable source code. The game is only playable on desktop. " +
-			`Are you sure you wish to proceed? If there are any bugs, please report at <a href='mailto:${props.email}' target='_blank'>` +
-			`${props.email}</a>.`,
-		response: (r: boolean) => {
-			if (r) {
-				window.open("https://selk.io/birb-project/trunk/");
-			}
-		}
-	};
 </script>
 
 <Card>
@@ -49,7 +34,7 @@
 				<section class="game-link-section">
 					<button type="button" class="game-button turnip-button"
 					        title="https://selk.io/birb-project/trunk/"
-					        onclick={()=>modalStore.trigger(chefWingsWarning)}>
+					        onclick={()=>{alert('not implemented')}}>
 						<img alt="itch.io icon" src={LinkIcon}>
 						<span>selk.io/birb-project/trunk/</span>
 					</button>
