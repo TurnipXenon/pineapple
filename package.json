@@ -67,7 +67,7 @@
   },
   "files": [
     "dist",
-    "./src/lib/app.postcss",
+    "src/lib/app.css",
     "./src/lib/theme.postcss"
   ],
   "repository": "https://github.com/TurnipXenon/pineapple",
