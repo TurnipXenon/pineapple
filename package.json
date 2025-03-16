@@ -66,7 +66,7 @@
   },
   "files": [
     "dist",
-    "src/app.css",
+    "src/lib/styles/app.css",
     "src/lib/theme.css"
   ],
   "repository": "https://github.com/TurnipXenon/pineapple",

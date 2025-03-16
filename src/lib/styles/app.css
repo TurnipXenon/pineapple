@@ -4,7 +4,11 @@
 @import "@skeletonlabs/skeleton/themes/crimson";
 @source "../node_modules/@skeletonlabs/skeleton-svelte/dist";
 
-@custom-variant dark (&:is(.dark *));
+@source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@custom-variant turnip (&:where([data-theme=turnip], [data-theme=turnip] *));
 
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
