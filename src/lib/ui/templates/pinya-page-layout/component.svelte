@@ -2,7 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import { m } from '$pkg/paraglide/messages';
 
-	import AresLogo from '$pkg/assets/general/ares_logo.webp';
+	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import SettingsLogo from '$pkg/assets/icons/icon-settings.svg';
 	import RandomizedBackground from '$pkg/ui/components/randomized-background/RandomizedBackground.svelte';
 	import { modals } from 'svelte-modals';

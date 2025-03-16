@@ -12,12 +12,12 @@
 	// endregion Skeleton Store
 	// region highlightjs
 	import "highlight.js/styles/github-dark.css";
-
-	import xml from "highlight.js/lib/languages/xml"; // for HTML
-	import hljs from "highlight.js/lib/core";
 	import OverrideableMeta from "$pkg/components/overrideable_meta/OverridableMeta.svelte";
+	import { PinyaBase, PinyaPageLayout } from "$pkg/ui/templates/index";
+	import type { Snippet } from "svelte";
+
 	interface Props {
-		children?: import('svelte').Snippet;
+		children: Snippet;
 	}
 
 	let { children }: Props = $props();
@@ -35,4 +35,9 @@
 	rootUrl={import.meta.env.PROD ? "https://pineapple-gamma-blush.vercel.app" : "http://localhost:5173"}>
 </OverrideableMeta>
 
-{@render children?.()}
+
+<PinyaBase>
+	<PinyaPageLayout>
+		{@render children()}
+	</PinyaPageLayout>
+</PinyaBase>
