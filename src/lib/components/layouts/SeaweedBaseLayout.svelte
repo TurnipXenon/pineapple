@@ -9,6 +9,7 @@
 	import { enableDialogueOverlay } from "$lib/components/dialog_manager/DialogManagerStore";
 	import { writable } from "svelte/store";
 	import { fly } from "svelte/transition";
+	import { appState } from "$pkg/ui/templates/index";
 
 	// todo: clean up all these imports!
 
@@ -20,11 +21,21 @@
 	}
 
 	let {
-		shouldDisplayLeadingIcons = false,
+		shouldDisplayLeadingIcons = $bindable(false),
 		extraLeadingIcons,
 		s,
 		children
 	}: Props = $props();
+
+	$inspect("inside: should display:", shouldDisplayLeadingIcons, !!extraLeadingIcons);
+
+	$effect(() => {
+		if (extraLeadingIcons && shouldDisplayLeadingIcons) {
+			appState.lead = extraLeadingIcons;
+		} else {
+			appState.lead = undefined;
+		}
+	});
 
 	let enableBackgroundValue = $state(true);
 	enableBackground.subscribe((value) => {
@@ -42,7 +53,6 @@
 <!--</svelte:head>-->
 
 <div>
-
 	<!-- App Bar -->
 	<AppBar background="bg-surface-600 dark:bg-surface-900">
 		{#snippet lead()}

@@ -40,6 +40,7 @@
 
 <button
 	{...props}
+	class:small-icon-button={buttonVariant === ButtonVariant.SmallIcon}
 	class={`btn rounded-2xl text-xl font-bold ${tailwindClass} ${paddingClass}`}
 >
 	{@render children()}

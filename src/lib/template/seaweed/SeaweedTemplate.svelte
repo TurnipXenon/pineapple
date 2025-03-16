@@ -47,6 +47,7 @@
 
 	let isAdvanceSettingOn = false;
 	$: isSocialsGone = !isVisible;
+	$: console.log("is visible", isVisible);
 
 	let qtfontWeight = "normal";
 	let additionalFontWeight = "";
@@ -323,11 +324,14 @@
 		{/if}
 	</main>
 
-	<SocialSection slot="extraLeadingIcons"
-	               isSlot={true}
-	               email={email}
-	               linkedinSlug={linkedinSlug}
-	               isSmallVersion={true}></SocialSection>
+	{#snippet extraLeadingIcons()}
+		<SocialSection
+			isSlot={true}
+			email={email}
+			linkedinSlug={linkedinSlug}
+			isSmallVersion={true}></SocialSection>
+	{/snippet}
 </SeaweedBaseLayout>
 
-<style lang="postcss">/*$$__STYLE_CONTENT__$$*/</style>
+<style lang="postcss">/*$$__STYLE_CONTENT__$$*/
+</style>

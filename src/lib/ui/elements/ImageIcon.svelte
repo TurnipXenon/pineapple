@@ -29,9 +29,17 @@
 
 <img
 	{...props}
-	class={`h-8 ${tailwindClass}`}>
+	class={`image-icon ${tailwindClass}`}>
 
 <style>
+		:global(.image-icon) {
+        height: calc(var(--spacing) * 8);
+		}
+
+		:global(.small-icon-button .image-icon) {
+        height: calc(var(--spacing) * 6);
+		}
+
     :global(.icon-filter-on-primary-button) {
 				/* based on secondary-950 */
         filter: brightness(0) saturate(100%) invert(18%) sepia(10%) saturate(4620%) hue-rotate(331deg) brightness(90%) contrast(88%);

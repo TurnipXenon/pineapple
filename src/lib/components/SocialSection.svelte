@@ -1,5 +1,4 @@
 <script>
-
 	import { ItchLogoHotLink } from "$pkg/consts";
 	import { onMount } from "svelte";
 	import { scale } from "svelte/transition";
@@ -7,6 +6,8 @@
 	import MailIcon from "$pkg/assets/icons/mail.svg";
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
 	import LinkedinIcon from "$pkg/assets/icons/linkedin.svg";
+	import { ButtonVariant, ImageIcon, PinyaButton } from "$pkg/ui/elements";
+
 	/** @type {{isSmallVersion?: boolean, email?: string, linkedinSlug?: string, isSlot?: boolean, allowLinkedIn?: boolean}} */
 	let {
 		isSmallVersion = false,
@@ -28,52 +29,57 @@
 </script>
 
 <div class="socials" class:isSmall={isSmallVersion} style={style} data-nosnippet>
-	<button type="button" class="social-button turnip-button"
-	        role="link"
-	        title="https://github.com/TurnipXenon"
-	        onclick={() => window.open("https://github.com/TurnipXenon")}>
-		<img src={GithubIcon} alt="github icon">
+	<PinyaButton
+		buttonVariant={ButtonVariant.SmallIcon}
+		title="https://github.com/TurnipXenon"
+		onclick={() => window.open("https://github.com/TurnipXenon")}>
+		<ImageIcon src={GithubIcon} alt="github icon" />
 		{#if (!isSmallVersion)}
 			<span>TurnipXenon</span>
 		{/if}
-	</button>
+	</PinyaButton>
 	{#if allowLinkedIn}
-		<button type="button" class="social-button turnip-button"
-		        role="link"
-		        title={`https://www.linkedin.com/in/${linkedinSlug}/`}
-		        onclick={() => window.open(`https://www.linkedin.com/in/${linkedinSlug}/`)}>
-			<img src={LinkedinIcon} alt="linkedin icon">
+		<PinyaButton
+			buttonVariant={ButtonVariant.SmallIcon}
+			title={`https://www.linkedin.com/in/${linkedinSlug}/`}
+			onclick={() => window.open(`https://www.linkedin.com/in/${linkedinSlug}/`)}>
+			<ImageIcon src={LinkedinIcon} alt="linkedin icon" />
 			{#if (!isSmallVersion)}
 				<span>{linkedinSlug}</span>
 			{/if}
-		</button>
+		</PinyaButton>
 	{/if}
-	<button type="button" class="social-button turnip-button"
-	        role="link"
-	        title={`mailto:${email}`}
-	        onclick={() => window.open(`mailto:${email}`)}>
-		<img src={MailIcon} alt="mail icon" />
+	<PinyaButton
+		buttonVariant={ButtonVariant.SmallIcon}
+		title={`mailto:${email}`}
+		onclick={() => window.open(`mailto:${email}`)}>
+		<ImageIcon src={MailIcon} alt="mail icon" />
 		{#if (!isSmallVersion)}
 			<span>{email}</span>
 		{/if}
-	</button>
+	</PinyaButton>
 	{#if (shouldShowExtra)}
-		<button type="button" class="social-button turnip-button"
-		        role="link"
-		        title="https://turnipxenon.itch.io/"
-		        transition:scale
-		        onclick={() => window.open("https://turnipxenon.itch.io/")}>
-			<img src={ItchLogoHotLink} alt="itch icon">
-			{#if (!isSmallVersion)}
-				<span>TurnipXenon</span>
-			{/if}
-		</button>
+		<div transition:scale>
+			<PinyaButton
+				buttonVariant={ButtonVariant.SmallIcon}
+				title="https://turnipxenon.itch.io/"
+				onclick={() => window.open("https://turnipxenon.itch.io/")}>
+				<ImageIcon src={ItchLogoHotLink} alt="itch icon" />
+				{#if (!isSmallVersion)}
+					<span>TurnipXenon</span>
+				{/if}
+			</PinyaButton>
+		</div>
 	{/if}
 </div>
 
 <style lang="postcss">
+		span {
+				font-size: 0.8em;
+		}
+
     .social-button {
-		    /*todo: migration*/
+        /*todo: migration*/
         /*@apply btn preset-filled-primary-500;*/
     }
 
@@ -90,6 +96,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: var(--preferred-justify-content);
+        gap: 0.7rem;
     }
 
     .socials > button {

@@ -4,7 +4,8 @@ import type { WrapperProps } from '$pkg/ui/elements/WrapperProps';
 
 export enum ButtonVariant {
 	Default,
-	Image
+	Image,
+	SmallIcon,
 }
 
 export type PinyaButtonProps = WrapperProps
