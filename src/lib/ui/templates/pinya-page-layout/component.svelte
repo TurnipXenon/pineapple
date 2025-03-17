@@ -64,7 +64,7 @@
 {/snippet}
 
 {@render header('hidden shadow-none w-full')}
-{@render header('fixed z-20 w-[105vw]')}
+{@render header('fixed z-15 w-[105vw]')}
 
 <RandomizedBackground enabled={true} />
 

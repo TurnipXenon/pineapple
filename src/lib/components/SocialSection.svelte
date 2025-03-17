@@ -74,22 +74,8 @@
 </div>
 
 <style lang="postcss">
-		span {
-				font-size: 0.8em;
-		}
-
-    .social-button {
-        /*todo: migration*/
-        /*@apply btn preset-filled-primary-500;*/
-    }
-
-    button > img {
-        max-height: 1lh;
-    }
-
-    button {
-        min-width: 0;
-        min-height: 0;
+    span {
+        font-size: 0.8em;
     }
 
     .socials {
@@ -97,14 +83,5 @@
         flex-wrap: wrap;
         justify-content: var(--preferred-justify-content);
         gap: 0.7rem;
-    }
-
-    .socials > button {
-        margin: 0 0.5em var(--preferred-overall-margin-bottom);
-    }
-
-    .socials.isSmall > button {
-        margin-left: 0.25em;
-        margin-right: 0.25em;
     }
 </style>

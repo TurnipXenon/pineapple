@@ -34,7 +34,7 @@
 <style>
     .backdrop {
         position: fixed;
-        z-index: 10;
+        z-index: 19;
         top: 0;
         bottom: 0;
         right: 0;
