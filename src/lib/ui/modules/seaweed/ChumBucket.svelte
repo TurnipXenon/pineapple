@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Card from "$pkg/components/Card.svelte";
 	import { type PageMeta } from "$pkg";
 	import { onMount } from "svelte";
 	import { PinyaCard } from "$pkg/ui/elements/index";

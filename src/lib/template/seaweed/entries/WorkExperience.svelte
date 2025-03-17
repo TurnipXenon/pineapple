@@ -1,7 +1,6 @@
 <script lang="ts">
-	import SocialSection from "$pkg/components/SocialSection.svelte";
+	import SocialSection from "$pkg/ui/components/SocialSection.svelte";
 	import Card from "$pkg/components/Card.svelte";
-	import { Accordion } from "@skeletonlabs/skeleton-svelte";
 	import ElementVisibilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 
