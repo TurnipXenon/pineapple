@@ -1,21 +1,23 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-	import { m } from '$pkg/paraglide/messages';
+	import type { Snippet } from "svelte";
+	import { m } from "$pkg/paraglide/messages";
 
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
-	import SettingsLogo from '$pkg/assets/icons/icon-settings.svg';
-	import RandomizedBackground from '$pkg/ui/components/randomized-background/RandomizedBackground.svelte';
-	import { modals } from 'svelte-modals';
-	import GeneralSettingsModal from '$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte';
-	import { localizeHref } from '$pkg/paraglide/runtime';
-	import { appState } from '$pkg/ui/templates';
+	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";
+	import RandomizedBackground from "$pkg/ui/components/randomized-background/RandomizedBackground.svelte";
+	import { modals } from "svelte-modals";
+	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
+	import { localizeHref } from "$pkg/paraglide/runtime";
+	import { appState } from "$pkg/ui/templates";
 
 	let {
 		children,
-		appBarLead = $bindable()
+		appBarLead = $bindable(),
+		footer
 	}: {
 		children: Snippet
 		appBarLead?: Snippet
+		footer?: Snippet
 	} = $props();
 
 
@@ -71,7 +73,12 @@
 <div class="default-page-container">
 	{@render children?.()}
 </div>
-<div aria-hidden="true" class="footer-space"></div>
+
+{#if footer}
+	{@render footer()}
+{:else }
+	<div aria-hidden="true" class="footer-space"></div>
+{/if}
 
 
 <style>

@@ -15,6 +15,9 @@
 			<PinyaButton onclick={() => {location.href = localizeHref('portfolio');}}>
 				Seaweed playground
 			</PinyaButton>
+			<PinyaButton onclick={() => {location.href = localizeHref('seaweed2');}}>
+				Seaweed <b>2</b> playground
+			</PinyaButton>
 			<PinyaButton onclick={() => {location.href = localizeHref('components');}}>
 				Components
 			</PinyaButton>

@@ -8,7 +8,7 @@
 <ConfirmationModal
 	confirm={{
 		onclick: () => { alert('success!'); },
-		title: 'simple success alert'
+		text: 'simple success alert'
 	}}
 	{...props}
 >

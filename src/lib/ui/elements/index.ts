@@ -7,3 +7,4 @@ export * from './OnBackground';
 export * from './pinya-card/index';
 export * from './WrapperProps';
 export * from './pinya-button/index';
+export * from "./text-chip"

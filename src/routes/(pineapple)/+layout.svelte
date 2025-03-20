@@ -5,13 +5,13 @@
 	// Most of your app wide CSS should be put in this file
 	import "$pkg/styles/app.css";
 
-	import "$lib/styles/global.css";
+	import "$pkg/styles/global.css";
 
 	// region Skeleton Store
 	// endregion Skeleton Store
 	// region highlightjs
 	import "highlight.js/styles/github-dark.css";
-	import OverrideableMeta from "$pkg/components/overrideable_meta/OverridableMeta.svelte";
+	import OverrideableMeta from "../../lib/components/overrideable_meta/OverridableMeta.svelte";
 	import { PinyaBase, PinyaPageLayout } from "$pkg/ui/templates/index";
 	import type { Snippet } from "svelte";
 	import { DialogOverlay } from "$pkg";

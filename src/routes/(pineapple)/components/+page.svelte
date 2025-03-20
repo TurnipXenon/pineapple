@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { modals } from 'svelte-modals';
 
-	import { ButtonVariant, ImageIcon, PinyaButton, PinyaCard } from '$pkg/ui/elements';
+	import { ButtonVariant, ImageIcon, PinyaButton, PinyaCard } from '$pkg/ui/elements/index';
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
-	import { FourPartCard } from '$pkg/ui/components';
+	import { FourPartCard } from '$pkg/ui/components/index';
 	import TestModal from './TestModal.svelte';
 </script>
 

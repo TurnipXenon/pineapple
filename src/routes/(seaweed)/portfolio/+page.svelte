@@ -17,3 +17,12 @@
 	getEntryFromGlobal={GetEntryFromGlobal}
 	experienceSection={WorkExperience}
 	letChaos={false}></SeaweedTemplate>
+
+
+<style>
+    .side-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1lh;
+    }
+</style>
