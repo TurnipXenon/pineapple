@@ -246,7 +246,7 @@ html.dark {
             filter: brightness(140%);
         }
 
-        h1, h2, h3, h4, h5, h6, .fake-h2, .fake-h3 {
+        h1, h2, h3, h4, h5, h6, .fake-h2, .fake-h3, .fake-h4 {
             text-align: center;
             margin-top: 0;
             font-weight: bolder;
@@ -257,7 +257,7 @@ html.dark {
             }
         }
 
-        h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p, .fake-h2 + p, .fake-h3 + p {
+        h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p, .fake-h2 + p, .fake-h3 + p, .fake-h4 + p {
             margin-top: 0.5lh;
         }
 
@@ -273,7 +273,7 @@ html.dark {
             @apply text-2xl;
         }
 
-        h4 {
+        h4, .fake-h4 {
             @apply text-xl;
         }
 

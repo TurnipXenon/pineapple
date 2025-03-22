@@ -26,7 +26,8 @@
 				Hepcat,
 				Pengi,
 				ThisWebpage,
-			]
+			],
+			key: 'games',
 		},
 		{
 			title: "Projects",
@@ -35,7 +36,8 @@
 				Hepcat,
 				Pengi,
 				Soulwork,
-			]
+			],
+			key: 'projects',
 		}
 	];
 </script>

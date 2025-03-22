@@ -13,6 +13,7 @@ export interface SnippetMeta {
 }
 
 export interface ProjectGroup {
+	key: string;
 	title: string;
 	entryList: SnippetMeta[];
 }

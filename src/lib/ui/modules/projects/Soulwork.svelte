@@ -6,7 +6,7 @@
 	import { ButtonVariant, ImageIcon, PinyaButton } from "$pkg/ui/elements/index.js";
 	import { ItchLogoHotLink } from "$pkg/consts.js";
 
-	const key = "soulwork";
+	const key = "Soulwork";
 	export { component, key };
 </script>
 

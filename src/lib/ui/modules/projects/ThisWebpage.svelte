@@ -3,7 +3,7 @@
 	import ThisWebsiteFootage from '$pkg/assets/others/seaweed-showcase.mp4';
 	import type { ProjectComponentProps } from '../../templates/seaweed-layout/ProjectComponentProps';
 
-	const key = 'thisWebpage';
+	const key = 'This Webpage';
 	export { component, key };
 </script>
 <script>
