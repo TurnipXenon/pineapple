@@ -27,4 +27,5 @@ export interface SeaweedLayoutProps {
 	// todo: #migration
 	entryList: SnippetMeta[];
 	layout: ProjectGroup[];
+	queryTerms: string[];
 }

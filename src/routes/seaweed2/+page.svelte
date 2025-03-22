@@ -8,6 +8,10 @@
 	import * as Hepcat from "$pkg/ui/modules/projects/Hepcat.svelte";
 	import * as ThisWebpage from "$pkg/ui/modules/projects/ThisWebpage.svelte";
 
+	import type { PageProps } from './$types';
+
+	let { data }: PageProps = $props();
+
 	const uiList: SnippetMeta[] = [
 		ThisWebpage,
 		Hepcat,
@@ -47,12 +51,13 @@
 
 <!-- todo: entryList + layout -->
 <SeaweedLayout
-	name="Allan Manuba"
-	email="allanmanuba@gmail.com"
-	linkedinSlug="allan-manuba"
-	domain="https://allanmanuba.com"
+	name="Turnip"
+	email="turnipxenon@gmail.com"
+	linkedinSlug="turnip-xenon"
+	domain="https://turnipxenon.com"
 	entryList={uiList}
 	layout={layout}
+	queryTerms={data.queryTerms}
 >
 	{#snippet sideSection(socialSection: Snippet)}
 		<div class="flex flex-col gap-4">

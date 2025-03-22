@@ -4,7 +4,7 @@
 @import "@skeletonlabs/skeleton/themes/crimson";
 @import "./turnip-theme.css";
 
-@source "../node_modules/@skeletonlabs/skeleton-svelte/dist";
+@source "../../../node_modules/@skeletonlabs/skeleton-svelte/dist";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -50,4 +50,25 @@ a.external-link {
     background-color: rgb(var(--color-surface-900) / 0.95);
     --tw-ring-color: rgb(var(--color-text-400));
     /*background-color: red;*/
+}
+
+@layer base {
+    .game-link-section {
+        @apply mt-6 flex gap-2 justify-center;
+    }
+
+    .game-video-cover {
+        @apply rounded-t-lg max-h-64 object-cover w-full;
+    }
+
+    .text-chip-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .text-chip {
+        background-color: var(--color-secondary-50-950) /* light-dark(var(--color-secondary-50), var(--color-secondary-950)) */;
+        color: var(--color-secondary-950-50) /* light-dark(var(--color-secondary-950), var(--color-secondary-50)) */;
+    }
 }

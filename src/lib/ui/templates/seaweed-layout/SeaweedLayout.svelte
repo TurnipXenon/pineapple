@@ -4,27 +4,54 @@
 	import { PinyaPageLayout } from "$pkg/ui/templates/index";
 	import { SocialSection } from "$pkg/ui/components/index";
 	import EntryGroup from "$pkg/ui/templates/seaweed-layout/EntryGroup.svelte";
-	import { Chip, seaweedTemplateData } from "$pkg";
-	import UrlShortenerForm from "$pkg/template/seaweed/CreateUrlForm.svelte";
-	import PineappleSlideToggle from "../../../components/PineappleSlideToggle.svelte";
-	import EntryOrderConfig from "$pkg/template/seaweed/entry_order_config/EntryOrderConfig.svelte";
+	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
+	import { TextChip } from "$pkg/ui/elements/index";
+	import { SvelteMap } from "svelte/reactivity";
 
 
 	let {
 		children,
 		sideSection,
 		entryList, // todo
-		layout // todo
+		layout, // todo
+		queryTerms
 	}: SeaweedLayoutProps = $props();
 
-	let isAdvanceSettingOn = $state(false);
-	let orderUrl = $state('');
+	let isAdvanceSettingOn = $state(true);
+	let orderUrl = $state("");
 
+	let queryStates = new SvelteMap<string, boolean>(queryTerms.map(term => [term, true]));
+	let styleStr = $state("");
 
-	const toggleTerm = (term: string) => {
-		// todo: see seaweedtemplate #migration
-	}
+	$effect(() => {
+		const chipList: string[] = [];
+		const termList: string[] = [];
+		queryStates.entries()
+			.filter(([_, state]) => state)
+			.forEach(([term, state], idx) => {
+				const qtTerm = `.qt-${term}`;
+				termList.push(qtTerm);
+				chipList.push(`.text-chip${qtTerm}`);
+			});
+		styleStr = `<style>
+			${termList.join(", ")} {
+				font-weight: bolder;
+				color: var(--color-secondary-400);
+			}
+
+			${chipList.join(", ")} {
+				background-color: var(--color-secondary-500) /* oklch(55.6% 0 0deg) = #737373 */;
+				color: var(--color-secondary-contrast-500) /* var(--color-secondary-contrast-light) */;
+			}
+			</style>`;
+		console.log(styleStr);
+	});
 </script>
+
+<svelte:head>
+	<title>Hello world!</title>
+	{@html styleStr}
+</svelte:head>
 
 
 {#snippet socialSection()}
@@ -47,73 +74,65 @@
 	</div>
 
 	<!--todo: render list #migration-->
-		{#each layout as group (group.title)}
-			<EntryGroup {...group}></EntryGroup>
-		{/each}
+	{#each layout as group (group.title)}
+		<EntryGroup {...group}></EntryGroup>
+	{/each}
 
 	{#snippet footer()}
 		<div class="footer">
 			<ChumBucket></ChumBucket>
 
-
 			<div class="default-card advanced-setting mt-16 mb-32">
 				<h1>Advanced settings</h1>
 				<p>This one is for those curious how I customize this page.</p>
 
-				<PineappleSlideToggle name="advanced-setting-slider"
-				                      bind:checked={isAdvanceSettingOn}>
-					Advanced settings: {isAdvanceSettingOn ? "On" : "Off"}
-				</PineappleSlideToggle>
+				Advanced settings: {isAdvanceSettingOn ? "On" : "Off"}
+				<PineappleSwitch name="advanced-setting-slider"
+				                 bind:checked={isAdvanceSettingOn}>
+				</PineappleSwitch>
 
 				{#if (isAdvanceSettingOn)}
-					<PineappleSlideToggle name="game-section-slider"
-					                      bind:checked={seaweedTemplateData.gameSectionFirst}>
-						Should game section appear first over projects: {seaweedTemplateData.gameSectionFirst ? "On" : "Off"}
-					</PineappleSlideToggle>
-					<p>Note: the above configuration was made before the dynamic entry list and to support links sent with that params, we will act like it only swaps the two groups, and nothing more dynamic if order query param does not exist. The configuration only happens during page load with query param, and it does not apply when changed here.</p>
-					<PineappleSlideToggle name="fun-note-slider"
-					                      bind:checked={seaweedTemplateData.shouldAddFunNote}>
-						Should add fun note in description: {seaweedTemplateData.shouldAddFunNote ? "On" : "Off"}
-					</PineappleSlideToggle>
 
-					<h3>Query terms to bold</h3>
-					<div class="query-term-grid">
-						{#each seaweedTemplateData.queryTermMap.entries() as [term, shouldBold]}
-							<!--{@const shouldBold = false}-->
-							<Chip onClick={() => {toggleTerm(term)}}
-							      checked={shouldBold}>
-								<!-- todo: change shouldBold -->
-								<span style={`font-weight: ${shouldBold ? "bold" : "normal"}`}>
+					<h3 class="mt-6">Query terms to bold</h3>
+					<div class="query-term-grid max-w-2xl">
+						{#each queryStates as [term, shouldBold] (term)}
+							<button
+								class="bg-transparent hover:brightness-110"
+								onclick={() => { queryStates.set(term, !shouldBold); }}
+							>
+								<TextChip queryClass={shouldBold ? 'highlight-chip' : ''}>
+									<!-- todo: change shouldBold -->
+									<span style={`font-weight: ${shouldBold ? "bold" : "normal"}`}>
 										{#if (shouldBold)}✓{/if}
-									{term}
+										{term}
 									</span>
-							</Chip>
+								</TextChip>
+							</button>
 						{/each}
 					</div>
 
-<!--					todo: #migration -->
-<!--					<EntryOrderConfig bind:seaweedEntries={seaweedTemplateData.groupedEntries}-->
-<!--					                  seaweedTemplateData={seaweedTemplateData}-->
-<!--					                  bind:orderUrl={orderUrl}-->
-<!--					                  getAllEntryFromGlobal={getAllEntryFromGlobal}-->
-<!--					                  getEntryFromGlobal={getEntryFromGlobal}-->
-<!--					                  updateUrl={updateUrl}>-->
-<!--						-->
-<!--					</EntryOrderConfig>-->
+					<!--					todo: #migration -->
+					<!--					<EntryOrderConfig bind:seaweedEntries={seaweedTemplateData.groupedEntries}-->
+					<!--					                  seaweedTemplateData={seaweedTemplateData}-->
+					<!--					                  bind:orderUrl={orderUrl}-->
+					<!--					                  getAllEntryFromGlobal={getAllEntryFromGlobal}-->
+					<!--					                  getEntryFromGlobal={getEntryFromGlobal}-->
+					<!--					                  updateUrl={updateUrl}>-->
+					<!--						-->
+					<!--					</EntryOrderConfig>-->
 
 					<br>
 					<p>Copy the url below and open a new page with it</p>
-<!--					# todo: migration-->
-<!--					<CodeBlock language="url" code={advancedUrl}></CodeBlock>-->
+					<!--					# todo: migration-->
+					<!--					<CodeBlock language="url" code={advancedUrl}></CodeBlock>-->
 
-<!--					todo: #migration-->
-<!--					<UrlShortenerForm queryParams={advancedQuery}></UrlShortenerForm>-->
+					<!--					todo: #migration-->
+					<!--					<UrlShortenerForm queryParams={advancedQuery}></UrlShortenerForm>-->
 				{/if}
 			</div>
 		</div>
 	{/snippet}
 </PinyaPageLayout>
-
 
 <style>
     :global(html) {
@@ -142,5 +161,12 @@
         flex-wrap: wrap;
         gap: 2rem;
         justify-content: center;
+    }
+
+    .query-term-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25em;
+        margin-top: 1lh;
     }
 </style>

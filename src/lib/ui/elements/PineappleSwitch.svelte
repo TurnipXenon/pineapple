@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import { Switch } from "@skeletonlabs/skeleton-svelte";
 	import type { Snippet } from "svelte";
 
@@ -14,17 +13,17 @@
 		checked = $bindable(false),
 		name,
 		onChange = undefined,
-		children = undefined,
+		children = undefined
 	}: Props = $props();
 </script>
 
 <Switch name={name}
-        controlBase="bg-red-500"
+        controlActive="bg-secondary-400 dark:bg-secondary-500"
+        controlInactive="bg-surface-700 dark:bg-surface-800"
         checked={checked}
         onCheckedChange={(e) => {
 					checked = e.checked;
 					onChange?.();
-        }}
->
+        }}>
 	{@render children?.()}
 </Switch>

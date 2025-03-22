@@ -1,10 +1,13 @@
 <script lang="ts">
-	import { modals } from 'svelte-modals';
+	import { modals } from "svelte-modals";
 
-	import { ButtonVariant, ImageIcon, PinyaButton, PinyaCard } from '$pkg/ui/elements/index';
+	import { ButtonVariant, ImageIcon, PinyaButton, PinyaCard } from "$pkg/ui/elements/index";
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
-	import { FourPartCard } from '$pkg/ui/components/index';
-	import TestModal from './TestModal.svelte';
+	import { FourPartCard } from "$pkg/ui/components/index";
+	import TestModal from "./TestModal.svelte";
+	import PinyaSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
+
+	let testSwitchVal = $state(false);
 </script>
 
 <div class="flex flex-col gap-4">
@@ -16,6 +19,11 @@
 		}}>
 			Click here to test confirmation modal
 		</PinyaButton>
+		<div class="mt-4 mb-4">
+			<label for="test-switch">Switch is {testSwitchVal}</label>
+			<PinyaSwitch name="test-switch"></PinyaSwitch>
+		</div>
+
 	</PinyaCard>
 
 	<PinyaCard widthClass="max-w-2xl">
