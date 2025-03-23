@@ -8,7 +8,7 @@
 	import { CodeBlock, TextChip } from "$pkg/ui/elements/index";
 	import { SvelteMap } from "svelte/reactivity";
 	import EntryOrderConfig2 from "$pkg/ui/templates/seaweed-layout/EntryOrderConfig2.svelte";
-
+	import CreateUrlForm from "$pkg/template/seaweed/CreateUrlForm.svelte";
 
 	let {
 		children,
@@ -27,7 +27,7 @@
 	let queryQt = $derived.by(() => {
 		const qtArr = [...queryStates.entries()
 			.filter(([, state]) => state)
-			.map(([term,]) => term)
+			.map(([term]) => term)
 		];
 
 		if (qtArr.length === queryStates.size) {
@@ -147,40 +147,11 @@
 						bind:orderUrl={orderUrl}
 						allEntries={entryList}
 					></EntryOrderConfig2>
-					<!--						<PinyaCard-->
-					<!--							borderClass="border-[2px] border-primary-500"-->
-					<!--							widthClass="max-w-2xl"-->
-					<!--						>-->
-					<!--							<div><span class="fake-h4">{l.title}</span></div>-->
-					<!--							<p><b>Entries</b></p>-->
-					<!--							{#each l.entryList as entry (entry)}-->
-					<!--								<p>{entry.key}</p>-->
-					<!--							{/each}-->
-					<!--							<div class="flex flex-row gap-2 flex-wrap">-->
-					<!--								<PinyaButton>Remove</PinyaButton>-->
-					<!--								<PinyaButton>Move up</PinyaButton>-->
-					<!--								<PinyaButton>Move down</PinyaButton>-->
-					<!--							</div>-->
-					<!--						</PinyaCard>-->
-
-					<!--					todo: #migration -->
-					<!--					<EntryOrderConfig bind:seaweedEntries={seaweedTemplateData.groupedEntries}-->
-					<!--					                  seaweedTemplateData={seaweedTemplateData}-->
-					<!--					                  bind:orderUrl={orderUrl}-->
-					<!--					                  getAllEntryFromGlobal={getAllEntryFromGlobal}-->
-					<!--					                  getEntryFromGlobal={getEntryFromGlobal}-->
-					<!--					                  updateUrl={updateUrl}>-->
-					<!--						-->
-					<!--					</EntryOrderConfig>-->
 
 					<br>
 					<p>Copy the url below and open a new page with it</p>
-					<CodeBlock code={advancedUrl} lang="markdown" classes="max-w-2xl"/>
-					<!--					# todo: migration-->
-					<!--					<CodeBlock language="url" code={advancedUrl}></CodeBlock>-->
-
-					<!--					todo: #migration-->
-					<!--					<UrlShortenerForm queryParams={advancedQuery}></UrlShortenerForm>-->
+					<CodeBlock code={advancedUrl} lang="markdown" classes="max-w-2xl" />
+					<CreateUrlForm queryParams={advancedQuery}></CreateUrlForm>
 				{/if}
 			</div>
 		</div>
