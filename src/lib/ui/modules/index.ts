@@ -1,1 +1,2 @@
-export * from "./seaweed/index";
+export * from "./seaweed";
+export * from "./projects";
