@@ -15,6 +15,7 @@
 	import css from "shiki/langs/css.mjs";
 	import js from "shiki/langs/javascript.mjs";
 	import ts from "shiki/langs/typescript.mjs";
+	import markdown from "shiki/langs/markdown.mjs";
 
 	// https://shiki.style/guide/sync-usage
 	const shiki = createHighlighterCoreSync({
@@ -22,7 +23,7 @@
 		// Implement your import theme.
 		themes: [themeLight, themeDark],
 		// Implement your imported and supported languages.
-		langs: [console, html, css, js, ts]
+		langs: [console, html, css, js, ts, markdown]
 	});
 </script>
 
@@ -44,7 +45,7 @@
 	}: CodeBlockProps = $props();
 
 	// Shiki convert to HTML
-	const generatedHtml = shiki.codeToHtml(code, {
+	const generatedHtml = $derived(shiki.codeToHtml(code, {
 		lang,
 		themes: {
 			light: "catppuccin-latte",
@@ -53,7 +54,7 @@
 		transformers: [
 			addCopyButton({ toggle: 2000 })
 		]
-	});
+	}));
 </script>
 
 <div

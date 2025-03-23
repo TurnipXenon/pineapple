@@ -1,14 +1,17 @@
 <script lang="ts">
 	import { type CreateUrlRequest, CreateUrlResult, jsonToCreateUrlResponse } from "$pkg/types/api/CreateUrl";
-	import { type ToastSettings } from "@skeletonlabs/skeleton-svelte";
+	import type { ToastContext } from "@skeletonlabs/skeleton-svelte";
+	import { getContext } from "svelte";
+	import type { ToastSettings } from "./ToastSettings";
+
+	export const toast: ToastContext = getContext("toast");
+
 
 	interface Props {
 		queryParams?: string;
 	}
 
 	let { queryParams = "" }: Props = $props();
-
-	const toastStore = getToastStore();
 
 	let request: CreateUrlRequest = $state({
 		queryParams: "",
@@ -22,14 +25,15 @@
 
 
 	const failToast: ToastSettings = {
-		message: "Adding new url failed"
+		title: "Adding new url failed",
+		type: "error"
 	};
 	const toastMap = new Map<CreateUrlResult, ToastSettings>([
 		[CreateUrlResult.Success, {
-			message: "Successfully added new url"
+			title: "Successfully added new url"
 		}],
 		[CreateUrlResult.Duplicate, {
-			message: "Short url already used; try again with another url"
+			title: "Short url already used; try again with another url"
 		}],
 		[CreateUrlResult.Fail, failToast]
 	]);
@@ -44,7 +48,7 @@
 			resp.json()
 		).then(json => {
 			const properResp = jsonToCreateUrlResponse(json);
-			toastStore.trigger(toastMap.get(properResp.result) ?? failToast);
+			toast.create(toastMap.get(properResp.result) ?? failToast);
 		});
 	};
 </script>

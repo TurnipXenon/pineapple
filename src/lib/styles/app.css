@@ -84,6 +84,13 @@ html.dark .shiki span {
     text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
+.shiki {
+    span {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+}
+
 /* region shiki copy button */
 pre:has(code) {
     position: relative;

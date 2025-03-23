@@ -15,6 +15,7 @@
 		sideSection,
 		entryList, // todo
 		layout = $bindable(), // todo
+		domain = "http://localhost:5173/seaweed2",
 		queryTerms
 	}: SeaweedLayoutProps = $props();
 
@@ -23,6 +24,24 @@
 
 	let queryStates = new SvelteMap<string, boolean>(queryTerms.map(term => [term, true]));
 	let styleStr = $state("");
+	let queryQt = $derived.by(() => {
+		const qtArr = [...queryStates.entries()
+			.filter(([, state]) => state)
+			.map(([term,]) => term)
+		];
+
+		if (qtArr.length === queryStates.size) {
+			return "";
+		}
+
+		const qtStr = qtArr.join(",");
+
+		if (qtStr) {
+			return `qt=${qtStr}`;
+		}
+
+		return "qt=clear";
+	});
 
 	$effect(() => {
 		const chipList: string[] = [];
@@ -47,7 +66,18 @@
 			</style>`;
 	});
 
-	const exampleJavascript = `const foo: string = 'bar';`;
+	let advancedQuery = $derived.by(() => {
+		const query = [orderUrl, queryQt]
+			.filter(q => q)
+			.join("&");
+		if (query) {
+			return `${query}`;
+		}
+
+		return "";
+	});
+
+	let advancedUrl = $derived.by(() => `${domain}/?${advancedQuery}`);
 </script>
 
 <svelte:head>
@@ -145,8 +175,7 @@
 
 					<br>
 					<p>Copy the url below and open a new page with it</p>
-					<p>URL: {orderUrl}</p>
-					<CodeBlock code={exampleJavascript} lang="ts" />
+					<CodeBlock code={advancedUrl} lang="markdown" classes="max-w-2xl"/>
 					<!--					# todo: migration-->
 					<!--					<CodeBlock language="url" code={advancedUrl}></CodeBlock>-->
 

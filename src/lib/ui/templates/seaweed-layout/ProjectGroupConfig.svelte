@@ -30,7 +30,7 @@
 		orderUrl = "order=" + layout.map(g => {
 			const groupUrl = g.entryList.map(e => e.key).join("|");
 			// the last item after : is a grid class but we're keeping it here for legacy reason
-			return `${g.key}:${groupUrl}:`;
+			return `${g.title}:${groupUrl}:`;
 		}).join(",");
 	};
 
