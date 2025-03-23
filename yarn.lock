@@ -1949,6 +1949,13 @@ has-own-prop@^2.0.0:
   resolved "https://registry.yarnpkg.com/has-own-prop/-/has-own-prop-2.0.0.tgz#f0f95d58f65804f5d218db32563bb85b8e0417af"
   integrity sha512-Pq0h+hvsVm6dDEa8x82GnLSYHOzNDt7f0ddFa3FqcQlgzEiptPqL+XrOJNavjOzSYiYWIrgeVYYgGlLmnxwilQ==
 
+hast-util-parse-selector@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/hast-util-parse-selector/-/hast-util-parse-selector-4.0.0.tgz#352879fa86e25616036037dd8931fb5f34cb4a27"
+  integrity sha512-wkQCkSYoOGCRKERFWcxMVMOcYE2K1AaNLU8DXS9arxnLOUEWbOXKXiJUNzEpqZ3JOKpnha3jkFrumEjVliDe7A==
+  dependencies:
+    "@types/hast" "^3.0.0"
+
 hast-util-to-html@^9.0.5:
   version "9.0.5"
   resolved "https://registry.yarnpkg.com/hast-util-to-html/-/hast-util-to-html-9.0.5.tgz#ccc673a55bb8e85775b08ac28380f72d47167005"
@@ -1972,6 +1979,17 @@ hast-util-whitespace@^3.0.0:
   integrity sha512-88JUN06ipLwsnv+dVn+OIYOvAuvBMy/Qoi6O7mQHxdPXpjy+Cd6xRkWwux7DKO+4sYILtLBRIKgsdpS2gQc7qw==
   dependencies:
     "@types/hast" "^3.0.0"
+
+hastscript@^9.0.0:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/hastscript/-/hastscript-9.0.1.tgz#dbc84bef6051d40084342c229c451cd9dc567dff"
+  integrity sha512-g7df9rMFX/SPi34tyGCyUBREQoKkapwdY/T04Qn9TDWfHhAYt4/I0gMVirzK5wEzeUqIjEB+LXC/ypb7Aqno5w==
+  dependencies:
+    "@types/hast" "^3.0.0"
+    comma-separated-tokens "^2.0.0"
+    hast-util-parse-selector "^4.0.0"
+    property-information "^7.0.0"
+    space-separated-tokens "^2.0.0"
 
 he@1.2.0:
   version "1.2.0"
@@ -2716,6 +2734,13 @@ shebang-regex@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
+
+shiki-transformer-copy-button@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/shiki-transformer-copy-button/-/shiki-transformer-copy-button-0.0.3.tgz#3d99284138fcb00bddcf99a852854de27e5159d4"
+  integrity sha512-MPwtpYEWWhLFVBaEY/IeI34tBNuynu2n/khHEysTa1ijodLauS7fg38FTBthML3WxpE/Z5kRdZeitRQx7FJgdA==
+  dependencies:
+    hastscript "^9.0.0"
 
 shiki@^3.2.1:
   version "3.2.1"

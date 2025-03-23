@@ -5,7 +5,7 @@
 	import { SocialSection } from "$pkg/ui/components/index";
 	import EntryGroup from "$pkg/ui/templates/seaweed-layout/EntryGroup.svelte";
 	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
-	import { TextChip } from "$pkg/ui/elements/index";
+	import { CodeBlock, TextChip } from "$pkg/ui/elements/index";
 	import { SvelteMap } from "svelte/reactivity";
 	import EntryOrderConfig2 from "$pkg/ui/templates/seaweed-layout/EntryOrderConfig2.svelte";
 
@@ -46,6 +46,8 @@
 			}
 			</style>`;
 	});
+
+	const exampleJavascript = `const foo: string = 'bar';`;
 </script>
 
 <svelte:head>
@@ -144,6 +146,7 @@
 					<br>
 					<p>Copy the url below and open a new page with it</p>
 					<p>URL: {orderUrl}</p>
+					<CodeBlock code={exampleJavascript} lang="ts" />
 					<!--					# todo: migration-->
 					<!--					<CodeBlock language="url" code={advancedUrl}></CodeBlock>-->
 
