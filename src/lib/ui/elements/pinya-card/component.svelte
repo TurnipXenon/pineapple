@@ -8,13 +8,14 @@ let {
 	flexClass = "flex flex-col",
 	widthClass = "max-w-md",
 	borderClass = "border-[2px] border-primary-500 dark:border-0",
+	marginClass = "",
 	className,
 	children
 }: PinyaCardProps = $props();
 </script>
 
 <div
-	class={`card bg-surface-200 dark:bg-surface-900 w-full text-start rounded-xl ${paddingClass} ${flexClass} ${className} ${widthClass} ${borderClass}`}
+	class={`card bg-surface-200 dark:bg-surface-900 w-full text-start rounded-xl ${paddingClass} ${flexClass} ${className} ${widthClass} ${borderClass} ${marginClass}`}
 >
 	{@render children?.()}
 </div>

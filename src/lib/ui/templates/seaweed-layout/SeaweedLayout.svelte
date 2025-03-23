@@ -5,9 +5,8 @@
 	import { SocialSection } from "$pkg/ui/components/index";
 	import EntryGroup from "$pkg/ui/templates/seaweed-layout/EntryGroup.svelte";
 	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
-	import { PinyaCard, TextChip } from "$pkg/ui/elements/index";
+	import { TextChip } from "$pkg/ui/elements/index";
 	import { SvelteMap } from "svelte/reactivity";
-	import { PinyaButton } from "$pkg/ui/elements/index.js";
 	import EntryOrderConfig2 from "$pkg/ui/templates/seaweed-layout/EntryOrderConfig2.svelte";
 
 
@@ -112,29 +111,26 @@
 						{/each}
 					</div>
 
-					<h3>Site ordering</h3>
-					{#each layout as l (l.title)}
-						<EntryOrderConfig2
-							{layout}
-							bind:orderUrl={orderUrl}
-							allEntries={entryList}
-						></EntryOrderConfig2>
-						<!--						<PinyaCard-->
-						<!--							borderClass="border-[2px] border-primary-500"-->
-						<!--							widthClass="max-w-2xl"-->
-						<!--						>-->
-						<!--							<div><span class="fake-h4">{l.title}</span></div>-->
-						<!--							<p><b>Entries</b></p>-->
-						<!--							{#each l.entryList as entry (entry)}-->
-						<!--								<p>{entry.key}</p>-->
-						<!--							{/each}-->
-						<!--							<div class="flex flex-row gap-2 flex-wrap">-->
-						<!--								<PinyaButton>Remove</PinyaButton>-->
-						<!--								<PinyaButton>Move up</PinyaButton>-->
-						<!--								<PinyaButton>Move down</PinyaButton>-->
-						<!--							</div>-->
-						<!--						</PinyaCard>-->
-					{/each}
+					<EntryOrderConfig2
+						{layout}
+						bind:orderUrl={orderUrl}
+						allEntries={entryList}
+					></EntryOrderConfig2>
+					<!--						<PinyaCard-->
+					<!--							borderClass="border-[2px] border-primary-500"-->
+					<!--							widthClass="max-w-2xl"-->
+					<!--						>-->
+					<!--							<div><span class="fake-h4">{l.title}</span></div>-->
+					<!--							<p><b>Entries</b></p>-->
+					<!--							{#each l.entryList as entry (entry)}-->
+					<!--								<p>{entry.key}</p>-->
+					<!--							{/each}-->
+					<!--							<div class="flex flex-row gap-2 flex-wrap">-->
+					<!--								<PinyaButton>Remove</PinyaButton>-->
+					<!--								<PinyaButton>Move up</PinyaButton>-->
+					<!--								<PinyaButton>Move down</PinyaButton>-->
+					<!--							</div>-->
+					<!--						</PinyaCard>-->
 
 					<!--					todo: #migration -->
 					<!--					<EntryOrderConfig bind:seaweedEntries={seaweedTemplateData.groupedEntries}-->

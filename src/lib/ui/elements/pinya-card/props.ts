@@ -6,5 +6,6 @@ export interface PinyaCardProps extends WrapperProps {
 	flexClass?: string;
 	widthClass?: string;
 	borderClass?: string;
+	marginClass?: string;
 	includeDataNoSnippet?: boolean;
 }

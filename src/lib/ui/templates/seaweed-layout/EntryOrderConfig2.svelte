@@ -3,6 +3,7 @@
 	import UpwardIcon from "$pkg/assets/icons/arrow-upward.svg";
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/index";
 	import { onMount } from "svelte";
+	import { PinyaCard } from "$pkg/ui/elements/index";
 
 	interface Props {
 		layout: ProjectGroup[];
@@ -114,7 +115,7 @@
 </script>
 
 <br>
-<h2>Site ordering</h2>
+<h3>Site ordering</h3>
 <blockquote>Sorry! This part of the website is still WIP, but here it is anyway. As long as it functions</blockquote>
 
 <!-- formatting: group1:entry1|entry2,group2:entry3
@@ -124,9 +125,14 @@
  -->
 <div class="advanced-setting-list">
 	{#each layout as group, groupIndex (group.key)}
-		<div class="entry-group card">
+		<PinyaCard
+			widthClass="max-w-2xl"
+			borderClass="border-[2px] border-primary-500"
+			marginClass="mt-4 mb-4"
+			paddingClass=""
+		>
 
-			<div class="-header">
+			<div class="m-4 flex flex-row gap-2">
 				<button title={`Remove ${group.title}`}
 				        onclick={removeGroup(group)}>
 					<img class="img-icon" src={CloseIcon} alt={`Remove ${group.title}`}>
@@ -148,19 +154,21 @@
 					>
 				</button>
 
-				<h2>{group.title}</h2>
+				<div class="fake-h3 ml-2">Group title: {group.title}</div>
 			</div>
 
-			<table class="advanced-setting-list table">
+			<hr class="border-primary-500 border-1">
+
+			<table class="table">
 				<thead>
 				<tr>
-					<th>Entries</th>
+					<th class="fake-h4">Entries</th>
 				</tr>
 				</thead>
 				<tbody>
 				{#each group.entryList as entry, entryIndex (entry)}
 					<tr class="entry-row">
-						<td class="-entry">
+						<td class="entry-data">
 
 							<button title={`Remove ${entry.key}`}
 							        onclick={removeEntry(entry, group)}>
@@ -196,7 +204,7 @@
 			</table>
 
 
-		</div>
+		</PinyaCard>
 	{/each}
 </div>
 
@@ -235,17 +243,16 @@
         padding: 0.5lh 0.5em;
     }
 
-    .entry-row {
-        display: flex;
-        align-items: center;
-    }
-
     .entry-name {
         grow: 1;
     }
 
-    tr, td, th {
+    tr, td, th, table {
         width: 100%;
+    }
+
+    table {
+		    margin-bottom: 1lh;
     }
 
     tfoot > tr {
@@ -272,19 +279,19 @@
         background-color: rgb(var(--color-surface-800));
     }
 
+
     tbody tr:nth-child(odd) {
-        background-color: rgb(var(--color-surface-500));
+        background-color: var(--color-surface-100-900);
     }
 
-    .dark tbody tr:nth-child(odd) {
-        background-color: rgb(var(--color-surface-900));
+    tbody tr:nth-child(even), thead {
+        background-color: var(--color-surface-300-700);
     }
 
-    tbody tr:nth-child(even) {
-        background-color: rgb(var(--color-surface-200));
-    }
-
-    .dark tbody tr:nth-child(even) {
-        background-color: rgb(var(--color-surface-800));
+    .entry-data {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
     }
 </style>
