@@ -54,6 +54,7 @@
     "mode-watcher": "^0.5.1",
     "node-html-parser": "^6.1.5",
     "publint": "^0.2.7",
+    "shiki": "^3.2.1",
     "string-width": "^7.1.0",
     "svelte": "^5.0.0",
     "svelte-modals": "^2.0.1",
