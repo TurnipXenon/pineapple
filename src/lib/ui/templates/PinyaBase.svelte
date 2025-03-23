@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { ModeWatcher } from 'mode-watcher';
-	import { Modals } from 'svelte-modals';
-	import { page } from '$app/state';
-	import { locales, localizeHref } from '$lib/paraglide/runtime';
+	import { ModeWatcher } from "mode-watcher";
+	import { Modals } from "svelte-modals";
+	import { page } from "$app/state";
+	import { locales, localizeHref } from "$lib/paraglide/runtime";
 	import "$lib/styles/global.css";
 
-	import '$pkg/styles/app.css';
+	import "$pkg/styles/app.css";
+	import { ToastProvider } from "@skeletonlabs/skeleton-svelte";
 
 	let { children } = $props();
 </script>
@@ -22,7 +23,9 @@
 </Modals>
 <ModeWatcher defaultTheme="turnip" />
 
-{@render children()}
+<ToastProvider>
+	{@render children()}
+</ToastProvider>
 
 <!--invisible ink-->
 <div style="display:none">

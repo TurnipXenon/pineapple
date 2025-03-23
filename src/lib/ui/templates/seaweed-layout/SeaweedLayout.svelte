@@ -45,7 +45,6 @@
 				color: var(--color-secondary-contrast-500) /* var(--color-secondary-contrast-light) */;
 			}
 			</style>`;
-		console.log(styleStr);
 	});
 </script>
 

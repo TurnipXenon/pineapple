@@ -14,5 +14,9 @@ export interface PinyaComboboxProps<T extends string> {
 	value: T[];
 	label: string;
 	placeholder: string;
-	onValueChange: (selectedList: ValueChangeDetails<T>) => void;
+	onValueChange?: (selectedList: ValueChangeDetails<T>) => void;
+	// override this if you want to override the behavior of settings value automatically
+	// useful if you arent using basic strings
+	onValueChangeBase?: (selectedList: ValueChangeDetails<T>) => void;
+	contentZIndex?: string;
 }

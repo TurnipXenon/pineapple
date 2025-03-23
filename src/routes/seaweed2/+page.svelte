@@ -38,7 +38,7 @@
 				Soulwork,
 			],
 			key: 'projects',
-		}
+		},
 	];
 </script>
 
