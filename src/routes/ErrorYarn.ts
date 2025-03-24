@@ -2,8 +2,8 @@
 // do not edit!
 			
 import { PortraitType } from "$lib/types/pineapple_fiber/PortraitType";
+import { dialogManager } from "$lib/components/dialog_manager/DialogManagerStore";
 import type { DialogDetail } from "$lib/types/pineapple_fiber/DialogDetail";
-import { dialogManager } from "$pkg";
 
 class _ErrorYarn {
 	dialogList: DialogDetail[] = [

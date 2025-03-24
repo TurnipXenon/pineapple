@@ -16,11 +16,10 @@
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
-	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { dialogManager, enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import Toast from "$pkg/components/pineapple/toast/Toast.svelte";
 	import DialogOverlay from "$pkg/components/dialog_overlay/DialogOverlay.svelte";
 	import { fade } from "svelte/transition";
-	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
 
 	interface Props {
 		showDialogByDefault?: boolean;

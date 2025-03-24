@@ -1,7 +1,7 @@
 <script>
 	import { onDestroy } from "svelte";
+	import { dialogManager } from "$lib/components/dialog_manager/DialogManagerStore.ts";
 	import { ErrorYarn } from "./ErrorYarn";
-	import { dialogManager } from "$pkg";
 
 	ErrorYarn.setDialogTree();
 
