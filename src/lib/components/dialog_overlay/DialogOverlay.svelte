@@ -1,8 +1,8 @@
 <script lang="ts">
 	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 	import { onMount } from "svelte";
-	import { dialogManager } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
+	import { dialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
 
 	let currentMessage = $state("");
 	dialogManager.currentMessage.subscribe((value) => {
