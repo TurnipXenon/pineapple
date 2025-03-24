@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha-3",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && yarn package",
@@ -36,7 +36,6 @@
     "vite": "^5.4.4"
   },
   "dependencies": {
-    "tailwindcss": "^4.0.14",
     "@inlang/paraglide-js": "2.0.0-beta.30",
     "@prisma/client": "^5.12.1",
     "@skeletonlabs/skeleton": "^3.1.0",
@@ -56,6 +55,7 @@
     "string-width": "^7.1.0",
     "svelte": "^5.0.0",
     "svelte-modals": "^2.0.1",
+    "tailwindcss": "^4.0.14",
     "ts-node": "^10.9.1"
   },
   "exports": {
