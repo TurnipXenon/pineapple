@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "3.0.0-alpha.6",
+  "version": "3.0.0-alpha.7",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && yarn package",
@@ -18,11 +18,11 @@
     "to-dev": "git checkout main && git pull origin main && git branch -d turnip/dev && git checkout -b turnip/dev"
   },
   "devDependencies": {
+    "@eslint/compat": "^1.2.5",
+    "@eslint/js": "^9.18.0",
     "@sveltejs/adapter-auto": "^3.1.1",
     "@sveltejs/kit": "^2.5.27",
     "@sveltejs/package": "^2.3.7",
-    "@eslint/compat": "^1.2.5",
-    "@eslint/js": "^9.18.0",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-svelte": "^3.0.0",
@@ -30,12 +30,12 @@
     "prettier": "^3.4.2",
     "prettier-plugin-svelte": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "typescript-eslint": "^8.20.0",
     "prisma": "^5.12.1",
     "svelte-check": "^4.0.0",
     "svelte2tsx": "^0.6.20",
     "tslib": "^2.4.1",
     "typescript": "^5.5.0",
+    "typescript-eslint": "^8.20.0",
     "vite": "^5.4.4"
   },
   "dependencies": {
@@ -89,8 +89,8 @@
     "src/lib/styles/app.css",
     "src/lib/theme.css"
   ],
-  "engines" : {
-    "node" : ">=22"
+  "engines": {
+    "node": ">=22"
   },
   "repository": "https://github.com/TurnipXenon/pineapple",
   "author": "turnipxenon <turnipxenon@gmail.com>",
