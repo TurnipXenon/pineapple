@@ -4,7 +4,7 @@ import type { LineBehaviorResult } from "$lib/components/dialog_manager/behavior
 import { BehaviorStatus } from "$lib/components/dialog_manager/behavior_tree/core/BehaviorStatus";
 import { SetVariableNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/SetVariableNode";
 import { btreeUtils } from "$lib/components/dialog_manager/behavior_tree/core/BTreeUtils";
-import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
+import { dialogManager } from "$pkg";
 
 export class JumpCommand implements LineBehaviorNode {
 	setVariableNode = new SetVariableNode();
