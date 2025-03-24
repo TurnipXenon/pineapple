@@ -114,19 +114,19 @@ pre button.copy {
     }
 
     & .ready {
-        background-image: url("$lib/assets/icons/icon-copy-light-contrast.svg");
+        background-image: url("$pkg/assets/icons/icon-copy-light-contrast.svg");
 
         @variant dark {
-            background-image: url("$lib/assets/icons/icon-copy-dark-contrast.svg");
+            background-image: url("$pkg/assets/icons/icon-copy-dark-contrast.svg");
         }
     }
 
     & .success {
         display: none;
-        background-image: url("$lib/assets/icons/icon-check-light-contrast.svg");
+        background-image: url("$pkg/assets/icons/icon-check-light-contrast.svg");
 
         @variant dark {
-            background-image: url("$lib/assets/icons/icon-check-dark-contrast.svg");
+            background-image: url("$pkg/assets/icons/icon-check-dark-contrast.svg");
         }
     }
 
