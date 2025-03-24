@@ -3,8 +3,8 @@ import type { LineNodeArguments } from "$lib/components/dialog_manager/behavior_
 import type { LineBehaviorResult } from "$lib/components/dialog_manager/behavior_tree/line_core/LineBehaviorResult";
 import { BehaviorStatus } from "$lib/components/dialog_manager/behavior_tree/core/BehaviorStatus";
 import { SetVariableNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/SetVariableNode";
-import { dialogManager } from "$lib/components/dialog_manager/DialogManagerStore";
 import { btreeUtils } from "$lib/components/dialog_manager/behavior_tree/core/BTreeUtils";
+import { dialogManager } from "$pkg";
 
 export class JumpCommand implements LineBehaviorNode {
 	setVariableNode = new SetVariableNode();
