@@ -3,7 +3,7 @@
 			
 import { PortraitType } from "$lib/types/pineapple_fiber/PortraitType";
 import type { DialogDetail } from "$lib/types/pineapple_fiber/DialogDetail";
-import { dialogManager } from "$pkg";
+import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
 
 class _ErrorYarn {
 	dialogList: DialogDetail[] = [
