@@ -1,12 +1,15 @@
 <script lang="ts">
-    import {onMount} from "svelte";
+	import { onMount, type Snippet } from "svelte";
 
     interface Props {
         isVisible?: boolean;
-        children?: import('svelte').Snippet;
+        children?: Snippet;
     }
 
-    let { isVisible = $bindable(true), children }: Props = $props();
+    let {
+			isVisible = $bindable(true),
+	    children
+		}: Props = $props();
 
     let stickyElem: HTMLElement = $state();
 

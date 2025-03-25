@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fly } from "svelte/transition";
 	import type { SeaweedLayoutProps } from "./props";
 	import ChumBucket from "$pkg/ui/modules/seaweed/ChumBucket.svelte";
 	import { PinyaPageLayout } from "$pkg/ui/templates/index";
@@ -16,7 +17,8 @@
 		entryList, // todo
 		layout = $bindable(), // todo
 		domain = "http://localhost:5173/seaweed2",
-		queryTerms
+		queryTerms,
+		showMiniSocial = false
 	}: SeaweedLayoutProps = $props();
 
 	let isAdvanceSettingOn = $state(true);
@@ -47,8 +49,8 @@
 		const chipList: string[] = [];
 		const termList: string[] = [];
 		queryStates.entries()
-			.filter(([_, state]) => state)
-			.forEach(([term, state], idx) => {
+			.filter(([, state]) => state)
+			.forEach(([term]) => {
 				const qtTerm = `.qt-${term}`;
 				termList.push(qtTerm);
 				chipList.push(`.text-chip${qtTerm}`);
@@ -90,7 +92,14 @@
 {/snippet}
 <PinyaPageLayout>
 	{#snippet appBarLead()}
-		<div></div>
+		{#if showMiniSocial}
+			<div
+				class="flex flex-row"
+				transition:fly={{x:-10}}
+			>
+				<SocialSection isSmallVersion={true} />
+			</div>
+		{/if}
 	{/snippet}
 
 	<div id="upper-section">

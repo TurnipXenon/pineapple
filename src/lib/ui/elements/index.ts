@@ -1,5 +1,6 @@
 export { default as ImageIcon } from "./ImageIcon.svelte";
 export { default as TextLink } from "./TextLink.svelte";
+export { default as ElementVisibilityDetector } from "./ElementVisibilityDetector.svelte";
 
 export * from "./ColorScheme";
 export * from "./GeneralUIProps";

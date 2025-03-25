@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SocialSection from "$pkg/ui/components/SocialSection.svelte";
 	import Card from "$pkg/components/Card.svelte";
-	import ElementVisibilityDetector from "$pkg/components/ElementVisbilityDetector.svelte";
+	import ElementVisibilityDetector from "../../../ui/elements/ElementVisibilityDetector.svelte";
 	import type { EntryProps } from "$pkg/template/seaweed/entries/EntryProps";
 
 	interface Props {

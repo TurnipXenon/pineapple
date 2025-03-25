@@ -29,4 +29,5 @@ export interface SeaweedLayoutProps {
 	entryList: SnippetMeta[];
 	layout: ProjectGroup[];
 	queryTerms: string[];
+	showMiniSocial?: boolean;
 }

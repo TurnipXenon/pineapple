@@ -27,8 +27,6 @@
 		children
 	}: Props = $props();
 
-	$inspect("inside: should display:", shouldDisplayLeadingIcons, !!extraLeadingIcons);
-
 	$effect(() => {
 		if (extraLeadingIcons && shouldDisplayLeadingIcons) {
 			appState.lead = extraLeadingIcons;

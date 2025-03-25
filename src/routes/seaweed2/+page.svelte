@@ -8,7 +8,8 @@
 	import * as Hepcat from "$pkg/ui/modules/projects/Hepcat.svelte";
 	import * as ThisWebpage from "$pkg/ui/modules/projects/ThisWebpage.svelte";
 
-	import type { PageProps } from './$types';
+	import type { PageProps } from "./$types";
+	import ElementVisibilityDetector from "../../lib/ui/elements/ElementVisibilityDetector.svelte";
 
 	let { data }: PageProps = $props();
 
@@ -16,7 +17,7 @@
 		ThisWebpage,
 		Hepcat,
 		Pengi,
-		Soulwork,
+		Soulwork
 	];
 
 	const layout: ProjectGroup[] = [
@@ -25,9 +26,9 @@
 			entryList: [
 				Hepcat,
 				Pengi,
-				ThisWebpage,
+				ThisWebpage
 			],
-			key: 'games',
+			key: "games"
 		},
 		{
 			title: "Projects",
@@ -35,11 +36,14 @@
 				ThisWebpage,
 				Hepcat,
 				Pengi,
-				Soulwork,
+				Soulwork
 			],
-			key: 'projects',
-		},
+			key: "projects"
+		}
 	];
+
+	let isSocialVisible = $state(true);
+	let shouldShowSmallSocial = $derived(!isSocialVisible);
 </script>
 
 <!--todo: maybe add check that this is always false? -->
@@ -60,6 +64,7 @@
 	entryList={uiList}
 	layout={layout}
 	queryTerms={data.queryTerms}
+	showMiniSocial={shouldShowSmallSocial}
 >
 	{#snippet sideSection(socialSection: Snippet)}
 		<div class="flex flex-col gap-4">
@@ -73,6 +78,7 @@
 
 			<PinyaCard paddingClass="pt-6 pb-6">
 				{@render socialSection()}
+				<ElementVisibilityDetector bind:isVisible={isSocialVisible} />
 			</PinyaCard>
 		</div>
 	{/snippet}
