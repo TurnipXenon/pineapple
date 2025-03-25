@@ -30,4 +30,5 @@ export interface SeaweedLayoutProps {
 	layout: ProjectGroup[];
 	queryTerms: string[];
 	showMiniSocial?: boolean;
+	serverParams?: string;
 }

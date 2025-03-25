@@ -7,14 +7,14 @@
 		entryList
 	}: ProjectGroup = $props();
 
-	const isSpecial = entryList.length % 3 === 1;
+	const isSpecial = $derived(entryList.length % 3 === 1);
 
-	let normalUiList: SnippetMeta[] = isSpecial
+	let normalUiList: SnippetMeta[] = $derived(isSpecial
 		? [...entryList.slice(0, -4)]
-		: [...entryList];
-	let overflowUiList: SnippetMeta[] = isSpecial
+		: [...entryList]);
+	let overflowUiList: SnippetMeta[] = $derived(isSpecial
 		? [...entryList.slice(-4)]
-		: [];
+		: []);
 
 
 	// <!--todo: implement in seaweedlayout #migration-->

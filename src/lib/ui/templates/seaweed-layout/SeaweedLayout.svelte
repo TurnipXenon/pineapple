@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fly } from "svelte/transition";
-	import type { SeaweedLayoutProps } from "./props";
+	import type { ProjectGroup, SeaweedLayoutProps } from "./props";
 	import ChumBucket from "$pkg/ui/modules/seaweed/ChumBucket.svelte";
 	import { PinyaPageLayout } from "$pkg/ui/templates/index";
 	import { SocialSection } from "$pkg/ui/components/index";
@@ -10,17 +10,21 @@
 	import { SvelteMap } from "svelte/reactivity";
 	import EntryOrderConfig2 from "$pkg/ui/templates/seaweed-layout/EntryOrderConfig2.svelte";
 	import CreateUrlForm from "$pkg/template/seaweed/CreateUrlForm.svelte";
+	import { onMount } from "svelte";
+	import { page } from "$app/state";
 
 	let {
 		children,
 		sideSection,
 		entryList, // todo
-		layout = $bindable(), // todo
+		layout, // todo
 		domain = "http://localhost:5173/seaweed2",
 		queryTerms,
-		showMiniSocial = false
+		showMiniSocial = false,
+		serverParams = ""
 	}: SeaweedLayoutProps = $props();
 
+	let actualLayout = $state(layout);
 	let isAdvanceSettingOn = $state(true);
 	let orderUrl = $state("");
 
@@ -80,6 +84,74 @@
 	});
 
 	let advancedUrl = $derived.by(() => `${domain}/?${advancedQuery}`);
+
+
+	/** qt values and what they mean:
+	 *  undefined: set all qt terms to font-weight: bold
+	 *  todo: implement clear
+	 *  clear: unset all terms to font-weight: normal
+	 *  <term>: only set qt-<term> to bold
+	 *  <term1>,<term2>: only set qt-<term1> and qt-<term2> to bold,
+	 *
+	 *  ONLY CALL INSIDE onMount()
+	 **/
+	const filterSearchParams = (searchParams: URLSearchParams) => {
+		// region Order
+		const orderParam = searchParams.get("order")?.trim();
+		console.log(searchParams);
+		console.log(orderParam);
+		if (orderParam) {
+			actualLayout = [];
+
+			orderParam.split(",").forEach((groupDefinition, idx) => {
+				const pair = groupDefinition.split(":");
+				if (pair.length >= 2) {
+					const group: ProjectGroup = {
+						title: pair[0],
+						entryList: [],
+						key: `${pair[0]}-${idx}`
+					};
+
+					pair[1].split("|").forEach(key => {
+						const component = entryList.find(e => e.key === key);
+						if (component) {
+							group.entryList.push(component);
+						}
+					});
+
+					actualLayout.push(group);
+				}
+			});
+
+			actualLayout = [...actualLayout];
+			console.log(actualLayout);
+		}
+		// endregion
+
+		// region Bold terms
+		const qtValue = searchParams.get("qt")?.trim();
+		if (qtValue !== undefined) {
+			queryStates.keys()
+				.forEach(key => queryStates.set(key, false));
+
+			if (qtValue !== "clear") {
+				qtValue.split(",").forEach((term) => {
+					if (queryStates.has(term)) {
+						queryStates.set(term, true);
+					}
+				});
+			}
+		}
+		// endregion Bold terms
+	};
+
+	onMount(() => {
+		if (serverParams) {
+			filterSearchParams(new URLSearchParams(serverParams));
+		} else if (page.url.searchParams.size) {
+			filterSearchParams(page.url.searchParams);
+		}
+	});
 </script>
 
 <svelte:head>
@@ -114,7 +186,7 @@
 	</div>
 
 	<!--todo: render list #migration-->
-	{#each layout as group (group.title)}
+	{#each actualLayout as group (group.title)}
 		<EntryGroup {...group}></EntryGroup>
 	{/each}
 
@@ -152,7 +224,7 @@
 					</div>
 
 					<EntryOrderConfig2
-						{layout}
+						bind:layout={actualLayout}
 						bind:orderUrl={orderUrl}
 						allEntries={entryList}
 					></EntryOrderConfig2>
