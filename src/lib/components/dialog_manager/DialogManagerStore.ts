@@ -7,7 +7,6 @@ import type { DialogMapStore } from "$lib/types/pineapple_fiber/DialogVariableSt
 import { createNewMapStore } from "$lib/types/pineapple_fiber/DialogVariableStore";
 import { writable } from "svelte/store";
 import type { DialogDetail } from "$lib/types/pineapple_fiber/DialogDetail";
-import { DialogManager } from "$lib/components/dialog_manager/DialogManager";
 
 /**
  * Enables the dialogue overlay
@@ -24,7 +23,7 @@ import { DialogManager } from "$lib/components/dialog_manager/DialogManager";
  * });
  * ```
  */
-export const enableDialogueOverlay = writable(true);
+export const enableDialogueOverlay = writable(false);
 
 export const dialogVariableStore: DialogMapStore = createNewMapStore();
 export const updateRate: number = 40 / 1000; // *at least* 40ms per letter
@@ -36,17 +35,3 @@ export const defaultDialogMessage: DialogDetail[] = [
 	}
 ];
 
-/**
- * strictly must be declared last! or you might receive a weird error that looks like:
- *
- * 2:04:21 AM [vite] Error when evaluating SSR module /src/lib/components/dialog_manager/DialogManagerStore.ts:
- * |- TypeError: Cannot read properties of undefined (reading '0')
- *     at <instance_members_initializer> (/src/lib/components/dialog_manager/DialogManager.ts:38:67)
- *     at new DialogManager (/src/lib/components/dialog_manager/DialogManager.ts:53:14)
- *     at eval (/src/lib/components/dialog_manager/DialogManagerStore.ts:15:23)
- *     at async instantiateModule (file:///C:/Users/Pumpkin/Projects/Web/pineapple/node_modules/vite/dist/node/chunks/dep-934dbc7c.js:54360:9)
- *
- * what this means is that one member of dialogManager cannot be initialized. in our case, it was the
- * defaultDialogMessage not yet being initialized
- */
-export const dialogManager = new DialogManager();

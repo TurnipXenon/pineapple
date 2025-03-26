@@ -1,7 +1,12 @@
 <script lang="ts">
-	import type { SimplePageMeta } from "$pkg";
+	import type { SimplePageMeta } from "$pkg/components/navigation_component/index";
 
-	export let pageMeta: SimplePageMeta;
+	interface Props {
+		pageMeta: SimplePageMeta;
+		children?: import('svelte').Snippet;
+	}
+
+	let { pageMeta, children }: Props = $props();
 </script>
 
 <article>
@@ -19,14 +24,14 @@
 			<section id="article-tags">
 				Tags:
 				{#each pageMeta.tags as tag}
-					<span class="badge variant-filled">{tag}</span>
+					<span class="badge preset-filled">{tag}</span>
 				{/each}
 			</section>
 		{/if}
 	</hgroup>
 
 	<div class="article-content">
-		<slot />
+		{@render children?.()}
 	</div>
 </article>
 

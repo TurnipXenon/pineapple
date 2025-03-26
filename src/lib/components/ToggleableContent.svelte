@@ -1,8 +1,15 @@
 <script lang="ts">
-	import { ToggleableContentType } from "$pkg/components/ToggleableContentType";
-	import { afterUpdate, onMount } from "svelte";
+	import { run } from 'svelte/legacy';
 
-	export let toggle: ToggleableContentType = ToggleableContentType.Default;
+	import { ToggleableContentType } from "$pkg/components/ToggleableContentType";
+	import { onMount } from "svelte";
+
+	interface Props {
+		toggle?: ToggleableContentType;
+		children?: import('svelte').Snippet;
+	}
+
+	let { toggle = ToggleableContentType.Default, children }: Props = $props();
 
 	enum GibberishState {
 		NonExistent,
@@ -10,8 +17,8 @@
 		Binded
 	}
 
-	let defaultSlot: HTMLDivElement | undefined = undefined;
-	let gibberishState: GibberishState = GibberishState.NonExistent;
+	let defaultSlot: HTMLDivElement | undefined = $state(undefined);
+	let gibberishState: GibberishState = $state(GibberishState.NonExistent);
 	let gibberishParent: HTMLDivElement | undefined;
 	let gibberishSlot: Node | undefined;
 
@@ -74,13 +81,15 @@
 	// 	}
 	// });
 
-	$: attachGibberish(gibberishParent);
+	run(() => {
+		attachGibberish(gibberishParent);
+	});
 </script>
 
 {#if toggle === ToggleableContentType.Default}
-	<slot />
+	{@render children?.()}
 {:else if (ToggleableContentType.Gibberish === toggle)}
 	<div bind:this={defaultSlot} style={`visibility: ${gibberishState === GibberishState.Binded}`}>
-		<slot />
+		{@render children?.()}
 	</div>
 {/if}

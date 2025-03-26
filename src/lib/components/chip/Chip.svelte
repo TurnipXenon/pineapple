@@ -1,11 +1,17 @@
 <script lang="ts">
-	import { modeCurrent as isLightMode } from "@skeletonlabs/skeleton";
+	import { run } from "svelte/legacy";
 
-	export let onClick: undefined | (() => void) = undefined;
-	export let checked = true;
+	interface Props {
+		onClick?: undefined | (() => void);
+		checked?: boolean;
+		children?: import("svelte").Snippet;
+	}
 
-	$: textColorClass = $isLightMode ? "local-light" : "local-dark";
-	let buttonClass = "variant-filled-tertiary";
+	let { onClick = undefined, checked = true, children }: Props = $props();
+
+	// todo: look at isLightMode usage
+	// let textColorClass = $derived($isLightMode ? "local-light" : "local-dark");
+	let buttonClass = $state("preset-filled-tertiary-500");
 	const toggleChipColor = (isLightMode: boolean, checked: boolean) => {
 		if (isLightMode) {
 			buttonClass = checked ? "normal-bg" : "light-unchecked-bg";
@@ -13,23 +19,28 @@
 			buttonClass = checked ? "normal-bg" : "dark-unchecked-bg";
 		}
 	};
-	$: toggleChipColor($isLightMode, checked);
+	// run(() => {
+	// 	toggleChipColor($isLightMode, checked);
+	// });
 </script>
 
 {#if onClick}
-	<button class={`chip ${buttonClass} ${textColorClass}`}
-	        on:click={onClick}>
-		<slot />
+	<!--	<button class={`chip ${buttonClass} ${textColorClass}`}-->
+	<button class={`chip ${buttonClass}`}
+	        onclick={onClick}>
+		{@render children?.()}
 	</button>
 {:else }
-	<span class={`local-chip normal-bg ${textColorClass}`}>
-		<slot />
+	<!--	<span class={`local-chip normal-bg ${textColorClass}`}>-->
+	<span class={`local-chip normal-bg`}>
+		{@render children?.()}
 	</span>
 {/if}
 
 <style lang="postcss">
+    /*todo: migration*/
+    /*@apply chip;*/
     .local-chip {
-        @apply chip;
         border-radius: 1em;
         margin: 0.25em;
         font-weight: bold;

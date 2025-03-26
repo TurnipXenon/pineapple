@@ -1,0 +1,144 @@
+@import 'tailwindcss';
+@import "@skeletonlabs/skeleton";
+@import "@skeletonlabs/skeleton/optional/presets";
+@import "@skeletonlabs/skeleton/themes/crimson";
+@import "./turnip-theme.css";
+
+@source "../../../node_modules/@skeletonlabs/skeleton-svelte/dist";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@custom-variant turnip (&:where([data-theme=turnip], [data-theme=turnip] *));
+
+.footer-space {
+    width: 100%;
+    height: calc(var(--dialog-box-height) + 4em);
+}
+
+a.dialog-choice {
+    cursor: url("$pkg/assets/icons/chat-cursor.svg"), auto;
+}
+
+a.external-link {
+    cursor: url("$pkg/assets/icons/external-link.svg"), auto;
+}
+
+#toast-progress {
+    position: relative;
+    top: 5px;
+    left: 6px;
+    width: calc(100% - 12px);
+    border-radius: 8px;
+    background: transparent;
+    height: 10px;
+}
+
+#toast-progress::-moz-progress-bar {
+    background: rgba(var(--color-secondary-500));
+}
+
+.dialog-box {
+    background-color: rgb(var(--color-surface-500) / 0.9);
+    position: fixed;
+    bottom: 0;
+    width: var(--dialog-box-width); /*75em + 4em padding*/
+    height: var(--dialog-box-height);
+    max-width: calc(100vw - ((var(--fab-margin) * 2) + 4em));
+}
+
+.dark .dialog-box {
+    background-color: rgb(var(--color-surface-900) / 0.95);
+    --tw-ring-color: rgb(var(--color-text-400));
+    /*background-color: red;*/
+}
+
+@layer base {
+    .game-link-section {
+        @apply mt-6 flex gap-2 justify-center;
+    }
+
+    .game-video-cover {
+        @apply rounded-t-lg max-h-64 object-cover w-full;
+    }
+
+    .text-chip-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .text-chip {
+        background-color: var(--color-secondary-50-950) /* light-dark(var(--color-secondary-50), var(--color-secondary-950)) */;
+        color: var(--color-secondary-950-50) /* light-dark(var(--color-secondary-950), var(--color-secondary-50)) */;
+    }
+}
+
+/*https://shiki.style/guide/dual-themes*/
+html.dark .shiki,
+html.dark .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    /* Optional, if you also want font styles */
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+.shiki {
+    span {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+}
+
+/* region shiki copy button */
+pre:has(code) {
+    position: relative;
+}
+
+pre button.copy {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    height: 28px;
+    width: 28px;
+    padding: 0;
+    display: flex;
+
+    & span {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    & .ready {
+        background-image: url("$pkg/assets/icons/icon-copy-light-contrast.svg");
+
+        @variant dark {
+            background-image: url("$pkg/assets/icons/icon-copy-dark-contrast.svg");
+        }
+    }
+
+    & .success {
+        display: none;
+        background-image: url("$pkg/assets/icons/icon-check-light-contrast.svg");
+
+        @variant dark {
+            background-image: url("$pkg/assets/icons/icon-check-dark-contrast.svg");
+        }
+    }
+
+    &.copied {
+        & .success {
+            display: block;
+        }
+
+        & .ready {
+            display: none;
+        }
+    }
+}
+
+/* endregion shiki copy button */

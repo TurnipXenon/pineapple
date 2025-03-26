@@ -13,4 +13,5 @@ export * from "./types/pineapple_fiber/PortraitType";
 export * from "./types/pineapple_fiber/DialogDetail";
 export * from "./util/util";
 export * from "./api/index";
-export * from "./template/seaweed/index";
+export type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
+export { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";

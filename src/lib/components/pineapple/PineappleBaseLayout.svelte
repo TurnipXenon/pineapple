@@ -1,8 +1,9 @@
 <script lang="ts">
-	export let showDialogByDefault = false;
+	import { run } from "svelte/legacy";
+
 
 	// For auto dark/light mode
-	import { AppBar, AppShell, autoModeWatcher, LightSwitch } from "@skeletonlabs/skeleton";
+	import { AppBar } from "@skeletonlabs/skeleton-svelte";
 	import RandomizedBackground from "$pkg/components/RandomizedBackground.svelte";
 
 	// navigation
@@ -15,13 +16,21 @@
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
-	import { dialogManager, enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import Toast from "$pkg/components/pineapple/toast/Toast.svelte";
 	import DialogOverlay from "$pkg/components/dialog_overlay/DialogOverlay.svelte";
 	import { fade } from "svelte/transition";
+	import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
+
+	interface Props {
+		showDialogByDefault?: boolean;
+		children?: import("svelte").Snippet;
+	}
+
+	let { showDialogByDefault = false, children }: Props = $props();
 	// todo: clean up all these imports!
 
-	let pages: BreadcrumbData[] = [];
+	let pages: BreadcrumbData[] = $state([]);
 
 	const updateBreadcrumb = (pathname: string) => {
 		pages = [];
@@ -49,14 +58,16 @@
 		pages = pages;
 	};
 
-	$: updateBreadcrumb($page.url.pathname); // run every time we navigate
+	run(() => {
+		updateBreadcrumb($page.url.pathname);
+	}); // run every time we navigate
 
-	let enableBackgroundValue = true;
+	let enableBackgroundValue = $state(true);
 	enableBackground.subscribe((value) => {
 		enableBackgroundValue = value;
 	});
 
-	let enableDialogueOverlayValue = true;
+	let enableDialogueOverlayValue = $state(true);
 	enableDialogueOverlay.subscribe((value) => {
 		enableDialogueOverlayValue = value;
 	});
@@ -64,14 +75,9 @@
 	enableDialogueOverlay.set(showDialogByDefault);
 </script>
 
-<!-- App Shell -->
-<svelte:head>
-	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
-</svelte:head>
-
 <!--todo: turn off hidden when it's time-->
-<button class="fab" on:click={()=>{
-	dialogManager.toggleDialogOverlay()
+<button class="fab" onclick={()=>{
+	getDialogManager().then(dm => dm.toggleDialogOverlay());
 }}>
 	{#if (enableDialogueOverlayValue)}
 		<img class="turnip-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
@@ -80,39 +86,42 @@
 	{/if}
 </button>
 
-<AppShell>
-	<svelte:fragment slot="header">
-		<!-- App Bar -->
-		<AppBar
-			background="app-shell-token"
-			slotDefault="place-content-start"
-			slotTrail="place-content-end">
-			<svelte:fragment slot="lead">
-				<!--TODO: add logo or something for the lead in layout-->
-				<img
-					alt="Ares's head titled towards the left with his tongue out and winking"
-					class="ares-logo"
-					src={AresLogo}
-				/>
-				<span class="mr-2" />
-				<ol class="breadcrumb">
-					{#each pages as crumb, i}
-						{#if i < pages.length - 1}
-							<li class="crumb" in:fade>
-								<a href={crumb.path}>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</a>
-								&nbsp;&rsaquo;&nbsp;
-							</li>
-						{:else}
-							<li class="crumb" in:fade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
-						{/if}
-					{/each}
-				</ol>
-			</svelte:fragment>
-			<svelte:fragment slot="trail">
-				<LightSwitch bgLight="bg-surface-400" />
-			</svelte:fragment>
-		</AppBar>
-	</svelte:fragment>
+<div>
+	<!-- todo: header #migration -->
+	<!-- App Bar -->
+	<AppBar
+		background="bg-surface-600 dark:bg-surface-900">
+		{#snippet lead()}
+
+			<!--TODO: add logo or something for the lead in layout-->
+			<img
+				alt="Ares's head titled towards the left with his tongue out and winking"
+				class="ares-logo"
+				src={AresLogo}
+			/>
+			<span class="mr-2"></span>
+			<ol class="breadcrumb">
+				{#each pages as crumb, i}
+					{#if i < pages.length - 1}
+						<li class="crumb" in:fade>
+							<a href={crumb.path}>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</a>
+							 › 
+						</li>
+					{:else}
+						<li class="crumb" in:fade>{crumb.name.charAt(0).toUpperCase() + crumb.name.slice(1)}</li>
+					{/if}
+				{/each}
+			</ol>
+
+		{/snippet}
+		{#snippet trail()}
+
+			<!--			todo: light switch #migration -->
+			<!--			<LightSwitch bgLight="bg-surface-400" />-->
+
+		{/snippet}
+	</AppBar>
+
 
 	<RandomizedBackground enable={enableBackgroundValue} />
 
@@ -121,11 +130,11 @@
 	<DialogOverlay></DialogOverlay>
 
 	<div class="default-page-container">
-		<slot />
-		<div class="footer-space" />
+		{@render children?.()}
+		<div class="footer-space"></div>
 	</div>
 
-</AppShell>
+</div>
 
 <style lang="postcss">
     :root {
@@ -147,8 +156,10 @@
         --fab-margin: clamp(1em, 4.44vw, 2em);
     }
 
+    /*todo*/
+    /*@apply flex justify-center items-center;*/
     .default-page-container {
-        @apply flex justify-center items-center;
+        display: flex;
         width: 100%;
         padding: 1lh clamp(8px, 10vw, 2em);
         flex-direction: column;
@@ -168,34 +179,36 @@
        it likely disappeared due to code gen shenanigans and package magic */
     .breadcrumb,
     .breadcrumb-nonresponsive {
-        @apply flex items-center w-full overflow-x-auto;
-        /*@apply flex items-center space-x-4 w-full hide-scrollbar overflow-x-auto;*/
+        /*todo: */
+        /*@apply flex items-center w-full overflow-x-auto;*/
     }
 
     .crumb {
-        @apply flex justify-center items-center;
+        /*todo: */
+        /*@apply flex justify-center items-center;*/
         margin: 0.1em;
     }
 
     .crumb-separator {
-        @apply flex;
+        /*todo: */
+        /*@apply flex;*/
         color: var(--color-text-50);
     }
 
     /* === Auto-Responsive === */
 
     .breadcrumb li {
-        @apply hidden md:block;
+        /*@apply hidden md:block;*/
     }
 
     .breadcrumb li:nth-last-child(3),
     .breadcrumb li:nth-last-child(2),
     .breadcrumb li:nth-last-child(1) {
-        @apply block;
+        /*@apply block;*/
     }
 
     .fab {
-        @apply btn variant-filled-tertiary;
+        /*@apply btn preset-filled-tertiary-500;*/
         padding: 0;
         position: fixed;
         bottom: var(--fab-margin);

@@ -1,34 +1,53 @@
 <script lang="ts">
 	import NavigationControl from "$pkg/components/navigation_component/NavigationControl.svelte";
-	import { Card, createGoToFunction } from "$pkg";
 	import { parsePageMeta, type ParsePageMetaCompareFn } from "$pkg/components/navigation_component/PageMeta";
+	import { Card } from "$pkg/components/index";
+	import { createGoToFunction } from "$pkg/util/util";
 
-	export let fileList: Record<string, unknown>;
-	export let jsonList: Record<string, unknown>;
-	export let title: string | undefined = undefined;
-	export let imageMap = new Map<string, string>();
-	export let shouldAllowControl = true;
 
-	/**
+	
+	interface Props {
+		fileList: Record<string, unknown>;
+		jsonList: Record<string, unknown>;
+		title?: string | undefined;
+		imageMap?: any;
+		shouldAllowControl?: boolean;
+		/**
 	 * Should include a slash before and after the path
 	 */
-	export let parentSubpath: string;
-	export let allowUpperControl = true;
-	export let compareFn: undefined | ParsePageMetaCompareFn = undefined;
-	export let pageSize = 5;
-	export let currentIndex = 0;
+		parentSubpath: string;
+		allowUpperControl?: boolean;
+		compareFn?: undefined | ParsePageMetaCompareFn;
+		pageSize?: number;
+		currentIndex?: number;
+	}
 
-	const pageFlatList = parsePageMeta(fileList, jsonList, imageMap, compareFn);
+	let {
+		fileList,
+		jsonList,
+		title = undefined,
+		imageMap = new Map<string, string>(),
+		shouldAllowControl = true,
+		parentSubpath,
+		allowUpperControl = true,
+		compareFn = undefined,
+		pageSize = $bindable(5),
+		currentIndex = $bindable(0)
+	}: Props = $props();
 
-	$: visiblePages = pageFlatList.slice(currentIndex * pageSize, (currentIndex * pageSize) + pageSize);
+	const pageFlatList = $state(parsePageMeta(fileList, jsonList, imageMap, compareFn));
+
+	let visiblePages = $derived(pageFlatList.slice(currentIndex * pageSize, (currentIndex * pageSize) + pageSize));
 </script>
 
 <div class="navigation-wrapper">
 	{#if (title)}
 		<Card>
-			<h1 slot="content" class="default-card navigation-title">
-				{title}
-			</h1>
+			{#snippet content()}
+						<h1  class="default-card navigation-title">
+					{title}
+				</h1>
+					{/snippet}
 		</Card>
 	{/if}
 
@@ -44,7 +63,7 @@
 			{@const fullPath=`${parentSubpath}${pageMeta.relativeLink}`}
 			<button class="navigation-element"
 			        title={fullPath}
-			        on:click={createGoToFunction(fullPath)}>
+			        onclick={createGoToFunction(fullPath)}>
 				{#if pageMeta.imageUrl}
 					<img src={pageMeta.imageUrl}
 					     alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
@@ -67,7 +86,9 @@
 
 		{#if visiblePages.length === 0}
 			<Card>
-				<p class="default-card" slot="content">Sorry, no content was found</p>
+				{#snippet content()}
+								<p class="default-card" >Sorry, no content was found</p>
+							{/snippet}
 			</Card>
 		{/if}
 	</div>
@@ -105,7 +126,8 @@
     }
 
     .navigation-element {
-        @apply btn card card-hover bg-surface-100 dark:bg-surface-900;
+		    /* todo: migration */
+        /*@apply btn card card-hover bg-surface-100 dark:bg-surface-900;*/
         container-type: inline-size;
         display: flex;
         text-align: start;
@@ -134,7 +156,7 @@
 
     .blurb-text {
         padding: 2em;
-        flex-grow: 1;
+        grow: 1;
         white-space: initial;
         min-width: 0;
     }

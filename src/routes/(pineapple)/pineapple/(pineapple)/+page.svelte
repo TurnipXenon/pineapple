@@ -2,15 +2,17 @@
 	import { showComponentInToast, showTextInToast } from "$pkg/components/pineapple/toast/Toast";
 	import TestCard from "$pkg/components/pineapple/toast/custom-toast/TestCustomToast.svelte";
 	import TestDialogYarn from "./TestDialog.yarn?raw";
-	import { Card, dialogManager, enableDialogueOverlay } from "$pkg";
 	import NavigationComponent from "$pkg/components/navigation_component/NavigationComponent.svelte";
 	import { ImageMap } from "./ImageMap";
 	import PineappleSlideToggle from "$pkg/components/PineappleSlideToggle.svelte";
+	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
+	import { Card } from "$pkg/components/index";
 
 	enableDialogueOverlay.set(false);
 
 	// region Toast test scripts
-	let testingQueueNumber = 1;
+	let testingQueueNumber = $state(1);
 	const testingRandomPhrases = [
 		"Niko",
 		"Niko the Baikal seal",
@@ -20,14 +22,16 @@
 
 	let parsed = false;
 	const onTestDialogClick = () => {
-		if (!parsed) {
-			dialogManager.parseAndSetDialogTree(testDialogYarn).then(() => {
-				dialogManager.toggleDialogOverlay();
-			});
-			parsed = true;
-		} else {
-			dialogManager.toggleDialogOverlay();
-		}
+		getDialogManager().then(dm => {
+			if (!parsed) {
+				dm.parseAndSetDialogTree(testDialogYarn).then(() => {
+					dm.toggleDialogOverlay();
+				});
+				parsed = true;
+			} else {
+				dm.toggleDialogOverlay();
+			}
+		});
 	};
 	// endregion
 
@@ -35,32 +39,34 @@
 	// todo: fix fragile relative reference to the root
 	const fileList = import.meta.glob("./../**/+page.svelte", { query: "?raw" });
 	const jsonList = import.meta.glob("./../**/meta.json", { query: "?raw", eager: true });
-	let allowPagination = true;
+	let allowPagination = $state(true);
 </script>
 
 <Card>
-	<div slot="content" class="default-card">
-		<button
-			class="btn variant-filled-secondary"
-			on:click={() => {
+	{#snippet content()}
+		<div class="default-card">
+			<button
+				class="btn preset-filled-secondary-500"
+				onclick={() => {
 			showComponentInToast({componentAndProps: {component: TestCard, props: undefined}});
 		}}><h3>Test custom toast</h3></button>
-		<button
-			class="btn variant-filled-secondary"
-			on:click={() => {
+			<button
+				class="btn preset-filled-secondary-500"
+				onclick={() => {
 			showTextInToast(`${testingQueueNumber} ${testingRandomPhrases[testingQueueNumber]}`);
 			testingQueueNumber = (testingQueueNumber + 1) % testingRandomPhrases.length;
 		}}><h3>Handy toast</h3></button>
-		<button
-			class="btn variant-filled-secondary"
-			on:click={onTestDialogClick}><h3>Test dialog</h3></button>
-		<div>
-			<PineappleSlideToggle name="advanced-setting-slider"
-			                      bind:checked={allowPagination}>
-				Allow pagination: {allowPagination ? "On" : "Off"}
-			</PineappleSlideToggle>
+			<button
+				class="btn preset-filled-secondary-500"
+				onclick={onTestDialogClick}><h3>Test dialog</h3></button>
+			<div>
+				<PineappleSlideToggle name="advanced-setting-slider"
+				                      bind:checked={allowPagination}>
+					Allow pagination: {allowPagination ? "On" : "Off"}
+				</PineappleSlideToggle>
+			</div>
 		</div>
-	</div>
+	{/snippet}
 </Card>
 
 <NavigationComponent title="Navigation Component Test"

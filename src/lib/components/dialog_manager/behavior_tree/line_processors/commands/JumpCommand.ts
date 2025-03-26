@@ -3,13 +3,28 @@ import type { LineNodeArguments } from "$lib/components/dialog_manager/behavior_
 import type { LineBehaviorResult } from "$lib/components/dialog_manager/behavior_tree/line_core/LineBehaviorResult";
 import { BehaviorStatus } from "$lib/components/dialog_manager/behavior_tree/core/BehaviorStatus";
 import { SetVariableNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/SetVariableNode";
-import { dialogManager } from "$lib/components/dialog_manager/DialogManagerStore";
 import { btreeUtils } from "$lib/components/dialog_manager/behavior_tree/core/BTreeUtils";
+import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
+import type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
 
 export class JumpCommand implements LineBehaviorNode {
 	setVariableNode = new SetVariableNode();
+	dialogManager: undefined | IDialogManager = undefined;
+
+	constructor() {
+		getDialogManager().then(dm => this.dialogManager = dm);
+	}
 
 	process(nodeArgs: LineNodeArguments): LineBehaviorResult {
+		if (this.dialogManager === undefined) {
+			console.warn('Dialog Manger not yet initialized');
+			return {
+				renderedLine: "",
+				nextState: nodeArgs.initState,
+				status: BehaviorStatus.Failure
+			};
+		}
+
 		if (!nodeArgs.line.startsWith("<<jump")) {
 			return {
 				renderedLine: "",
@@ -30,10 +45,10 @@ export class JumpCommand implements LineBehaviorNode {
 			.slice("<<jump ".length, nodeArgs.line.length - ">>".length)
 			.replace(/^\{/, "") // remove possible " at the start: https://stackoverflow.com/a/2182602
 			.replace(/}$/, ""); // remove possible " at the end: https://stackoverflow.com/a/12249011;
-		const dialogChoice = dialogManager.dialogMessageMap.get(btreeUtils.simplifyToken(choiceName));
+		const dialogChoice = this.dialogManager.dialogMessageMap.get(btreeUtils.simplifyToken(choiceName));
 		if (dialogChoice !== undefined) {
 			// force choice
-			dialogManager.setDialogChoice(dialogChoice);
+			this.dialogManager.setDialogChoice(dialogChoice);
 		} else {
 			console.error(
 				`Unknown jump node at line ${

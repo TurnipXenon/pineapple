@@ -1,20 +1,33 @@
 <script lang="ts">
-	import { createGoToFunction } from "$pkg/util/util";
-	import { Card } from "$pkg";
+	import { localizeHref } from "$pkg/paraglide/runtime.js";
+	import { PinyaCard } from "$pkg/ui/elements/pinya-card/index";
+	import { PinyaButton } from "$pkg/ui/elements/PinyaButton/index";
 </script>
 
-<Card>
-	<div slot="content" class="content">
+<PinyaCard>
+	<main>
 		<h1 class="mb-8" style="font-weight: bolder">Directory</h1>
 
 		<div class="turnip-menu">
-			<button on:click={createGoToFunction("pineapple")}><h2>Pineapple playground</h2></button>
-			<button on:click={createGoToFunction("portfolio")}><h2>Seaweed playground</h2></button>
+			<PinyaButton onclick={() => {location.href = localizeHref('pineapple');}}>
+				<div class="text-wrap">
+					Pineapple playground (still broken)
+				</div>
+			</PinyaButton>
+			<PinyaButton onclick={() => {location.href = localizeHref('seaweed2');}}>
+				Seaweed <b>2</b> playground
+			</PinyaButton>
+			<PinyaButton onclick={() => {location.href = localizeHref('components');}}>
+				Components
+			</PinyaButton>
+			<PinyaButton disabled={true} onclick={() => {}}>
+				Seaweed (deprecated)
+			</PinyaButton>
 		</div>
-	</div>
-</Card>
+	</main>
+</PinyaCard>
 
-<style lang="postcss">
+<style>
     .turnip-menu {
         padding: 2em;
         display: flex;
@@ -22,12 +35,10 @@
         flex-direction: column;
     }
 
-    button {
-        @apply btn variant-filled-secondary;
-    }
-
-    .content {
-        padding: 2em;
-        text-align: center;
+    main {
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+        gap: 0.5lh;
     }
 </style>

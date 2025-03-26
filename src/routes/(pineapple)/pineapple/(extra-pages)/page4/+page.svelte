@@ -1,7 +1,9 @@
-<script>
-	import { Card } from "$pkg";
+<script lang="ts">
+	import { Card } from "$pkg/components/index";
 </script>
 
 <Card>
-	<h1 slot="content" class="default-card">Page 1</h1>
+	{#snippet content()}
+		<h1  class="default-card">Page 1</h1>
+	{/snippet}
 </Card>

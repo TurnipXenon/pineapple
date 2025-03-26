@@ -1,38 +1,47 @@
 <script lang="ts">
 	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 	import { onMount } from "svelte";
-	import { dialogManager } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
+	import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
+	import type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
 
-	let currentMessage = "";
-	dialogManager.currentMessage.subscribe((value) => {
-		currentMessage = value;
-	});
+	let currentMessage = $state("");
+	let currentPortrait = $state(AresHappy);
 
-	let currentPortrait = AresHappy;
-	dialogManager.currentPortrait.subscribe((value) => {
-		if (value) {
-			currentPortrait = value;
-		}
-	});
-
-	let hidePercent = 100;
-	let isHidden = true;
+	let hidePercent = $state(100);
+	let isHidden = $state(true);
+	let dialogManager: IDialogManager | undefined = $state(undefined);
 	onMount(() => {
-		dialogManager.hidePercent.subscribe((value) => {
-			hidePercent = value * 0.4;
-			isHidden = false;
-		});
+		getDialogManager()
+			.then(dm => {
+				dialogManager = dm;
 
-		dialogManager.currentReadableState.subscribe((value) => {
-			isHidden = value === DialogState.Invisible;
-		});
+				dialogManager.currentMessage.subscribe((value) => {
+					currentMessage = value;
+				});
 
-		dialogManager.update(0);
+				dialogManager.currentPortrait.subscribe((value) => {
+					if (value) {
+						currentPortrait = value;
+					}
+				});
+
+				dialogManager.hidePercent.subscribe((value) => {
+					hidePercent = value * 0.4;
+					isHidden = false;
+				});
+
+				dialogManager.currentReadableState.subscribe((value) => {
+					isHidden = value === DialogState.Invisible;
+				});
+
+				dialogManager.update(0);
+			});
+
 	});
 
 	const onDialogClick = () => {
-		dialogManager.skipAnimation();
+		dialogManager?.skipAnimation();
 	};
 
 </script>
@@ -44,7 +53,7 @@
 	<div class="dialog-portrait-container">
 		<img src={currentPortrait} alt="Ares" class="dialog-portrait" />
 	</div>
-	<div class="card dialog-box variant-ghost-primary" on:click={onDialogClick}>
+	<div class="card dialog-box preset-tonal-primary border border-primary-500" onclick={onDialogClick}>
 		<div class="card dialog-name">
 			<p><b>Turnip</b></p>
 		</div>
@@ -89,7 +98,9 @@
     }
 
     .dialog-name {
-        @apply pt-2 px-4;
+        padding-top: 2rem;
+        padding-left: 4rem;
+        padding-right: 4rem;
         position: fixed;
     }
 

@@ -19,22 +19,32 @@ export const load = async (): Promise<OverridableMetaProps> => {
 <script lang="ts">
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 
-	export let rootUrl = "http://localhost:5173";
-	export let title = "Welcome to my portfolio";
-	export let ogTitle = "Turnip time!";
-	export let ogDescription = "Welcome to Turnip's test portfolio";
-	export let ogImage = WebThumbnailImage;
 
 	import { page } from "$app/stores";
 	import type { OverridableMetaProps } from "./OverridableMetaProps";
+	interface Props {
+		rootUrl?: string;
+		title?: string;
+		ogTitle?: string;
+		ogDescription?: string;
+		ogImage?: any;
+	}
 
-	const data: OverridableMetaProps = {
+	let {
+		rootUrl = "http://localhost:5173",
+		title = "Welcome to my portfolio",
+		ogTitle = "Turnip time!",
+		ogDescription = "Welcome to Turnip's test portfolio",
+		ogImage = WebThumbnailImage
+	}: Props = $props();
+
+	const data: OverridableMetaProps = $state({
 		title: "Welcome to my portfolio",
 		ogUrl: "https://www.crouton.net/",
 		ogTitle: "Turnip time!",
 		ogDescription: "Welcome to Turnip's test portfolio",
 		ogImage: WebThumbnailImage
-	};
+	});
 	page.subscribe(p => {
 		const pageData: OverridableMetaProps = p.data;
 		data.title = pageData.title ?? title;

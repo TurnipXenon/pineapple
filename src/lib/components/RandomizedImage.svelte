@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { modeCurrent } from "@skeletonlabs/skeleton";
+	    interface Props {
+        src: string;
+        rng: () => number;
+    }
 
-	export let src: string;
-	export let rng: () => number;
+    let { src, rng }: Props = $props();
 	let rotateRandom = rng() * 90 - 45;
 
 	const paddingLeft = 1 + rng() * 5;
@@ -18,7 +20,9 @@
 	     aria-hidden="true"
 	     style="--rotateRandom:{rotateRandom}deg;"
 	     alt=""
-	     class:darkMode={modeCurrent} />
+	/>
+<!--	todo: migration -->
+<!--	     class:darkMode={modeCurrent} />-->
 </div>
 
 <style>

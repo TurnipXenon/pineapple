@@ -1,8 +1,45 @@
 <script lang="ts">
-	import PinyaBaseLayout from "$pkg/components/pineapple/PineappleBaseLayout.svelte";
+	// The ordering of these imports is critical to your app working properly
+	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
+	// import "@skeletonlabs/skeleton/styles/all.css";
+	// Most of your app wide CSS should be put in this file
+	import "$pkg/styles/app.css";
+
+	import "$pkg/styles/global.css";
+
+	// region Skeleton Store
+	// endregion Skeleton Store
+	// region highlightjs
+	import "highlight.js/styles/github-dark.css";
+	import OverrideableMeta from "../../lib/components/overrideable_meta/OverridableMeta.svelte";
+	import type { Snippet } from "svelte";
+	import { DialogOverlay } from "$pkg/components/index";
+	import PinyaBase from "$pkg/ui/templates/PinyaBase.svelte";
+	import { PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/index";
+
+	interface Props {
+		children: Snippet;
+	}
+
+	let { children }: Props = $props();
+
+	// todo: migrate codeblock #migration
+	// initializeStores();
+	//
+	// hljs.registerLanguage("xml", xml);
+	// hljs.registerLanguage("url", xml);
+	// storeHighlightJs.set(hljs);
+	// endregion highlightjs
 </script>
 
-<PinyaBaseLayout showDialogByDefault={true}>
-	<slot />
-</PinyaBaseLayout>
+<OverrideableMeta
+	rootUrl={import.meta.env.PROD ? "https://pineapple-gamma-blush.vercel.app" : "http://localhost:5173"}>
+</OverrideableMeta>
 
+<DialogOverlay></DialogOverlay>
+
+<PinyaBase>
+	<PinyaPageLayout>
+		{@render children()}
+	</PinyaPageLayout>
+</PinyaBase>

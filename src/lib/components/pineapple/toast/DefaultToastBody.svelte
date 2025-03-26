@@ -3,16 +3,20 @@
 	import type { DismissToastCallback } from "$pkg/components/pineapple/toast/Toast";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 
-	export let props: Props;
-	export let dismissToastCallback: DismissToastCallback | undefined;
-	export let shouldEnableButton = false;
+	interface Props_1 {
+		props: Props;
+		dismissToastCallback: DismissToastCallback | undefined;
+		shouldEnableButton?: boolean;
+	}
+
+	let { props, dismissToastCallback, shouldEnableButton = false }: Props_1 = $props();
 </script>
 
 <div class="body-container">
 	<!-- todo: support markdown? -->
-	<button class="btn"
+	<button class="btn bg-surface-100 dark:bg-surface-900"
 	        disabled={!shouldEnableButton}
-	        on:click={dismissToastCallback}>
+	        onclick={dismissToastCallback}>
 		<img class="img-icon" src={CloseIcon} alt="close button">
 	</button>
 	<div class="text-container">
@@ -20,7 +24,7 @@
 	</div>
 </div>
 
-<style lang="postcss">
+<style>
     .body-container {
         display: flex;
         gap: 1em;
@@ -36,7 +40,6 @@
     }
 
     .btn {
-        @apply bg-surface-100 dark:bg-surface-900;
         border-radius: 8px;
 		    padding: 0.5em;
     }
