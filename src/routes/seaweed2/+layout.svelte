@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PinyaBase } from "$pkg/ui/templates/index";
+	import PinyaBase from "$pkg/ui/templates/PinyaBase.svelte";
 
 	interface Props {
 		children?: import("svelte").Snippet;

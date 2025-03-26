@@ -5,8 +5,9 @@
 	import MailIcon from "$pkg/assets/icons/mail.svg";
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
 	import LinkedinIcon from "$pkg/assets/icons/linkedin.svg";
-	import { ButtonVariant, ImageIcon, PinyaButton } from "$pkg/ui/elements/index";
 	import { ItchLogoHotLink } from "$pkg/consts";
+	import { ButtonVariant, PinyaButton } from "$pkg/ui/elements/pinya-button/index";
+	import ImageIcon from "$pkg/ui/elements/ImageIcon.svelte";
 
 	/** @type {{isSmallVersion?: boolean, email?: string, linkedinSlug?: string, isSlot?: boolean, allowLinkedIn?: boolean}} */
 	let {

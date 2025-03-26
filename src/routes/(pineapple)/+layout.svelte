@@ -12,9 +12,10 @@
 	// region highlightjs
 	import "highlight.js/styles/github-dark.css";
 	import OverrideableMeta from "../../lib/components/overrideable_meta/OverridableMeta.svelte";
-	import { PinyaBase, PinyaPageLayout } from "$pkg/ui/templates/index";
 	import type { Snippet } from "svelte";
 	import { DialogOverlay } from "$pkg/components/index";
+	import PinyaBase from "$pkg/ui/templates/PinyaBase.svelte";
+	import { PinyaPageLayout } from "$pkg/ui/templates/pinya-page-layout/index";
 
 	interface Props {
 		children: Snippet;

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { createGoToFunction } from "$pkg/util/util";
-	import { PinyaButton, PinyaCard } from "$pkg/ui/elements/index";
 	import { localizeHref } from "$pkg/paraglide/runtime.js";
+	import { PinyaCard } from "$pkg/ui/elements/pinya-card/index";
+	import { PinyaButton } from "$pkg/ui/elements/pinya-button/index";
 </script>
 
 <PinyaCard>

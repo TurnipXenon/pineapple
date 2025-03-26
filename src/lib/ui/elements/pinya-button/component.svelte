@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { ColorScheme } from '$pkg/ui/elements';
 	import { ButtonVariant, type PinyaButtonProps } from './props';
+	import { ColorScheme } from "$pkg/ui/elements/ColorScheme";
 
 	let {
 		children,
