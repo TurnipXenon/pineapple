@@ -8,7 +8,7 @@
 	import { modals } from "svelte-modals";
 	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
 	import { localizeHref } from "$pkg/paraglide/runtime";
-	import { appState } from "$pkg/ui/templates";
+	import { appState } from "./runes.svelte";
 
 	let {
 		children,
