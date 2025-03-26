@@ -1,6 +1,6 @@
-<script>
-	import { Card } from "$pkg/components/index.js";
+<script lang="ts">
 	import { page } from "$app/stores";
+	import { Card } from "$pkg/components/index";
 </script>
 
 <Card>
