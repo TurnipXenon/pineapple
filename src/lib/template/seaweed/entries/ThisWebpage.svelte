@@ -3,7 +3,7 @@
 	import Card from "$pkg/components/Card.svelte";
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
 	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
-	import { Chip } from "$pkg";
+	import { Chip } from "$pkg/components/index";
 
 	// noinspection JSUnusedGlobalSymbols
 	interface Props {

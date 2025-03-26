@@ -2,7 +2,7 @@
 	import { onMount } from "svelte";
 	import { page } from "$app/state";
 
-	import { Card } from "$pkg";
+	import { Card } from "$pkg/components/index";
 	import { goto } from "$app/navigation";
 
 	interface Props {

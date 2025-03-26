@@ -1,5 +1,5 @@
 <script>
-	import { Card } from "$pkg";
+	import { Card } from "$pkg/components/index.js";
 </script>
 
 <Card>

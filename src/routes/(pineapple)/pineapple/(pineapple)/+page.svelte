@@ -2,10 +2,12 @@
 	import { showComponentInToast, showTextInToast } from "$pkg/components/pineapple/toast/Toast";
 	import TestCard from "$pkg/components/pineapple/toast/custom-toast/TestCustomToast.svelte";
 	import TestDialogYarn from "./TestDialog.yarn?raw";
-	import { Card, dialogManager, enableDialogueOverlay } from "$pkg";
 	import NavigationComponent from "$pkg/components/navigation_component/NavigationComponent.svelte";
 	import { ImageMap } from "./ImageMap";
 	import PineappleSlideToggle from "$pkg/components/PineappleSlideToggle.svelte";
+	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { dialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
+	import { Card } from "$pkg/components/index";
 
 	enableDialogueOverlay.set(false);
 

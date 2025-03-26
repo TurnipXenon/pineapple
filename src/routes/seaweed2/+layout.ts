@@ -1,4 +1,4 @@
-import { getQueryTerms } from "$pkg";
+import { getQueryTerms } from "$pkg/util/util";
 
 export const prerender = true;
 

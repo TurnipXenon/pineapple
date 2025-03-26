@@ -14,7 +14,7 @@
 	import OverrideableMeta from "../../lib/components/overrideable_meta/OverridableMeta.svelte";
 	import { PinyaBase, PinyaPageLayout } from "$pkg/ui/templates/index";
 	import type { Snippet } from "svelte";
-	import { DialogOverlay } from "$pkg";
+	import { DialogOverlay } from "$pkg/components/index";
 
 	interface Props {
 		children: Snippet;

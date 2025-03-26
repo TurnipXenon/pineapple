@@ -1,7 +1,8 @@
 <script lang="ts">
 	import NavigationControl from "$pkg/components/navigation_component/NavigationControl.svelte";
-	import { Card, createGoToFunction } from "$pkg";
 	import { parsePageMeta, type ParsePageMetaCompareFn } from "$pkg/components/navigation_component/PageMeta";
+	import { Card } from "$pkg/components/index";
+	import { createGoToFunction } from "$pkg/util/util";
 
 
 	

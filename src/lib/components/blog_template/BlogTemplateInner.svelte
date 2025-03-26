@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { SimplePageMeta } from "$pkg";
+	import type { SimplePageMeta } from "$pkg/components/navigation_component/index";
 
 	interface Props {
 		pageMeta: SimplePageMeta;
