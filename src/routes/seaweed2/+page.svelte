@@ -10,6 +10,8 @@
 
 	import type { PageProps } from "./$types";
 	import ElementVisibilityDetector from "../../lib/ui/elements/ElementVisibilityDetector.svelte";
+	import PinyaAccordion from "$pkg/ui/components/accordion/PinyaAccordion.svelte";
+	import PinyaAccordionItem from "$pkg/ui/components/accordion/PinyaAccordionItem.svelte";
 
 	let { data }: PageProps = $props();
 
@@ -44,6 +46,7 @@
 
 	let isSocialVisible = $state(true);
 	let shouldShowSmallSocial = $derived(!isSocialVisible);
+	let value = $state(["club"]);
 </script>
 
 <!--todo: maybe add check that this is always false? -->
@@ -88,13 +91,33 @@
 			<h2>Experience</h2>
 			<p>Test asdf ad fas faf adsffd dasfdf a faf asdfaf a fa sdfaf af ad fafd fafd as fd adsf adfa sf af df asd fsad f dsafas f adsfdf asd sdf</p>
 			<p>Test asdf ad fas faf adsffd dasfdf a faf asdfaf a fa sdfaf af ad fafd fafd as fd adsf adfa sf af df asd fsad f dsafas f adsfdf asd sdf</p>
+			<h3 class="mb-4">Subheading</h3>
+
+			<div class="accordion-wrapper">
+				<PinyaAccordion {value}>
+					<PinyaAccordionItem value="club">
+						<!-- Control -->
+						{#snippet control()}Club{/snippet}
+						<!-- Panel -->
+						{#snippet panel()}Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore.{/snippet}
+					</PinyaAccordionItem>
+				</PinyaAccordion>
+			</div>
 		</div>
 	</PinyaCard>
 </SeaweedLayout>
 
 <style>
+    h3 {
+        text-align: start;
+    }
+
     .side-section {
         display: flex;
         flex-direction: column;
+    }
+
+    .accordion-wrapper {
+		    margin: 0 -3rem;
     }
 </style>

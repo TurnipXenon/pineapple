@@ -3,11 +3,13 @@
 
 	import { ButtonVariant, ImageIcon, PinyaButton, PinyaCard } from "$pkg/ui/elements/index";
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
-	import { FourPartCard } from "$pkg/ui/components/index";
+	import { FourPartCard, PinyaAccordion, PinyaAccordionItem } from "$pkg/ui/components/index";
 	import TestModal from "./TestModal.svelte";
 	import PinyaSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
+	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
 
 	let testSwitchVal = $state(false);
+	let value = $state(["club"]);
 </script>
 
 <div class="flex flex-col gap-4">
@@ -24,6 +26,20 @@
 			<PinyaSwitch name="test-switch"></PinyaSwitch>
 		</div>
 
+		<h3 class="mb-2">Placeholders</h3>
+		<Placeholder isCircle={true} classes="h-12 w-12 mb-2" />
+		<Placeholder />
+
+		<div class="h-8"></div>
+
+		<PinyaAccordion {value}>
+			<PinyaAccordionItem value="club">
+				<!-- Control -->
+				{#snippet control()}Club{/snippet}
+				<!-- Panel -->
+				{#snippet panel()}Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore.{/snippet}
+			</PinyaAccordionItem>
+		</PinyaAccordion>
 	</PinyaCard>
 
 	<PinyaCard widthClass="max-w-2xl">

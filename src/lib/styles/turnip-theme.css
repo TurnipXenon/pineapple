@@ -237,89 +237,89 @@ html.dark {
         @variant dark {
             color: var(--color-surface-950);
         }
-
-        blockquote {
-            @apply mb-4;
-            font-style: italic;
-            border: 0;
-            text-align: center;
-            filter: brightness(140%);
-        }
-
-        h1, h2, h3, h4, h5, h6, .fake-h2, .fake-h3, .fake-h4 {
-            text-align: center;
-            margin-top: 0;
-            font-weight: bolder;
-            color: var(--color-primary-900);
-
-            @variant dark {
-                color: var(--color-primary-100);
-            }
-        }
-
-        h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p, .fake-h2 + p, .fake-h3 + p, .fake-h4 + p {
-            margin-top: 0.5lh;
-        }
-
-        h1 {
-            @apply text-4xl;
-        }
-
-        h2, .fake-h2 {
-            @apply text-3xl;
-        }
-
-        h3, .fake-h3 {
-            @apply text-2xl;
-        }
-
-        h4, .fake-h4 {
-            @apply text-xl;
-        }
-
-        h5 {
-            @apply text-lg;
-        }
-
-        h6 {
-            text-decoration: underline;
-        }
-
-        a {
-            text-decoration: underline;
-            color: var(--color-secondary-500);
-
-            @variant dark {
-                color: var(--color-secondary-300);
-            }
-        }
-
-        a:hover, a:focus {
-            filter: brightness(150%);
-        }
-
-        a:visited {
-            color: var(--color-secondary-950);
-
-            @variant dark {
-                color: var(--color-secondary-200);
-            }
-        }
-
-        ul {
-            list-style: inside;
-        }
-
-        ol {
-            list-style: decimal inside;
-        }
-
-        p{
-            @apply mb-3;
-        }
-
         /* endregion components */
     }
+}
+
+
+blockquote {
+    @apply mb-4;
+    font-style: italic;
+    border: 0;
+    text-align: center;
+    filter: brightness(140%);
+}
+
+h1, h2, h3, h4, h5, h6, .fake-h2, .fake-h3, .fake-h4 {
+    text-align: center;
+    margin-top: 0;
+    font-weight: bolder;
+    color: var(--color-primary-900);
+
+    @variant dark {
+        color: var(--color-primary-100);
+    }
+}
+
+h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p, .fake-h2 + p, .fake-h3 + p, .fake-h4 + p {
+    margin-top: 0.5lh;
+}
+
+h1 {
+    @apply text-4xl;
+}
+
+h2, .fake-h2 {
+    @apply text-3xl;
+}
+
+h3, .fake-h3 {
+    @apply text-2xl;
+}
+
+h4, .fake-h4 {
+    @apply text-xl;
+}
+
+h5 {
+    @apply text-lg;
+}
+
+h6 {
+    text-decoration: underline;
+}
+
+a {
+    text-decoration: underline;
+    color: var(--color-secondary-500);
+
+    @variant dark {
+        color: var(--color-secondary-300);
+    }
+}
+
+a:hover, a:focus {
+    filter: brightness(150%);
+}
+
+a:visited {
+    color: var(--color-secondary-950);
+
+    @variant dark {
+        color: var(--color-secondary-200);
+    }
+}
+
+ul {
+    list-style: inside;
+}
+
+ol {
+    list-style: decimal inside;
+}
+
+p{
+    @apply mb-3;
 }
 
 @theme {

@@ -25,7 +25,7 @@
 	}: SeaweedLayoutProps = $props();
 
 	let actualLayout = $state(layout);
-	let isAdvanceSettingOn = $state(true);
+	let isAdvanceSettingOn = $state(false);
 	let orderUrl = $state("");
 
 	let queryStates = new SvelteMap<string, boolean>(queryTerms.map(term => [term, true]));

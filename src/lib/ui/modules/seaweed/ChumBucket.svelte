@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { type PageMeta } from "$pkg";
+	import { type PageMeta } from "$pkg/components/navigation_component/index";
 	import { onMount } from "svelte";
+	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
 
 	let hasTriedGettingChumBucket = $state(false);
 	let pageMetaList: PageMeta[] = $state([]);
@@ -27,7 +28,7 @@
 
 	<div class="chum-bucket-grid">
 		{#if hasTriedGettingChumBucket}
-			{#each pageMetaList as pageMeta}
+			{#each pageMetaList as pageMeta (pageMeta.title)}
 				<div class="chum-bucket-item">
 					{#if pageMeta.imageUrl}
 						<img src={`https://turnipxenon.com${pageMeta.imageUrl}`}
@@ -48,8 +49,8 @@
 				</div>
 			{/each}
 		{:else}
-			{#each { length: 10 } as _}
-				<div class="placeholder"></div>
+			{#each { length: 10 } as _, idx (idx)}
+				<Placeholder classes="mb-2" />
 			{/each}
 		{/if}
 	</div>
