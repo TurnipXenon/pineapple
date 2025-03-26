@@ -5,7 +5,7 @@
 	import BlogTemplateInner from "$pkg/components/blog_template/BlogTemplateInner.svelte";
 	import type { SimplePageMeta } from "$pkg/components/navigation_component/index";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
-	import { Card } from "$pkg/components/index";
+	import { default as Card } from "$pkg/components/Card.svelte";
 
 	// grab page meta from the adjacent meta.json
 	interface Props {
