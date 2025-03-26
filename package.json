@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "3.0.0-alpha.7",
+  "version": "3.0.0-alpha.8",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && yarn package",
@@ -22,8 +22,8 @@
     "@eslint/js": "^9.18.0",
     "@sveltejs/adapter-auto": "^4.0.0",
     "@sveltejs/kit": "^2.5.27",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0",
     "@sveltejs/package": "^2.3.7",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-svelte": "^3.0.0",
