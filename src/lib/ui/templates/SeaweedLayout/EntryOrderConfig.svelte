@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/index";
-	import ProjectGroupConfig from "$pkg/ui/templates/seaweed-layout/ProjectGroupConfig.svelte";
+	import ProjectGroupConfig from "$pkg/ui/templates/SeaweedLayout/ProjectGroupConfig.svelte";
 
 	interface Props {
 		layout: ProjectGroup[];

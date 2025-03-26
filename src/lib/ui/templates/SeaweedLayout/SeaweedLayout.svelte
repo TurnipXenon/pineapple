@@ -4,12 +4,12 @@
 	import ChumBucket from "$pkg/ui/modules/seaweed/ChumBucket.svelte";
 	import { default as PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/PinyaPageLayout.svelte";
 	import { default as SocialSection } from "$pkg/ui/components/SocialSection.svelte";
-	import EntryGroup from "$pkg/ui/templates/seaweed-layout/EntryGroup.svelte";
+	import EntryGroup from "$pkg/ui/templates/SeaweedLayout/EntryGroup.svelte";
 	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
 	import { CodeBlock, TextChip } from "$pkg/ui/elements/index";
 	import { SvelteMap } from "svelte/reactivity";
-	import EntryOrderConfig2 from "$pkg/ui/templates/seaweed-layout/EntryOrderConfig2.svelte";
-	import CreateUrlForm from "$pkg/template/seaweed/CreateUrlForm.svelte";
+	import EntryOrderConfig from "$pkg/ui/templates/SeaweedLayout/EntryOrderConfig.svelte";
+	import CreateUrlForm from "./CreateUrlForm.svelte";
 	import { onMount } from "svelte";
 	import { page } from "$app/state";
 
@@ -223,11 +223,11 @@
 						{/each}
 					</div>
 
-					<EntryOrderConfig2
+					<EntryOrderConfig
 						bind:layout={actualLayout}
 						bind:orderUrl={orderUrl}
 						allEntries={entryList}
-					></EntryOrderConfig2>
+					></EntryOrderConfig>
 
 					<br>
 					<p>Copy the url below and open a new page with it</p>

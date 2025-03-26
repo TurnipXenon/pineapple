@@ -10,16 +10,18 @@
 
 		<div class="turnip-menu">
 			<PinyaButton onclick={() => {location.href = localizeHref('pineapple');}}>
-				Pineapple playground
-			</PinyaButton>
-			<PinyaButton onclick={() => {location.href = localizeHref('portfolio');}}>
-				Seaweed playground
+				<div class="text-wrap">
+					Pineapple playground (still broken)
+				</div>
 			</PinyaButton>
 			<PinyaButton onclick={() => {location.href = localizeHref('seaweed2');}}>
 				Seaweed <b>2</b> playground
 			</PinyaButton>
 			<PinyaButton onclick={() => {location.href = localizeHref('components');}}>
 				Components
+			</PinyaButton>
+			<PinyaButton disabled={true} onclick={() => {}}>
+				Seaweed (deprecated)
 			</PinyaButton>
 		</div>
 	</main>

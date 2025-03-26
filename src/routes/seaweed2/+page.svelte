@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { PinyaCard } from "$pkg/ui/elements";
-	import { type ProjectGroup, SeaweedLayout, type SnippetMeta } from "$pkg/ui/templates/seaweed-layout/index";
+	import { type ProjectGroup, SeaweedLayout, type SnippetMeta } from "$pkg/ui/templates/SeaweedLayout/index";
 	import type { Snippet } from "svelte";
 
 	import * as Pengi from "$pkg/ui/modules/projects/Pengi.svelte";

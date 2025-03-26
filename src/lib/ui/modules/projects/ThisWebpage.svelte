@@ -1,7 +1,7 @@
 <script module lang="ts">
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
 	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
-	import type { ProjectComponentProps } from "$pkg/ui/templates/seaweed-layout/ProjectComponentProps";
+	import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout/ProjectComponentProps";
 	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
 	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
 	import { default as PinyaButton } from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
