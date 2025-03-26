@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "3.0.0-alpha.11",
+  "version": "3.0.0-alpha.12",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && yarn package",
@@ -43,6 +43,7 @@
     "@prisma/client": "^5.12.1",
     "@skeletonlabs/skeleton": "^3.1.0",
     "@skeletonlabs/skeleton-svelte": "^1.0.0",
+    "@sveltejs/kit": "^2.5.27",
     "@sveltejs/vite-plugin-svelte": "^4.0.0",
     "@tailwindcss/vite": "^4.0.14",
     "@types/htmlparser2": "^3.10.7",
@@ -58,8 +59,7 @@
     "svelte": "^5.0.0",
     "svelte-modals": "^2.0.1",
     "tailwindcss": "^4.0.14",
-    "ts-node": "^10.9.1",
-    "@sveltejs/kit": "^2.5.27"
+    "ts-node": "^10.9.1"
   },
   "exports": {
     ".": {
