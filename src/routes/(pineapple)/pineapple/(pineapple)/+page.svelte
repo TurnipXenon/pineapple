@@ -6,7 +6,7 @@
 	import { ImageMap } from "./ImageMap";
 	import PineappleSlideToggle from "$pkg/components/PineappleSlideToggle.svelte";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
-	import { dialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
+	import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
 	import { Card } from "$pkg/components/index";
 
 	enableDialogueOverlay.set(false);
@@ -22,14 +22,16 @@
 
 	let parsed = false;
 	const onTestDialogClick = () => {
-		if (!parsed) {
-			dialogManager.parseAndSetDialogTree(testDialogYarn).then(() => {
-				dialogManager.toggleDialogOverlay();
-			});
-			parsed = true;
-		} else {
-			dialogManager.toggleDialogOverlay();
-		}
+		getDialogManager().then(dm => {
+			if (!parsed) {
+				dm.parseAndSetDialogTree(testDialogYarn).then(() => {
+					dm.toggleDialogOverlay();
+				});
+				parsed = true;
+			} else {
+				dm.toggleDialogOverlay();
+			}
+		});
 	};
 	// endregion
 
@@ -42,7 +44,7 @@
 
 <Card>
 	{#snippet content()}
-		<div  class="default-card">
+		<div class="default-card">
 			<button
 				class="btn preset-filled-secondary-500"
 				onclick={() => {

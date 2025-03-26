@@ -1,4 +1,5 @@
-import { DialogManager } from "$pkg/components/dialog_manager/DialogManager";
+import type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
+import type { DialogManager } from "$pkg/components/dialog_manager/DialogManager";
 
 /**
  * strictly must be declared last! or you might receive a weird error that looks like:
@@ -13,4 +14,12 @@ import { DialogManager } from "$pkg/components/dialog_manager/DialogManager";
  * what this means is that one member of dialogManager cannot be initialized. in our case, it was the
  * defaultDialogMessage not yet being initialized
  */
-export const dialogManager = new DialogManager();
+let _dialogManager: IDialogManager | undefined = undefined;
+export const getDialogManager = async () => {
+	if (_dialogManager === undefined) {
+		const dm = await import('./DialogManager');
+		_dialogManager = new dm.DialogManager();	
+	}
+	
+	return _dialogManager;
+};

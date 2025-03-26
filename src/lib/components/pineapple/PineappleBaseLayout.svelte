@@ -20,7 +20,7 @@
 	import Toast from "$pkg/components/pineapple/toast/Toast.svelte";
 	import DialogOverlay from "$pkg/components/dialog_overlay/DialogOverlay.svelte";
 	import { fade } from "svelte/transition";
-	import { dialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
+	import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
 
 	interface Props {
 		showDialogByDefault?: boolean;
@@ -77,7 +77,7 @@
 
 <!--todo: turn off hidden when it's time-->
 <button class="fab" onclick={()=>{
-	dialogManager.toggleDialogOverlay()
+	getDialogManager().then(dm => dm.toggleDialogOverlay());
 }}>
 	{#if (enableDialogueOverlayValue)}
 		<img class="turnip-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
