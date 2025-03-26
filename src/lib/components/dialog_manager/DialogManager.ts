@@ -25,13 +25,12 @@ import {
 } from "$pkg/components/dialog_manager/DialogManagerStore";
 import { DialogProcessor } from "$pkg/components/dialog_manager/DialogProcessor";
 import { parseYarn } from "$pkg/scripts/pineapple_fiber/PineappleFiberParser";
-import type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
 
 const shouldDebugYarn = false;
 
 export type OnSetDialogChoiceCallback = (newMessage: DialogDetail) => void;
 
-export class DialogManager implements IDialogManager {
+export class DialogManager {
 	dialogMessageMap: Map<string, DialogDetail> = new Map();
 	currentDialogTree: DialogDetail[] = [];
 	fullCurrentMessage: string = defaultDialogMessage[0].textContent;

@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { onDestroy } from "svelte";
 	import { ErrorYarn } from "./ErrorYarn";
-	import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
+	import { dialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
 
 	ErrorYarn.setDialogTree();
 
 	onDestroy(() => {
-		getDialogManager().then(dm => dm.setDialogToDefault());
+		dialogManager.setDialogToDefault();
 	});
 </script>
 

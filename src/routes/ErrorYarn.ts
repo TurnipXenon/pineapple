@@ -3,7 +3,7 @@
 			
 import { PortraitType } from "$lib/types/pineapple_fiber/PortraitType";
 import type { DialogDetail } from "$lib/types/pineapple_fiber/DialogDetail";
-import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
+import { dialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
 
 class _ErrorYarn {
 	dialogList: DialogDetail[] = [
@@ -17,7 +17,7 @@ Gomen oomf chan o(TヘTo)</p>`
 	
 	/* Remember to call DialogManager.subscribeToSetDialogChoice before calling this in Svelte */
 	setDialogTree = () => {
-		getDialogManager().then(dm => dm.setDialogTree(this.dialogList));
+		dialogManager.setDialogTree(this.dialogList);
 	};
 }
 
