@@ -2,6 +2,8 @@
 
 ## Overview
 
+Demo: https://www.turnipxenon.com/blogs/coding-chagrin/project-fiber
+
 Pineapple Fiber is a script that translates Yarn scripts into Typescript files that my custom-built DialogManager could
 digest. It was made with the purpose of:
 
