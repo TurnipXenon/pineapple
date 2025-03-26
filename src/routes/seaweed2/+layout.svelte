@@ -6,8 +6,6 @@
 	}
 
 	let { children }: Props = $props();
-
-	// initializeStores();
 </script>
 
 

@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { getLocale, localizeHref } from "$pkg/paraglide/runtime";
+	import { deLocalizeHref, getLocale, localizeHref } from "$pkg/paraglide/runtime";
 	import PinyaCombobox from "$pkg/ui/elements/pinya-combobox/PinyaCombobox.svelte";
+	import { appState } from "$pkg/ui/templates/index";
 
 	interface ComboxData {
 		label: string;
@@ -23,9 +24,12 @@
 		const data = comboboxData.find((d) => d.value === e.value[0]);
 		if (data) {
 			selectedCountry = [data.value];
-			location.href = localizeHref("./", { locale: data.value });
+			const pathname = deLocalizeHref(location.href);
+			location.href = localizeHref(pathname, { locale: data.value });
 		}
 	};
+
+	let disabled = $derived(!appState.isLanguagePickerAvailable);
 </script>
 
 <PinyaCombobox
@@ -35,4 +39,5 @@
 	label="Select Language"
 	placeholder="Select Language"
 	{onValueChange}
+	{disabled}
 />

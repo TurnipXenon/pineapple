@@ -19,4 +19,5 @@ export interface PinyaComboboxProps<T extends string> {
 	// useful if you arent using basic strings
 	onValueChangeBase?: (selectedList: ValueChangeDetails<T>) => void;
 	contentZIndex?: string;
+	disabled?: boolean;
 }
