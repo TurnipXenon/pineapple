@@ -2,9 +2,11 @@
 	import HeaderHepCat from "$pkg/assets/temp/header-hep-cat.mp4";
 	import BitbucketIcon from "$pkg/assets/icons/bitbucket-icon.svg";
 	import type { ProjectComponentProps } from "$pkg/ui/templates/seaweed-layout/ProjectComponentProps";
-	import { FourPartCard } from "$pkg/ui/components/index.js";
-	import { ButtonVariant, ImageIcon, PinyaButton } from "$pkg/ui/elements/index.js";
-	import { ItchLogoHotLink } from "$pkg/consts.js";
+	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
+	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
+	import { default as PinyaButton } from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
+	import { type ButtonVariant } from "$pkg/ui/elements/PinyaButton/PinyaButtonProps";
+	import { ItchLogoHotLink } from "$pkg/consts";
 
 	const key = "Hepcat";
 	export { component, key };

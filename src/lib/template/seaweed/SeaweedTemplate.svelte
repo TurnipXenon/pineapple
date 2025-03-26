@@ -17,7 +17,7 @@
 	import { parseQueryTerms } from "$pkg/template/seaweed/ParseQueryTerms";
 	import UrlShortenerForm from "$pkg/template/seaweed/CreateUrlForm.svelte";
 	import PineappleSlideToggle from "$pkg/components/PineappleSlideToggle.svelte";
-	import { Chip } from "$pkg/index";
+	import { default as Chip } from "$pkg/components/chip/Chip.svelte";
 	import ChumBucket from "$pkg/ui/modules/seaweed/ChumBucket.svelte";
 
 	export let seaweedTemplateData: SeaweedTemplateData;

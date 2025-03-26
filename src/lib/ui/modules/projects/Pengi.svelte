@@ -1,10 +1,12 @@
 <script module lang="ts">
 	import HeaderPengi from "$pkg/assets/temp/header-pengi.mp4";
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
-	import type { ProjectComponentProps } from "$pkg/ui/templates/index";
-	import { FourPartCard } from "$pkg/ui/components/index.js";
-	import { ButtonVariant, ImageIcon, PinyaButton } from "$pkg/ui/elements/index.js";
-	import { ItchLogoHotLink } from "$pkg/consts.js";
+	import type { ProjectComponentProps } from "$pkg/ui/templates/seaweed-layout/ProjectComponentProps";
+	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
+	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
+	import { default as PinyaButton } from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
+	import { type ButtonVariant } from "$pkg/ui/elements/PinyaButton/PinyaButtonProps";
+	import { ItchLogoHotLink } from "$pkg/consts";
 
 	const key = "Pengi";
 	export { component, key };

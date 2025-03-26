@@ -1,14 +1,15 @@
 <script module lang="ts">
-	import GithubIcon from '$pkg/assets/icons/github-mark.svg';
-	import ThisWebsiteFootage from '$pkg/assets/others/seaweed-showcase.mp4';
-	import type { ProjectComponentProps } from '../../templates/seaweed-layout/ProjectComponentProps';
+	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
+	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
+	import type { ProjectComponentProps } from "$pkg/ui/templates/seaweed-layout/ProjectComponentProps";
+	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
+	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
+	import { default as PinyaButton } from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
+	import { type ButtonVariant } from "$pkg/ui/elements/PinyaButton/PinyaButtonProps";
+	import { default as TextChip } from "$pkg/ui/elements/text-chip/TextChip.svelte";
 
-	const key = 'This Webpage';
+	const key = "This Webpage";
 	export { component, key };
-</script>
-<script>
-	import { FourPartCard } from "$pkg/ui/components/index";
-	import { ButtonVariant, ImageIcon, PinyaButton, TextChip } from "$pkg/ui/elements/index.js";
 </script>
 
 {#snippet component(props: ProjectComponentProps)}

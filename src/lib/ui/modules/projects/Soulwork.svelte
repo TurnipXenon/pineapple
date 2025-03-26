@@ -1,10 +1,12 @@
 <script module lang="ts">
-	import HeaderSoulwork from '$pkg/assets/temp/header-soulwork.mp4';
-	import GithubIcon from '$pkg/assets/icons/github-mark.svg';
+	import HeaderSoulwork from "$pkg/assets/temp/header-soulwork.mp4";
+	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
 	import type { ProjectComponentProps } from "$pkg/ui/templates/index";
-	import { FourPartCard } from "$pkg/ui/components/index";
-	import { ButtonVariant, ImageIcon, PinyaButton } from "$pkg/ui/elements/index.js";
-	import { ItchLogoHotLink } from "$pkg/consts.js";
+	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
+	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
+	import { default as PinyaButton } from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
+	import { type ButtonVariant } from "$pkg/ui/elements/PinyaButton/PinyaButtonProps";
+	import { ItchLogoHotLink } from "$pkg/consts";
 
 	const key = "Soulwork";
 	export { component, key };

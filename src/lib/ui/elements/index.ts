@@ -7,6 +7,6 @@ export * from "./GeneralUIProps";
 export * from "./OnBackground";
 export * from "./pinya-card/index";
 export * from "./WrapperProps";
-export * from "./pinya-button/index";
+export * from "$pkg/ui/elements/PinyaButton/index";
 export * from "./text-chip";
 export * from "./CodeBlock";

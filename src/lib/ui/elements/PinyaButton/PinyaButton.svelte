@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ButtonVariant, type PinyaButtonProps } from './props';
+	import { ButtonVariant, type PinyaButtonProps } from './PinyaButtonProps';
 	import { ColorScheme } from "$pkg/ui/elements/ColorScheme";
 
 	let {

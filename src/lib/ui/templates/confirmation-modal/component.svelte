@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ConfirmationModalProps } from './props';
-	import { ModalBase } from '$pkg/ui/components';
+	import { default as ModalBase } from '$pkg/ui/components/ModalBase.svelte';
 	import { ColorScheme, PinyaButton } from '$pkg/ui/elements';
 
 	let {

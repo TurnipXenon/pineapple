@@ -6,7 +6,7 @@
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
 	import LinkedinIcon from "$pkg/assets/icons/linkedin.svg";
 	import { ItchLogoHotLink } from "$pkg/consts";
-	import { ButtonVariant, PinyaButton } from "$pkg/ui/elements/pinya-button/index";
+	import { ButtonVariant, PinyaButton } from "$pkg/ui/elements/PinyaButton/index";
 	import ImageIcon from "$pkg/ui/elements/ImageIcon.svelte";
 
 	/** @type {{isSmallVersion?: boolean, email?: string, linkedinSlug?: string, isSlot?: boolean, allowLinkedIn?: boolean}} */
