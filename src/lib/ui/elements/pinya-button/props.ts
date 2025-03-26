@@ -15,4 +15,5 @@ export type PinyaButtonProps = WrapperProps
 	paddingClass?: string;
 	buttonVariant?: ButtonVariant;
 	colorClass?: string;
+	classes?: string;
 };

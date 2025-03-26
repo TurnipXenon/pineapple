@@ -63,7 +63,9 @@
 			<PinyaButton
 				buttonVariant={ButtonVariant.SmallIcon}
 				title="https://turnipxenon.itch.io/"
-				onclick={() => window.open("https://turnipxenon.itch.io/")}>
+				onclick={() => window.open("https://turnipxenon.itch.io/")}
+				classes="h-full"
+			>
 				<ImageIcon src={ItchLogoHotLink} alt="itch icon" />
 				{#if (!isSmallVersion)}
 					<span>TurnipXenon</span>
@@ -83,5 +85,6 @@
         flex-wrap: wrap;
         justify-content: var(--preferred-justify-content);
         gap: 0.7rem;
+		    align-items: stretch;
     }
 </style>

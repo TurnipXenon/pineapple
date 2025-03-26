@@ -8,6 +8,7 @@
 		paddingClass = '',
 		buttonVariant = ButtonVariant.Default,
 		colorClass = '',
+		classes = '',
 		...props
 	}: PinyaButtonProps = $props();
 
@@ -41,7 +42,7 @@
 <button
 	{...props}
 	class:small-icon-button={buttonVariant === ButtonVariant.SmallIcon}
-	class={`btn rounded-2xl text-xl font-bold ${tailwindClass} ${paddingClass}`}
+	class={`btn rounded-2xl text-xl font-bold ${tailwindClass} ${paddingClass} ${classes}`}
 >
 	{@render children()}
 </button>
