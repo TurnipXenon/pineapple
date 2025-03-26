@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { deLocalizeHref, getLocale, localizeHref } from "$pkg/paraglide/runtime";
 	import PinyaCombobox from "$pkg/ui/elements/pinya-combobox/PinyaCombobox.svelte";
-	import { appState } from "$pkg/ui/templates/index";
+	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte";
 
 	interface ComboxData {
 		label: string;
