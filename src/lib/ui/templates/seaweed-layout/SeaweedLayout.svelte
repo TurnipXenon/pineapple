@@ -2,8 +2,8 @@
 	import { fly } from "svelte/transition";
 	import type { ProjectGroup, SeaweedLayoutProps } from "./props";
 	import ChumBucket from "$pkg/ui/modules/seaweed/ChumBucket.svelte";
-	import { PinyaPageLayout } from "$pkg/ui/templates/index";
-	import { SocialSection } from "$pkg/ui/components/index";
+	import { default as PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/PinyaPageLayout.svelte";
+	import { default as SocialSection } from "$pkg/ui/components/SocialSection.svelte";
 	import EntryGroup from "$pkg/ui/templates/seaweed-layout/EntryGroup.svelte";
 	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
 	import { CodeBlock, TextChip } from "$pkg/ui/elements/index";

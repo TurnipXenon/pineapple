@@ -15,7 +15,7 @@
 	import type { Snippet } from "svelte";
 	import { DialogOverlay } from "$pkg/components/index";
 	import PinyaBase from "$pkg/ui/templates/PinyaBase.svelte";
-	import { PinyaPageLayout } from "$pkg/ui/templates/pinya-page-layout/index";
+	import { PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/index";
 
 	interface Props {
 		children: Snippet;

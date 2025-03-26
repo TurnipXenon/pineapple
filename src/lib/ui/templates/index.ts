@@ -1,5 +1,5 @@
 export { default as PinyaBase } from "./PinyaBase.svelte";
 
-export * from "./pinya-page-layout";
+export * from "./PinyaPageLayout";
 export * from "./seaweed-layout";
 export * from "./confirmation-modal";
