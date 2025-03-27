@@ -30,7 +30,8 @@
 				Pengi,
 				ThisWebpage
 			],
-			key: "games"
+			key: "games",
+			projectComponentProps: { isPineapple: true }
 		},
 		{
 			title: "Projects",
@@ -40,7 +41,8 @@
 				Pengi,
 				Soulwork
 			],
-			key: "projects"
+			key: "projects",
+			projectComponentProps: { isPineapple: true }
 		}
 	];
 
@@ -49,16 +51,6 @@
 	let value = $state(["club"]);
 </script>
 
-<!--todo: maybe add check that this is always false? -->
-<!--<SeaweedTemplate-->
-<!--	getAllEntryFromGlobal={GetAllEntryFromGlobal}-->
-<!--	seaweedTemplateData={seaweedTemplateData}-->
-<!--	projectFirstGroupedEntries={AllGroupedEntriesProjectFirst}-->
-<!--	getEntryFromGlobal={GetEntryFromGlobal}-->
-<!--	experienceSection={WorkExperience}-->
-<!--	letChaos={false}></SeaweedTemplate>-->
-
-<!-- todo: entryList + layout -->
 <SeaweedLayout
 	name="Turnip"
 	email="turnipxenon@gmail.com"

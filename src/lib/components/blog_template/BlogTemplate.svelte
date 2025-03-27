@@ -3,7 +3,7 @@
 	import { enableBackground } from "$pkg/store";
 	import { onDestroy, onMount } from "svelte";
 	import BlogTemplateInner from "$pkg/components/blog_template/BlogTemplateInner.svelte";
-	import type { SimplePageMeta } from "$pkg/components/navigation_component/index";
+	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { default as Card } from "$pkg/components/Card.svelte";
 

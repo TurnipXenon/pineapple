@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { localizeHref } from "$pkg/paraglide/runtime.js";
-	import { PinyaCard } from "$pkg/ui/elements/pinya-card/index";
+	import { PinyaCard } from "$pkg/ui/elements/PinyaCard/index";
 	import { PinyaButton } from "$pkg/ui/elements/PinyaButton/index";
 </script>
 

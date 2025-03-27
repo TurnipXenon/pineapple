@@ -5,8 +5,8 @@ export { default as ElementVisibilityDetector } from "./ElementVisibilityDetecto
 export * from "./ColorScheme";
 export * from "./GeneralUIProps";
 export * from "./OnBackground";
-export * from "./pinya-card/index";
+export * from "./PinyaCard/index";
 export * from "./WrapperProps";
-export * from "$pkg/ui/elements/PinyaButton/index";
+export * from "./PinyaButton/index";
 export * from "./text-chip";
 export * from "./CodeBlock";
