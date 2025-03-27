@@ -1,6 +1,6 @@
 <script lang="ts">
-	import NavigationControl from "$pkg/components/navigation_component/NavigationControl.svelte";
-	import { parsePageMeta, type ParsePageMetaCompareFn } from "$pkg/components/navigation_component/PageMeta";
+	import NavigationControl from "$pkg/ui/modules/NavigationMenu/NavigationControl.svelte";
+	import { parsePageMeta, type ParsePageMetaCompareFn } from "$pkg/ui/modules/NavigationMenu/PageMeta";
 	import { Card } from "$pkg/components/index";
 	import { PinyaCard } from "$pkg/ui/elements/index";
 	import { localizeHref } from "$pkg/paraglide/runtime.js";

@@ -1,9 +1,5 @@
 import type { Snippet } from "svelte";
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface ProjectComponentProps {
-	// todo: add variants here?
-}
+import type { ProjectComponentProps } from "$pkg/ui/templates/index";
 
 type ComponentSnippet = Snippet<[ProjectComponentProps]>;
 
@@ -16,6 +12,7 @@ export interface ProjectGroup {
 	key: string;
 	title: string;
 	entryList: SnippetMeta[];
+	projectComponentProps?: ProjectComponentProps;
 }
 
 export interface SeaweedLayoutProps {

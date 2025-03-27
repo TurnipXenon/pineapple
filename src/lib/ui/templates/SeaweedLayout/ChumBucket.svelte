@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type PageMeta } from "$pkg/components/navigation_component/index";
+	import { type PageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { onMount } from "svelte";
 	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
 

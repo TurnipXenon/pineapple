@@ -2,7 +2,7 @@
 	import { showComponentInToast, showTextInToast } from "$pkg/components/pineapple/toast/Toast";
 	import TestCard from "$pkg/components/pineapple/toast/custom-toast/TestCustomToast.svelte";
 	import TestDialogYarn from "./TestDialog.yarn?raw";
-	import NavigationComponent from "$pkg/components/navigation_component/NavigationComponent.svelte";
+	import NavigationMenu from "$pkg/ui/modules/NavigationMenu/NavigationMenu.svelte";
 	import { ImageMap } from "./ImageMap";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
@@ -72,11 +72,11 @@
 	</PinyaCard>
 </div>
 
-<NavigationComponent
+<NavigationMenu
 	title="Navigation Component Test"
 	fileList={fileList}
 	jsonList={jsonList}
 	imageMap={ImageMap}
 	shouldAllowControl={allowPagination}
 	parentSubpath="/pineapple/">
-</NavigationComponent>
+</NavigationMenu>

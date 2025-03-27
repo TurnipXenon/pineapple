@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fly } from "svelte/transition";
 	import type { ProjectGroup, SeaweedLayoutProps } from "./props";
-	import ChumBucket from "$pkg/ui/modules/seaweed/ChumBucket.svelte";
+	import ChumBucket from "$pkg/ui/templates/SeaweedLayout/ChumBucket.svelte";
 	import { default as PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/PinyaPageLayout.svelte";
 	import { default as SocialSection } from "$pkg/ui/components/SocialSection.svelte";
 	import EntryGroup from "$pkg/ui/templates/SeaweedLayout/EntryGroup.svelte";
@@ -21,7 +21,7 @@
 		domain = "http://localhost:5173/seaweed2",
 		queryTerms,
 		showMiniSocial = false,
-		serverParams = ""
+		serverParams = "",
 	}: SeaweedLayoutProps = $props();
 
 	let actualLayout = $state(layout);
@@ -187,7 +187,9 @@
 
 	<!--todo: render list #migration-->
 	{#each actualLayout as group (group.title)}
-		<EntryGroup {...group}></EntryGroup>
+		<EntryGroup
+			{...group}
+		/>
 	{/each}
 
 	{#snippet footer()}

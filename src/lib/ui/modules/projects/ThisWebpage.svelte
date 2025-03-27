@@ -16,14 +16,16 @@
 	<FourPartCard>
 
 		{#snippet headerCover()}
-			<video
-				playsinline autoplay muted loop preload="none"
-				class="game-video-cover"
-			>
-				<source src={ThisWebsiteFootage} type="video/mp4">
-				video unavailable. original video contains clips of this website being resized and light-dark mode being
-				toggled.
-			</video>
+			{#if !props.isPineapple}
+				<video
+					playsinline autoplay muted loop preload="none"
+					class="game-video-cover"
+				>
+					<source src={ThisWebsiteFootage} type="video/mp4">
+					video unavailable. original video contains clips of this website being resized and light-dark mode being
+					toggled.
+				</video>
+			{/if}
 		{/snippet}
 
 		{#snippet header()}

@@ -4,7 +4,7 @@ export { default as PineappleLayoutBase } from "./components/pineapple/Pineapple
 
 export * from "./components/index";
 export * from "$pkg/components/overrideable_meta/index";
-export * from "$pkg/components/navigation_component/index";
+export * from "$pkg/ui/modules/NavigationMenu/index";
 export * from "$pkg/types/api/index";
 export * from "./components/dialog_manager/DialogManagerStore";
 export * from "./components/dialog_manager/DialogManager";

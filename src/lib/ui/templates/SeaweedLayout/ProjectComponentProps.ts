@@ -1,8 +1,7 @@
 import type { Snippet } from 'svelte';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ProjectComponentProps {
-	// todo: add variants here?
+	isPineapple?: boolean;
 }
 
 export type ComponentSnippet = Snippet<[ProjectComponentProps]>;

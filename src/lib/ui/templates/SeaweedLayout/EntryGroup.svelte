@@ -4,7 +4,8 @@
 
 	let {
 		title,
-		entryList
+		entryList,
+		projectComponentProps,
 	}: ProjectGroup = $props();
 
 	const isSpecial = $derived(entryList.length % 3 === 1);
@@ -15,30 +16,6 @@
 	let overflowUiList: SnippetMeta[] = $derived(isSpecial
 		? [...entryList.slice(-4)]
 		: []);
-
-
-	// <!--todo: implement in seaweedlayout #migration-->
-	let inputValue = $state("");
-	let styleStr = $state("");
-	$effect(() => {
-		const termList = inputValue.split(",");
-
-		const chipList: string[] = [];
-		termList.forEach((_, idx) => {
-			termList[idx] = `.qt-${termList[idx]}`;
-			chipList.push(`.text-chip${termList[idx]}`);
-		});
-		styleStr = `<style>
-			${termList.join(", ")} {
-				font-weight: bold
-			}
-
-			${chipList.join(", ")} {
-				background-color: var(--color-secondary-500) /* oklch(55.6% 0 0deg) = #737373 */;
-				color: var(--color-secondary-contrast-500) /* var(--color-secondary-contrast-light) */;
-			}
-			</style>`;
-	});
 </script>
 
 <div class="mt-8 flex flex-col items-center">
@@ -47,12 +24,12 @@
 	</PinyaCard>
 	<div class="normal-project-container">
 		{#each normalUiList as ui (ui.key)}
-			{@render ui.component({})}
+			{@render ui.component(projectComponentProps ?? {})}
 		{/each}
 	</div>
 	<div class="overflow-project-container">
 		{#each overflowUiList as ui (ui.key)}
-			{@render ui.component({})}
+			{@render ui.component(projectComponentProps ?? {})}
 		{/each}
 	</div>
 </div>
