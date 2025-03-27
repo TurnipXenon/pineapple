@@ -89,13 +89,7 @@
 	<!--	<DialogOverlay />-->
 </div>
 
-<style lang="postcss">
-    :root {
-        --dialog-start-pad: clamp(0em, 5vw, 2em);
-        --dialog-box-width: min(calc(50em + 4em), calc(100vw - var(--dialog-start-pad) - var(--theme-border-base)));
-        --dialog-box-height: clamp(15em, 50vw, 18em);
-    }
-
+<style>
     .default-page-container {
         max-width: 2100px;
         margin: 4em auto;

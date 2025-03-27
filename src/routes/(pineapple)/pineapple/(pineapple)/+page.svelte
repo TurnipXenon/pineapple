@@ -4,10 +4,11 @@
 	import TestDialogYarn from "./TestDialog.yarn?raw";
 	import NavigationComponent from "$pkg/components/navigation_component/NavigationComponent.svelte";
 	import { ImageMap } from "./ImageMap";
-	import PineappleSlideToggle from "$pkg/components/PineappleSlideToggle.svelte";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
-	import { Card } from "$pkg/components/index";
+	import PinyaCard from "$pkg/ui/elements/PinyaCard/PinyaCard.svelte";
+	import { PinyaButton } from "$pkg/ui/elements/index";
+	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
 
 	enableDialogueOverlay.set(false);
 
@@ -35,52 +36,47 @@
 	};
 	// endregion
 
-
 	// todo: fix fragile relative reference to the root
 	const fileList = import.meta.glob("./../**/+page.svelte", { query: "?raw" });
 	const jsonList = import.meta.glob("./../**/meta.json", { query: "?raw", eager: true });
 	let allowPagination = $state(true);
 </script>
 
-<Card>
-	{#snippet content()}
-		<div class="default-card">
-			<button
-				class="btn preset-filled-secondary-500"
-				onclick={() => {
+<div class="mb-8">
+	<PinyaCard widthClass="w-auto" flexClass="flex flex-row gap-4 items-center justify-center flex-wrap">
+		<PinyaButton
+			onclick={() => {
 			showComponentInToast({componentAndProps: {component: TestCard, props: undefined}});
-		}}><h3>Test custom toast</h3></button>
-			<button
-				class="btn preset-filled-secondary-500"
-				onclick={() => {
+		}}>
+			<div class="fake-h4">Test custom toast</div>
+		</PinyaButton>
+		<PinyaButton
+			onclick={() => {
 			showTextInToast(`${testingQueueNumber} ${testingRandomPhrases[testingQueueNumber]}`);
 			testingQueueNumber = (testingQueueNumber + 1) % testingRandomPhrases.length;
-		}}><h3>Handy toast</h3></button>
-			<button
-				class="btn preset-filled-secondary-500"
-				onclick={onTestDialogClick}><h3>Test dialog</h3></button>
-			<div>
-				<PineappleSlideToggle name="advanced-setting-slider"
-				                      bind:checked={allowPagination}>
-					Allow pagination: {allowPagination ? "On" : "Off"}
-				</PineappleSlideToggle>
-			</div>
+		}}>
+			<div class="fake-h4">Handy toast</div>
+		</PinyaButton>
+		<PinyaButton
+			onclick={onTestDialogClick}
+		>
+			<div class="fake-h4">Test dialog</div>
+		</PinyaButton>
+		<div>
+			<PineappleSwitch
+				name="advanced-setting-slider"
+				bind:checked={allowPagination}>
+				Allow pagination: {allowPagination ? "On" : "Off"}
+			</PineappleSwitch>
 		</div>
-	{/snippet}
-</Card>
+	</PinyaCard>
+</div>
 
-<NavigationComponent title="Navigation Component Test"
-                     fileList={fileList}
-                     jsonList={jsonList}
-                     imageMap={ImageMap}
-                     shouldAllowControl={allowPagination}
-                     parentSubpath="/pineapple/">
+<NavigationComponent
+	title="Navigation Component Test"
+	fileList={fileList}
+	jsonList={jsonList}
+	imageMap={ImageMap}
+	shouldAllowControl={allowPagination}
+	parentSubpath="/pineapple/">
 </NavigationComponent>
-
-<style lang="postcss">
-    .default-card {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2em;
-    }
-</style>

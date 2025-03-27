@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { page } from "$app/state";
-
-	import { Card } from "$pkg/components/index";
 	import { goto } from "$app/navigation";
+	import { PinyaButton, PinyaCard } from "$pkg/ui/elements/index";
 
 	interface Props {
 		currentIndex?: number;
@@ -11,7 +10,11 @@
 		pageSize: number;
 	}
 
-	let { currentIndex = $bindable(0), contentLength, pageSize = $bindable() }: Props = $props();
+	let {
+		currentIndex = $bindable(0),
+		contentLength,
+		pageSize = $bindable()
+	}: Props = $props();
 
 	const queryIndex = page.url.searchParams.get("index");
 	if (queryIndex) {
@@ -43,28 +46,29 @@
 </script>
 
 <div class="navigation-control-container">
-	<button class="navigation-control-button"
-	        disabled={currentIndex <= 0}
-	        onclick={() => {movePage(false)}}>{"<"}</button>
-	<Card marginBottom="0">
-		{#snippet content()}
-			<p style="margin: 1em">Page {currentIndex + 1}</p>
-		{/snippet}
-	</Card>
-	<button class="navigation-control-button"
-	        disabled={(currentIndex + 1) * pageSize >= contentLength}
-	        onclick={() => {movePage(true)}}>{">"}</button>
+	<PinyaButton
+		classes="w-12 h-12"
+		disabled={currentIndex <= 0}
+		onclick={() => {movePage(false)}}
+	>&lt;
+	</PinyaButton>
+	<div>
+		<PinyaCard widthClass="" paddingClass="pt-2 pb-2 pl-8 pr-8">
+			<span class="fake-h2">Page {currentIndex + 1}</span>
+		</PinyaCard>
+	</div>
+	<PinyaButton
+		classes="w-12 h-12"
+		disabled={(currentIndex + 1) * pageSize >= contentLength}
+		onclick={() => {movePage(true)}}
+	>&gt;
+	</PinyaButton>
 </div>
 
 <style lang="postcss">
     .navigation-control-container {
         display: flex;
         justify-content: space-between;
-        margin: 1lh 0;
-    }
-
-    .navigation-control-button {
-		    /* todo: migration */
-        /*@apply btn preset-filled-secondary-500;*/
+        align-items: center;
     }
 </style>

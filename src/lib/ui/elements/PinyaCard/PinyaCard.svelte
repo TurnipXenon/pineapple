@@ -1,7 +1,7 @@
 <script lang="ts">/**
  * When with texts, wrap the text content inside a div so flex wont apply
  */
-import type { PinyaCardProps } from "./props";
+import type { PinyaCardProps } from "./PinyaCardProps";
 
 let {
 	paddingClass = "pt-[1lh] pb-[1lh] pl-16 pr-16",

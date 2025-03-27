@@ -2,19 +2,18 @@
 	import NavigationControl from "$pkg/components/navigation_component/NavigationControl.svelte";
 	import { parsePageMeta, type ParsePageMetaCompareFn } from "$pkg/components/navigation_component/PageMeta";
 	import { Card } from "$pkg/components/index";
-	import { createGoToFunction } from "$pkg/util/util";
+	import { PinyaCard } from "$pkg/ui/elements/index";
+	import { localizeHref } from "$pkg/paraglide/runtime.js";
 
-
-	
 	interface Props {
 		fileList: Record<string, unknown>;
 		jsonList: Record<string, unknown>;
 		title?: string | undefined;
-		imageMap?: any;
+		imageMap?: Map<string, string>;
 		shouldAllowControl?: boolean;
 		/**
-	 * Should include a slash before and after the path
-	 */
+		 * Should include a slash before and after the path
+		 */
 		parentSubpath: string;
 		allowUpperControl?: boolean;
 		compareFn?: undefined | ParsePageMetaCompareFn;
@@ -42,60 +41,65 @@
 
 <div class="navigation-wrapper">
 	{#if (title)}
-		<Card>
-			{#snippet content()}
-						<h1  class="default-card navigation-title">
+		<div>
+			<PinyaCard widthClass="">
+				<h1 class="navigation-title">
 					{title}
 				</h1>
-					{/snippet}
-		</Card>
+			</PinyaCard>
+		</div>
 	{/if}
 
 	{#if allowUpperControl && shouldAllowControl}
-		<NavigationControl bind:currentIndex={currentIndex}
-		                   bind:contentLength={pageFlatList.length}
-		                   bind:pageSize={pageSize}></NavigationControl>
+		<NavigationControl
+			bind:currentIndex={currentIndex}
+			contentLength={pageFlatList.length}
+			bind:pageSize={pageSize}></NavigationControl
+		>
 	{/if}
 
 	<div class="navigation-component">
 		<!-- all the misc routes-->
-		{#each visiblePages as pageMeta}
+		{#each visiblePages as pageMeta (pageMeta.title)}
 			{@const fullPath=`${parentSubpath}${pageMeta.relativeLink}`}
-			<button class="navigation-element"
-			        title={fullPath}
-			        onclick={createGoToFunction(fullPath)}>
-				{#if pageMeta.imageUrl}
-					<img src={pageMeta.imageUrl}
-					     alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
-				{/if}
-				<section class="blurb-text">
-					<h2>{pageMeta.title}</h2>
-					<p>Published: {pageMeta.datePublished ?? "N/A"} | Last updated: {pageMeta.lastUpdated ?? "N/A"}</p>
-					<p>{pageMeta.description ?? ""}</p>
-					Tags:
-					{#if (pageMeta.tags && pageMeta.tags.length !== 0)}
-						{#each pageMeta.tags as tagValue}
-							&nbsp;<span class="badge variant-filled tag-container">{tagValue}</span>
-						{/each}
-					{:else}
-						None
+			<a href={localizeHref(fullPath)} class="card-anchor">
+				<PinyaCard
+					widthClass="w-full"
+					className="navigation-element"
+				>
+					{#if pageMeta.imageUrl}
+						<img src={pageMeta.imageUrl}
+						     alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
 					{/if}
-				</section>
-			</button>
+					<section class="blurb-text">
+						<h2>{pageMeta.title}</h2>
+						<p>Published: {pageMeta.datePublished ?? "N/A"} | Last updated: {pageMeta.lastUpdated ?? "N/A"}</p>
+						<p>{pageMeta.description ?? ""}</p>
+						Tags:
+						{#if (pageMeta.tags && pageMeta.tags.length !== 0)}
+							{#each pageMeta.tags as tagValue, idx (idx)}
+								&nbsp;<span class="badge variant-filled tag-container">{tagValue}</span>
+							{/each}
+						{:else}
+							None
+						{/if}
+					</section>
+				</PinyaCard>
+			</a>
 		{/each}
 
 		{#if visiblePages.length === 0}
 			<Card>
 				{#snippet content()}
-								<p class="default-card" >Sorry, no content was found</p>
-							{/snippet}
+					<p class="default-card">Sorry, no content was found</p>
+				{/snippet}
 			</Card>
 		{/if}
 	</div>
 
 	{#if shouldAllowControl}
 		<NavigationControl bind:currentIndex={currentIndex}
-		                   bind:contentLength={pageFlatList.length}
+		                   contentLength={pageFlatList.length}
 		                   bind:pageSize={pageSize}></NavigationControl>
 	{/if}
 
@@ -110,13 +114,13 @@
             border-radius: var(--theme-rounded-container) var(--theme-rounded-container) 0 0;
         }
 
-        .navigation-element {
+        :global(.navigation-element) {
             flex-direction: column;
         }
     }
 
     @container (min-width: 801px) {
-        .navigation-element {
+        :global(.navigation-element) {
             flex-direction: row;
         }
 
@@ -125,8 +129,8 @@
         }
     }
 
-    .navigation-element {
-		    /* todo: migration */
+    :global(.navigation-element) {
+        /* todo: migration */
         /*@apply btn card card-hover bg-surface-100 dark:bg-surface-900;*/
         container-type: inline-size;
         display: flex;
@@ -166,9 +170,27 @@
         flex-direction: column;
         max-width: 1000px;
         width: 100%;
+		    gap: 1lh;
     }
 
     .tag-container {
         margin: 0.25lh 0;
+    }
+
+    a.card-anchor {
+		    filter: none;
+    }
+
+    :global(.navigation-element) {
+		    transition: 0.3s;
+    }
+
+    :global(.navigation-element:hover) {
+        transform: scale(1.02);
+		    box-shadow: 10px 5px 5px rgba(49, 8, 0, 0.25);
+    }
+
+    h2 {
+		    text-align: start;
     }
 </style>
