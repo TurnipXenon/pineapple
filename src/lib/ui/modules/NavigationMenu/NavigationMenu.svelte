@@ -191,7 +191,7 @@
     }
 
     :global(.dark .navigation-element:hover) {
-		    box-shadow: 10px 5px 5px rgba(21, 0, 0, 0.25);
+		    box-shadow: 10px 5px 5px rgba(16, 0, 0, 0.35);
     }
 
     h2 {
