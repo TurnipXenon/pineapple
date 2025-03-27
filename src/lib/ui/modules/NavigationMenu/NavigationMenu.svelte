@@ -190,6 +190,10 @@
 		    box-shadow: 10px 5px 5px rgba(49, 8, 0, 0.25);
     }
 
+    :global(.dark .navigation-element:hover) {
+		    box-shadow: 10px 5px 5px rgba(21, 0, 0, 0.25);
+    }
+
     h2 {
 		    text-align: start;
     }
