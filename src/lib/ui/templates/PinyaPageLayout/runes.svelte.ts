@@ -6,9 +6,11 @@ interface AppStore {
 	isLanguagePickerAvailable: boolean;
 	allowDialog?: boolean;
 	enableDialogOnByDefault?: boolean;
+	bgOpacity: number;
 }
 
 export const appState = $state<AppStore>({
 	title: '',
 	isLanguagePickerAvailable: true,
+	bgOpacity: 1,
 });

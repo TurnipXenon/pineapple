@@ -10,13 +10,20 @@ let {
 	borderClass = "border-[2px] border-primary-500 dark:border-0",
 	marginClass = "",
 	className,
+	includeDataNoSnippet = false,
 	children
 }: PinyaCardProps = $props();
+
+let cardClass = $derived(`card bg-surface-200 dark:bg-surface-900 text-start rounded-xl
+	${paddingClass} ${flexClass} ${className} ${widthClass} ${borderClass} ${marginClass}`);
 </script>
 
-<div
-	class={`card bg-surface-200 dark:bg-surface-900 text-start rounded-xl
-	${paddingClass} ${flexClass} ${className} ${widthClass} ${borderClass} ${marginClass}`}
->
-	{@render children?.()}
-</div>
+{#if includeDataNoSnippet}
+	<div data-nosnippet class={cardClass}>
+		{@render children?.()}
+	</div>
+{:else }
+	<div class={cardClass}>
+		{@render children?.()}
+	</div>
+{/if}

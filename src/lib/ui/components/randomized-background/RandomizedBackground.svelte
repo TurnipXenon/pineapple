@@ -9,6 +9,7 @@
 	import BgTiledTurnip from '$pkg/assets/bg_tiled/bg_tiled_turnip.png';
 	import RandomizedImage from '$pkg/ui/components/randomized-background/RandomizedImage.svelte';
 	import { generatedDailySeed, mulberry32Generator } from '$pkg/util/util';
+	import { appState } from "$pkg/ui/templates/index";
 
 	let { enabled }: {
 		enabled: boolean
@@ -47,6 +48,8 @@
 		}
 		generatedImageList = gi;
 	});
+
+	let bgStyle = $derived(`opacity: ${appState.bgOpacity}`);
 </script>
 
 <svelte:head>
@@ -63,7 +66,12 @@
 
 <!--todo: add a letterbox beyond 1960px + 16 rem-->
 {#if enabled && generatedImageList.length > 0}
-	<div class="default-background" aria-hidden="true" transition:fade>
+	<div
+		class="default-background"
+		aria-hidden="true"
+		style={bgStyle}
+		transition:fade
+	>
 		{#each generatedImageList as imageItem, idx (idx)}
 			<RandomizedImage src={imageItem} {rng} />
 		{/each}

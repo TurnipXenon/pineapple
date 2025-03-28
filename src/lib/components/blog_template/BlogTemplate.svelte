@@ -1,11 +1,11 @@
 <script lang="ts">
 	import "./blog-template.css";
-	import { enableBackground } from "$pkg/store";
-	import { onDestroy, onMount } from "svelte";
+	import { onDestroy, onMount, type Snippet } from "svelte";
 	import BlogTemplateInner from "$pkg/components/blog_template/BlogTemplateInner.svelte";
 	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
-	import { default as Card } from "$pkg/components/Card.svelte";
+	import PinyaCard from "$pkg/ui/elements/PinyaCard/PinyaCard.svelte";
+	import { appState } from "$pkg/ui/templates/index";
 
 	// grab page meta from the adjacent meta.json
 	interface Props {
@@ -13,7 +13,7 @@
 		shouldFillWholePage?: boolean;
 		shouldEnableDialogOverlay?: boolean;
 		includeDataNoSnippet?: boolean;
-		children?: import('svelte').Snippet;
+		children?: Snippet;
 	}
 
 	let {
@@ -24,7 +24,6 @@
 		children
 	}: Props = $props();
 
-	enableBackground.set(!shouldFillWholePage);
 	let initialDialogState = false;
 
 	onMount(() => {
@@ -33,10 +32,11 @@
 	});
 
 	onDestroy(() => {
-		enableBackground.set(true);
+		appState.bgOpacity = 1;
 		enableDialogueOverlay.set(initialDialogState);
 	});
 
+	appState.bgOpacity = shouldFillWholePage ? 0.2 : 1;
 </script>
 
 {#if shouldFillWholePage}
@@ -46,21 +46,18 @@
 		</BlogTemplateInner>
 	</div>
 {:else}
-	<Card includeDataNoSnippet={includeDataNoSnippet}>
-		{#snippet content()}
-				<div  class="default-card">
-				<BlogTemplateInner pageMeta={pageMeta}>
-					{@render children?.()}
-				</BlogTemplateInner>
-			</div>
-			{/snippet}
-	</Card>
+	<PinyaCard {includeDataNoSnippet} widthClass="max-w-4xl">
+		<BlogTemplateInner pageMeta={pageMeta}>
+			{@render children?.()}
+		</BlogTemplateInner>
+	</PinyaCard>
 {/if}
 
 <style>
     .whole-page {
-        height: 100%;
+        height: 100vh;
         width: 100%;
-        max-width: var(--default-card-max-width);
+        padding-right: 2em;
+        padding-left: 2em;
     }
 </style>

@@ -9,6 +9,7 @@
 	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
 	import { localizeHref } from "$pkg/paraglide/runtime";
 	import { appState } from "./runes.svelte";
+	import { enableBackground } from "$pkg/store";
 
 	let {
 		children,
@@ -68,7 +69,7 @@
 {@render header('hidden shadow-none w-full')}
 {@render header('fixed z-15 w-[105vw]')}
 
-<RandomizedBackground enabled={true} />
+<RandomizedBackground enabled={$enableBackground} />
 
 <div class="default-page-container">
 	{@render children?.()}
