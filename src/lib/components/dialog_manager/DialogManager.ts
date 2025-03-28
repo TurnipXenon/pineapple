@@ -40,7 +40,7 @@ export class DialogManager implements IDialogManager {
 	currentIndex = 0;
 	previousTimestamp = 0;
 	isDoneTransition = false;
-	currentPortrait = writable();
+	currentPortrait = writable("");
 	portraitMap: Map<string, any> = new Map();
 	currentState = DialogState.Visible;
 	currentReadableState = writable(this.currentState);

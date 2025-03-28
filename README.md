@@ -27,7 +27,12 @@ You can preview the production build with `yarn preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
-## Installing as a package
+
+## Installation as a package
+
+TODO: If you're curious how to install this on a fresh package or a package not using Skeleton, you can ask me to document the steps but I haven't explored that since I'm focused in migrating my projects. It should just be installing Skeleton v3 and then seeing the steps below.
+
+## Migration from v2 to v3
 
 ```bash
 yarn add @turnipxenon2/pineapple
@@ -37,20 +42,23 @@ yarn add @turnipxenon2/pineapple
 
 We still have to do some manual set up to our project to make it work.
 
-1. **Configure Tailwind.** Open your global stylesheet in `/src/app.css` and add the following imports:
+1. Follow these steps here: https://www.skeleton.dev/docs/get-started/migrate-from-v2
+
+2. **Configure Tailwind.** Open your global stylesheet in `/src/styles/app.css` and add the following imports:
 
 ```css
 @import 'tailwindcss';
-@import '@skeletonlabs/skeleton/optional/presets';
-@import '@skeletonlabs/skeleton';
-@import '@skeletonlabs/skeleton/themes/cerberus';
-@import '../node_modules/@turnipxenon/pineapple/dist/styles/app.css';
+@import "@skeletonlabs/skeleton";
+@import "@skeletonlabs/skeleton/optional/presets";
+@import "@skeletonlabs/skeleton/themes/legacy";
+@import '../../../node_modules/@turnipxenon/pineapple/dist/styles/app.css';
+@import '../../../node_modules/@turnipxenon/pineapple/dist/styles/turnip-theme.css';
+
+@source "../../../node_modules/@skeletonlabs/skeleton-svelte/dist";
+@source '../../../node_modules/@turnipxenon/pineapple/dist/';
 
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
-
-@source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
-@source '../node_modules/@turnipxenon/pineapple/dist/styles'
 ```
 
 2. **Set Active Theme.** Open /src/app.html, then set the data-theme attribute on the HTML tag to define the active theme.
