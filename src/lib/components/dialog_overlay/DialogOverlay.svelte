@@ -80,13 +80,13 @@
 			paddingClass=""
 			className="dialog-name"
 		>
-			<div>
-				<b class="fake-h1">Turnip</b>
-			</div>
+			<div class="fake-h1">Turnip</div>
 		</PinyaCard>
 		<PinyaCard
 			widthClass="w-full"
 			className="dialog-text"
+			colorClass=""
+			flexClass=""
 		>
 			<!-- Made for 140 characters, like the original tweets -->
 			{@html currentMessage}
@@ -116,9 +116,9 @@
         padding: 1.2lh 2rem 0.5lh;
     }
 
-    :global(.dialog-box *,.dialog-name *) {
-        font-size: clamp(1em, 5vw, 1.3em);
-        line-height: 1.5em;
+    :global(.dialog-text) {
+        font-size: clamp(1em, 3vw, 1.75em);
+        line-height: 1.5lh;
     }
 
     .dialog-elements {
@@ -136,16 +136,6 @@
 
     .dialog-elements > div {
         transform: translateY(var(--hidePercentHeight));
-    }
-
-
-    .dialog-padding :global(p) {
-        font-size: clamp(1em, 5vw, 1.3em) !important;
-        line-height: 1.5em !important;
-    }
-
-    .dialog-padding {
-        padding: clamp(1.5em, 5vw, 1.75em) clamp(0em, 5vw - 0.5em, 2em) 0;
     }
 
     :global(.dialog-name) {
@@ -189,21 +179,22 @@
         transform: scaleX(-1);
     }
 
+    :global(html) {
+        --bg-dialog: rgba(255, 247, 225, 0.9);
+    }
+
+    :global(html.dark) {
+        --bg-dialog: rgba(76, 71, 59, 0.9);
+    }
 
     .dialog-box {
-        background-color: var(--color-surface-500);
+        background-color: var(--bg-dialog);
         position: fixed;
         bottom: 0;
         width: var(--dialog-box-width); /*75em + 4em padding*/
         height: var(--dialog-box-height);
         max-width: calc(100vw - ((var(--fab-margin) * 2) + 4em));
         border-radius: 1rem;
-    }
-
-    .dark .dialog-box {
-        background-color: rgb(var(--color-surface-900) / 0.95);
-        --tw-ring-color: rgb(var(--color-text-400));
-        /*background-color: red;*/
     }
 
     :global(.fab) {

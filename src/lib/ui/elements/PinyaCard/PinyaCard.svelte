@@ -8,14 +8,15 @@ let {
 	flexClass = "flex flex-col",
 	widthClass = "w-full max-w-md",
 	borderClass = "border-[2px] border-primary-500 dark:border-0",
+	colorClass = "bg-surface-200 dark:bg-surface-900",
 	marginClass = "",
 	className,
 	includeDataNoSnippet = false,
 	children
 }: PinyaCardProps = $props();
 
-let cardClass = $derived(`card bg-surface-200 dark:bg-surface-900 text-start rounded-xl
-	${paddingClass} ${flexClass} ${className} ${widthClass} ${borderClass} ${marginClass}`);
+let cardClass = $derived(`card text-start rounded-xl
+	${paddingClass} ${flexClass} ${className} ${widthClass} ${borderClass} ${marginClass} ${colorClass}`);
 </script>
 
 {#if includeDataNoSnippet}

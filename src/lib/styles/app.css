@@ -22,7 +22,7 @@ html {
     height: calc(var(--dialog-box-height) + 4em);
 }
 
-.dialog-box a {
+.dialog-box a, .dialog-box b, .dialog-box i {
     font-size: inherit;
 }
 

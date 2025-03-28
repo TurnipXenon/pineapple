@@ -250,7 +250,7 @@ blockquote {
     filter: brightness(140%);
 }
 
-h1, h2, h3, h4, h5, h6, .fake-h2, .fake-h3, .fake-h4 {
+h1, h2, h3, h4, h5, h6, .fake-h1, .fake-h2, .fake-h3, .fake-h4 {
     text-align: center;
     margin-top: 0;
     font-weight: bolder;
@@ -265,7 +265,7 @@ h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p, .fake-h2 + p, .fake-h3 + p, .fak
     margin-top: 0.5lh;
 }
 
-h1 {
+h1, .fake-h1 {
     @apply text-4xl;
 }
 
