@@ -11,7 +11,8 @@ export { default as ElementVisibilityDetector } from "./ElementVisibilityDetecto
 
 export * from "./PinyaCard/index";
 export * from "./WrapperProps";
-export * from "./PinyaButton/index";
+export * from "./PinyaButton";
+export * from "./PinyaAnchorButton";
 export * from "./text-chip";
 export * from "./CodeBlock";
 
