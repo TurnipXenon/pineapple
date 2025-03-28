@@ -9,7 +9,7 @@
 	import BgTiledTurnip from '$pkg/assets/bg_tiled/bg_tiled_turnip.png';
 	import RandomizedImage from '$pkg/ui/components/randomized-background/RandomizedImage.svelte';
 	import { generatedDailySeed, mulberry32Generator } from '$pkg/util/util';
-	import { appState } from "$pkg/ui/templates/index";
+	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte";
 
 	let { enabled }: {
 		enabled: boolean

@@ -1,3 +1,7 @@
+<!--
+    @component
+    @deprecated
+-->
 <script lang="ts">
 	import BgTiledAres from "$lib/assets/bg_tiled/bg_tiled_ares.png";
 	import BgTiledCorn from "$lib/assets/bg_tiled/bg_tiled_corn.png";
