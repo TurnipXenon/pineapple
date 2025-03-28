@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
+	import { modals } from "svelte-modals";
 	import { m } from "$pkg/paraglide/messages";
+	import { localizeHref } from "$pkg/paraglide/runtime";
 
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";
 	import RandomizedBackground from "$pkg/ui/components/randomized-background/RandomizedBackground.svelte";
-	import { modals } from "svelte-modals";
 	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
-	import { localizeHref } from "$pkg/paraglide/runtime";
 	import { appState } from "./runes.svelte";
 	import { enableBackground } from "$pkg/store";
 	import DialogOverlay from "$pkg/components/dialog_overlay/DialogOverlay.svelte";

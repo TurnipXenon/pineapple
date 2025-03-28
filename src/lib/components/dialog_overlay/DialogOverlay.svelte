@@ -1,6 +1,8 @@
 <script lang="ts">
-	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
+	import { slide } from "svelte/transition";
 	import { onMount } from "svelte";
+
+	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
 	import PinyaCard from "$pkg/ui/elements/PinyaCard/PinyaCard.svelte";
@@ -8,8 +10,7 @@
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
-	import { PinyaButton } from "$pkg/ui/elements/index";
-	import { slide } from "svelte/transition";
+	import PinyaButton from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
 
 	let currentMessage = $state("");
 	let currentPortrait = $state(AresHappy);
@@ -96,7 +97,7 @@
 
 
 {#if appState.allowDialog && isMounted}
-	<div class="fab-container" in:slide>
+	<div class="fab-container" transition:slide>
 		<PinyaButton
 			classes="fab"
 			onclick={()=>{dialogManager.toggleDialogOverlay();}}
@@ -113,12 +114,12 @@
 <style>
     :global(.dialog-text) {
         height: 100%;
-        padding: 1.2lh 2rem 0.5lh;
+        padding: 0.8lh 2rem 0.5lh;
     }
 
     :global(.dialog-text) {
-        font-size: clamp(1em, 3vw, 1.75em);
-        line-height: 1.5lh;
+        font-size: clamp(1rem, 3vw, 1.75rem);
+        line-height: calc(clamp(1rem, 3vw, 1.75rem) * 1.5);
     }
 
     .dialog-elements {
@@ -193,7 +194,7 @@
         bottom: 0;
         width: var(--dialog-box-width); /*75em + 4em padding*/
         height: var(--dialog-box-height);
-        max-width: calc(100vw - ((var(--fab-margin) * 2) + 4em));
+        max-width: calc(100vw - ((var(--fab-margin) * 3) + (clamp(2rem, 5vw, 4rem))));
         border-radius: 1rem;
     }
 
@@ -201,7 +202,7 @@
         /*@apply btn preset-filled-tertiary-500;*/
         background-color: var(--color-tertiary-500);
         padding: 0.3rem;
-        width: 4em;
+        width: clamp(2rem, 5vw, 4rem);
         border-radius: 50%;
         z-index: 100;
         box-shadow: 3px 3px 3px var(--shadow-color);

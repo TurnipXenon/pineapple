@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { modals } from "svelte-modals";
 
-	import { ButtonVariant, ImageIcon, PinyaButton, PinyaCard } from "$pkg/ui/elements/index";
+	import { ImageIcon, PinyaButton, PinyaCard } from "$pkg/ui/elements/index";
+	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import { FourPartCard, PinyaAccordion, PinyaAccordionItem } from "$pkg/ui/components/index";
 	import TestModal from "./TestModal.svelte";
 	import PinyaSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
 	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
+	import { PinyaAnchorButton } from "$pkg/ui/elements/PinyaAnchorButton/index";
 
 	let testSwitchVal = $state(false);
 	let value = $state(["club"]);
@@ -14,7 +16,7 @@
 
 <div class="flex flex-col gap-4">
 
-	<PinyaCard widthClass="max-w-2xl">
+	<PinyaCard widthClass="max-w-2xl" flexClass="flex flex-col gap-4">
 		<h1>Test templates</h1>
 		<PinyaButton onclick={() => {
 			modals.open(TestModal);
@@ -40,6 +42,7 @@
 				{#snippet panel()}Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore.{/snippet}
 			</PinyaAccordionItem>
 		</PinyaAccordion>
+		<PinyaAnchorButton href="/test">Go to /test (anchor test)</PinyaAnchorButton>
 	</PinyaCard>
 
 	<PinyaCard widthClass="max-w-2xl">

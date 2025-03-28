@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { type PinyaButtonProps } from "./PinyaButtonProps";
 	import { ColorScheme } from "$pkg/ui/elements/ColorScheme";
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 	import { createButtonClass } from "$pkg/ui/elements/PinyaButtonCommon/createButtonClass";
+	import type { PinyaAnchorButtonProps } from "./PinyaAnchorButtonProps";
 
 	let {
 		children,
@@ -12,14 +12,14 @@
 		colorClass = "",
 		classes = "",
 		...props
-	}: PinyaButtonProps = $props();
+	}: PinyaAnchorButtonProps = $props();
 
 	let tailwindClass = $derived(createButtonClass({ colorScheme, paddingClass, buttonVariant, colorClass, classes }));
 </script>
 
-<button
+<a
 	{...props}
-	class={tailwindClass}
+	class={`a-as-btn ${tailwindClass}}`}
 >
 	{@render children()}
-</button>
+</a>

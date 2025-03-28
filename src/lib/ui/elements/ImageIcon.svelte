@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { HTMLImgAttributes } from 'svelte/elements';
-	import type { GeneralUIProps } from '$pkg/ui/elements/GeneralUIProps';
-	import { ColorScheme } from '$pkg/ui/elements/ColorScheme';
+	import type { GeneralUIProps } from "$pkg/ui/elements/GeneralUIProps";
+	import { ColorScheme } from "./ColorScheme";
 
 	type PinyaButtonProps = HTMLImgAttributes & GeneralUIProps;
 
