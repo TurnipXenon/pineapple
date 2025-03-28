@@ -6,7 +6,7 @@ import type { PinyaCardProps } from "./PinyaCardProps";
 let {
 	paddingClass = "pt-[1lh] pb-[1lh] pl-16 pr-16",
 	flexClass = "flex flex-col",
-	widthClass = "max-w-md",
+	widthClass = "w-full max-w-md",
 	borderClass = "border-[2px] border-primary-500 dark:border-0",
 	marginClass = "",
 	className,
@@ -15,7 +15,8 @@ let {
 </script>
 
 <div
-	class={`card bg-surface-200 dark:bg-surface-900 w-full text-start rounded-xl ${paddingClass} ${flexClass} ${className} ${widthClass} ${borderClass} ${marginClass}`}
+	class={`card bg-surface-200 dark:bg-surface-900 text-start rounded-xl
+	${paddingClass} ${flexClass} ${className} ${widthClass} ${borderClass} ${marginClass}`}
 >
 	{@render children?.()}
 </div>

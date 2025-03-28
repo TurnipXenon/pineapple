@@ -10,10 +10,11 @@
 
 @custom-variant turnip (&:where([data-theme=turnip], [data-theme=turnip] *));
 
-:root {
+html {
     --dialog-start-pad: clamp(0em, 5vw, 2em);
-    --dialog-box-width: min(calc(50em + 4em), calc(100vw - var(--dialog-start-pad) - var(--theme-border-base)));
+    --dialog-box-width: min(calc(50em + 4em), calc(100vw - var(--dialog-start-pad) - 2px));
     --dialog-box-height: clamp(15em, 50vw, 18em);
+    --fab-margin: clamp(1em, 4.44vw, 2em);
 }
 
 .footer-space {
@@ -43,20 +44,6 @@ a.external-link {
     background: rgba(var(--color-secondary-500));
 }
 
-.dialog-box {
-    background-color: rgb(var(--color-surface-500) / 0.9);
-    position: fixed;
-    bottom: 0;
-    width: var(--dialog-box-width); /*75em + 4em padding*/
-    height: var(--dialog-box-height);
-    max-width: calc(100vw - ((var(--fab-margin) * 2) + 4em));
-}
-
-.dark .dialog-box {
-    background-color: rgb(var(--color-surface-900) / 0.95);
-    --tw-ring-color: rgb(var(--color-text-400));
-    /*background-color: red;*/
-}
 
 @layer base {
     .game-link-section {
