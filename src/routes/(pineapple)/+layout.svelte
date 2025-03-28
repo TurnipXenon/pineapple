@@ -30,8 +30,6 @@
 	rootUrl={import.meta.env.PROD ? "https://pineapple-gamma-blush.vercel.app" : "http://localhost:5173"}>
 </OverrideableMeta>
 
-<DialogOverlay></DialogOverlay>
-
 <PinyaBase>
 	<PinyaPageLayout>
 		{@render children()}

@@ -10,6 +10,7 @@
 	import { localizeHref } from "$pkg/paraglide/runtime";
 	import { appState } from "./runes.svelte";
 	import { enableBackground } from "$pkg/store";
+	import DialogOverlay from "$pkg/components/dialog_overlay/DialogOverlay.svelte";
 
 	let {
 		children,
@@ -69,6 +70,7 @@
 {@render header('hidden shadow-none w-full')}
 {@render header('fixed z-15 w-[105vw]')}
 
+<DialogOverlay></DialogOverlay>
 <RandomizedBackground enabled={$enableBackground} />
 
 <div class="default-page-container">
