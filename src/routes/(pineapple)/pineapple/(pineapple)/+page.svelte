@@ -5,10 +5,10 @@
 	import NavigationMenu from "$pkg/ui/modules/NavigationMenu/NavigationMenu.svelte";
 	import { ImageMap } from "./ImageMap";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
-	import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
 	import PinyaCard from "$pkg/ui/elements/PinyaCard/PinyaCard.svelte";
 	import { PinyaButton } from "$pkg/ui/elements/index";
 	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
+	import { dialogManager } from "$pkg";
 
 	enableDialogueOverlay.set(false);
 
@@ -23,16 +23,14 @@
 
 	let parsed = false;
 	const onTestDialogClick = () => {
-		getDialogManager().then(dm => {
-			if (!parsed) {
-				dm.parseAndSetDialogTree(testDialogYarn).then(() => {
-					dm.toggleDialogOverlay();
-				});
-				parsed = true;
-			} else {
-				dm.toggleDialogOverlay();
-			}
-		});
+		if (!parsed) {
+			dialogManager.parseAndSetDialogTree(testDialogYarn).then(() => {
+				dialogManager.toggleDialogOverlay();
+			});
+			parsed = true;
+		} else {
+			dialogManager.toggleDialogOverlay();
+		}
 	};
 	// endregion
 

@@ -1,14 +1,20 @@
 <script lang="ts">
-	import { onDestroy } from "svelte";
+	import { onDestroy, onMount } from "svelte";
 	import { ErrorYarn } from "./ErrorYarn";
-	import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
 	import { PinyaCard } from "$pkg/ui/elements/index";
-	import { PinyaBase, PinyaPageLayout } from "$pkg/ui/templates/index";
+	import { appState, PinyaBase, PinyaPageLayout } from "$pkg/ui/templates/index";
+	import { dialogManager } from "$pkg";
 
-	ErrorYarn.setDialogTree();
+
+	appState.allowDialog = true;
+	appState.enableDialogOnByDefault = true;
+
+	onMount(() => {
+		ErrorYarn.setDialogTree();
+	});
 
 	onDestroy(() => {
-		getDialogManager().then(dm => dm.setDialogToDefault());
+		dialogManager.toggleDialogOverlay();
 	});
 </script>
 

@@ -41,7 +41,7 @@ export class DialogManager implements IDialogManager {
 	previousTimestamp = 0;
 	isDoneTransition = false;
 	currentPortrait = writable("");
-	portraitMap: Map<string, any> = new Map();
+	portraitMap: Map<string, string> = new Map();
 	currentState = DialogState.Visible;
 	currentReadableState = writable(this.currentState);
 	hidePercent = tweened(100, {
@@ -49,7 +49,7 @@ export class DialogManager implements IDialogManager {
 		easing: backOut
 	}); // 100 = 100%
 	skipNextActiveTime = 0;
-	dialogProcessor = new DialogProcessor();
+	dialogProcessor: DialogProcessor;
 	// for queueing actions
 	_setDialogChoiceQueue: DialogDetail[] = [];
 	_setDialogChoiceMutex = false;
@@ -57,6 +57,8 @@ export class DialogManager implements IDialogManager {
 	enableDialogueOverlayCache = false;
 
 	constructor() {
+		this.dialogProcessor = new DialogProcessor(this);
+
 		enableDialogueOverlay.subscribe((value) => {
 			// todo: investigate why we cant put setDialogDefault inside the then clause
 			// ISSUE #82 https://github.com/TurnipXenon/pineapple/issues/82
@@ -189,7 +191,7 @@ export class DialogManager implements IDialogManager {
 		// set the portrait
 		let portraitValue = AresHappy;
 		if (this.currentMessageMeta.portraitType) {
-			portraitValue = this.portraitMap.get(this.currentMessageMeta.portraitType);
+			portraitValue = this.portraitMap.get(this.currentMessageMeta.portraitType ?? AresHappy);
 		}
 		if (portraitValue) {
 			this.currentPortrait.update(() => portraitValue);
@@ -246,7 +248,7 @@ export class DialogManager implements IDialogManager {
 		if (!this.isDoneTransition && this.currentIndex > this.fullCurrentMessage.length) {
 			const elementList = document.getElementsByClassName("dialog-choice");
 			for (const el of elementList) {
-				el.addEventListener("click", (event) => {
+				el.addEventListener("click", () => {
 					// todo: make more robust; for now we're assuming first class is our choice
 					const choice = el.classList[0].split("-")[1];
 					this.setDialogChoice(this.dialogMessageMap.get(choice));
@@ -307,3 +309,5 @@ export class DialogManager implements IDialogManager {
 			});
 	}
 }
+
+export const dialogManager = new DialogManager();

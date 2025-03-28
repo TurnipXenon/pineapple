@@ -22,13 +22,15 @@ html {
     height: calc(var(--dialog-box-height) + 4em);
 }
 
-a.dialog-choice {
+.dialog-box a {
     font-size: inherit;
+}
+
+a.dialog-choice {
     cursor: url("$pkg/assets/icons/chat-cursor.svg"), auto;
 }
 
 a.external-link {
-    font-size: inherit;
     cursor: url("$pkg/assets/icons/external-link.svg"), auto;
 }
 

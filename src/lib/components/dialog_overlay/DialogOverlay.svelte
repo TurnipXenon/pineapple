@@ -2,8 +2,7 @@
 	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 	import { onMount } from "svelte";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
-	import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
-	import type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
+	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
 	import PinyaCard from "$pkg/ui/elements/PinyaCard/PinyaCard.svelte";
 	import { appState } from "$pkg/ui/templates/index";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
@@ -18,34 +17,31 @@
 
 	let hidePercent = $state(100);
 	let isHidden = $state(true);
-	let dialogManager: IDialogManager | undefined = $state(undefined);
 	onMount(() => {
-		getDialogManager()
-			.then(dm => {
-				dialogManager = dm;
 
-				dialogManager.currentMessage.subscribe((value) => {
-					currentMessage = value;
-				});
+		dialogManager.currentMessage.subscribe((value) => {
+			currentMessage = value;
+		});
 
-				dialogManager.currentPortrait.subscribe((value) => {
-					if (value) {
-						currentPortrait = value;
-					}
-				});
+		dialogManager.currentPortrait.subscribe((value) => {
+			console.log("sub value", value);
+			if (value) {
+				currentPortrait = value;
+			}
+		});
 
-				dialogManager.hidePercent.subscribe((value) => {
-					hidePercent = value * 0.4;
-					isHidden = false;
-				});
+		dialogManager.hidePercent.subscribe((value) => {
+			hidePercent = value * 0.4;
+			isHidden = false;
+		});
 
-				dialogManager.currentReadableState.subscribe((value) => {
-					isHidden = value === DialogState.Invisible;
-				});
+		dialogManager.currentReadableState.subscribe((value) => {
+			isHidden = value === DialogState.Invisible;
+		});
 
-				dialogManager.update(0);
-				isMounted = true;
-			});
+		console.log("CAlling update");
+		dialogManager.update(0);
+		isMounted = true;
 
 	});
 
@@ -103,9 +99,8 @@
 	<div class="fab-container" in:slide>
 		<PinyaButton
 			classes="fab"
-			onclick={()=>{
-	getDialogManager().then(dm => dm.toggleDialogOverlay());
-}}>
+			onclick={()=>{dialogManager.toggleDialogOverlay();}}
+		>
 			{#if (enableDialogueOverlayValue)}
 				<img class="turnip-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
 			{:else }
@@ -224,7 +219,7 @@
 
     .fab-container {
         position: fixed;
-		    bottom: 0;
+        bottom: 0;
     }
 
     .fab-container:dir(ltr) {

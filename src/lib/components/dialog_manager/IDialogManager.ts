@@ -8,7 +8,6 @@ import type { OnSetDialogChoiceCallback } from "$pkg/components/dialog_manager/D
 export interface IDialogManager {
 	dialogMessageMap: Map<string, DialogDetail>;
 	currentDialogTree: DialogDetail[];
-	fullCurrentMessage: string;
 	currentMessageMeta: DialogDetail;
 	currentMessage: Writable<string>;
 	currentIndex: number;

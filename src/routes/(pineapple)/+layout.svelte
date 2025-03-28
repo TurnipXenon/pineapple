@@ -13,7 +13,6 @@
 	import "highlight.js/styles/github-dark.css";
 	import OverrideableMeta from "../../lib/components/overrideable_meta/OverridableMeta.svelte";
 	import type { Snippet } from "svelte";
-	import { DialogOverlay } from "$pkg/components/index";
 	import PinyaBase from "$pkg/ui/templates/PinyaBase.svelte";
 	import { appState, PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/index";
 
