@@ -14,7 +14,7 @@ export interface IDialogManager {
 	currentIndex: number;
 	previousTimestamp: number;
 	isDoneTransition: boolean;
-	currentPortrait: Writable<unknown>;
+	currentPortrait: Writable<string>;
 	portraitMap: Map<string, any>;
 	currentState: DialogState;
 	currentReadableState: Writable<DialogState>;

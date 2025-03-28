@@ -5,9 +5,16 @@
 	import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
 	import type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
 	import PinyaCard from "$pkg/ui/elements/PinyaCard/PinyaCard.svelte";
+	import { appState } from "$pkg/ui/templates/index";
+	import CloseIcon from "$pkg/assets/icons/close.svg";
+	import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
+	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { PinyaButton } from "$pkg/ui/elements/index";
+	import { slide } from "svelte/transition";
 
 	let currentMessage = $state("");
 	let currentPortrait = $state(AresHappy);
+	let isMounted = $state(false);
 
 	let hidePercent = $state(100);
 	let isHidden = $state(true);
@@ -37,6 +44,7 @@
 				});
 
 				dialogManager.update(0);
+				isMounted = true;
 			});
 
 	});
@@ -45,6 +53,12 @@
 		dialogManager?.skipAnimation();
 	};
 
+	let enableDialogueOverlayValue = $state(true);
+	enableDialogueOverlay.subscribe((value) => {
+		enableDialogueOverlayValue = value;
+	});
+
+	enableDialogueOverlay.set(appState.enableDialogOnByDefault ?? false);
 </script>
 
 <div class="dialog-elements"
@@ -84,11 +98,32 @@
 	</div>
 </div>
 
+
+{#if appState.allowDialog && isMounted}
+	<div class="fab-container" in:slide>
+		<PinyaButton
+			classes="fab"
+			onclick={()=>{
+	getDialogManager().then(dm => dm.toggleDialogOverlay());
+}}>
+			{#if (enableDialogueOverlayValue)}
+				<img class="turnip-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
+			{:else }
+				<img class="turnip-icon" src={FABIcon} alt="interactive floating action button represented as a turnip">
+			{/if}
+		</PinyaButton>
+	</div>
+{/if}
+
 <style>
     :global(.dialog-text) {
-        font-size: 1.75em;
         height: 100%;
         padding: 1.2lh 2rem 0.5lh;
+    }
+
+    :global(.dialog-box *,.dialog-name *) {
+        font-size: clamp(1em, 5vw, 1.3em);
+        line-height: 1.5em;
     }
 
     .dialog-elements {
@@ -108,10 +143,6 @@
         transform: translateY(var(--hidePercentHeight));
     }
 
-    :global(.dialog-box *,.dialog-name *) {
-        font-size: clamp(1em, 5vw, 1.3em);
-        line-height: 1.5em;
-    }
 
     .dialog-padding :global(p) {
         font-size: clamp(1em, 5vw, 1.3em) !important;
@@ -179,4 +210,42 @@
         --tw-ring-color: rgb(var(--color-text-400));
         /*background-color: red;*/
     }
+
+    :global(.fab) {
+        /*@apply btn preset-filled-tertiary-500;*/
+        background-color: var(--color-tertiary-500);
+        padding: 0.3rem;
+        width: 4em;
+        border-radius: 50%;
+        z-index: 100;
+        box-shadow: 3px 3px 3px var(--shadow-color);
+        margin-bottom: var(--fab-margin);
+    }
+
+    .fab-container {
+        position: fixed;
+		    bottom: 0;
+    }
+
+    .fab-container:dir(ltr) {
+        right: 0;
+    }
+
+    .fab-container:dir(rtl) {
+        left: 0;
+    }
+
+    :global(.fab > img) {
+        width: 100%;
+        filter: brightness(0) invert(1);
+    }
+
+    :global(.fab:dir(ltr)) {
+        margin-right: var(--fab-margin);
+    }
+
+    :global(.fab:dir(rtl)) {
+        margin-left: var(--fab-margin);
+    }
+
 </style>

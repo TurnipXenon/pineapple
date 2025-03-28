@@ -137,25 +137,6 @@
 </div>
 
 <style lang="postcss">
-    :root {
-        --dialog-start-pad: clamp(0em, 5vw, 2em);
-        --dialog-box-width: min(calc(50em + 4em), calc(100vw - var(--dialog-start-pad) - var(--theme-border-base)));
-        --dialog-box-height: clamp(15em, 50vw, 18em);
-
-        /** FAB icon margin/position calculation origin:
-						Criteria:
-						- We want at mobile (360px) our margin to be at 1em (16px)
-						- We want at web (1960px) our margin to be at 2em (32px)
-
-						A useful scaling factor might vw. At 360px, 16px would be around 4.44vw (360/16).
-						At 360px: margin is at 16px or 1em.
-						At 1960px: 4.44vw is at 87px but that will be clamped to 32px or 2em.
-						The calculation implies that the natural point that the margin becomes 2em is clamped on
-						wider screens is at 727px.
-				*/
-        --fab-margin: clamp(1em, 4.44vw, 2em);
-    }
-
     /*todo*/
     /*@apply flex justify-center items-center;*/
     .default-page-container {
