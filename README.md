@@ -106,6 +106,16 @@ As a reference as to why we need to do above, we use the UI framework Skeleton, 
 
 TODO: if we are happy with our base, publish it to github and link the corresponding git commits here
 
+7. Update to "@sveltejs/adapter-auto": "^4.0.0", we need node 22
+8. Add alias in svelte.config
+
+```js
+kit: {
+	alias: {
+		$pkg: path.resolve("./node_modules/@turnipxenon/pineapple/dist/lib")
+	}
+}
+```
 
 ## Local linking
 

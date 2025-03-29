@@ -199,7 +199,8 @@
     }
 
     :global(.fab) {
-        /*@apply btn preset-filled-tertiary-500;*/
+		    position: relative;
+        transform: scale3d(1, 1, 1.5);
         background-color: var(--color-tertiary-500);
         padding: 0.3rem;
         width: clamp(2rem, 5vw, 4rem);

@@ -70,12 +70,13 @@
 {@render header('hidden shadow-none w-full')}
 {@render header('fixed z-15 w-[105vw]')}
 
-<DialogOverlay></DialogOverlay>
 <RandomizedBackground enabled={$enableBackground} />
 
 <div class="default-page-container">
 	{@render children?.()}
 </div>
+
+<DialogOverlay></DialogOverlay>
 
 {#if footer}
 	{@render footer()}

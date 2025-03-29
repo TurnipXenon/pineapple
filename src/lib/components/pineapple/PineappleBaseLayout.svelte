@@ -189,9 +189,8 @@
     }
 
     .fab {
-        /*@apply btn preset-filled-tertiary-500;*/
+		    position: fixed;
         padding: 0;
-        position: fixed;
         bottom: var(--fab-margin);
         width: 4em;
         border-radius: 50%;
