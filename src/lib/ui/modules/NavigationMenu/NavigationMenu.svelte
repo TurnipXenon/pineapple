@@ -62,7 +62,7 @@
 		<!-- all the misc routes-->
 		{#each visiblePages as pageMeta (pageMeta.title)}
 			{@const fullPath=`${parentSubpath}${pageMeta.relativeLink}`}
-			<a href={localizeHref(fullPath)} class="card-anchor">
+			<a href={localizeHref(fullPath)} class="card-anchor a-as-btn">
 				<PinyaCard
 					widthClass="w-full"
 					className="navigation-element"
