@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import { Card } from "$pkg/components/index";
+	import { PinyaCard } from "$pkg/ui/elements/index";
 </script>
 
-<Card>
-	{#snippet content()}
-		<h1  class="default-card">{$page.url}</h1>
-	{/snippet}
-</Card>
+<PinyaCard>
+	<h1 class="default-card">{$page.url}</h1>
+</PinyaCard>

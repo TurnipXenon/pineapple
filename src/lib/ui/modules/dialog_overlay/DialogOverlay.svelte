@@ -5,12 +5,12 @@
 	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
-	import PinyaCard from "$pkg/ui/elements/PinyaCard/PinyaCard.svelte";
+	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
 	import { appState } from "$pkg/ui/templates/index";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
-	import PinyaButton from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
+	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
 
 	let currentMessage = $state("");
 	let currentPortrait = $state(AresHappy);

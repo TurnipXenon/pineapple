@@ -10,7 +10,7 @@
 	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
 	import { appState } from "./runes.svelte";
 	import { enableBackground } from "$pkg/store";
-	import DialogOverlay from "$pkg/components/dialog_overlay/DialogOverlay.svelte";
+	import DialogOverlay from "$pkg/ui/modules/dialog_overlay/DialogOverlay.svelte";
 
 	let {
 		children,

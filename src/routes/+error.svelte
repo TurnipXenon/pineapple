@@ -5,7 +5,6 @@
 	import { appState, PinyaBase, PinyaPageLayout } from "$pkg/ui/templates/index";
 	import { dialogManager } from "$pkg";
 
-
 	appState.allowDialog = true;
 	appState.enableDialogOnByDefault = true;
 

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import "./blog-template.css";
 	import { onDestroy, onMount, type Snippet } from "svelte";
-	import BlogTemplateInner from "$pkg/components/blog_template/BlogTemplateInner.svelte";
+	import BlogTemplateInner from "$pkg/ui/templates/blog_template/BlogTemplateInner.svelte";
 	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
-	import PinyaCard from "$pkg/ui/elements/PinyaCard/PinyaCard.svelte";
+	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
 	import { appState } from "$pkg/ui/templates/index";
 
 	// grab page meta from the adjacent meta.json

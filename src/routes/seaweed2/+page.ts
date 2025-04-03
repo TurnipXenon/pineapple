@@ -1,4 +1,4 @@
-import type { OverridableMetaProps } from "$pkg/components/overrideable_meta/OverridableMetaProps";
+import type { OverridableMetaProps } from "$pkg/modules/overrideable_meta/OverridableMetaProps";
 
 export const load = async (): Promise<OverridableMetaProps> => {
 	return {

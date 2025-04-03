@@ -11,7 +11,7 @@
 	// endregion Skeleton Store
 	// region highlightjs
 	import "highlight.js/styles/github-dark.css";
-	import OverrideableMeta from "../../lib/components/overrideable_meta/OverridableMeta.svelte";
+	import OverrideableMeta from "$pkg/modules/overrideable_meta/OverridableMeta.svelte";
 	import type { Snippet } from "svelte";
 	import PinyaBase from "$pkg/ui/templates/PinyaBase.svelte";
 	import { appState, PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/index";
