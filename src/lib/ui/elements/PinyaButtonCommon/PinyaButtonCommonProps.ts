@@ -1,4 +1,4 @@
-import { type GeneralUIProps } from "$pkg/ui/elements/index";
+import { type GeneralUIProps } from "$pkg/ui/elements/GeneralUIProps";
 import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 export type PinyaButtonCommonProps =
