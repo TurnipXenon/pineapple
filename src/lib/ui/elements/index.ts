@@ -13,6 +13,6 @@ export * from "./PinyaCard/index";
 export * from "./WrapperProps";
 export * from "./PinyaButton";
 export * from "./PinyaAnchorButton";
-export * from "./text-chip";
+export * from "./TextChip";
 export * from "./CodeBlock";
 

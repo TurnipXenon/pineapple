@@ -1,12 +1,12 @@
 <script lang="ts">
-	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import UpwardIcon from "$pkg/assets/icons/arrow-upward.svg";
-	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/index";
-	import { getContext, onMount } from "svelte";
-	import { PinyaCard } from "$pkg/ui/elements/index";
+	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import PinyaCombobox from "$pkg/ui/elements/pinya-combobox/PinyaCombobox.svelte";
-	import { PinyaButton } from "$pkg/ui/elements/index.js";
+	import { PinyaButton } from "$pkg/ui/elements/PinyaButton";
+	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
+	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
 	import { type ToastContext } from "@skeletonlabs/skeleton-svelte";
+	import { getContext } from "svelte";
 
 	export const toast: ToastContext = getContext("toast");
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/index";
-	import { PinyaCard } from "$pkg/ui/elements/index";
+	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
+	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
 
 	let {
 		title,

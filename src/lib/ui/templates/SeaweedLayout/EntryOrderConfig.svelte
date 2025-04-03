@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/index";
+	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
 	import ProjectGroupConfig from "$pkg/ui/templates/SeaweedLayout/ProjectGroupConfig.svelte";
 
 	interface Props {

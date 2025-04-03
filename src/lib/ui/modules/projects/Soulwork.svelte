@@ -1,7 +1,7 @@
 <script module lang="ts">
 	import HeaderSoulwork from "$pkg/assets/temp/header-soulwork.mp4";
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
-	import type { ProjectComponentProps } from "$pkg/ui/templates/index";
+	import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout";
 	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
 	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
 	import { default as PinyaButton } from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";

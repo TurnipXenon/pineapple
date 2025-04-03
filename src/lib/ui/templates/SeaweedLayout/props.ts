@@ -1,5 +1,5 @@
 import type { Snippet } from "svelte";
-import type { ProjectComponentProps } from "$pkg/ui/templates/index";
+import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout";
 
 type ComponentSnippet = Snippet<[ProjectComponentProps]>;
 

@@ -6,7 +6,7 @@
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
 	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
-	import { appState } from "$pkg/ui/templates/index";
+	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
