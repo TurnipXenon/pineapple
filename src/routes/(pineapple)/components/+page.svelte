@@ -71,11 +71,22 @@
 				<li>Unordered 1</li>
 				<li>Unordered 2</li>
 				<li>Unordered 3</li>
+				<li>Nesting
+					<ul>
+						<li>Nest 1</li>
+						<li>Nest 2</li>
+					</ul>
+				</li>
 			</ul>
 
 			<ol>
 				<li>Ordered 1</li>
-				<li>Ordered 2</li>
+				<li>Ordered 2:
+					<ol>
+						<li>Ordered 2.1</li>
+						<li>Ordered 2.2</li>
+					</ol>
+				</li>
 				<li>Ordered 3</li>
 			</ol>
 		</div>

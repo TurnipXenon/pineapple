@@ -328,6 +328,10 @@ ol {
     list-style: decimal inside;
 }
 
+li > ul, li > ol {
+    margin-inline-start: 2em;
+}
+
 p {
     @apply mb-3;
 }
