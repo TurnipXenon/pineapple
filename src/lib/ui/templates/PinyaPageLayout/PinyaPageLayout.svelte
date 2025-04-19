@@ -1,14 +1,16 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
+	import { modals } from "svelte-modals";
 	import { m } from "$pkg/paraglide/messages";
+	import { localizeHref } from "$pkg/paraglide/runtime";
 
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";
 	import RandomizedBackground from "$pkg/ui/components/randomized-background/RandomizedBackground.svelte";
-	import { modals } from "svelte-modals";
 	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
-	import { localizeHref } from "$pkg/paraglide/runtime";
 	import { appState } from "./runes.svelte";
+	import { enableBackground } from "$pkg/store";
+	import DialogOverlay from "$pkg/ui/modules/dialog_overlay/DialogOverlay.svelte";
 
 	let {
 		children,
@@ -68,11 +70,13 @@
 {@render header('hidden shadow-none w-full')}
 {@render header('fixed z-15 w-[105vw]')}
 
-<RandomizedBackground enabled={true} />
+<RandomizedBackground enabled={$enableBackground} />
 
 <div class="default-page-container">
 	{@render children?.()}
 </div>
+
+<DialogOverlay></DialogOverlay>
 
 {#if footer}
 	{@render footer()}

@@ -4,20 +4,19 @@ import type { LineBehaviorResult } from "$lib/components/dialog_manager/behavior
 import { BehaviorStatus } from "$lib/components/dialog_manager/behavior_tree/core/BehaviorStatus";
 import { SetVariableNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/SetVariableNode";
 import { btreeUtils } from "$lib/components/dialog_manager/behavior_tree/core/BTreeUtils";
-import { getDialogManager } from "$pkg/components/dialog_manager/DialogMangerInit";
 import type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
 
 export class JumpCommand implements LineBehaviorNode {
 	setVariableNode = new SetVariableNode();
-	dialogManager: undefined | IDialogManager = undefined;
+	dialogManager: IDialogManager;
 
-	constructor() {
-		getDialogManager().then(dm => this.dialogManager = dm);
+	constructor(dialogManager: IDialogManager) {
+		this.dialogManager = dialogManager;
 	}
 
 	process(nodeArgs: LineNodeArguments): LineBehaviorResult {
 		if (this.dialogManager === undefined) {
-			console.warn('Dialog Manger not yet initialized');
+			console.warn("Dialog Manger not yet initialized");
 			return {
 				renderedLine: "",
 				nextState: nodeArgs.initState,

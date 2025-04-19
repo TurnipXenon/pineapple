@@ -3,7 +3,7 @@
 	import type { ToastContext } from "@skeletonlabs/skeleton-svelte";
 	import { getContext } from "svelte";
 	import type { ToastSettings } from "./ToastSettings";
-	import { PinyaButton } from "$pkg/ui/elements/index";
+	import PinyaButton from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
 
 	export const toast: ToastContext = getContext("toast");
 

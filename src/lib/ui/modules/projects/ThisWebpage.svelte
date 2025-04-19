@@ -5,8 +5,8 @@
 	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
 	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
 	import { default as PinyaButton } from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
-	import { ButtonVariant } from "$pkg/ui/elements/PinyaButton/PinyaButtonProps";
-	import { default as TextChip } from "$pkg/ui/elements/text-chip/TextChip.svelte";
+	import { default as TextChip } from "$pkg/ui/elements/TextChip/TextChip.svelte";
+	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "This Webpage";
 	export { component, key };

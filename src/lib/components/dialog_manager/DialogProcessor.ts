@@ -14,29 +14,37 @@ import { DeclareCommand } from "$lib/components/dialog_manager/behavior_tree/lin
 import { JumpCommand } from "$lib/components/dialog_manager/behavior_tree/line_processors/commands/JumpCommand";
 import { IgnoreJumpNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/IgnoreJumpNode";
 import { UnvisitCommand } from "$lib/components/dialog_manager/behavior_tree/line_processors/commands/UnvisitCommand";
+import type { IDialogManager } from "$pkg";
 
 /**
  * DialogProcessor processes dialogs
  */
 export class DialogProcessor {
-	processingTree = new LineSelectorNode([
-		/*region comment based formats*/
-		new IgnoreJumpNode(), // must be prioritized above line comment node
-		new LineCommentNode(),
-		/*endregion commend based formats*/
-		new EndIfNode(),
-		new ElseIfNode(),
-		new ElseNode(),
-		new IfNode(),
-		new IgnoreGuardNode(),
-		/*region commands*/
-		new SetVariableNode(),
-		new DeclareCommand(),
-		new JumpCommand(),
-		new UnvisitCommand(),
-		/*endregion commands*/
-		new NormalLineProcessorNode()
-	]);
+	private readonly dialogManager: IDialogManager;
+	private processingTree: LineSelectorNode ;
+
+	constructor(dialogManager: IDialogManager) {
+		this.dialogManager = dialogManager;
+		this.processingTree = new LineSelectorNode([
+			/*region comment based formats*/
+			new IgnoreJumpNode(), // must be prioritized above line comment node
+			new LineCommentNode(),
+			/*endregion commend based formats*/
+			new EndIfNode(),
+			new ElseIfNode(),
+			new ElseNode(),
+			new IfNode(),
+			new IgnoreGuardNode(),
+			/*region commands*/
+			new SetVariableNode(),
+			new DeclareCommand(),
+			new JumpCommand(this.dialogManager),
+			new UnvisitCommand(),
+			/*endregion commands*/
+			new NormalLineProcessorNode()
+		]);
+	}
+
 
 	/**
 	 * process the dialog line by line and return a presentable string

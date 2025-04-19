@@ -2,6 +2,12 @@
 	import { localizeHref } from "$pkg/paraglide/runtime.js";
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard/index";
 	import { PinyaButton } from "$pkg/ui/elements/PinyaButton/index";
+	import { enableDialogueOverlay } from "$pkg";
+	import { onMount } from "svelte";
+
+	onMount(() => {
+		enableDialogueOverlay.set(true);
+	});
 </script>
 
 <PinyaCard>
@@ -11,7 +17,7 @@
 		<div class="turnip-menu">
 			<PinyaButton onclick={() => {location.href = localizeHref('pineapple');}}>
 				<div class="text-wrap">
-					Pineapple playground (still broken)
+					Pineapple playground (might be broken)
 				</div>
 			</PinyaButton>
 			<PinyaButton onclick={() => {location.href = localizeHref('seaweed2');}}>
@@ -19,9 +25,6 @@
 			</PinyaButton>
 			<PinyaButton onclick={() => {location.href = localizeHref('components');}}>
 				Components
-			</PinyaButton>
-			<PinyaButton disabled={true} onclick={() => {}}>
-				Seaweed (deprecated)
 			</PinyaButton>
 		</div>
 	</main>

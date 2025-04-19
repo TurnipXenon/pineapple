@@ -6,7 +6,8 @@
 	import { default as SocialSection } from "$pkg/ui/components/SocialSection.svelte";
 	import EntryGroup from "$pkg/ui/templates/SeaweedLayout/EntryGroup.svelte";
 	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
-	import { CodeBlock, TextChip } from "$pkg/ui/elements/index";
+	import { CodeBlock } from "$pkg/ui/elements/CodeBlock";
+	import { TextChip } from "../../elements/TextChip";
 	import { SvelteMap } from "svelte/reactivity";
 	import EntryOrderConfig from "$pkg/ui/templates/SeaweedLayout/EntryOrderConfig.svelte";
 	import CreateUrlForm from "./CreateUrlForm.svelte";

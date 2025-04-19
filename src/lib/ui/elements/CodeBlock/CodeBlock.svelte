@@ -16,6 +16,7 @@
 	import js from "shiki/langs/javascript.mjs";
 	import ts from "shiki/langs/typescript.mjs";
 	import markdown from "shiki/langs/markdown.mjs";
+	import xml from "shiki/langs/xml.mjs";
 
 	// https://shiki.style/guide/sync-usage
 	const shiki = createHighlighterCoreSync({
@@ -23,7 +24,7 @@
 		// Implement your import theme.
 		themes: [themeLight, themeDark],
 		// Implement your imported and supported languages.
-		langs: [console, html, css, js, ts, markdown]
+		langs: [console, html, css, js, ts, markdown, xml]
 	});
 </script>
 

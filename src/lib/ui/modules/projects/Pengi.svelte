@@ -5,8 +5,8 @@
 	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
 	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
 	import { default as PinyaButton } from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
-	import { ButtonVariant } from "$pkg/ui/elements/PinyaButton/PinyaButtonProps";
 	import { ItchLogoHotLink } from "$pkg/consts";
+	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "Pengi";
 	export { component, key };

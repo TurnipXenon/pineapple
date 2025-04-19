@@ -1,7 +1,6 @@
 <script lang="ts">
 	import NavigationControl from "$pkg/ui/modules/NavigationMenu/NavigationControl.svelte";
 	import { parsePageMeta, type ParsePageMetaCompareFn } from "$pkg/ui/modules/NavigationMenu/PageMeta";
-	import { Card } from "$pkg/components/index";
 	import { PinyaCard } from "$pkg/ui/elements/index";
 	import { localizeHref } from "$pkg/paraglide/runtime.js";
 
@@ -62,7 +61,7 @@
 		<!-- all the misc routes-->
 		{#each visiblePages as pageMeta (pageMeta.title)}
 			{@const fullPath=`${parentSubpath}${pageMeta.relativeLink}`}
-			<a href={localizeHref(fullPath)} class="card-anchor">
+			<a href={localizeHref(fullPath)} class="card-anchor a-as-btn">
 				<PinyaCard
 					widthClass="w-full"
 					className="navigation-element"
@@ -89,11 +88,9 @@
 		{/each}
 
 		{#if visiblePages.length === 0}
-			<Card>
-				{#snippet content()}
+			<PinyaCard>
 					<p class="default-card">Sorry, no content was found</p>
-				{/snippet}
-			</Card>
+			</PinyaCard>
 		{/if}
 	</div>
 

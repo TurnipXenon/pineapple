@@ -1,6 +1,6 @@
 export interface CodeBlockProps {
 	code?: string;
-	lang?: 'console' | 'html' | 'css' | 'js' | 'ts' | 'markdown';
+	lang?: 'console' | 'html' | 'css' | 'js' | 'ts' | 'markdown' | 'xml';
 	// Base Style Props
 	base?: string;
 	rounded?: string;
