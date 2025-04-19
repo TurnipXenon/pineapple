@@ -14,7 +14,7 @@ export interface SimplifiedEntry {
 	preview?: string;
 }
 
-export interface ParsnipEntry extends SimplifiedEntry {
+export interface ParsnipEntrySummary extends SimplifiedEntry {
 	/**
 	 * Name of the markdown file or title
 	 */
@@ -39,7 +39,7 @@ export interface TagEntry {
 }
 
 export interface ParsnipOverall {
-	files: ParsnipEntry[];
+	files: ParsnipEntrySummary[];
 	tags: TagEntry[];
 	baseUrl: string;
 }
