@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from "svelte";
 	import TestDialogYarn from "./TestDialog.yarn?raw";
 	import NavigationMenu from "$pkg/ui/modules/NavigationMenu/NavigationMenu.svelte";
 	import { ImageMap } from "./ImageMap";
@@ -7,6 +8,9 @@
 	import { PinyaButton } from "$pkg/ui/elements/index";
 	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
 	import { dialogManager } from "$pkg";
+	import type { PageProps } from "./$types";
+
+	let { data }: PageProps = $props();
 
 	enableDialogueOverlay.set(false);
 
@@ -51,5 +55,7 @@
 	jsonList={jsonList}
 	imageMap={ImageMap}
 	shouldAllowControl={allowPagination}
-	parentSubpath="/pineapple/">
+	parentSubpath="/pineapple/"
+	parsnipOverall={data.parsnipOverall}
+>
 </NavigationMenu>

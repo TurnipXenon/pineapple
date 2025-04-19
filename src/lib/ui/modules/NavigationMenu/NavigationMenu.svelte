@@ -1,6 +1,12 @@
 <script lang="ts">
+	import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
 	import NavigationControl from "$pkg/ui/modules/NavigationMenu/NavigationControl.svelte";
-	import { parsePageMeta, type ParsePageMetaCompareFn } from "$pkg/ui/modules/NavigationMenu/PageMeta";
+	import {
+		DefaultPageMetaSorter,
+		type PageMeta,
+		parsePageMeta,
+		type ParsePageMetaCompareFn
+	} from "$pkg/ui/modules/NavigationMenu/PageMeta";
 	import { PinyaCard } from "$pkg/ui/elements/index";
 	import { localizeHref } from "$pkg/paraglide/runtime.js";
 
@@ -18,6 +24,7 @@
 		compareFn?: undefined | ParsePageMetaCompareFn;
 		pageSize?: number;
 		currentIndex?: number;
+		parsnipOverall?: ParsnipOverall;
 	}
 
 	let {
@@ -30,10 +37,30 @@
 		allowUpperControl = true,
 		compareFn = undefined,
 		pageSize = $bindable(5),
-		currentIndex = $bindable(0)
+		currentIndex = $bindable(0),
+		parsnipOverall = undefined
 	}: Props = $props();
 
-	const pageFlatList = $state(parsePageMeta(fileList, jsonList, imageMap, compareFn));
+	const fileBasedList = parsePageMeta(fileList, jsonList, imageMap, compareFn);
+	const parsnipBasedList = parsnipOverall?.files.map(pf => {
+		const meta: PageMeta = {
+			title: pf.basename,
+			nestedPages: [],
+			relativeLink: pf.slug,
+			tags: pf.tags,
+			imageUrl: pf.preview ? `${parsnipOverall.baseUrl}/${pf.preview}` : undefined,
+			datePublished: pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
+			lastUpdated: pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined
+		};
+		return meta;
+	}) ?? [];
+	const pageFlatList = fileBasedList.concat(parsnipBasedList);
+
+	if (compareFn) {
+		pageFlatList.sort(compareFn);
+	} else {
+		pageFlatList.sort(DefaultPageMetaSorter);
+	}
 
 	let visiblePages = $derived(pageFlatList.slice(currentIndex * pageSize, (currentIndex * pageSize) + pageSize));
 </script>
@@ -60,7 +87,7 @@
 	<div class="navigation-component">
 		<!-- all the misc routes-->
 		{#each visiblePages as pageMeta (pageMeta.title)}
-			{@const fullPath=`${parentSubpath}${pageMeta.relativeLink}`}
+			{@const fullPath = `${parentSubpath}${pageMeta.relativeLink}`}
 			<a href={localizeHref(fullPath)} class="card-anchor a-as-btn">
 				<PinyaCard
 					widthClass="w-full"
@@ -89,7 +116,7 @@
 
 		{#if visiblePages.length === 0}
 			<PinyaCard>
-					<p class="default-card">Sorry, no content was found</p>
+				<p class="default-card">Sorry, no content was found</p>
 			</PinyaCard>
 		{/if}
 	</div>
@@ -167,7 +194,7 @@
         flex-direction: column;
         max-width: 1000px;
         width: 100%;
-		    gap: 1lh;
+        gap: 1lh;
     }
 
     .tag-container {
@@ -175,23 +202,23 @@
     }
 
     a.card-anchor {
-		    filter: none;
+        filter: none;
     }
 
     :global(.navigation-element) {
-		    transition: 0.3s;
+        transition: 0.3s;
     }
 
     :global(.navigation-element:hover) {
         transform: scale(1.02);
-		    box-shadow: 10px 5px 5px rgba(49, 8, 0, 0.25);
+        box-shadow: 10px 5px 5px rgba(49, 8, 0, 0.25);
     }
 
     :global(.dark .navigation-element:hover) {
-		    box-shadow: 10px 5px 5px rgba(16, 0, 0, 0.35);
+        box-shadow: 10px 5px 5px rgba(16, 0, 0, 0.35);
     }
 
     h2 {
-		    text-align: start;
+        text-align: start;
     }
 </style>
