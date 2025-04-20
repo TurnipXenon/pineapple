@@ -4,17 +4,15 @@
 	import BlogTemplate from "$pkg/ui/templates/blog_template/BlogTemplate.svelte";
 	import type { PageProps } from "./$types";
 
-	let { data }: PageProps = $props();
+	const { data }: PageProps = $props();
 
-	const pageMeta: PageMeta = $derived.by(() => {
-		return {
-			nestedPages: [],
-			relativeLink: "",
-			tags: data.parsnipEntry.tags,
-			title: data.parsnipEntry.basename,
-			datePublished: new Date(data.parsnipEntry.stat.ctime).toLocaleString(),
-			lastUpdated: new Date(data.parsnipEntry.stat.mtime).toLocaleString()
-		};
+	const pageMeta: PageMeta = $derived({
+		nestedPages: [],
+		relativeLink: "",
+		tags: data.parsnipEntry.tags,
+		title: data.parsnipEntry.basename,
+		datePublished: new Date(data.parsnipEntry.stat.ctime).toLocaleString(),
+		lastUpdated: new Date(data.parsnipEntry.stat.mtime).toLocaleString()
 	});
 </script>
 

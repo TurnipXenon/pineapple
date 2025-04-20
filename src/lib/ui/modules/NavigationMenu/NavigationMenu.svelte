@@ -88,7 +88,8 @@
 		<!-- all the misc routes-->
 		{#each visiblePages as pageMeta (pageMeta.title)}
 			{@const fullPath = `${parentSubpath}${pageMeta.relativeLink}`}
-			<a href={localizeHref(fullPath)} class="card-anchor a-as-btn">
+			<!-- thank you so much to https://www.reddit.com/r/sveltejs/comments/yoe6in/comment/jvaj1ez -->
+			<a href={localizeHref(fullPath)} class="card-anchor a-as-btn" data-sveltekit-reload>
 				<PinyaCard
 					widthClass="w-full"
 					className="navigation-element"

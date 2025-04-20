@@ -13,7 +13,6 @@
 	}
 
 	const { wikilink }: { wikilink: Wikilink } = $props();
-	console.log(wikilink);
 </script>
 
 <!-- todo(turnip): determine appropriate media -->
