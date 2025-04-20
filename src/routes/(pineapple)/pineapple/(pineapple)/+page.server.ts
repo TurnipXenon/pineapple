@@ -3,7 +3,7 @@ import type { PageServerLoad } from "./$types";
 
 export const prerender = true;
 export const load: PageServerLoad = async () => {
-	const baseUrl = "https://gitlab.com/turnipxenon-personal/test-obdisian/-/raw/main";
+	const baseUrl = import.meta.env.VITE_PARSNIP_BASE_URL;
 	const post = await fetch(`${baseUrl}/main.meta.json`);
 
 	if (post.ok) {
