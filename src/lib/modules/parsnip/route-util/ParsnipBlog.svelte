@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { OverridableMeta, type PageMeta } from "$pkg";
-	import ParsnipBlockChildren from "$pkg/modules/parsnip/ParsnipBlockChildren.svelte";
-	import type { ParsnipEntry } from "$pkg/modules/parsnip/ParsnipEntry";
+	import { OverridableMeta } from "$pkg/modules/overrideable_meta/index";
+	import type { PageMeta } from "$pkg/ui/modules/NavigationMenu/PageMeta";
+	import ParsnipBlockChildren from "../ParsnipBlockChildren.svelte";
+	import type { ParsnipEntry } from "../ParsnipEntry";
 	import BlogTemplate from "$pkg/ui/templates/blog_template/BlogTemplate.svelte";
 
 	const { parsnipEntry }: { parsnipEntry: ParsnipEntry } = $props();
