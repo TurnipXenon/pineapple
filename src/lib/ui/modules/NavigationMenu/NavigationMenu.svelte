@@ -25,6 +25,7 @@
 		pageSize?: number;
 		currentIndex?: number;
 		parsnipOverall?: ParsnipOverall;
+		parsnipBasePath?: string;
 	}
 
 	let {
@@ -38,7 +39,8 @@
 		compareFn = undefined,
 		pageSize = $bindable(5),
 		currentIndex = $bindable(0),
-		parsnipOverall = undefined
+		parsnipOverall = undefined,
+		parsnipBasePath = '',
 	}: Props = $props();
 
 	const fileBasedList = parsePageMeta(fileList, jsonList, imageMap, compareFn);
@@ -46,7 +48,7 @@
 		const meta: PageMeta = {
 			title: pf.basename,
 			nestedPages: [],
-			relativeLink: pf.slug,
+			relativeLink: `${parsnipBasePath}${pf.slug}`,
 			tags: pf.tags,
 			imageUrl: pf.preview ? `${parsnipOverall.baseUrl}/${pf.preview}` : undefined,
 			datePublished: pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
