@@ -20,6 +20,8 @@
 		{/if}
 	{:else if child.type === 'heading'}
 		<ParsnipHeading heading={child} />
+	{:else if child.type === 'thematicBreak'}
+		<hr>
 	{:else if child.type === 'blockquote'}
 		<!-- todo: do advanced things like callout blocks -->
 		<blockquote>

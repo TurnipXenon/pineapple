@@ -17,4 +17,4 @@
 
 <!-- todo(turnip): determine appropriate media -->
 <!-- todo(turnip): add alt text -->
-<a href={`${getWebBaseUrl()}/${wikilink.fileAccessor.slug}`}>{wikilink.fileAccessor.target}</a>
+<a href={`${getWebBaseUrl()}/${wikilink.fileAccessor.slug}`} data-sveltekit-reload>{wikilink.fileAccessor.target}</a>

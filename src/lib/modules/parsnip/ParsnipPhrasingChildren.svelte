@@ -16,6 +16,10 @@
 		</strong>
 	{:else if child.type === 'inlineCode'}
 		<code class="inline-code">{child.value}</code>
+	{:else if child.type === 'link'}
+		<a href={child.url}>
+			<Self phrasingChildren={child.children} />
+		</a>
 	{:else if child.type === 'embedWikilink'}
 		<ParsnipEmbedWikilink wikilink={child} />
 	{:else if child.type === 'wikilink'}
