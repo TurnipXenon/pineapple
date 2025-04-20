@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { getWebBaseUrl } from "$pkg/util/env-getter";
+
 	interface Wikilink {
 		type: "wikilink",
 		value: string;
@@ -16,4 +18,4 @@
 
 <!-- todo(turnip): determine appropriate media -->
 <!-- todo(turnip): add alt text -->
-<a href={`${import.meta.env.VITE_WEB_BASE_URL}/${wikilink.fileAccessor.slug}`}>{wikilink.fileAccessor.target}</a>
+<a href={`${getWebBaseUrl()}/${wikilink.fileAccessor.slug}`}>{wikilink.fileAccessor.target}</a>

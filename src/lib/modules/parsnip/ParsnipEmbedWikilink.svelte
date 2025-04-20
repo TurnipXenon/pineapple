@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { getCmsBaseUrl } from "$pkg/util/env-getter";
+
 	interface EmbedWikilink {
 		type: 'embedWikilink',
 		value: string;
@@ -14,4 +16,4 @@
 
 <!-- todo(turnip): determine appropriate media -->
 <!-- todo(turnip): add alt text -->
-<img src={`${import.meta.env.VITE_PARSNIP_BASE_URL}/${wikilink.fileAccessor.basePath}`} alt=""/>
+<img src={`${getCmsBaseUrl()}/${wikilink.fileAccessor.basePath}`} alt=""/>
