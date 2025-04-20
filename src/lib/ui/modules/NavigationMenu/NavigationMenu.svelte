@@ -40,7 +40,7 @@
 		pageSize = $bindable(5),
 		currentIndex = $bindable(0),
 		parsnipOverall = undefined,
-		parsnipBasePath = '',
+		parsnipBasePath = ""
 	}: Props = $props();
 
 	const fileBasedList = parsePageMeta(fileList, jsonList, imageMap, compareFn);
@@ -51,8 +51,10 @@
 			relativeLink: `${parsnipBasePath}${pf.slug}`,
 			tags: pf.tags,
 			imageUrl: pf.preview ? `${parsnipOverall.baseUrl}/${pf.preview}` : undefined,
+			imageAlt: pf.previewAlt,
 			datePublished: pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
-			lastUpdated: pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined
+			lastUpdated: pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined,
+			description: pf.tagline
 		};
 		return meta;
 	}) ?? [];

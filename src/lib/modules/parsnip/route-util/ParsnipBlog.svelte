@@ -21,7 +21,7 @@
 <OverridableMeta
 	title={parsnipEntry.basename}
 	ogTitle={parsnipEntry.basename}
-	ogDescription=""
+	ogDescription={parsnipEntry.tagline}
 	ogImage={`${getCmsBaseUrl()}/${parsnipEntry.preview}`}
 />
 

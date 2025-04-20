@@ -12,6 +12,8 @@ export interface SimplifiedEntry {
 	 * url of preview image relative to base blog path
 	 */
 	preview?: string;
+	previewAlt?: string;
+	tagline?: string;
 }
 
 export interface ParsnipEntrySummary extends SimplifiedEntry {
