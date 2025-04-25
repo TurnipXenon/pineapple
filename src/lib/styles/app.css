@@ -81,6 +81,16 @@ html.dark .shiki span {
     text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
+.inline-code {
+    background-color: aliceblue;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+}
+
+html.dark .inline-code {
+    background-color: #303446;
+}
+
 .shiki {
     span {
         white-space: pre-wrap;

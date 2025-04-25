@@ -144,6 +144,10 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 	});
 
 	for (const path in fileList) {
+		if (path.includes('[...')) {
+			continue;
+		}
+
 		const pathEnd = path.split("../").pop() as string;
 		const pathParts = pathEnd.split("/");
 		pathParts.pop();

@@ -1,12 +1,16 @@
 <script lang="ts">
-	import TestDialogYarn from "./TestDialog.yarn?raw";
-	import NavigationMenu from "$pkg/ui/modules/NavigationMenu/NavigationMenu.svelte";
-	import { ImageMap } from "./ImageMap";
+
+	import { dialogManager } from "$pkg";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
-	import PinyaCard from "$pkg/ui/elements/PinyaCard/PinyaCard.svelte";
 	import { PinyaButton } from "$pkg/ui/elements/index";
 	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
-	import { dialogManager } from "$pkg";
+	import PinyaCard from "$pkg/ui/elements/PinyaCard/PinyaCard.svelte";
+	import NavigationMenu from "$pkg/ui/modules/NavigationMenu/NavigationMenu.svelte";
+	import type { PageProps } from "./$types";
+	import { ImageMap } from "./ImageMap";
+	import TestDialogYarn from "./TestDialog.yarn?raw";
+
+	let { data }: PageProps = $props();
 
 	enableDialogueOverlay.set(false);
 
@@ -51,5 +55,7 @@
 	jsonList={jsonList}
 	imageMap={ImageMap}
 	shouldAllowControl={allowPagination}
-	parentSubpath="/pineapple/">
+	parentSubpath="/pineapple/"
+	parsnipOverall={data.parsnipOverall}
+>
 </NavigationMenu>

@@ -16,15 +16,6 @@
 		pageSize = $bindable()
 	}: Props = $props();
 
-	const queryIndex = page.url.searchParams.get("index");
-	if (queryIndex) {
-		currentIndex = parseInt(queryIndex) || 0;
-	}
-	const queryPageSize = page.url.searchParams.get("pageSize");
-	if (queryPageSize) {
-		pageSize = parseInt(queryPageSize) || 5;
-	}
-
 	const movePage = (isNext: boolean) => {
 		if (isNext) {
 			currentIndex = currentIndex + 1;
@@ -38,6 +29,15 @@
 	};
 
 	onMount(() => {
+		const queryIndex = page.url.searchParams.get("index");
+		if (queryIndex) {
+			currentIndex = parseInt(queryIndex) || 0;
+		}
+		const queryPageSize = page.url.searchParams.get("pageSize");
+		if (queryPageSize) {
+			pageSize = parseInt(queryPageSize) || 5;
+		}
+
 		const query = new URLSearchParams(page.url.searchParams.toString());
 		query.set("index", currentIndex.toString());
 		query.set("pageSize", pageSize.toString());
