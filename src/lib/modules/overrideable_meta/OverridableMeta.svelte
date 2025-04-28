@@ -39,7 +39,6 @@ export const load = async (): Promise<OverridableMetaProps> => {
 		pinyaHead.rootUrl = rootUrl;
 	}
 	if (title) {
-		console.log('setting titel', title)
 		pinyaHead.title = title;
 	}
 	if (ogTitle) {
