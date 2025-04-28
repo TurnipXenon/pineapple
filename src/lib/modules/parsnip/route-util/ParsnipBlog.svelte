@@ -16,12 +16,13 @@
 		datePublished: new Date(parsnipEntry.stat.ctime).toLocaleString(),
 		lastUpdated: new Date(parsnipEntry.stat.mtime).toLocaleString()
 	});
+	console.log("image", parsnipEntry.preview);
 </script>
 
 <OverridableMeta
 	title={parsnipEntry.basename}
 	ogTitle={parsnipEntry.basename}
-	ogDescription={parsnipEntry.tagline}
+	ogDescription={parsnipEntry.preview}
 	ogImage={[`${getCmsBaseUrl()}/${parsnipEntry.preview}`]}
 />
 
