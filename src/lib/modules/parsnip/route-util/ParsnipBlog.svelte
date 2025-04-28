@@ -22,7 +22,7 @@
 	title={parsnipEntry.basename}
 	ogTitle={parsnipEntry.basename}
 	ogDescription={parsnipEntry.tagline}
-	ogImage={`${getCmsBaseUrl()}/${parsnipEntry.preview}`}
+	ogImage={[`${getCmsBaseUrl()}/${parsnipEntry.preview}`]}
 />
 
 <BlogTemplate pageMeta={pageMeta}>

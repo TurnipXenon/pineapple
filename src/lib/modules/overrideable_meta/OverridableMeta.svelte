@@ -17,50 +17,38 @@ export const load = async (): Promise<OverridableMetaProps> => {
 -->
 
 <script lang="ts">
-	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
+	import { pinyaHead } from "$pkg/ui/templates/runes.svelte";
 
-
-	import { page } from "$app/stores";
-	import type { OverridableMetaProps } from "./OverridableMetaProps";
 	interface Props {
 		rootUrl?: string;
 		title?: string;
 		ogTitle?: string;
 		ogDescription?: string;
-		ogImage?: any;
+		ogImage?: string[];
 	}
 
 	let {
-		rootUrl = "http://localhost:5173",
-		title = "Welcome to my portfolio",
-		ogTitle = "Turnip time!",
-		ogDescription = "Welcome to Turnip's test portfolio",
-		ogImage = WebThumbnailImage
+		rootUrl = undefined,
+		title = undefined,
+		ogTitle = undefined,
+		ogDescription = undefined,
+		ogImage = undefined
 	}: Props = $props();
 
-	const data: OverridableMetaProps = $state({
-		title: "Welcome to my portfolio",
-		ogUrl: "https://www.crouton.net/",
-		ogTitle: "Turnip time!",
-		ogDescription: "Welcome to Turnip's test portfolio",
-		ogImage: WebThumbnailImage
-	});
-	page.subscribe(p => {
-		const pageData: OverridableMetaProps = p.data;
-		data.title = pageData.title ?? title;
-		data.ogUrl = `${rootUrl}${p.url.pathname}`;
-		data.ogTitle = pageData.ogTitle ?? ogTitle;
-		data.ogDescription = pageData.ogDescription ?? ogDescription;
-		data.ogImage = pageData.ogImage ?? ogImage;
-	});
+	if (rootUrl) {
+		pinyaHead.rootUrl = rootUrl;
+	}
+	if (title) {
+		console.log('setting titel', title)
+		pinyaHead.title = title;
+	}
+	if (ogTitle) {
+		pinyaHead.ogTitle = ogTitle;
+	}
+	if (ogDescription) {
+		pinyaHead.ogDescription = ogDescription;
+	}
+	if (ogImage) {
+		pinyaHead.ogImage = ogImage;
+	}
 </script>
-
-<svelte:head>
-	<meta charset="utf-8" />
-	<title>{data.title}</title>
-	<meta name="twitter:card" content="summary" />
-	<meta property="og:url" content={data.ogUrl} />
-	<meta property="og:title" content={data.ogTitle} />
-	<meta property="og:description" content={data.ogDescription} />
-	<meta property="og:image" content={data.ogImage} />
-</svelte:head>
