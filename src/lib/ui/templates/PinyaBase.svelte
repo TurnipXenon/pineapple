@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { pinyaHead } from "$pkg/ui/templates/runes.svelte";
 	import { ModeWatcher } from "mode-watcher";
 	import { Modals } from "svelte-modals";
 	import { page } from "$app/state";
@@ -9,7 +10,26 @@
 	import { ToastProvider } from "@skeletonlabs/skeleton-svelte";
 
 	let { children } = $props();
+
+	const ogUrl = $derived(`${pinyaHead.rootUrl}${page.url.pathname}`);
 </script>
+
+<svelte:head>
+	<meta charset="utf-8" />
+	<title>{pinyaHead.title}</title>
+	<meta property="og:url" content={ogUrl} />
+	<meta property="og:site_name" content={pinyaHead.ogTitle} />
+	<meta property="og:title" content={pinyaHead.ogTitle} />
+	<meta property="twitter:title" content={pinyaHead.ogTitle} />
+	<meta property="description" content={pinyaHead.ogDescription} />
+	<meta property="og:description" content={pinyaHead.ogDescription} />
+	<meta property="twitter:description" content={pinyaHead.ogDescription} />
+	<meta property="twitter:card" content="summary">
+	{#each pinyaHead.ogImage ?? [] as imgUrl, idx (`${idx}_${imgUrl}`)}
+		<meta property="og:image" content={imgUrl} />
+		<meta property="twitter:image" content={imgUrl} />
+	{/each}
+</svelte:head>
 
 <Modals>
 	<!-- shown when any modal is opened -->
