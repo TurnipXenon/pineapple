@@ -1,8 +1,10 @@
-import type { OverridableMetaProps } from "$pkg/modules/overrideable_meta/OverridableMetaProps";
+import type { PinyaHeadMetaWrap } from "$pkg/ui/templates/runes.svelte";
 
-export const load = async (): Promise<OverridableMetaProps> => {
+export const load = async (): Promise<PinyaHeadMetaWrap> => {
 	return {
-		title: "Niko",
-		ogTitle: "Niko"
+		meta: {
+			title: "Niko",
+			ogTitle: "Niko"
+		}
 	};
 };
