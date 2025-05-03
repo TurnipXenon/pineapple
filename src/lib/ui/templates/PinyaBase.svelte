@@ -12,24 +12,15 @@
 	let { children } = $props();
 
 	const ogUrl = $derived(`${pinyaHead.rootUrl}${page.url.pathname}`);
-</script>
 
-<svelte:head>
-	<meta charset="utf-8" />
-	<title>{pinyaHead.title}</title>
-	<meta property="og:url" content={ogUrl} />
-	<meta property="og:site_name" content={pinyaHead.ogTitle} />
-	<meta property="og:title" content={pinyaHead.ogTitle} />
-	<meta property="twitter:title" content={pinyaHead.ogTitle} />
-	<meta property="description" content={pinyaHead.ogDescription} />
-	<meta property="og:description" content={pinyaHead.ogDescription} />
-	<meta property="twitter:description" content={pinyaHead.ogDescription} />
-	<meta property="twitter:card" content="summary">
-	{#each pinyaHead.ogImage ?? [] as imgUrl, idx (`${idx}_${imgUrl}`)}
-		<meta property="og:image" content={imgUrl} />
-		<meta property="twitter:image" content={imgUrl} />
-	{/each}
-</svelte:head>
+	const imageList = $derived.by(() => pinyaHead?.ogImage?.map(img => {
+		if (img.startsWith('/')) {
+			return `${pinyaHead.rootUrl}${img}`
+		}
+
+		return img;
+	}) ?? [])
+</script>
 
 <Modals>
 	<!-- shown when any modal is opened -->
@@ -53,6 +44,24 @@
 		<a href={localizeHref(page.url.pathname, { locale })}>{locale}</a>
 	{/each}
 </div>
+
+<!-- important to be rendered last due to runes possibly being updated -->
+<svelte:head>
+	<meta charset="utf-8" />
+	<title>{pinyaHead.title}</title>
+	<meta property="og:url" content={ogUrl} />
+	<meta property="og:site_name" content={pinyaHead.ogTitle} />
+	<meta property="og:title" content={pinyaHead.ogTitle} />
+	<meta property="twitter:title" content={pinyaHead.ogTitle} />
+	<meta property="description" content={pinyaHead.ogDescription} />
+	<meta property="og:description" content={pinyaHead.ogDescription} />
+	<meta property="twitter:description" content={pinyaHead.ogDescription} />
+	<meta property="twitter:card" content="summary">
+	{#each imageList as imgUrl, idx (`${idx}_${imgUrl}`)}
+		<meta property="og:image" content={imgUrl} />
+		<meta property="twitter:image" content={imgUrl} />
+	{/each}
+</svelte:head>
 
 <style>
     .backdrop {
