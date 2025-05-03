@@ -32,7 +32,7 @@ export const load = async (): Promise<OverridableMetaProps> => {
 		title = undefined,
 		ogTitle = undefined,
 		ogDescription = undefined,
-		ogImage = undefined
+		ogImage = []
 	}: Props = $props();
 
 	if (rootUrl) {
