@@ -1,3 +1,6 @@
+/**
+ * @deprecated use {@PinyaHeadMetaWrap}
+ */
 export interface OverridableMetaProps {
 	title?: string;
 	ogUrl?: string;
