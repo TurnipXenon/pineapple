@@ -1,5 +1,6 @@
 import type { ParsnipEntry } from "$pkg/modules/parsnip/ParsnipEntry";
 import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
+import type { PinyaHead } from "$pkg/ui/templates/runes.svelte";
 import { getCmsBaseUrl } from "$pkg/util/env-getter";
 import { error } from "@sveltejs/kit";
 
@@ -28,7 +29,16 @@ export const slugPageServerLoad = async ({ params }: { params: { slug: string } 
 		error(400, "Not found");
 	}
 
+	const parsnipEntry = await entryResponse.json() as ParsnipEntry;
+	const meta: PinyaHead = {
+		title: parsnipEntry.basename,
+		ogTitle: parsnipEntry.basename,
+		ogDescription: parsnipEntry.tagline,
+		ogImage: parsnipEntry.preview ? [`${baseUrl}/${parsnipEntry.preview}`] : undefined
+	};
+
 	return {
-		parsnipEntry: await entryResponse.json() as ParsnipEntry
+		parsnipEntry,
+		meta
 	};
 };

@@ -18,9 +18,11 @@ const getEntries = async () => {
 		baseUrl
 	} as ParsnipOverall;
 
-	return parsnipOverall.files.map(f => ({
+	const entries = parsnipOverall.files.map(f => ({
 		slug: f.slug
 	}));
+
+	return entries;
 };
 
 

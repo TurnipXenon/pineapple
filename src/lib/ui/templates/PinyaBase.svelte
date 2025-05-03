@@ -1,25 +1,35 @@
 <script lang="ts">
-	import { pinyaHead } from "$pkg/ui/templates/runes.svelte";
-	import { ModeWatcher } from "mode-watcher";
-	import { Modals } from "svelte-modals";
 	import { page } from "$app/state";
 	import { locales, localizeHref } from "$lib/paraglide/runtime";
 	import "$lib/styles/global.css";
-
-	import "$pkg/styles/app.css";
+	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
+	import type { PinyaHead } from "$pkg/ui/templates/runes.svelte";
 	import { ToastProvider } from "@skeletonlabs/skeleton-svelte";
+	import { ModeWatcher } from "mode-watcher";
+	import "$pkg/styles/app.css";
+	import { Modals } from "svelte-modals";
 
 	let { children } = $props();
 
-	const ogUrl = $derived(`${pinyaHead.rootUrl}${page.url.pathname}`);
+	// https://github.com/sveltejs/kit/issues/1540#issuecomment-2029016082
+	const meta: PinyaHead = ({
+		rootUrl: "http://localhost:5173",
+		title: "Welcome to my portfolio",
+		ogTitle: "Turnip time!",
+		ogDescription: "Welcome to Turnip's test portfolio",
+		ogImage: [WebThumbnailImage],
+		...(page.data?.meta ?? []) // override
+	});
 
-	const imageList = $derived.by(() => pinyaHead?.ogImage?.map(img => {
-		if (img.startsWith('/')) {
-			return `${pinyaHead.rootUrl}${img}`
+	const ogUrl = $derived(`${meta?.rootUrl}${page.url.pathname}`);
+
+	const imageList = $derived.by(() => meta?.ogImage?.map(img => {
+		if (img.startsWith("/")) {
+			return `${meta?.rootUrl}${img}`;
 		}
 
 		return img;
-	}) ?? [])
+	}) ?? []);
 </script>
 
 <Modals>
@@ -45,17 +55,16 @@
 	{/each}
 </div>
 
-<!-- important to be rendered last due to runes possibly being updated -->
 <svelte:head>
 	<meta charset="utf-8" />
-	<title>{pinyaHead.title}</title>
+	<title>{meta?.title ?? page.url.hostname}</title>
 	<meta property="og:url" content={ogUrl} />
-	<meta property="og:site_name" content={pinyaHead.ogTitle} />
-	<meta property="og:title" content={pinyaHead.ogTitle} />
-	<meta property="twitter:title" content={pinyaHead.ogTitle} />
-	<meta property="description" content={pinyaHead.ogDescription} />
-	<meta property="og:description" content={pinyaHead.ogDescription} />
-	<meta property="twitter:description" content={pinyaHead.ogDescription} />
+	<meta property="og:site_name" content={meta?.ogTitle ?? 'Home'} />
+	<meta property="og:title" content={meta?.ogTitle ?? 'Home'} />
+	<meta property="twitter:title" content={meta?.ogTitle ?? 'Home'} />
+	<meta property="description" content={meta?.ogDescription ?? ''} />
+	<meta property="og:description" content={meta?.ogDescription ?? ''} />
+	<meta property="twitter:description" content={meta?.ogDescription ?? ''} />
 	<meta property="twitter:card" content="summary">
 	{#each imageList as imgUrl, idx (`${idx}_${imgUrl}`)}
 		<meta property="og:image" content={imgUrl} />
