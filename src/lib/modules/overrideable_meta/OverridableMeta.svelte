@@ -17,6 +17,7 @@ export const load = async (): Promise<OverridableMetaProps> => {
 -->
 
 <script lang="ts">
+	import { page } from "$app/state";
 	import { pinyaHead } from "$pkg/ui/templates/runes.svelte";
 
 	interface Props {
@@ -48,6 +49,12 @@ export const load = async (): Promise<OverridableMetaProps> => {
 		pinyaHead.ogDescription = ogDescription;
 	}
 	if (ogImage) {
-		pinyaHead.ogImage = ogImage;
+		pinyaHead.ogImage = ogImage.map(img => {
+			if (img.startsWith('/')) {
+				return `${pinyaHead.rootUrl}${img}`
+			}
+
+			return img;
+		});
 	}
 </script>
