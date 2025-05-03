@@ -8,6 +8,10 @@ export interface PinyaHead {
 	ogImage?: string[];
 }
 
+export interface PinyaHeadMetaWrap {
+	meta: PinyaHead
+}
+
 const defaultData: PinyaHead = {
 	rootUrl: "http://localhost:5173",
 	title: "Welcome to my portfolio",
