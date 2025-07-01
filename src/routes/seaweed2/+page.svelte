@@ -52,9 +52,9 @@
 </script>
 
 <SeaweedLayout
-	name="Turnip"
-	email="turnipxenon@gmail.com"
-	linkedinSlug="turnip-xenon"
+	name="Niko"
+	email="niko@gmail.com"
+	linkedinSlug="niko"
 	domain="https://turnipxenon.com"
 	entryList={uiList}
 	layout={layout}
