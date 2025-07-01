@@ -15,6 +15,8 @@
 	import { page } from "$app/state";
 
 	let {
+		email,
+		linkedinSlug,
 		children,
 		sideSection,
 		entryList, // todo
@@ -22,7 +24,7 @@
 		domain = "http://localhost:5173/seaweed2",
 		queryTerms,
 		showMiniSocial = false,
-		serverParams = "",
+		serverParams = ""
 	}: SeaweedLayoutProps = $props();
 
 	let actualLayout = $state(layout);
@@ -161,7 +163,10 @@
 
 
 {#snippet socialSection()}
-	<SocialSection></SocialSection>
+	<SocialSection
+		email={email}
+		linkedinSlug={linkedinSlug}
+	/>
 {/snippet}
 <PinyaPageLayout>
 	{#snippet appBarLead()}
@@ -170,7 +175,11 @@
 				class="flex flex-row"
 				transition:fly={{x:-10}}
 			>
-				<SocialSection isSmallVersion={true} />
+				<SocialSection
+					isSmallVersion={true}
+					email={email}
+					linkedinSlug={linkedinSlug}
+				/>
 			</div>
 		{/if}
 	{/snippet}
