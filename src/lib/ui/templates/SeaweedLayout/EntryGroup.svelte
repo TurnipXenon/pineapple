@@ -20,7 +20,7 @@
 
 <div class="mt-8 flex flex-col items-center">
 	<PinyaCard widthClass="w-full" className="mb-8">
-		<h2>{title}</h2>
+		<h2 class="m-auto">{title}</h2>
 	</PinyaCard>
 	<div class="normal-project-container">
 		{#each normalUiList as ui (ui.key)}
