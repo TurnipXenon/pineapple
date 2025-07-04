@@ -15,13 +15,19 @@
 		<h1 class="mb-8" style="font-weight: bolder">Directory</h1>
 
 		<div class="turnip-menu">
-			<PinyaButton onclick={() => {location.href = localizeHref('pineapple');}}>
-				<div class="text-wrap">
-					Pineapple playground (might be broken)
-				</div>
+			<PinyaButton
+				classes="text-wrap"
+				onclick={() => {location.href = localizeHref('pineapple');}}
+			>
+				Pineapple playground
 			</PinyaButton>
-			<PinyaButton onclick={() => {location.href = localizeHref('seaweed2');}}>
-				Seaweed <b>2</b> playground
+			<PinyaButton
+				classes="text-wrap"
+				onclick={() => {location.href = localizeHref('seaweed2');}}
+			>
+				<div class="text-wrap">
+					Seaweed playground
+				</div>
 			</PinyaButton>
 			<PinyaButton onclick={() => {location.href = localizeHref('components');}}>
 				Components
