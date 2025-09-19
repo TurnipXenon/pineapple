@@ -77,8 +77,4 @@
         gap: 0.5lh;
 		    margin-top: 1lh;
     }
-
-    .send-link {
-        margin-top: 0.75lh;
-    }
 </style>

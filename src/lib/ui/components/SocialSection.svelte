@@ -54,7 +54,8 @@
 	<PinyaButton
 		buttonVariant={ButtonVariant.SmallIcon}
 		title={`mailto:${email}`}
-		onclick={() => window.open(`mailto:${email}`)}>
+		onclick={() => window.open(`mailto:${email}`)}
+	>
 		<ImageIcon src={MailIcon} alt="mail icon" />
 		{#if (!isSmallVersion)}
 			<span>{email}</span>

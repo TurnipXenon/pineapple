@@ -18,9 +18,9 @@
 		close
 	}: ModalBaseProps = $props();
 
-	let container: HTMLDivElement;
+	let container = $state<HTMLDivElement>();
 	onMount(() => {
-		const focusableElement = container.querySelector('input, select, textarea, button, object, a, area[href], [tabindex]');
+		const focusableElement = container?.querySelector('input, select, textarea, button, object, a, area[href], [tabindex]');
 		if (focusableElement) {
 			(focusableElement as HTMLElement).focus();
 		}

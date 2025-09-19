@@ -219,41 +219,9 @@
 </PinyaCard>
 
 
-<style lang="postcss">
-
-
-    .advanced-setting-list {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .btn-group-header {
-        @apply preset-filled-tertiary-500;
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.5lh;
-    }
-
-    .btn-group-entry {
-        @apply ;
-        display: flex;
-        padding: 0;
-    }
-
-    .btn-group-entry > div {
-        padding: 1em;
-    }
-
+<style>
     .flipped-vertically {
         transform: rotate(180deg);
-    }
-
-    .entry-group {
-        border-radius: var(--theme-rounded-container);
-        background-color: rgb(var(--color-surface-600));
-        margin-top: 1.5lh;
-        margin-bottom: 0.5lh;
-        padding: 0.5lh 0.5em;
     }
 
     .entry-name {
@@ -271,27 +239,6 @@
     tfoot > tr {
         display: flex;
     }
-
-    .btn-group > button {
-        padding: 0.3em 0.75em;
-    }
-
-    .btn-group-header > h2 {
-        font-weight: bolder;
-        padding-top: 1lh;
-        padding-bottom: 1lh;
-        margin-bottom: 0;
-        padding-inline-start: 1em;
-    }
-
-    .dark .btn-group-header > h2 {
-        color: rgb(var(--theme-font-color-dark));
-    }
-
-    .dark .entry-group {
-        background-color: rgb(var(--color-surface-800));
-    }
-
 
     tbody tr:nth-child(odd) {
         background-color: var(--color-surface-100-900);
