@@ -1,5 +1,4 @@
 <script lang="ts">
-	import ParsnipBlockChildren from "$pkg/modules/parsnip/ParsnipBlockChildren.svelte";
 	import ParsnipPhrasingChildren from "$pkg/modules/parsnip/ParsnipPhrasingChildren.svelte";
 	import type { Heading } from "mdast";
 

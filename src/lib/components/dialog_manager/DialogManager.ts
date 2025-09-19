@@ -191,7 +191,7 @@ export class DialogManager implements IDialogManager {
 		// set the portrait
 		let portraitValue = AresHappy;
 		if (this.currentMessageMeta.portraitType) {
-			portraitValue = this.portraitMap.get(this.currentMessageMeta.portraitType ?? AresHappy);
+			portraitValue = this.portraitMap.get(this.currentMessageMeta.portraitType ?? AresHappy) ?? '';
 		}
 		if (portraitValue) {
 			this.currentPortrait.update(() => portraitValue);
