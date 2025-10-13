@@ -88,9 +88,7 @@
     "./templates": {
       "types": "./dist/ui/templates/index.d.ts",
       "svelte": "./dist/ui/templates/index.js"
-    },
-    "./app.postcss": "./src/lib/app.postcss",
-    "./theme.postcss": "./src/lib/theme.postcss"
+    }
   },
   "files": [
     "dist",

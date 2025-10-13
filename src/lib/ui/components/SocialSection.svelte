@@ -78,7 +78,7 @@
 	{/if}
 </div>
 
-<style lang="postcss">
+<style>
     span {
         font-size: 0.8em;
     }

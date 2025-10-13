@@ -56,7 +56,7 @@
 	</div>
 </div>
 
-<style lang="postcss">
+<style>
     .chum-bucket-item {
         width: 100%;
         display: flex;

@@ -36,7 +36,7 @@
 	{/each}
 </div>
 
-<style lang="postcss">
+<style>
     .advanced-setting-list {
         display: flex;
         flex-direction: column;
