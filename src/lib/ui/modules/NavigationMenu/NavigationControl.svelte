@@ -65,7 +65,7 @@
 	</PinyaButton>
 </div>
 
-<style lang="postcss">
+<style>
     .navigation-control-container {
         display: flex;
         justify-content: space-between;

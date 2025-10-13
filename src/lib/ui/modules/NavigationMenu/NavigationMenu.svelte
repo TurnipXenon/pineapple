@@ -134,7 +134,7 @@
 
 </div>
 
-<style lang="postcss">
+<style>
     @container (max-width: 800px) {
         img {
             max-height: 20rem;
