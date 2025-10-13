@@ -1,7 +1,4 @@
-// warning: you might to change away from adapter-vercel if you plan to use anything outside of vercel
-// there's an auto-adapter which can replace the import below
-// import adapter from "@sveltejs/adapter-auto";
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-cloudflare';
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import path from "path";
 
