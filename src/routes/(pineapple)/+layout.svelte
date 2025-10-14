@@ -23,7 +23,7 @@
 	let { children }: Props = $props();
 
 	appState.allowDialog = true;
-	pinyaHead.rootUrl = import.meta.env.PROD ? "https://pineapple-gamma-blush.vercel.app" : "http://localhost:5173";
+	pinyaHead.rootUrl = import.meta.env.PROD ?? process.env.PROD ? "https://pineapple-gamma-blush.vercel.app" : "http://localhost:5173";
 </script>
 
 <PinyaBase>
