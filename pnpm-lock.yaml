@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@inlang/paraglide-js':
-        specifier: 2.0.0-beta.30
-        version: 2.0.0-beta.30
+        specifier: 2.0.7
+        version: 2.0.7
       '@prisma/client':
         specifier: ^5.12.1
         version: 5.22.0(prisma@5.22.0)
@@ -762,16 +762,15 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@inlang/paraglide-js@2.0.0-beta.30':
-    resolution: {integrity: sha512-Pr0JZBxexZXJbQc0xi06Dgyk9t14GQCZLQ9HoWaOv25d0sXtPv/BohVohZ4uIth12p/Dtt3Gd65y0M7iXcWTjw==}
-    deprecated: v2 has been released. please upgrade.
+  '@inlang/paraglide-js@2.0.7':
+    resolution: {integrity: sha512-+YOQZuK1KAdeqovDiNqNEgYiSmIp/ACizz2Ms58KXIofJisRyuChweDAYQva98F7Hd/LEUPQWeWpdxPMl+R3Xg==}
     hasBin: true
 
   '@inlang/recommend-sherlock@0.2.1':
     resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
 
-  '@inlang/sdk@2.4.1':
-    resolution: {integrity: sha512-JKsbFs/z2rv/2vPR6ZWDC3PWLX9COQPRYADNlbFl2omqkM2Dl5g7X/jIPDkTV85NccOimSf6Y/d1zqK5p5K4zA==}
+  '@inlang/sdk@2.4.6':
+    resolution: {integrity: sha512-Oh0MEWHE1VneS82MHUt8ieFoyGMMlM0mwTI1t2rMG+KBJjCEoSpUCc58IkE3K4c+3p0L5U4PcBTL0D7ebzjcbA==}
     engines: {node: '>=18.0.0'}
 
   '@isaacs/fs-minipass@4.0.1':
@@ -797,12 +796,12 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@lix-js/sdk@0.4.1':
-    resolution: {integrity: sha512-8v9gkLuEa/VXLkDwuXLr+wjZY1D7dPXVhez97jJULYoKurLVuhh2SH/Sv4jF43biV0wee44PGADrFPuU00lnsQ==}
-    engines: {node: '>=21'}
+  '@lix-js/sdk@0.4.5':
+    resolution: {integrity: sha512-H0bu99QlzYArFtyV+5aKHGfgjAvtUYMxatQVXFddG0q+I3GtjR4PyNAjQdh0zeTnMJkSXWo2giSsQpXpFBz4Dw==}
+    engines: {node: '>=18'}
 
-  '@lix-js/server-api-schema@0.1.1':
-    resolution: {integrity: sha512-W1Z7KKOxAQ4Dag9V2wrDevHPh5rPk+icBUsxNfNCNB2tlPrKpba99562vcTCPoT03KXpihEbWutZNujCRtMA+g==}
+  '@lix-js/server-protocol-schema@0.1.1':
+    resolution: {integrity: sha512-jBeALB6prAbtr5q4vTuxnRZZv1M2rKe8iNqRQhFJ4Tv7150unEa0vKyz0hs8Gl3fUGsWaNJBh3J8++fpbrpRBQ==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3835,10 +3834,10 @@ snapshots:
   '@img/sharp-win32-x64@0.33.5':
     optional: true
 
-  '@inlang/paraglide-js@2.0.0-beta.30':
+  '@inlang/paraglide-js@2.0.7':
     dependencies:
       '@inlang/recommend-sherlock': 0.2.1
-      '@inlang/sdk': 2.4.1
+      '@inlang/sdk': 2.4.6
       commander: 11.1.0
       consola: 3.4.0
       json5: 2.2.3
@@ -3851,9 +3850,9 @@ snapshots:
     dependencies:
       comment-json: 4.4.1
 
-  '@inlang/sdk@2.4.1':
+  '@inlang/sdk@2.4.6':
     dependencies:
-      '@lix-js/sdk': 0.4.1
+      '@lix-js/sdk': 0.4.5
       '@sinclair/typebox': 0.31.28
       kysely: 0.27.6
       sqlite-wasm-kysely: 0.3.0(kysely@0.27.6)
@@ -3889,9 +3888,9 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@lix-js/sdk@0.4.1':
+  '@lix-js/sdk@0.4.5':
     dependencies:
-      '@lix-js/server-api-schema': 0.1.1
+      '@lix-js/server-protocol-schema': 0.1.1
       dedent: 1.5.1
       human-id: 4.1.2
       js-sha256: 0.11.1
@@ -3901,7 +3900,7 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
 
-  '@lix-js/server-api-schema@0.1.1': {}
+  '@lix-js/server-protocol-schema@0.1.1': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:

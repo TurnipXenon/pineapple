@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "4.4.2",
+  "version": "4.5.0-alpha.5",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -48,7 +48,7 @@
     "wrangler": "^4.42.2"
   },
   "dependencies": {
-    "@inlang/paraglide-js": "2.0.0-beta.30",
+    "@inlang/paraglide-js": "2.0.7",
     "@prisma/client": "^5.12.1",
     "@skeletonlabs/skeleton": "^3.1.0",
     "@skeletonlabs/skeleton-svelte": "1.0.0",

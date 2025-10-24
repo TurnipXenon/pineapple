@@ -3,7 +3,7 @@ import { type PinyaHead } from "$pkg/ui/templates/runes.svelte";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = () => {
-	const rootUrl = import.meta.env.PROD ? "https://pineapple-gamma-blush.vercel.app" : "http://localhost:5173";
+	const rootUrl = import.meta.env.PROD ?? process.env.PROD ? "https://pineapple-gamma-blush.vercel.app" : "http://localhost:5173";
 
 	const meta: PinyaHead = {
 		rootUrl,
