@@ -1,5 +1,5 @@
 import type { Handle } from '@sveltejs/kit';
-import { paraglideMiddleware } from '$pkg/paraglide/server';
+import { paraglideMiddleware } from '$pkg/external/paraglide/server';
 
 // creating a handle to use the paraglide middleware
 const paraglideHandle: Handle = ({ event, resolve }) =>

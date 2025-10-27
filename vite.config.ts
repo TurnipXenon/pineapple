@@ -1,7 +1,7 @@
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import { sveltekit } from "@sveltejs/kit/vite";
-import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "vite";
 
 export default defineConfig({
 	plugins: [
@@ -9,8 +9,9 @@ export default defineConfig({
 		sveltekit(),
 		paraglideVitePlugin({
 			project: "./project.inlang",
-			outdir: "./src/lib/paraglide",
-			strategy: ["url", "cookie", "baseLocale"]
+			outdir: "./src/lib/external/paraglide",
+			strategy: ["url", "cookie", "baseLocale"],
+			additionalFiles: { ".npmignore": "\n" }
 		})
 	],
 	assetsInclude: ["**/*.yarn"]
