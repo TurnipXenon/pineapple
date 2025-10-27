@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 	import { modals } from "svelte-modals";
-	import { m } from "$pkg/paraglide/messages";
-	import { localizeHref } from "$pkg/paraglide/runtime";
+	import { m } from "$pkg/external/paraglide/messages";
+	import { localizeHref } from "$pkg/external/paraglide/runtime";
 
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";

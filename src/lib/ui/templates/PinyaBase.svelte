@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/state";
-	import { locales, localizeHref } from "$lib/paraglide/runtime";
+	import { locales, localizeHref } from "$pkg/external/paraglide/runtime";
 	import "$lib/styles/global.css";
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 	import type { PinyaHead } from "$pkg/ui/templates/runes.svelte";

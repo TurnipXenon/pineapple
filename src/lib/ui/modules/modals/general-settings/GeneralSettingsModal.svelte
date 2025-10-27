@@ -2,7 +2,7 @@
 	import type { ModalProps } from 'svelte-modals';
 	import { setMode, userPrefersMode } from 'mode-watcher';
 
-	import { m } from '$pkg/paraglide/messages';
+	import { m } from '$pkg/external/paraglide/messages';
 	import ModalBase from '$pkg/ui/components/ModalBase.svelte';
 	import DarkIcon from '$pkg/assets/icons/icon-dark-mode.svg';
 	import LightIcon from '$pkg/assets/icons/icon-light-mode.svg';

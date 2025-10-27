@@ -8,7 +8,7 @@
 		type ParsePageMetaCompareFn
 	} from "$pkg/ui/modules/NavigationMenu/PageMeta";
 	import { PinyaCard } from "$pkg/ui/elements/index";
-	import { localizeHref } from "$pkg/paraglide/runtime.js";
+	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
 
 	interface Props {
 		fileList: Record<string, unknown>;

@@ -1,10 +1,9 @@
 <script lang="ts" generics="T extends string">
-	import { Combobox } from '@skeletonlabs/skeleton-svelte';
-	import { getLocale, localizeHref } from '$pkg/paraglide/runtime';
 	import type { PinyaComboboxProps, ValueChangeDetails } from "$pkg/ui/elements/pinya-combobox/PinyaComboboxProps";
+	import { Combobox } from "@skeletonlabs/skeleton-svelte";
 
 	let {
-		contentZIndex = 'auto',
+		contentZIndex = "auto",
 		value = $bindable(),
 		onValueChange = () => {},
 		onValueChangeBase = undefined,
