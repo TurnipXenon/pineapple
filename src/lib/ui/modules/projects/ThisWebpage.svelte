@@ -29,7 +29,7 @@
 		{/snippet}
 
 		{#snippet header()}
-			<h2>This webpage!</h2>
+			<h3>This webpage!</h3>
 		{/snippet}
 
 		<p>

@@ -24,7 +24,7 @@
 		{/snippet}
 
 		{#snippet header()}
-			<h1>Soulwork</h1>
+			<h3>Soulwork</h3>
 		{/snippet}
 
 		<p>
