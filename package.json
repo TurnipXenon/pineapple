@@ -16,7 +16,7 @@
     "preview": "pnpm run build && wrangler dev",
     "prepublishOnly": "pnpm package",
     "prepare": "husky",
-    "deploy": "pnpm run build && wrangler deploy",
+    "deploy": "wrangler deploy",
     "cf-typegen": "wrangler types ./src/worker-configuration.d.ts"
   },
   "devDependencies": {
@@ -27,6 +27,7 @@
     "@sveltejs/adapter-cloudflare": "^7.2.4",
     "@sveltejs/package": "^2.3.7",
     "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "@types/mdast": "^4.0.4",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-svelte": "^3.0.0",

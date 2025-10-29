@@ -90,6 +90,9 @@ importers:
       '@sveltejs/package':
         specifier: ^2.3.7
         version: 2.5.4(svelte@5.39.11)(typescript@5.9.3)
+      '@types/mdast':
+        specifier: ^4.0.4
+        version: 4.0.4
       eslint:
         specifier: ^9.18.0
         version: 9.37.0(jiti@2.6.1)
