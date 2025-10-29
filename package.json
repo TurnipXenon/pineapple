@@ -26,7 +26,7 @@
     "@eslint/js": "^9.18.0",
     "@sveltejs/adapter-cloudflare": "^7.2.4",
     "@sveltejs/package": "^2.3.7",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "@sveltejs/vite-plugin-svelte": "^6.2.1",
     "@types/mdast": "^4.0.4",
     "@types/node": "^20.11.25",
     "eslint": "^9.18.0",
@@ -46,7 +46,7 @@
     "tslib": "^2.4.1",
     "typescript": "^5.5.0",
     "typescript-eslint": "^8.20.0",
-    "vite": "^5.4.4",
+    "vite": "^7.1.2",
     "wrangler": "^4.42.2"
   },
   "dependencies": {
@@ -54,8 +54,8 @@
     "@prisma/client": "^5.12.1",
     "@skeletonlabs/skeleton": "^3.1.0",
     "@skeletonlabs/skeleton-svelte": "1.0.0",
-    "@sveltejs/kit": "^2.5.27",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "@sveltejs/kit": "^2.48.2",
+    "@sveltejs/vite-plugin-svelte": "^6.2.1",
     "@tailwindcss/vite": "^4.0.14",
     "@types/htmlparser2": "^3.10.7",
     "highlight.js": "^11.8.0",
@@ -66,7 +66,7 @@
     "shiki": "^3.2.1",
     "shiki-transformer-copy-button": "0.0.3",
     "string-width": "^7.1.0",
-    "svelte": "^5.0.0",
+    "svelte": "^5.43.0",
     "svelte-modals": "^2.0.1",
     "tailwindcss": "^4.0.14",
     "ts-node": "^10.9.1"

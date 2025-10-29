@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import TestButton from "./components/TestButton.svelte";
 </script>
 
