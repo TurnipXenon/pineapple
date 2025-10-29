@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import { page } from "$app/state";
 	import { locales, localizeHref } from "$pkg/external/paraglide/runtime";

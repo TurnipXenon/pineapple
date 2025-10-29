@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import "./blog-template.css";
 	import { onDestroy, onMount, type Snippet } from "svelte";

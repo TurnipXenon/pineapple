@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import UpwardIcon from "$pkg/assets/icons/arrow-upward.svg";
 	import CloseIcon from "$pkg/assets/icons/close.svg";

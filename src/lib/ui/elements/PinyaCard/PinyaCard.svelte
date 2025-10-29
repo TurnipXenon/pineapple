@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">/**
  * When with texts, wrap the text content inside a div so flex wont apply
  */

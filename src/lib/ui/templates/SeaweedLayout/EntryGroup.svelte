@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";

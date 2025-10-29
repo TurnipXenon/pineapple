@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import { Accordion } from "@skeletonlabs/skeleton-svelte";
 	import type { Snippet } from "svelte";

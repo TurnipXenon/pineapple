@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts" generics="T extends string">
 	import type { PinyaComboboxProps, ValueChangeDetails } from "$pkg/ui/elements/pinya-combobox/PinyaComboboxProps";
 	import { Combobox } from "@skeletonlabs/skeleton-svelte";

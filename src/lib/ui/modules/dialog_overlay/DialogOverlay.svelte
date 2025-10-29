@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import { slide } from "svelte/transition";
 	import { onMount } from "svelte";

@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import type { Snippet } from "svelte";
 	import { modals } from "svelte-modals";

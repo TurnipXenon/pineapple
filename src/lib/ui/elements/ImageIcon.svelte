@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import type { HTMLImgAttributes } from 'svelte/elements';
 	import type { GeneralUIProps } from "$pkg/ui/elements/GeneralUIProps";
