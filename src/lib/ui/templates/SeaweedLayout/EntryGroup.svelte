@@ -39,7 +39,7 @@
 <!--todo: implement in seaweedlayout #migration-->
 <!--{@html styleStr}-->
 
-<!-- Force tailwind to pickup some classes -->
+<!-- Force tailwind.css to pickup some classes -->
 <div class="hidden rounded-2xl hover:brightness-110"></div>
 
 <style>

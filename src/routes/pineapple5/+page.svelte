@@ -12,7 +12,7 @@
 
 <PinyaCard>
 	<main>
-		<h1 class="mb-8" style="font-weight: bolder">Directory</h1>
+		<h1 class="mb-8" style="font-weight: bolder">Pineapple 5: Directory</h1>
 
 		<div class="turnip-menu">
 			<PinyaButton
