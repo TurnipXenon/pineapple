@@ -1,0 +1,10 @@
+html {
+    --color-primary-50-900: var(--color-primary-50);
+    --color-warning-700-400: var(--color-warning-700);
+    /*--color-surface-0-950: var(--color-surface-0);*/
+}
+
+html.dark {
+    --color-primary-50-900: var(--color-primary-900);
+    --color-warning-700-400: var(--color-warning-400);
+}

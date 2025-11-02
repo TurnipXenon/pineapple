@@ -89,6 +89,7 @@
 				}}
 			>
 				<!-- Made for 140 characters, like the original tweets -->
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 				{@html currentMessage}
 			</div>
 			<div id="settings-menu-bar">
@@ -158,7 +159,7 @@
                 overflow-y: auto;
                 border-width: 0 2px 0 0;
                 padding: 1.3lh 1em;
-                border-color: light-dark(var(--color-primary-50), var(--color-primary-900));
+                border-color: var(--color-primary-50-900);
             }
 
             #settings-menu-bar {

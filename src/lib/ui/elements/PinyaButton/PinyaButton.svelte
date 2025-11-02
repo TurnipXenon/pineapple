@@ -1,5 +1,3 @@
-<!-- TODO: Migration: review and migrate this component -->
-
 <script lang="ts">
 	import { type PinyaButtonProps } from "./PinyaButtonProps";
 	import { ColorScheme } from "$pkg/ui/elements/ColorScheme";

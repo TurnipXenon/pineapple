@@ -24,7 +24,7 @@ export const createButtonClass = (props: PinyaButtonCommonProps) => {
 			case ColorScheme.Custom:
 				return colorClass;
 			case ColorScheme.Warning:
-				return "bg-warning-700 dark:bg-warning-400 text-secondary-0 dark:text-secondary-950 hover:brightness-110";
+				return "text-secondary-0 dark:text-secondary-950 hover:brightness-110";
 			case ColorScheme.Surface:
 				return "bg-surface-700 dark:bg-surface-600 text-surface-50-950 hover:brightness-110";
 			default:
@@ -39,5 +39,6 @@ export const createButtonClass = (props: PinyaButtonCommonProps) => {
 
 	return `btn rounded-2xl text-xl font-bold 
 	${buttonVariant === ButtonVariant.SmallIcon ? 'small-icon-button' : ''}
+	${colorScheme.toString()}
 	${tailwindClass} ${paddingClass} ${classes}`;
 };
