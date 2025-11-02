@@ -94,18 +94,30 @@
 			</div>
 			<div id="settings-menu-bar">
 				<!-- settings -->
-				<div>S</div>
+				<PinyaButton
+					onclick={()=>{alert('TODO: Settings');}}
+				>
+					S
+				</PinyaButton>
 				<!-- site map -->
-				<div>M</div>
+				<PinyaButton
+					onclick={()=>{alert('TODO: Site Map');}}
+				>
+					M
+				</PinyaButton>
 				<!-- convo (active) -->
-				<div>C</div>
+				<PinyaButton
+					onclick={()=>{alert('TODO: Convo');}}
+				>
+					C
+				</PinyaButton>
 				<!-- close -->
-				<!-- todo: use PinyaButton -->
-				<button
+				<PinyaButton
+					title="close overlay"
 					onclick={()=>{dialogManager.toggleDialogOverlay();}}
 				>
 					X
-				</button>
+				</PinyaButton>
 			</div>
 		</div>
 	</div>
@@ -167,7 +179,7 @@
                 flex-direction: column;
                 justify-content: flex-end;
                 padding-bottom: 0.2rem;
-                gap: 0.2rem;
+                gap: 0.5rem;
                 margin: 0 0.4rem;
 
                 * {

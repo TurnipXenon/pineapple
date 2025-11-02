@@ -19,7 +19,7 @@
 
 <button
 	{...props}
-	class={tailwindClass}
+	class={`${props.class ?? ''} ${tailwindClass}`}
 >
 	{@render children()}
 </button>

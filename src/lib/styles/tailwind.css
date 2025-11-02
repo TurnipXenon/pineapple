@@ -243,7 +243,6 @@
     --color-primary-contrast-50-950:light-dark(var(--color-primary-contrast-50),var(--color-primary-contrast-950));
     --color-primary-100-900:light-dark(var(--color-primary-100),var(--color-primary-900));
     --color-primary-300-700:light-dark(var(--color-primary-300),var(--color-primary-700));
-    --color-primary-400-600:light-dark(var(--color-primary-400),var(--color-primary-600));
     --color-primary-contrast-400-600:light-dark(var(--color-primary-contrast-400),var(--color-primary-contrast-600));
     --color-primary-950-50:light-dark(var(--color-primary-950),var(--color-primary-50));
     --color-secondary-50-950:light-dark(var(--color-secondary-50),var(--color-secondary-950));

@@ -93,7 +93,7 @@
 	</PinyaCard>
 
 	<PinyaCard widthClass="max-w-2xl">
-		<div class="card-container items-start">
+		<div class="card-container">
 			<h1>Button types</h1>
 			<PinyaButton>Text button</PinyaButton>
 			<PinyaButton buttonVariant={ButtonVariant.Image}>
@@ -103,7 +103,7 @@
 	</PinyaCard>
 
 	<PinyaCard widthClass="max-w-2xl">
-		<div class="card-container items-start">
+		<div class="card-container">
 			<h1>Button variations</h1>
 			{#each Object.values(ColorScheme).filter(v => typeof v === 'string') as cs (cs)}
 				<PinyaButton colorScheme={cs}>{cs}</PinyaButton>
@@ -125,5 +125,6 @@
         flex-direction: column;
         text-align: start;
         gap: 0.5lh;
+		    align-items: flex-start;
     }
 </style>
