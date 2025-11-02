@@ -39,7 +39,6 @@
     "mdast-util-from-markdown": "^1.0.2",
     "prettier": "^3.4.2",
     "prettier-plugin-svelte": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.11",
     "prisma": "^5.12.1",
     "svelte-check": "^4.0.0",
     "svelte2tsx": "^0.6.20",
@@ -52,11 +51,8 @@
   "dependencies": {
     "@inlang/paraglide-js": "2.0.7",
     "@prisma/client": "^5.12.1",
-    "@skeletonlabs/skeleton": "^3.1.0",
-    "@skeletonlabs/skeleton-svelte": "1.0.0",
     "@sveltejs/kit": "^2.48.2",
     "@sveltejs/vite-plugin-svelte": "^6.2.1",
-    "@tailwindcss/vite": "^4.0.14",
     "@types/htmlparser2": "^3.10.7",
     "highlight.js": "^11.8.0",
     "htmlparser2": "^9.1.0",
@@ -68,7 +64,6 @@
     "string-width": "^7.1.0",
     "svelte": "^5.43.0",
     "svelte-modals": "^2.0.1",
-    "tailwindcss": "^4.0.14",
     "ts-node": "^10.9.1"
   },
   "exports": {

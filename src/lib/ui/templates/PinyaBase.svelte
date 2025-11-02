@@ -6,7 +6,7 @@
 	import "$lib/styles/global.css";
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 	import type { PinyaHead } from "$pkg/ui/templates/runes.svelte";
-	import { ToastProvider } from "@skeletonlabs/skeleton-svelte";
+	// import { ToastProvider } from "@skeletonlabs/skeleton-svelte";
 	import { ModeWatcher } from "mode-watcher";
 	import "$pkg/styles/app.css";
 	import { Modals } from "svelte-modals";
@@ -46,9 +46,12 @@
 </Modals>
 <ModeWatcher defaultTheme="turnip" />
 
-<ToastProvider>
-	{@render children()}
-</ToastProvider>
+<!-- todo: toast -->
+<!--<ToastProvider>-->
+<!--	{@render children()}-->
+<!--</ToastProvider>-->
+
+{@render children()}
 
 <!--invisible ink-->
 <div style="display:none">

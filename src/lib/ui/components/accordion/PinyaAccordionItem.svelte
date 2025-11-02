@@ -2,13 +2,13 @@
 
 <script lang="ts">
 	// noinspection ES6UnusedImports
-	import { Accordion } from "@skeletonlabs/skeleton-svelte";
+	// import { Accordion } from "@skeletonlabs/skeleton-svelte";
 	import type { Snippet } from "svelte";
 
 	let {
 		value,
 		control: controlSnippet,
-		panel: panelSnippet,
+		panel: panelSnippet
 	}: {
 		value: string,
 		control: Snippet;
@@ -16,16 +16,22 @@
 	} = $props();
 </script>
 
-<Accordion.Item
-	{value}
-	controlHover="hover:bg-primary-500 dark:hover:bg-secondary-600"
->
-	<!-- Control -->
-	{#snippet control()}
-		{@render controlSnippet()}
-	{/snippet}
-	<!-- Panel -->
-	{#snippet panel()}
-		{@render panelSnippet()}
-	{/snippet}
-</Accordion.Item>
+<!--todo: migrate to Melt-->
+<div>
+	TODO: accordion
+	{@render controlSnippet()}
+	{@render panelSnippet()}
+</div>
+<!--<Accordion.Item-->
+<!--	{value}-->
+<!--	controlHover="hover:bg-primary-500 dark:hover:bg-secondary-600"-->
+<!--&gt;-->
+<!--	&lt;!&ndash; Control &ndash;&gt;-->
+<!--	{#snippet control()}-->
+<!--		{@render controlSnippet()}-->
+<!--	{/snippet}-->
+<!--	&lt;!&ndash; Panel &ndash;&gt;-->
+<!--	{#snippet panel()}-->
+<!--		{@render panelSnippet()}-->
+<!--	{/snippet}-->
+<!--</Accordion.Item>-->

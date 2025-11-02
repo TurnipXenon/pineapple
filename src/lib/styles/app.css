@@ -1,14 +1,5 @@
-@import 'tailwindcss';
-@import "@skeletonlabs/skeleton";
-@import "@skeletonlabs/skeleton/optional/presets";
-@import "@skeletonlabs/skeleton/themes/crimson";
+@import "./tailwind.css";
 @import "./turnip-theme.css";
-
-@source "../../../node_modules/@skeletonlabs/skeleton-svelte/dist";
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-@custom-variant turnip (&:where([data-theme=turnip], [data-theme=turnip] *));
 
 html {
     --dialog-start-pad: clamp(0em, 5vw, 2em);
@@ -51,11 +42,18 @@ a.external-link {
 
 @layer base {
     .game-link-section {
-        @apply mt-6 flex gap-2 justify-center;
+        margin-top: calc(var(--spacing) * 6);
+        display: flex;
+        gap: calc(var(--spacing) * 2);
+        justify-content: center;
     }
 
     .game-video-cover {
-        @apply rounded-t-lg max-h-64 object-cover w-full;
+        border-top-left-radius: var(--radius-lg);
+        border-top-right-radius: var(--radius-lg);
+        max-height: calc(var(--spacing) * 64);
+        object-fit: cover;
+        width: 100%;
     }
 
     .text-chip-container {
@@ -122,19 +120,20 @@ pre button.copy {
 
     & .ready {
         background-image: url("$pkg/assets/icons/icon-copy-light-contrast.svg");
-
-        @variant dark {
-            background-image: url("$pkg/assets/icons/icon-copy-dark-contrast.svg");
-        }
+        /*todo*/
+        /*@variant dark {*/
+        /*    background-image: url("$pkg/assets/icons/icon-copy-dark-contrast.svg");*/
+        /*}*/
     }
 
     & .success {
         display: none;
         background-image: url("$pkg/assets/icons/icon-check-light-contrast.svg");
 
-        @variant dark {
-            background-image: url("$pkg/assets/icons/icon-check-dark-contrast.svg");
-        }
+        /*todo: migration*/
+        /*@variant dark {*/
+        /*    background-image: url("$pkg/assets/icons/icon-check-dark-contrast.svg");*/
+        /*}*/
     }
 
     &.copied {
