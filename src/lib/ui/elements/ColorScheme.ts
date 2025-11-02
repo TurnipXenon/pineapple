@@ -1,10 +1,10 @@
 export enum ColorScheme {
-	Primary,
-	Secondary,
-	Tertiary,
-	Success,
-	Warning,
-	Error,
-	Surface,
-	Custom
+	Primary = "primary",
+	Secondary = "secondary",
+	Tertiary = "tertiary",
+	Success = "success",
+	Warning = "warning",
+	Error = "error",
+	Surface = "surface",
+	Custom  = "custom"
 }
