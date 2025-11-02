@@ -6,5 +6,5 @@ export enum ColorScheme {
 	Warning = "warning",
 	Error = "error",
 	Surface = "surface",
-	Custom = "custom",
+	Custom  = "custom"
 }

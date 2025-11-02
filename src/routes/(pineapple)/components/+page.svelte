@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { modals } from "svelte-modals";
-
-	import { ImageIcon, PinyaButton, PinyaCard } from "$pkg/ui/elements/index";
-	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import { FourPartCard, PinyaAccordion, PinyaAccordionItem } from "$pkg/ui/components/index";
-	import TestModal from "./TestModal.svelte";
+
+	import { ColorScheme, ImageIcon, PinyaButton, PinyaCard } from "$pkg/ui/elements/index";
 	import PinyaSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
-	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
 	import { PinyaAnchorButton } from "$pkg/ui/elements/PinyaAnchorButton/index";
+	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
+	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
+	import { modals } from "svelte-modals";
+	import TestModal from "./TestModal.svelte";
 
 	let testSwitchVal = $state(false);
 	let value = $state(["club"]);
@@ -94,11 +94,20 @@
 
 	<PinyaCard widthClass="max-w-2xl">
 		<div class="card-container items-start">
-			<h1>Buttons</h1>
+			<h1>Button types</h1>
 			<PinyaButton>Text button</PinyaButton>
 			<PinyaButton buttonVariant={ButtonVariant.Image}>
 				<ImageIcon alt="" aria-hidden="true" src={AresLogo}></ImageIcon>
 			</PinyaButton>
+		</div>
+	</PinyaCard>
+
+	<PinyaCard widthClass="max-w-2xl">
+		<div class="card-container items-start">
+			<h1>Button variations</h1>
+			{#each Object.values(ColorScheme).filter(v => typeof v === 'string') as cs (cs)}
+				<PinyaButton colorScheme={cs}>{cs}</PinyaButton>
+			{/each}
 		</div>
 	</PinyaCard>
 
