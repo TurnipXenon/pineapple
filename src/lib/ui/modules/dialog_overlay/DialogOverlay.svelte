@@ -19,6 +19,7 @@
 	let isMounted = $state(false);
 
 	let hidePercent = $state(100);
+	let hidePercentLinear = $state(100);
 	let isHidden = $state(true);
 	onMount(() => {
 
@@ -27,7 +28,6 @@
 		});
 
 		dialogManager.currentPortrait.subscribe((value) => {
-			console.log("sub value", value);
 			if (value) {
 				currentPortrait = value;
 			}
@@ -38,11 +38,14 @@
 			isHidden = false;
 		});
 
+		dialogManager.hidePercentLinear.subscribe((value) => {
+			hidePercentLinear = value * 0.4;
+		});
+
 		dialogManager.currentReadableState.subscribe((value) => {
 			isHidden = value === DialogState.Invisible;
 		});
 
-		console.log("CAlling update");
 		dialogManager.update(0);
 		isMounted = true;
 
@@ -63,51 +66,58 @@
 <div class="dialog-elements"
      hidden={isHidden}
      style="--hidePercentWidth: -{hidePercent}vw;
-            --hidePercentHeight: {hidePercent}vh;">
+            --hidePercentHeight: {hidePercentLinear}vh;">
 	<div class="dialog-portrait-container">
 		<img src={currentPortrait} alt="Ares" class="dialog-portrait" />
 	</div>
-	<div
-		tabindex="0"
-		role="button"
-		class="dialog-box"
-		onclick={onDialogClick}
-		onkeyup={(e) => {
-			if (e.key === 'j') {
-				onDialogClick()
-;			}
-		}}
-	>
-		<PinyaCard
-			widthClass=""
-			paddingClass=""
-			id="dialog-name"
-		>
+	<div id="main-dialog-box-container">
+		<PinyaCard id="dialog-name">
 			<div class="fake-h1">Turnip</div>
 		</PinyaCard>
-		<PinyaCard
-			widthClass="w-full"
-			className="dialog-text"
-			colorClass=""
-			flexClass=""
-			borderClass="border-primary-500 dark:border-0"
-		>
-			<div id="text-container">
+		<!-- todo: implement this properly later -->
+		<!--<div id="dialog-scroll-indicator"></div>-->
+		<div id="dialog-box">
+			<div
+				id="dialog-text"
+				tabindex="0"
+				role="button"
+				onclick={onDialogClick}
+				onkeyup={(e) => {
+					if (e.key === 'j') {
+						onDialogClick();
+					}
+				}}
+			>
 				<!-- Made for 140 characters, like the original tweets -->
 				{@html currentMessage}
 			</div>
-		</PinyaCard>
+			<div id="settings-menu-bar">
+				<!-- settings -->
+				<div>S</div>
+				<!-- site map -->
+				<div>M</div>
+				<!-- convo (active) -->
+				<div>C</div>
+				<!-- close -->
+				<!-- todo: use PinyaButton -->
+				<button
+					onclick={()=>{dialogManager.toggleDialogOverlay();}}
+				>
+					X
+				</button>
+			</div>
+		</div>
 	</div>
 </div>
 
 
-{#if appState.allowDialog && isMounted}
-	<div class="fab-container" transition:slide>
+{#if appState.allowDialog && isMounted && !enableDialogueOverlayValue}
+	<div id="fab-container" transition:slide>
 		<PinyaButton
 			classes="fab"
 			onclick={()=>{dialogManager.toggleDialogOverlay();}}
 		>
-			{#if (enableDialogueOverlayValue)}
+			{#if enableDialogueOverlayValue}
 				<img class="turnip-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
 			{:else }
 				<img class="turnip-icon" src={FABIcon} alt="interactive floating action button represented as a turnip">
@@ -117,13 +127,53 @@
 {/if}
 
 <style>
-    :global(.dialog-text) {
-        height: 100%;
-        padding: 0.8lh 2rem 0.5lh;
-        font-size: clamp(1rem, 3vw, 1.75rem);
-        line-height: calc(clamp(1rem, 3vw, 1.75rem) * 1.5);
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+    #main-dialog-box-container {
+        background-color: var(--bg-dialog);
+        position: fixed;
+        bottom: 0;
+        width: var(--dialog-box-width); /*75em + 4em padding*/
+		    max-width: 100%;
+        height: var(--dialog-box-height);
+        /* radius-base is from dialog-text and 0.8lh is from dialog-box padding */
+        border-radius: 0 2rem 0 0;
+
+        /*todo: implement later*/
+        /*#dialog-scroll-indicator {*/
+        /*    position: fixed;*/
+        /*    border-radius: 0 2rem 0 0;*/
+        /*    width: 100%;*/
+        /*    height: 1.3lh;*/
+        /*    background: #2A7B9B;*/
+        /*    background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);*/
+        /*}*/
+
+        #dialog-box {
+            height: 100%;
+            font-size: 1.5em;
+            display: flex;
+            flex-direction: row;
+
+            #dialog-text {
+                flex: 1;
+                overflow-y: auto;
+                border-width: 0 2px 0 0;
+                padding: 1.3lh 1em;
+                border-color: light-dark(var(--color-primary-50), var(--color-primary-900));
+            }
+
+            #settings-menu-bar {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                padding-bottom: 0.2rem;
+                gap: 0.2rem;
+                margin: 0 0.4rem;
+
+                * {
+                    padding: 0.4rem;
+                }
+            }
+        }
     }
 
     .dialog-elements {
@@ -146,6 +196,7 @@
     :global {
         #dialog-name {
             padding: 0 2rem;
+		        width: unset;
             position: fixed;
 
             &:dir(ltr) {
@@ -193,55 +244,44 @@
         --bg-dialog: rgba(76, 71, 59, 0.9);
     }
 
-    .dialog-box {
-        background-color: var(--bg-dialog);
+    :global {
+        .fab {
+            position: relative;
+            transform: scale3d(1, 1, 1.5);
+            background-color: var(--color-tertiary-500);
+            padding: 0.3rem;
+            width: clamp(2rem, 5vw, 4rem);
+            border-radius: 50%;
+            z-index: 100;
+            box-shadow: 3px 3px 3px var(--shadow-color);
+            margin-bottom: var(--fab-margin);
+
+            &:dir(ltr) {
+                margin-right: var(--fab-margin);
+            }
+
+            &:dir(rtl) {
+                margin-left: var(--fab-margin);
+            }
+
+            & > img {
+                width: 100%;
+                filter: brightness(0) invert(1);
+            }
+        }
+    }
+
+    #fab-container {
         position: fixed;
         bottom: 0;
-        width: var(--dialog-box-width); /*75em + 4em padding*/
-        height: var(--dialog-box-height);
-        max-width: calc(100vw - ((var(--fab-margin) * 3) + (clamp(2rem, 5vw, 4rem))));
-        border-radius: 1rem;
+
+        &:dir(ltr) {
+            right: 0;
+        }
+
+        &:dir(rtl) {
+            left: 0;
+        }
     }
 
-    :global(.fab) {
-        position: relative;
-        transform: scale3d(1, 1, 1.5);
-        background-color: var(--color-tertiary-500);
-        padding: 0.3rem;
-        width: clamp(2rem, 5vw, 4rem);
-        border-radius: 50%;
-        z-index: 100;
-        box-shadow: 3px 3px 3px var(--shadow-color);
-        margin-bottom: var(--fab-margin);
-    }
-
-    .fab-container {
-        position: fixed;
-        bottom: 0;
-    }
-
-    .fab-container:dir(ltr) {
-        right: 0;
-    }
-
-    .fab-container:dir(rtl) {
-        left: 0;
-    }
-
-    :global(.fab > img) {
-        width: 100%;
-        filter: brightness(0) invert(1);
-    }
-
-    :global(.fab:dir(ltr)) {
-        margin-right: var(--fab-margin);
-    }
-
-    :global(.fab:dir(rtl)) {
-        margin-left: var(--fab-margin);
-    }
-
-    #text-container {
-        overflow-y: auto;
-    }
 </style>

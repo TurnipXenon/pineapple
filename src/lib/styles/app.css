@@ -3,7 +3,7 @@
 
 html {
     --dialog-start-pad: clamp(0em, 5vw, 2em);
-    --dialog-box-width: min(calc(54em), calc(100vw - var(--dialog-start-pad) - 2px));
+    --dialog-box-width: 54em;
     --dialog-box-height: clamp(15em, 50vw, 18em);
     --fab-margin: 1rem;
 }
@@ -13,7 +13,7 @@ html {
     height: calc(var(--dialog-box-height) + 4em);
 }
 
-.dialog-box a, .dialog-box b, .dialog-box i {
+.main-dialog-box-container a, .main-dialog-box-container b, .main-dialog-box-container i {
     font-size: inherit;
 }
 

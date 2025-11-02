@@ -6,7 +6,7 @@ import { writable } from "svelte/store";
 import type { DialogDetail } from "$pkg/types/pineapple_fiber/DialogDetail";
 import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 import { tweened } from "svelte/motion";
-import { backOut } from "svelte/easing";
+import { backOut, linear } from "svelte/easing";
 import { PortraitType } from "$pkg/types/pineapple_fiber/PortraitType";
 import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 import AresBlushing from "$pkg/assets/characters/ares/ares_blushing.webp";
@@ -47,7 +47,11 @@ export class DialogManager implements IDialogManager {
 	hidePercent = tweened(100, {
 		duration: 400,
 		easing: backOut
-	}); // 100 = 100%
+	});
+	hidePercentLinear = tweened(100, {
+		duration: 150,
+		easing: linear
+	});
 	skipNextActiveTime = 0;
 	dialogProcessor: DialogProcessor;
 	// for queueing actions
@@ -64,12 +68,14 @@ export class DialogManager implements IDialogManager {
 			// ISSUE #82 https://github.com/TurnipXenon/pineapple/issues/82
 			this.enableDialogueOverlayCache = value;
 			if (value) {
-				this.hidePercent.set(0).then(() => {
+				this.hidePercent.set(0);
+				this.hidePercentLinear.set(0).then(() => {
 					this.currentState = DialogState.Visible;
 					this.currentReadableState.set(this.currentState);
 				});
 			} else {
-				this.hidePercent.set(100).then(() => {
+				this.hidePercent.set(100);
+				this.hidePercentLinear.set(100).then(() => {
 					this.currentState = DialogState.Invisible;
 					this.currentReadableState.set(this.currentState);
 				});

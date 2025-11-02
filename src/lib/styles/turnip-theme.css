@@ -211,7 +211,12 @@
     --filter-button-image: brightness(0) saturate(100%) invert(21%) sepia(75%) saturate(397%) hue-rotate(338deg) brightness(99%) contrast(93%);
 }
 
+:root {
+    --header-color: var(--color-primary-900);
+}
+
 html.dark {
+    --header-color: var(--color-primary-100);
     /*todo: migration*/
     /*@variant turnip {*/
     /*    --border-card: 0;*/
@@ -256,12 +261,7 @@ h1, h2, h3, h4, h5, h6, .fake-h1, .fake-h2, .fake-h3, .fake-h4 {
     text-align: start;
     margin-top: 0;
     font-weight: bolder;
-    color: var(--color-primary-900);
-
-    /*todo: migration*/
-    /*@variant dark {*/
-    /*    color: var(--color-primary-100);*/
-    /*}*/
+    color: var(--header-color);
 }
 
 h1 {
