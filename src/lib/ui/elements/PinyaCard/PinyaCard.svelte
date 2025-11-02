@@ -5,28 +5,50 @@
  */
 import type { PinyaCardProps } from "./PinyaCardProps";
 
-let {
-	paddingClass = "pt-[1lh] pb-[1lh] pl-16 pr-16",
-	flexClass = "flex flex-col",
-	widthClass = "w-full max-w-md",
-	borderClass = "border-[2px] border-primary-500 dark:border-0",
-	colorClass = "bg-surface-200 dark:bg-surface-900",
-	marginClass = "",
-	className,
-	includeDataNoSnippet = false,
-	children
-}: PinyaCardProps = $props();
+	// borderClass = "border-[2px] border-primary-500 dark:border-0",
+	// colorClass = "bg-surface-200 dark:bg-surface-900",
+let _props: PinyaCardProps = $props();
 
-let cardClass = $derived(`card text-start rounded-xl
-	${paddingClass} ${flexClass} ${className} ${widthClass} ${borderClass} ${marginClass} ${colorClass}`);
+let cardClass = $derived(`
+	${_props.paddingClass ?? ""} ${_props.flexClass ?? ""} ${_props.className ?? ""}
+	${_props.widthClass ?? ""} ${_props.borderClass ?? ""} ${_props.marginClass ?? ""}
+	${_props.colorClass ?? ""}
+	${_props.class ?? ""}
+	`);
 </script>
 
-{#if includeDataNoSnippet}
-	<div data-nosnippet class={cardClass}>
-		{@render children?.()}
+{#if _props.includeDataNoSnippet}
+	<div
+		id={_props.id}
+		data-nosnippet
+		class={`card text-start rounded-xl pinya-card-default ${cardClass}`}
+	>
+		{@render _props?.children?.()}
 	</div>
 {:else }
-	<div class={cardClass}>
-		{@render children?.()}
+	<div
+		id={_props.id}
+		class={`card text-start rounded-xl pinya-card-default ${cardClass}`}
+	>
+		{@render _props?.children?.()}
 	</div>
 {/if}
+
+<style>
+    .pinya-card-default {
+        /*might need to switch*/
+        padding: calc(var(--spacing) * 16) 1lh;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: var(--container-md);
+        border-width: 2px;
+        border-color: var(--color-primary-500);
+    }
+
+    .dark {
+		    .pinya-card-default {
+          border-color: var(--color-primary-0);
+		    }
+    }
+</style>

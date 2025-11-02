@@ -1,18 +1,18 @@
 <!-- TODO: Migration: review and migrate this component -->
 
 <script lang="ts">
-	import { slide } from "svelte/transition";
-	import { onMount } from "svelte";
+	import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
 
 	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
-	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
-	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
-	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
-	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
-	import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
+	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
 	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
+	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte";
+	import { onMount } from "svelte";
+	import { slide } from "svelte/transition";
 	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
+	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
 
 	let currentMessage = $state("");
 	let currentPortrait = $state(AresHappy);
@@ -81,7 +81,7 @@
 		<PinyaCard
 			widthClass=""
 			paddingClass=""
-			className="dialog-name"
+			id="dialog-name"
 		>
 			<div class="fake-h1">Turnip</div>
 		</PinyaCard>
@@ -90,9 +90,12 @@
 			className="dialog-text"
 			colorClass=""
 			flexClass=""
+			borderClass="border-primary-500 dark:border-0"
 		>
-			<!-- Made for 140 characters, like the original tweets -->
-			{@html currentMessage}
+			<div id="text-container">
+				<!-- Made for 140 characters, like the original tweets -->
+				{@html currentMessage}
+			</div>
 		</PinyaCard>
 	</div>
 </div>
@@ -117,11 +120,10 @@
     :global(.dialog-text) {
         height: 100%;
         padding: 0.8lh 2rem 0.5lh;
-    }
-
-    :global(.dialog-text) {
         font-size: clamp(1rem, 3vw, 1.75rem);
         line-height: calc(clamp(1rem, 3vw, 1.75rem) * 1.5);
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
 
     .dialog-elements {
@@ -141,20 +143,21 @@
         transform: translateY(var(--hidePercentHeight));
     }
 
-    :global(.dialog-name) {
-        padding-left: 2rem;
-        padding-right: 2rem;
-        position: fixed;
-    }
+    :global {
+        #dialog-name {
+            padding: 0 2rem;
+            position: fixed;
 
-    :global(.dialog-name:dir(ltr)) {
-        /* for centering vertically */
-        transform: translateX(clamp(0em, 5vw - 0.5em, 1em)) translateY(-50%);
-    }
+            &:dir(ltr) {
+                /* for centering vertically */
+                transform: translateX(clamp(0em, 5vw - 0.5em, 1em)) translateY(-50%);
+            }
 
-    :global(.dialog-name:dir(rtl)) {
-        /* for centering vertically */
-        transform: translateX(calc(clamp(0em, 5vw - 0.5em, 1em) * -1)) translateY(-50%);
+            &:dir(rtl) {
+                /* for centering vertically */
+                transform: translateX(calc(clamp(0em, 5vw - 0.5em, 1em) * -1)) translateY(-50%);
+            }
+        }
     }
 
     .dialog-portrait-container {
@@ -201,7 +204,7 @@
     }
 
     :global(.fab) {
-		    position: relative;
+        position: relative;
         transform: scale3d(1, 1, 1.5);
         background-color: var(--color-tertiary-500);
         padding: 0.3rem;
@@ -238,4 +241,7 @@
         margin-left: var(--fab-margin);
     }
 
+    #text-container {
+        overflow-y: auto;
+    }
 </style>
