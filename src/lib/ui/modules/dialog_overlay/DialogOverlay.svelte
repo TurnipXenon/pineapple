@@ -6,8 +6,13 @@
 	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
-	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import {
+		enableDialogueOverlay,
+		overlayType,
+		type OverlayType
+	} from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
+	import { ColorScheme } from "$pkg/ui/elements/index";
 	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte";
 	import { onMount } from "svelte";
 	import { slide } from "svelte/transition";
@@ -21,7 +26,35 @@
 	let hidePercent = $state(100);
 	let hidePercentLinear = $state(100);
 	let isHidden = $state(true);
+
+	const onDialogClick = () => {
+		dialogManager?.skipAnimation();
+	};
+
+	let _enableDialogueOverlay = $state(true);
+	enableDialogueOverlay.subscribe((value) => {
+		_enableDialogueOverlay = value;
+		if (isMounted) {
+			localStorage.setItem("p-settings-enable-dialog-overlay", value.toString());
+		}
+	});
+	let _overlayType: OverlayType = $state("dialog");
+	overlayType.subscribe((value) => {
+		_overlayType = value;
+		if (isMounted) {
+			localStorage.setItem("p-settings-overlay-type", value.toString());
+		}
+	});
+
+	enableDialogueOverlay.set(appState.enableDialogOnByDefault ?? false);
+
 	onMount(() => {
+		// region cache
+		_enableDialogueOverlay = localStorage.getItem("p-settings-enable-dialog-overlay") !== "false";
+		enableDialogueOverlay.set(_enableDialogueOverlay);
+		_overlayType = localStorage.getItem("p-settings-overlay-type") as OverlayType ?? 'dialog';
+		overlayType.set(_overlayType);
+		// endregion cache
 
 		dialogManager.currentMessage.subscribe((value) => {
 			currentMessage = value;
@@ -48,19 +81,7 @@
 
 		dialogManager.update(0);
 		isMounted = true;
-
 	});
-
-	const onDialogClick = () => {
-		dialogManager?.skipAnimation();
-	};
-
-	let enableDialogueOverlayValue = $state(true);
-	enableDialogueOverlay.subscribe((value) => {
-		enableDialogueOverlayValue = value;
-	});
-
-	enableDialogueOverlay.set(appState.enableDialogOnByDefault ?? false);
 </script>
 
 <div class="dialog-elements"
@@ -95,19 +116,22 @@
 			<div id="settings-menu-bar">
 				<!-- settings -->
 				<PinyaButton
-					onclick={()=>{alert('TODO: Settings');}}
+					colorScheme={_overlayType === 'settings' ? ColorScheme.Secondary : undefined}
+					onclick={()=>{overlayType.set('settings');}}
 				>
 					S
 				</PinyaButton>
 				<!-- site map -->
 				<PinyaButton
-					onclick={()=>{alert('TODO: Site Map');}}
+					colorScheme={_overlayType === 'site-map' ? ColorScheme.Secondary : undefined}
+					onclick={()=>{overlayType.set('site-map');}}
 				>
 					M
 				</PinyaButton>
 				<!-- convo (active) -->
 				<PinyaButton
-					onclick={()=>{alert('TODO: Convo');}}
+					colorScheme={_overlayType === 'dialog' ? ColorScheme.Secondary : undefined}
+					onclick={()=>{overlayType.set('dialog');}}
 				>
 					C
 				</PinyaButton>
@@ -124,13 +148,13 @@
 </div>
 
 
-{#if appState.allowDialog && isMounted && !enableDialogueOverlayValue}
+{#if appState.allowDialog && isMounted && !_enableDialogueOverlay}
 	<div id="fab-container" transition:slide>
 		<PinyaButton
 			classes="fab"
 			onclick={()=>{dialogManager.toggleDialogOverlay();}}
 		>
-			{#if enableDialogueOverlayValue}
+			{#if _enableDialogueOverlay}
 				<img class="turnip-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
 			{:else }
 				<img class="turnip-icon" src={FABIcon} alt="interactive floating action button represented as a turnip">
@@ -145,7 +169,7 @@
         position: fixed;
         bottom: 0;
         width: var(--dialog-box-width); /*75em + 4em padding*/
-		    max-width: 100%;
+        max-width: 100%;
         height: var(--dialog-box-height);
         /* radius-base is from dialog-text and 0.8lh is from dialog-box padding */
         border-radius: 0 2rem 0 0;
@@ -209,7 +233,7 @@
     :global {
         #dialog-name {
             padding: 0 2rem;
-		        width: unset;
+            width: unset;
             position: fixed;
 
             &:dir(ltr) {

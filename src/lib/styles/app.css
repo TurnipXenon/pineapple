@@ -172,6 +172,11 @@ pre button.copy {
         filter: brightness(110%);
     }
 
+    &.secondary {
+        background-color: var(--color-secondary-400-600);
+        color: var(--color-secondary-950-0);
+    }
+
     &.warning {
         color: var(--color-secondary-0-950);
         background-color: var(--color-warning-700-400);

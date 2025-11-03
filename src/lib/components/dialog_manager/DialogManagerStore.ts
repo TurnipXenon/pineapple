@@ -25,6 +25,12 @@ import type { DialogDetail } from "$lib/types/pineapple_fiber/DialogDetail";
  */
 export const enableDialogueOverlay = writable(false);
 
+export type OverlayType = 'dialog' | 'settings' | 'site-map';
+export const overlayType = writable<OverlayType>('dialog');
+
+// todo: migrate all these stores to runes
+// find a way to make sure we preserve *.ts file on several files
+
 export const dialogVariableStore: DialogMapStore = createNewMapStore();
 export const updateRate: number = 40 / 1000; // *at least* 40ms per letter
 
