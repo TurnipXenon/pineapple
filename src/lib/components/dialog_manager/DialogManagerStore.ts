@@ -23,7 +23,7 @@ import type { DialogDetail } from "$lib/types/pineapple_fiber/DialogDetail";
  * });
  * ```
  */
-export const enableDialogueOverlay = writable(false);
+export const enableUniversalOverlay = writable(false);
 
 export type OverlayType = 'dialog' | 'settings' | 'site-map';
 export const overlayType = writable<OverlayType>('dialog');

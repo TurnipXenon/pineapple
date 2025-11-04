@@ -1,4 +1,11 @@
-<!-- TODO: Migration: review and migrate this component -->
+<!-- @component
+Overlay that contains the dialog, settings, and site map
+
+See panels:
+- DialogPanel.svelte
+ TODO: settings
+ TODO: site map
+ -->
 
 <script lang="ts">
 	import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
@@ -7,19 +14,19 @@
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
 	import {
-		enableDialogueOverlay,
+		enableUniversalOverlay,
 		overlayType,
 		type OverlayType
 	} from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 	import { ColorScheme } from "$pkg/ui/elements/index";
-	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte";
+	import DialogPanel from "$pkg/ui/modules/universal-overlay/DialogPanel.svelte";
+	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte.js";
 	import { onMount } from "svelte";
 	import { slide } from "svelte/transition";
 	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
 	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
 
-	let currentMessage = $state("");
 	let currentPortrait = $state(AresHappy);
 	let isMounted = $state(false);
 
@@ -27,13 +34,9 @@
 	let hidePercentLinear = $state(100);
 	let isHidden = $state(true);
 
-	const onDialogClick = () => {
-		dialogManager?.skipAnimation();
-	};
-
-	let _enableDialogueOverlay = $state(true);
-	enableDialogueOverlay.subscribe((value) => {
-		_enableDialogueOverlay = value;
+	let _enableUniversalOverlay = $state(true);
+	enableUniversalOverlay.subscribe((value) => {
+		_enableUniversalOverlay = value;
 		if (isMounted) {
 			localStorage.setItem("p-settings-enable-dialog-overlay", value.toString());
 		}
@@ -46,19 +49,15 @@
 		}
 	});
 
-	enableDialogueOverlay.set(appState.enableDialogOnByDefault ?? false);
+	enableUniversalOverlay.set(appState.enableDialogOnByDefault ?? false);
 
 	onMount(() => {
 		// region cache
-		_enableDialogueOverlay = localStorage.getItem("p-settings-enable-dialog-overlay") !== "false";
-		enableDialogueOverlay.set(_enableDialogueOverlay);
-		_overlayType = localStorage.getItem("p-settings-overlay-type") as OverlayType ?? 'dialog';
+		_enableUniversalOverlay = localStorage.getItem("p-settings-enable-dialog-overlay") !== "false";
+		enableUniversalOverlay.set(_enableUniversalOverlay);
+		_overlayType = localStorage.getItem("p-settings-overlay-type") as OverlayType ?? "dialog";
 		overlayType.set(_overlayType);
 		// endregion cache
-
-		dialogManager.currentMessage.subscribe((value) => {
-			currentMessage = value;
-		});
 
 		dialogManager.currentPortrait.subscribe((value) => {
 			if (value) {
@@ -97,22 +96,14 @@
 		</PinyaCard>
 		<!-- todo: implement this properly later -->
 		<!--<div id="dialog-scroll-indicator"></div>-->
-		<div id="dialog-box">
-			<div
-				id="dialog-text"
-				tabindex="0"
-				role="button"
-				onclick={onDialogClick}
-				onkeyup={(e) => {
-					if (e.key === 'j') {
-						onDialogClick();
-					}
-				}}
-			>
-				<!-- Made for 140 characters, like the original tweets -->
-				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-				{@html currentMessage}
-			</div>
+		<div id="panel-container">
+			{#if _overlayType === 'dialog'}
+				<DialogPanel></DialogPanel>
+			{:else if _overlayType === 'site-map'}
+				<DialogPanel></DialogPanel>
+			{:else}
+				<DialogPanel></DialogPanel>
+			{/if}
 			<div id="settings-menu-bar">
 				<!-- settings -->
 				<PinyaButton
@@ -148,13 +139,13 @@
 </div>
 
 
-{#if appState.allowDialog && isMounted && !_enableDialogueOverlay}
+{#if appState.allowDialog && isMounted && !_enableUniversalOverlay}
 	<div id="fab-container" transition:slide>
 		<PinyaButton
 			classes="fab"
 			onclick={()=>{dialogManager.toggleDialogOverlay();}}
 		>
-			{#if _enableDialogueOverlay}
+			{#if _enableUniversalOverlay}
 				<img class="turnip-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
 			{:else }
 				<img class="turnip-icon" src={FABIcon} alt="interactive floating action button represented as a turnip">
@@ -184,13 +175,13 @@
         /*    background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);*/
         /*}*/
 
-        #dialog-box {
+        #panel-container {
             height: 100%;
             font-size: 1.5em;
             display: flex;
             flex-direction: row;
 
-            #dialog-text {
+            :global(&>*:first-child) {
                 flex: 1;
                 overflow-y: auto;
                 border-width: 0 2px 0 0;

@@ -20,7 +20,7 @@ import AresYay from "$pkg/assets/characters/ares/ares_yay.webp";
 import {
 	defaultDialogMessage,
 	dialogVariableStore,
-	enableDialogueOverlay,
+	enableUniversalOverlay,
 	updateRate
 } from "$pkg/components/dialog_manager/DialogManagerStore";
 import { DialogProcessor } from "$pkg/components/dialog_manager/DialogProcessor";
@@ -63,7 +63,7 @@ export class DialogManager implements IDialogManager {
 	constructor() {
 		this.dialogProcessor = new DialogProcessor(this);
 
-		enableDialogueOverlay.subscribe((value) => {
+		enableUniversalOverlay.subscribe((value) => {
 			// todo: investigate why we cant put setDialogDefault inside the then clause
 			// ISSUE #82 https://github.com/TurnipXenon/pineapple/issues/82
 			this.enableDialogueOverlayCache = value;
@@ -104,7 +104,7 @@ export class DialogManager implements IDialogManager {
 	 * @param shouldEnable
 	 */
 	enableDialog = (shouldEnable: boolean) => {
-		enableDialogueOverlay.update(() => shouldEnable);
+		enableUniversalOverlay.update(() => shouldEnable);
 	};
 
 	/**
@@ -299,11 +299,11 @@ export class DialogManager implements IDialogManager {
 	};
 
 	enableDialogOverlay(enable: boolean) {
-		enableDialogueOverlay.set(enable);
+		enableUniversalOverlay.set(enable);
 	}
 
 	toggleDialogOverlay() {
-		enableDialogueOverlay.set(!this.enableDialogueOverlayCache);
+		enableUniversalOverlay.set(!this.enableDialogueOverlayCache);
 	};
 
 	async parseAndSetDialogTree(dialogYarn: string): Promise<DialogDetail[]> {

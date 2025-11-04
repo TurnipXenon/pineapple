@@ -2,11 +2,11 @@
 	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard/index";
 	import { PinyaButton } from "$pkg/ui/elements/PinyaButton/index";
-	import { enableDialogueOverlay } from "$pkg";
+	import { enableUniversalOverlay } from "$pkg";
 	import { onMount } from "svelte";
 
 	onMount(() => {
-		enableDialogueOverlay.set(true);
+		enableUniversalOverlay.set(true);
 	});
 </script>
 

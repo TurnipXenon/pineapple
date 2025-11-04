@@ -5,7 +5,7 @@
 	import { onDestroy, onMount, type Snippet } from "svelte";
 	import BlogTemplateInner from "$pkg/ui/templates/blog_template/BlogTemplateInner.svelte";
 	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
-	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { enableUniversalOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
 	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte";
 
@@ -29,13 +29,13 @@
 	let initialDialogState = false;
 
 	onMount(() => {
-		initialDialogState = $enableDialogueOverlay;
-		enableDialogueOverlay.set(shouldEnableDialogOverlay);
+		initialDialogState = $enableUniversalOverlay;
+		enableUniversalOverlay.set(shouldEnableDialogOverlay);
 	});
 
 	onDestroy(() => {
 		appState.bgOpacity = 1;
-		enableDialogueOverlay.set(initialDialogState);
+		enableUniversalOverlay.set(initialDialogState);
 	});
 
 	appState.bgOpacity = shouldFillWholePage ? 0.2 : 1;

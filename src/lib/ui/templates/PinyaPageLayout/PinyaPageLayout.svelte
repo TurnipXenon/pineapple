@@ -12,7 +12,7 @@
 	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
 	import { appState } from "./runes.svelte";
 	import { enableBackground } from "$pkg/store";
-	import DialogOverlay from "$pkg/ui/modules/dialog_overlay/DialogOverlay.svelte";
+	import UniversalOverlay from "$pkg/ui/modules/universal-overlay/UniversalOverlay.svelte";
 
 	let {
 		children,
@@ -78,7 +78,7 @@
 	{@render children?.()}
 </div>
 
-<DialogOverlay></DialogOverlay>
+<UniversalOverlay></UniversalOverlay>
 
 {#if footer}
 	{@render footer()}
