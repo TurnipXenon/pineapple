@@ -1,11 +1,13 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import { type CreateUrlRequest, CreateUrlResult, jsonToCreateUrlResponse } from "$pkg/types/api/CreateUrl";
-	import type { ToastContext } from "@skeletonlabs/skeleton-svelte";
+	// import type { ToastContext } from "@skeletonlabs/skeleton-svelte";
 	import { getContext } from "svelte";
 	import type { ToastSettings } from "./ToastSettings";
 	import PinyaButton from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
 
-	export const toast: ToastContext = getContext("toast");
+	// export const toast: ToastContext = getContext("toast");
 
 
 	interface Props {
@@ -49,7 +51,8 @@
 			resp.json()
 		).then(json => {
 			const properResp = jsonToCreateUrlResponse(json);
-			toast.create(toastMap.get(properResp.result) ?? failToast);
+			// todo: toast
+			// toast.create(toastMap.get(properResp.result) ?? failToast);
 		});
 	};
 </script>

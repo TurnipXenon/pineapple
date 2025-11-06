@@ -19,8 +19,7 @@ export const load = async (): Promise<OverridableMetaProps> => {
 -->
 
 <script lang="ts">
-	import { page } from "$app/state";
-	import { pinyaHead } from "$pkg/ui/templates/runes.svelte";
+	import { pinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 
 	interface Props {
 		rootUrl?: string;

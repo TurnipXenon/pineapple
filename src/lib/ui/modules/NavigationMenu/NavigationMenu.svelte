@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
 	import NavigationControl from "$pkg/ui/modules/NavigationMenu/NavigationControl.svelte";

@@ -13,7 +13,7 @@ export * from "./api/index";
 
 export type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
 export { default as BlogTemplate } from "$pkg/ui/templates/blog_template/BlogTemplate.svelte";
-export { default as DialogOverlay } from "$pkg/ui/modules/dialog_overlay/DialogOverlay.svelte";
+export { default as UniversalOverlay } from "$pkg/ui/modules/universal-overlay/UniversalOverlay.svelte";
 export { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
 
 export * from "./modules/parsnip/index";

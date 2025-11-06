@@ -1,7 +1,7 @@
 <script lang="ts">
 
 	import { dialogManager } from "$pkg";
-	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { enableUniversalOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { PinyaButton } from "$pkg/ui/elements/index";
 	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
 	import PinyaCard from "$pkg/ui/elements/PinyaCard/PinyaCard.svelte";
@@ -12,7 +12,7 @@
 
 	let { data }: PageProps = $props();
 
-	enableDialogueOverlay.set(false);
+	enableUniversalOverlay.set(false);
 
 	let parsed = false;
 	const onTestDialogClick = () => {

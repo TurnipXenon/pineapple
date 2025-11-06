@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { page } from "$app/state";

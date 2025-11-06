@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <!-- @component Code Block based on: https://shiki.style/ and https://www.skeleton.dev/docs/integrations/code-block/svelte/ -->
 
 <script module>

@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import { fly } from "svelte/transition";
 	import type { ProjectGroup, SeaweedLayoutProps } from "./props";

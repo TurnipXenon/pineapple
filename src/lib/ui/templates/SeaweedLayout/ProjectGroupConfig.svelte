@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import UpwardIcon from "$pkg/assets/icons/arrow-upward.svg";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
@@ -5,10 +7,10 @@
 	import { PinyaButton } from "$pkg/ui/elements/PinyaButton";
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
-	import { type ToastContext } from "@skeletonlabs/skeleton-svelte";
+	// import { type ToastContext } from "@skeletonlabs/skeleton-svelte";
 	import { getContext } from "svelte";
 
-	export const toast: ToastContext = getContext("toast");
+	// export const toast: ToastContext = getContext("toast");
 
 	interface Props {
 		layout: ProjectGroup[];
@@ -114,11 +116,12 @@
 		}
 
 		if (group.entryList.includes(c)) {
-			toast.create({
-				title: "Duplicate entry",
-				description: `The entry ${comboboxValue} is already in ${group.title}`,
-				type: "error"
-			});
+			// todo: toast
+			// toast.create({
+			// 	title: "Duplicate entry",
+			// 	description: `The entry ${comboboxValue} is already in ${group.title}`,
+			// 	type: "error"
+			// });
 			return;
 		}
 

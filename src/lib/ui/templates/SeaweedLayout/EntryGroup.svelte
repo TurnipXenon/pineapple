@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
@@ -37,7 +39,7 @@
 <!--todo: implement in seaweedlayout #migration-->
 <!--{@html styleStr}-->
 
-<!-- Force tailwind to pickup some classes -->
+<!-- Force tailwind.css to pickup some classes -->
 <div class="hidden rounded-2xl hover:brightness-110"></div>
 
 <style>

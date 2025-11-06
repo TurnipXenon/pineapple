@@ -1,5 +1,5 @@
 export enum ButtonVariant {
-	Default,
-	Image,
-	SmallIcon,
+	Default = "default",
+	Image = "image-button",
+	SmallIcon  = "small-icon-button",
 }

@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import type { ConfirmationModalProps } from './props';
 	import { default as ModalBase } from '$pkg/ui/components/ModalBase.svelte';

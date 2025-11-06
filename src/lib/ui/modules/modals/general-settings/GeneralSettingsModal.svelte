@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import type { ModalProps } from 'svelte-modals';
 	import { setMode, userPrefersMode } from 'mode-watcher';

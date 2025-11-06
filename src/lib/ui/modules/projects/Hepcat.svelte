@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script module lang="ts">
 	import HeaderHepCat from "$pkg/assets/temp/header-hep-cat.mp4";
 	import BitbucketIcon from "$pkg/assets/icons/bitbucket-icon.svg";

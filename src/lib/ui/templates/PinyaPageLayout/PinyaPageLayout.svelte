@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script lang="ts">
 	import type { Snippet } from "svelte";
 	import { modals } from "svelte-modals";
@@ -8,9 +10,9 @@
 	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";
 	import RandomizedBackground from "$pkg/ui/components/randomized-background/RandomizedBackground.svelte";
 	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
-	import { appState } from "./runes.svelte";
+	import { appState } from "./pinyaPageLayoutRunes.svelte.js";
 	import { enableBackground } from "$pkg/store";
-	import DialogOverlay from "$pkg/ui/modules/dialog_overlay/DialogOverlay.svelte";
+	import UniversalOverlay from "$pkg/ui/modules/universal-overlay/UniversalOverlay.svelte";
 
 	let {
 		children,
@@ -76,7 +78,7 @@
 	{@render children?.()}
 </div>
 
-<DialogOverlay></DialogOverlay>
+<UniversalOverlay></UniversalOverlay>
 
 {#if footer}
 	{@render footer()}

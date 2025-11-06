@@ -1,3 +1,5 @@
+<!-- TODO: Migration: review and migrate this component -->
+
 <script module lang="ts">
 	import HeaderSoulwork from "$pkg/assets/temp/header-soulwork.mp4";
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
