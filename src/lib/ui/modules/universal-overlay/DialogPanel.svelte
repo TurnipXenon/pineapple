@@ -22,7 +22,6 @@ Layout and logic for DialogPanel. Some of the logics for the portraits are in Un
 </script>
 
 <div
-	id="dialog-main"
 	tabindex="0"
 	role="button"
 	onclick={onDialogClick}
@@ -32,8 +31,6 @@ Layout and logic for DialogPanel. Some of the logics for the portraits are in Un
 					}
 				}}
 >
-	<!-- todo: site map -->
-	Site map
 	<!-- Made for 140 characters, like the original tweets -->
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html currentMessage}

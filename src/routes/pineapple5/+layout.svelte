@@ -12,9 +12,9 @@
 	// endregion Skeleton Store
 	// region highlightjs
 	import "highlight.js/styles/github-dark.css";
-	import PinyaBase from "$pkg/ui/templates/PinyaBase.svelte";
+	import PinyaBase from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 	import { appState, PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/index";
-	import { pinyaHead } from "$pkg/ui/templates/runes.svelte";
+	import { pinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 	import type { Snippet } from "svelte";
 
 	interface Props {

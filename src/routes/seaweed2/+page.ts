@@ -1,4 +1,4 @@
-import type { PinyaHeadMetaWrap } from "$pkg/ui/templates/runes.svelte";
+import type { PinyaHeadMetaWrap } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 
 export const load = async (): Promise<PinyaHeadMetaWrap> => {
 	return {

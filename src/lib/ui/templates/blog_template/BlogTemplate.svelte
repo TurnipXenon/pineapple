@@ -7,7 +7,7 @@
 	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { enableUniversalOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
-	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte";
+	import { appState } from "$pkg/ui/templates/PinyaPageLayout/pinyaPageLayoutRunes.svelte.js";
 
 	// grab page meta from the adjacent meta.json
 	interface Props {

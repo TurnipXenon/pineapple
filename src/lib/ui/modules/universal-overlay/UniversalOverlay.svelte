@@ -18,10 +18,12 @@ See panels:
 		overlayType,
 		type OverlayType
 	} from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { m } from "$pkg/external/paraglide/messages";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 	import { ColorScheme } from "$pkg/ui/elements/index";
 	import DialogPanel from "$pkg/ui/modules/universal-overlay/DialogPanel.svelte";
-	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte.js";
+	import SettingsPanel from "$pkg/ui/modules/universal-overlay/SettingsPanel.svelte";
+	import { appState } from "$pkg/ui/templates/PinyaPageLayout/pinyaPageLayoutRunes.svelte.js";
 	import { onMount } from "svelte";
 	import { slide } from "svelte/transition";
 	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
@@ -92,7 +94,13 @@ See panels:
 	</div>
 	<div id="main-dialog-box-container">
 		<PinyaCard id="dialog-name">
-			<div class="fake-h1">Turnip</div>
+			{#if _overlayType === 'dialog'}
+				<div class="fake-h1">Turnip</div>
+			{:else if _overlayType === 'site-map'}
+				<div class="fake-h1">Turnip</div>
+			{:else}
+				<div class="fake-h1">{m.settings()}</div>
+			{/if}
 		</PinyaCard>
 		<!-- todo: implement this properly later -->
 		<!--<div id="dialog-scroll-indicator"></div>-->
@@ -102,7 +110,7 @@ See panels:
 			{:else if _overlayType === 'site-map'}
 				<DialogPanel></DialogPanel>
 			{:else}
-				<DialogPanel></DialogPanel>
+				<SettingsPanel></SettingsPanel>
 			{/if}
 			<div id="settings-menu-bar">
 				<!-- settings -->

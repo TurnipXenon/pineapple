@@ -1,6 +1,6 @@
 import type { ParsnipEntry } from "$pkg/modules/parsnip/ParsnipEntry";
 import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
-import type { PinyaHead } from "$pkg/ui/templates/runes.svelte";
+import type { PinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 import { getCmsBaseUrl } from "$pkg/util/env-getter";
 import { error } from "@sveltejs/kit";
 
