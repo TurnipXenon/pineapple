@@ -10,7 +10,9 @@ TODO: delete GeneralSettingsModal.svelte
 	import LightIcon from "$pkg/assets/icons/icon-light-mode.svg";
 
 	import LanguagePicker from "$pkg/ui/modules/modals/general-settings/LanguagePicker.svelte";
+	import type { LocalStore } from "$pkg/util/localStore.svelte";
 	import { setMode, userPrefersMode } from "mode-watcher";
+	import { getContext } from "svelte";
 
 	interface ToggleItem {
 		key: "light" | "dark" | "system"
@@ -25,6 +27,7 @@ TODO: delete GeneralSettingsModal.svelte
 	];
 
 	let selectedItem: ToggleItem = $state(modes[0]);
+	let enablePortraitContext: LocalStore<boolean> = getContext("enablePortraitContext");
 
 	// when mode is edited outside, adjust toggle button
 	// do not use runes here because we only want explicit changes outside
@@ -85,6 +88,10 @@ TODO: delete GeneralSettingsModal.svelte
 
 	<LanguagePicker />
 
+	<div>
+		Outer: {enablePortraitContext.value}
+	</div>
+
 	<div class="actions">
 		<!-- todo: decide if we want an explicit save button or set the settings on the go -->
 		<!--		<button class="btn preset-filled-primary-400-600 text-surface-100" onclick={() => props.close()}-->
@@ -92,11 +99,6 @@ TODO: delete GeneralSettingsModal.svelte
 		<!--			Close-->
 		<!--		</button>-->
 	</div>
-
-	<div>Test</div>
-	<div>Test</div>
-	<div>Test</div>
-	<div>Test</div>
 </div>
 
 <style>

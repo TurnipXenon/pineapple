@@ -2,10 +2,11 @@
 
 <script lang="ts">
 	import { page } from "$app/state";
+	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 	import { locales, localizeHref } from "$pkg/external/paraglide/runtime";
 	import "$pkg/styles/global.css";
-	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 	import type { PinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
+	import PineappleBaseContext from "$pkg/util/context/PineappleBaseContext.svelte";
 	// import { ToastProvider } from "@skeletonlabs/skeleton-svelte";
 	import { ModeWatcher } from "mode-watcher";
 	import "$pkg/styles/app.css";
@@ -51,7 +52,9 @@
 <!--	{@render children()}-->
 <!--</ToastProvider>-->
 
-{@render children()}
+<PineappleBaseContext>
+	{@render children()}
+</PineappleBaseContext>
 
 <!--invisible ink-->
 <div style="display:none">

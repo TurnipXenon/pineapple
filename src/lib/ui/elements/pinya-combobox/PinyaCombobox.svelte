@@ -2,12 +2,15 @@
 
 <script lang="ts" generics="T extends string">
 	import type { PinyaComboboxProps, ValueChangeDetails } from "$pkg/ui/elements/pinya-combobox/PinyaComboboxProps";
+	import { LocalStore } from "$pkg/util/localStore.svelte";
+	import { getContext } from "svelte";
 	// import { Combobox } from "@skeletonlabs/skeleton-svelte";
 
 	let {
 		contentZIndex = "auto",
 		value = $bindable(),
-		onValueChange = () => {},
+		onValueChange = () => {
+		},
 		onValueChangeBase = undefined,
 		...props
 	}: PinyaComboboxProps<T> = $props();
@@ -16,11 +19,15 @@
 		value = e.value as T[];
 		onValueChange(e);
 	};
+
+	let enablePortraitContext: LocalStore<boolean> = getContext("enablePortraitContext");
 </script>
 
 <!-- todo: migrate to melt -->
 <div>
-	TODO: migrate to melt
+	<div>TODO: migrate to melt</div>
+	<button onclick={() => {enablePortraitContext.value = !enablePortraitContext.value}}>{enablePortraitContext.value}</button>
+	<!-- todo: remove store test below -->
 </div>
 <!--<Combobox-->
 <!--	width="w-full"-->
