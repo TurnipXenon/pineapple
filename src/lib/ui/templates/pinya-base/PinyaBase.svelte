@@ -35,24 +35,25 @@
 	}) ?? []);
 </script>
 
-<Modals>
-	<!-- shown when any modal is opened -->
-	{#snippet backdrop({ close })}
-		<div
-			aria-hidden="true"
-			class="backdrop"
-			onclick={() => close()}
-		></div>
-	{/snippet}
-</Modals>
-<ModeWatcher defaultTheme="turnip" />
-
-<!-- todo: toast -->
-<!--<ToastProvider>-->
-<!--	{@render children()}-->
-<!--</ToastProvider>-->
-
 <PineappleBaseContext>
+
+	<Modals>
+		<!-- shown when any modal is opened -->
+		{#snippet backdrop({ close })}
+			<div
+				aria-hidden="true"
+				class="backdrop"
+				onclick={() => close()}
+			></div>
+		{/snippet}
+	</Modals>
+	<ModeWatcher defaultTheme="turnip" />
+
+	<!-- todo: toast -->
+	<!--<ToastProvider>-->
+	<!--	{@render children()}-->
+	<!--</ToastProvider>-->
+
 	{@render children()}
 </PineappleBaseContext>
 

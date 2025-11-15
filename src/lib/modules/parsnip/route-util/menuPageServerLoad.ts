@@ -3,6 +3,16 @@ import { getCmsBaseUrl } from "$pkg/util/env-getter";
 
 export const menuPageServerLoad = async () => {
 	const baseUrl = getCmsBaseUrl();
+	if (import.meta.env.VITE_OFFLINE_MODE) {
+		return {
+			parsnipOverall: {
+				files: [],
+				tags: [],
+				baseUrl,
+			}
+		}
+	}
+
 	const fullUrl = `${baseUrl}/main.meta.json`;
 	const post = await fetch(fullUrl)
 		.then(res => res)
