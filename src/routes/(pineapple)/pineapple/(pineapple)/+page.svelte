@@ -17,6 +17,7 @@
 	let parsed = false;
 	const onTestDialogClick = () => {
 		if (!parsed) {
+			// todo: use this to read yarn files instead of having to generate the yarn files all the time
 			dialogManager.parseAndSetDialogTree(TestDialogYarn).then(() => {
 				dialogManager.toggleDialogOverlay();
 			});

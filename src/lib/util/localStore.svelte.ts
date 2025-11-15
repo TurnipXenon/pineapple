@@ -14,14 +14,14 @@ export class LocalStore<T> {
 		this.valueType = typeof defaultValue;
 
 		if (browser) {
-			const item = localStorage.getItem(key);
+			const item = localStorage.getItem(`pinya-local-${key}`);
 			if (item) {
 				this.value = this.deserialize(item);
 			}
 		}
 
 		$effect(() => {
-			localStorage.setItem(this.key, this.serialize(this.value));
+			localStorage.setItem(`pinya-local-${this.key}`, this.serialize(this.value));
 		});
 	}
 

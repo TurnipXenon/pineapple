@@ -10,6 +10,7 @@ TODO: delete GeneralSettingsModal.svelte
 	import LightIcon from "$pkg/assets/icons/icon-light-mode.svg";
 
 	import LanguagePicker from "$pkg/ui/modules/modals/general-settings/LanguagePicker.svelte";
+	import { getEnablePortraitContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import type { LocalStore } from "$pkg/util/localStore.svelte";
 	import { setMode, userPrefersMode } from "mode-watcher";
 	import { getContext } from "svelte";
@@ -27,7 +28,7 @@ TODO: delete GeneralSettingsModal.svelte
 	];
 
 	let selectedItem: ToggleItem = $state(modes[0]);
-	let enablePortraitContext: LocalStore<boolean> = getContext("enablePortraitContext");
+	let enablePortraitContext: LocalStore<boolean> = getEnablePortraitContext();
 
 	// when mode is edited outside, adjust toggle button
 	// do not use runes here because we only want explicit changes outside

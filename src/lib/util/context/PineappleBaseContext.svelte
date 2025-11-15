@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { setEnablePortraitContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { createLocalStore } from "$pkg/util/localStore.svelte";
-	import { setContext } from "svelte";
 
 	let { children } = $props();
 
-	setContext("enablePortraitContext", createLocalStore("enablePortrait"));
+	setEnablePortraitContext(createLocalStore("enablePortrait"));
 
 	/**
 	 * how do we want to use this context???

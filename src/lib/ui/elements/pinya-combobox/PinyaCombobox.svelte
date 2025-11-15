@@ -2,9 +2,8 @@
 
 <script lang="ts" generics="T extends string">
 	import type { PinyaComboboxProps, ValueChangeDetails } from "$pkg/ui/elements/pinya-combobox/PinyaComboboxProps";
+	import { getEnablePortraitContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { LocalStore } from "$pkg/util/localStore.svelte";
-	import { getContext } from "svelte";
-	// import { Combobox } from "@skeletonlabs/skeleton-svelte";
 
 	let {
 		contentZIndex = "auto",
@@ -20,7 +19,7 @@
 		onValueChange(e);
 	};
 
-	let enablePortraitContext: LocalStore<boolean> = getContext("enablePortraitContext");
+	let enablePortraitContext: LocalStore<boolean> = getEnablePortraitContext();
 </script>
 
 <!-- todo: migrate to melt -->

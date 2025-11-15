@@ -24,6 +24,7 @@ See panels:
 	import DialogPanel from "$pkg/ui/modules/universal-overlay/DialogPanel.svelte";
 	import SettingsPanel from "$pkg/ui/modules/universal-overlay/SettingsPanel.svelte";
 	import { appState } from "$pkg/ui/templates/PinyaPageLayout/pinyaPageLayoutRunes.svelte.js";
+	import { getEnablePortraitContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { onMount } from "svelte";
 	import { slide } from "svelte/transition";
 	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
@@ -52,6 +53,8 @@ See panels:
 	});
 
 	enableUniversalOverlay.set(appState.enableDialogOnByDefault ?? false);
+
+	let enablePortrait = getEnablePortraitContext();
 
 	onMount(() => {
 		// region cache
@@ -89,7 +92,7 @@ See panels:
      hidden={isHidden}
      style="--hidePercentWidth: -{hidePercent}vw;
             --hidePercentHeight: {hidePercentLinear}vh;">
-	<div class="dialog-portrait-container">
+	<div class="dialog-portrait-container" class:is-portrait-enabled={enablePortrait.value}>
 		<img src={currentPortrait} alt="Ares" class="dialog-portrait" />
 	</div>
 	<div id="main-dialog-box-container">
@@ -252,6 +255,10 @@ See panels:
         bottom: 0;
         height: clamp(30rem, 75vw, 40rem);
         width: auto;
+
+		    &:not(.is-portrait-enabled) {
+				    display: none;
+		    }
     }
 
     .dialog-portrait-container:dir(ltr) {
