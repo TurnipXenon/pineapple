@@ -1,10 +1,16 @@
 <script lang="ts">
-	import { setEnablePortraitContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
+	import {
+		setEnableDialogOverlayContext,
+		setEnablePortraitContext,
+		setOverlayTypeContext
+	} from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { createLocalStore } from "$pkg/util/localStore.svelte";
 
 	let { children } = $props();
 
-	setEnablePortraitContext(createLocalStore("enablePortrait"));
+	setEnablePortraitContext(createLocalStore("enable-portrait"));
+	setEnableDialogOverlayContext(createLocalStore("enable-dialog-overlay"));
+	setOverlayTypeContext(createLocalStore("overlay-type"));
 
 	/**
 	 * how do we want to use this context???

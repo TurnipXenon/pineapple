@@ -19,7 +19,7 @@
 		onValueChange(e);
 	};
 
-	let enablePortraitContext: LocalStore<boolean> = getEnablePortraitContext();
+	let enablePortraitContext = getEnablePortraitContext();
 </script>
 
 <!-- todo: migrate to melt -->

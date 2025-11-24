@@ -13,18 +13,18 @@ See panels:
 	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
-	import {
-		enableUniversalOverlay,
-		overlayType,
-		type OverlayType
-	} from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { enableUniversalOverlay, overlayType } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { m } from "$pkg/external/paraglide/messages";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 	import { ColorScheme } from "$pkg/ui/elements/index";
 	import DialogPanel from "$pkg/ui/modules/universal-overlay/DialogPanel.svelte";
 	import SettingsPanel from "$pkg/ui/modules/universal-overlay/SettingsPanel.svelte";
 	import { appState } from "$pkg/ui/templates/PinyaPageLayout/pinyaPageLayoutRunes.svelte.js";
-	import { getEnablePortraitContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
+	import {
+		getEnableDialogOverlayContext,
+		getEnablePortraitContext,
+		getOverlayTypeContext
+	} from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { onMount } from "svelte";
 	import { slide } from "svelte/transition";
 	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
@@ -37,19 +37,14 @@ See panels:
 	let hidePercentLinear = $state(100);
 	let isHidden = $state(true);
 
-	let _enableUniversalOverlay = $state(true);
+	let _enableUniversalOverlay = getEnableDialogOverlayContext();
+	// todo: fix bug here where the writable overwrites the stores
 	enableUniversalOverlay.subscribe((value) => {
-		_enableUniversalOverlay = value;
-		if (isMounted) {
-			localStorage.setItem("p-settings-enable-dialog-overlay", value.toString());
-		}
+		_enableUniversalOverlay.value = value;
 	});
-	let _overlayType: OverlayType = $state("dialog");
+	let _overlayType = getOverlayTypeContext();
 	overlayType.subscribe((value) => {
-		_overlayType = value;
-		if (isMounted) {
-			localStorage.setItem("p-settings-overlay-type", value.toString());
-		}
+		_overlayType.value = value;
 	});
 
 	enableUniversalOverlay.set(appState.enableDialogOnByDefault ?? false);
@@ -58,10 +53,8 @@ See panels:
 
 	onMount(() => {
 		// region cache
-		_enableUniversalOverlay = localStorage.getItem("p-settings-enable-dialog-overlay") !== "false";
-		enableUniversalOverlay.set(_enableUniversalOverlay);
-		_overlayType = localStorage.getItem("p-settings-overlay-type") as OverlayType ?? "dialog";
-		overlayType.set(_overlayType);
+		enableUniversalOverlay.set(_enableUniversalOverlay.value);
+		overlayType.set(_overlayType.value);
 		// endregion cache
 
 		dialogManager.currentPortrait.subscribe((value) => {
@@ -97,9 +90,9 @@ See panels:
 	</div>
 	<div id="main-dialog-box-container">
 		<PinyaCard id="dialog-name">
-			{#if _overlayType === 'dialog'}
+			{#if _overlayType.value === 'dialog'}
 				<div class="fake-h1">Turnip</div>
-			{:else if _overlayType === 'site-map'}
+			{:else if _overlayType.value === 'site-map'}
 				<div class="fake-h1">Turnip</div>
 			{:else}
 				<div class="fake-h1">{m.settings()}</div>
@@ -108,9 +101,9 @@ See panels:
 		<!-- todo: implement this properly later -->
 		<!--<div id="dialog-scroll-indicator"></div>-->
 		<div id="panel-container">
-			{#if _overlayType === 'dialog'}
+			{#if _overlayType.value === 'dialog'}
 				<DialogPanel></DialogPanel>
-			{:else if _overlayType === 'site-map'}
+			{:else if _overlayType.value === 'site-map'}
 				<DialogPanel></DialogPanel>
 			{:else}
 				<SettingsPanel></SettingsPanel>
@@ -118,21 +111,21 @@ See panels:
 			<div id="settings-menu-bar">
 				<!-- settings -->
 				<PinyaButton
-					colorScheme={_overlayType === 'settings' ? ColorScheme.Secondary : undefined}
+					colorScheme={_overlayType.value === 'settings' ? ColorScheme.Secondary : undefined}
 					onclick={()=>{overlayType.set('settings');}}
 				>
 					S
 				</PinyaButton>
 				<!-- site map -->
 				<PinyaButton
-					colorScheme={_overlayType === 'site-map' ? ColorScheme.Secondary : undefined}
+					colorScheme={_overlayType.value === 'site-map' ? ColorScheme.Secondary : undefined}
 					onclick={()=>{overlayType.set('site-map');}}
 				>
 					M
 				</PinyaButton>
 				<!-- convo (active) -->
 				<PinyaButton
-					colorScheme={_overlayType === 'dialog' ? ColorScheme.Secondary : undefined}
+					colorScheme={_overlayType.value === 'dialog' ? ColorScheme.Secondary : undefined}
 					onclick={()=>{overlayType.set('dialog');}}
 				>
 					C
@@ -150,13 +143,13 @@ See panels:
 </div>
 
 
-{#if appState.allowDialog && isMounted && !_enableUniversalOverlay}
+{#if appState.allowDialog && isMounted && !_enableUniversalOverlay.value}
 	<div id="fab-container" transition:slide>
 		<PinyaButton
 			classes="fab"
 			onclick={()=>{dialogManager.toggleDialogOverlay();}}
 		>
-			{#if _enableUniversalOverlay}
+			{#if _enableUniversalOverlay.value}
 				<img class="turnip-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
 			{:else }
 				<img class="turnip-icon" src={FABIcon} alt="interactive floating action button represented as a turnip">

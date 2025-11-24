@@ -1,5 +1,6 @@
 /** from https://www.reddit.com/r/sveltejs/comments/1d43d8p/svelte_5_runes_with_localstorage_thanks_to_joy_of/ */
 import { browser } from "$app/environment";
+import type { OverlayType } from "$pkg";
 
 export class LocalStore<T> {
 	value = $state<T>() as T;
@@ -30,6 +31,10 @@ export class LocalStore<T> {
 	}
 
 	deserialize(item: string): T {
+		if (this.valueType === "string") {
+			return item as never;
+		}
+
 		try {
 			return JSON.parse(item);
 		} catch (error) {
@@ -40,16 +45,20 @@ export class LocalStore<T> {
 }
 
 export interface LocalStoreRestriction {
-	enablePortrait: boolean;
+	"enable-portrait": boolean;
+	"enable-dialog-overlay": boolean;
+	"overlay-type": OverlayType;
 }
 
 const localStoreDefault: Readonly<LocalStoreRestriction> = {
-	enablePortrait: true
-}
+	"enable-portrait": true,
+	"enable-dialog-overlay": true, // todo: turn to false once we implement an onboarding/welcome screen
+	"overlay-type": 'dialog',
+};
 
 export const createLocalStore = <k extends keyof LocalStoreRestriction>(key: k) => {
 	return new LocalStore(key, localStoreDefault[key]);
-}
+};
 
 // export const createAllLocalStore = () => {
 // 	let enablePortrait = $state(createLocalStore('enablePortrait'));
