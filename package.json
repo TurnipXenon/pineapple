@@ -57,6 +57,7 @@
     "@types/htmlparser2": "^3.10.7",
     "highlight.js": "^11.11.1",
     "htmlparser2": "^9.1.0",
+    "melt": "^0.42.0",
     "mode-watcher": "^0.5.1",
     "node-html-parser": "^6.1.13",
     "publint": "^0.2.12",
