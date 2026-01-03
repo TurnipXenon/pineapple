@@ -2,6 +2,8 @@
 import { browser } from "$app/environment";
 import type { OverlayType } from "$pkg";
 
+type LocalStorageState = 'initial' | 'accessed' | 'writable';
+
 export class LocalStore<T> {
 	value = $state<T>() as T;
 	key = "";
@@ -13,25 +15,48 @@ export class LocalStore<T> {
 		this.defaultValue = defaultValue;
 		this.value = defaultValue;
 		this.valueType = typeof defaultValue;
+		let localStorageState: LocalStorageState = $state<LocalStorageState>('initial');
 
 		if (browser) {
 			const item = localStorage.getItem(`pinya-local-${key}`);
 			if (item) {
 				this.value = this.deserialize(item);
+				console.log(`initializing initial ${this.key}: ${this.value}`)
 			}
+			localStorageState = 'accessed';
 		}
 
 		$effect(() => {
-			localStorage.setItem(`pinya-local-${this.key}`, this.serialize(this.value));
+			console.log(`updating ${this.key}: ${this.value}`)
+			switch (localStorageState) {
+				case "initial":
+					// completely ignore all next changes
+					break;
+				case "accessed":
+					// for the initial change, we ignore it but allow the next changes to be writable
+					localStorageState = 'writable';
+					console.log(`setting writable for ${this.key}`)
+					break;
+				case "writable":
+					localStorage.setItem(`pinya-local-${this.key}`, this.serialize(this.value));
+					console.log(`initializing after ${this.key}: ${this.value}`)
+					break;
+			}
 		});
 	}
 
 	serialize(value: T): string {
+		if (this.valueType !== "object") {
+			return value as string;
+		}
+
 		return JSON.stringify(value);
 	}
 
 	deserialize(item: string): T {
+			console.log(`deserializing item ${item}`)
 		if (this.valueType === "string") {
+			console.log(`deserializing string ${item}`)
 			return item as never;
 		}
 

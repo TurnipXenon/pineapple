@@ -13,7 +13,7 @@ See panels:
 	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
-	import { enableUniversalOverlay, overlayType } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { enableUniversalOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { m } from "$pkg/external/paraglide/messages";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 	import { ColorScheme } from "$pkg/ui/elements/index";
@@ -43,9 +43,7 @@ See panels:
 		_enableUniversalOverlay.value = value;
 	});
 	let _overlayType = getOverlayTypeContext();
-	overlayType.subscribe((value) => {
-		_overlayType.value = value;
-	});
+	console.log("beforeMount", _overlayType.value);
 
 	enableUniversalOverlay.set(appState.enableDialogOnByDefault ?? false);
 
@@ -54,7 +52,6 @@ See panels:
 	onMount(() => {
 		// region cache
 		enableUniversalOverlay.set(_enableUniversalOverlay.value);
-		overlayType.set(_overlayType.value);
 		// endregion cache
 
 		dialogManager.currentPortrait.subscribe((value) => {
@@ -112,21 +109,21 @@ See panels:
 				<!-- settings -->
 				<PinyaButton
 					colorScheme={_overlayType.value === 'settings' ? ColorScheme.Secondary : undefined}
-					onclick={()=>{overlayType.set('settings');}}
+					onclick={()=>{_overlayType.value = 'settings';}}
 				>
 					S
 				</PinyaButton>
 				<!-- site map -->
 				<PinyaButton
 					colorScheme={_overlayType.value === 'site-map' ? ColorScheme.Secondary : undefined}
-					onclick={()=>{overlayType.set('site-map');}}
+					onclick={()=>{_overlayType.value = 'site-map';}}
 				>
 					M
 				</PinyaButton>
 				<!-- convo (active) -->
 				<PinyaButton
 					colorScheme={_overlayType.value === 'dialog' ? ColorScheme.Secondary : undefined}
-					onclick={()=>{overlayType.set('dialog');}}
+					onclick={()=>{_overlayType.value = "dialog";}}
 				>
 					C
 				</PinyaButton>
@@ -249,9 +246,9 @@ See panels:
         height: clamp(30rem, 75vw, 40rem);
         width: auto;
 
-		    &:not(.is-portrait-enabled) {
-				    display: none;
-		    }
+        &:not(.is-portrait-enabled) {
+            display: none;
+        }
     }
 
     .dialog-portrait-container:dir(ltr) {
