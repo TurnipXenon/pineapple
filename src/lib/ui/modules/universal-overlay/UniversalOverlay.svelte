@@ -13,7 +13,6 @@ See panels:
 	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
-	import { enableUniversalOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import { m } from "$pkg/external/paraglide/messages";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 	import { ColorScheme } from "$pkg/ui/elements/index";
@@ -37,23 +36,12 @@ See panels:
 	let hidePercentLinear = $state(100);
 	let isHidden = $state(true);
 
-	let _enableUniversalOverlay = getEnableDialogOverlayContext();
-	// todo: fix bug here where the writable overwrites the stores
-	enableUniversalOverlay.subscribe((value) => {
-		_enableUniversalOverlay.value = value;
-	});
+	let enableUniversalOverlay = getEnableDialogOverlayContext();
 	let _overlayType = getOverlayTypeContext();
-	console.log("beforeMount", _overlayType.value);
-
-	enableUniversalOverlay.set(appState.enableDialogOnByDefault ?? false);
 
 	let enablePortrait = getEnablePortraitContext();
 
 	onMount(() => {
-		// region cache
-		enableUniversalOverlay.set(_enableUniversalOverlay.value);
-		// endregion cache
-
 		dialogManager.currentPortrait.subscribe((value) => {
 			if (value) {
 				currentPortrait = value;
@@ -140,13 +128,13 @@ See panels:
 </div>
 
 
-{#if appState.allowDialog && isMounted && !_enableUniversalOverlay.value}
+{#if appState.allowDialog && isMounted && !enableUniversalOverlay.value}
 	<div id="fab-container" transition:slide>
 		<PinyaButton
 			classes="fab"
 			onclick={()=>{dialogManager.toggleDialogOverlay();}}
 		>
-			{#if _enableUniversalOverlay.value}
+			{#if enableUniversalOverlay.value}
 				<img class="turnip-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
 			{:else }
 				<img class="turnip-icon" src={FABIcon} alt="interactive floating action button represented as a turnip">
