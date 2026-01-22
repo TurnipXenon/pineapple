@@ -126,6 +126,7 @@ TODO: delete GeneralSettingsModal.svelte
         text-align: start;
         gap: 1lh;
         overflow-y: auto;
+        font-size: var(--text-base);
     }
 
     #dark-mode-fieldset {

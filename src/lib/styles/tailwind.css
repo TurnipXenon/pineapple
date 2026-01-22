@@ -587,34 +587,35 @@
   .dark *) {
     color:var(--color-surface-950)
   }
-  [type=text],
-  input:where(:not([type])),
-  [type=email],
-  [type=url],
-  [type=password],
-  [type=number],
-  [type=date],
-  [type=datetime-local],
-  [type=month],
-  [type=search],
-  [type=tel],
-  [type=time],
-  [type=week],
-  [multiple],
-  textarea,
-  select {
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    appearance:none;
-    --tw-shadow:0 0 #0000;
-    background-color:#fff;
-    border-width:1px;
-    border-color:#6a7282;
-    border-radius:0;
-    padding:.5rem .75rem;
-    font-size:1rem;
-    line-height:1.5rem
-  }
+  /*todo: make sure we dont need this*/
+  /*[type=text],*/
+  /*input:where(:not([type])),*/
+  /*[type=email],*/
+  /*[type=url],*/
+  /*[type=password],*/
+  /*[type=number],*/
+  /*[type=date],*/
+  /*[type=datetime-local],*/
+  /*[type=month],*/
+  /*[type=search],*/
+  /*[type=tel],*/
+  /*[type=time],*/
+  /*[type=week],*/
+  /*[multiple],*/
+  /*textarea,*/
+  /*select {*/
+  /*  -webkit-appearance:none;*/
+  /*  -moz-appearance:none;*/
+  /*  appearance:none;*/
+  /*  --tw-shadow:0 0 #0000;*/
+  /*  background-color:#fff;*/
+  /*  border-width:1px;*/
+  /*  border-color:#6a7282;*/
+  /*  border-radius:0;*/
+  /*  padding:.5rem .75rem;*/
+  /*  font-size:1rem;*/
+  /*  line-height:1.5rem*/
+  /*}*/
   :is([type=text],
   input:where(:not([type])),
   [type=email],

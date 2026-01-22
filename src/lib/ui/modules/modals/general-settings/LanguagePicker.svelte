@@ -16,16 +16,14 @@
 		{ label: "Tagalog", value: "tl" }
 	];
 
-	let selectedCountry = $state([getLocale()]);
+	let selectedCountry = $state(getLocale());
 
-	interface ValueDetail {
-		value: string[];
-	}
+	const onValueChange = (e: { value: ComboxData["value"] | undefined }) => {
+		if (!e.value) return;
 
-	const onValueChange = (e: ValueDetail) => {
-		const data = comboboxData.find((d) => d.value === e.value[0]);
+		const data = comboboxData.find((d) => d.value === e.value);
 		if (data) {
-			selectedCountry = [data.value];
+			selectedCountry = data.value;
 			const pathname = deLocalizeHref(location.href);
 			location.href = localizeHref(pathname, { locale: data.value });
 		}

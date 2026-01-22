@@ -194,6 +194,7 @@ See panels:
     }
 
     .dialog-elements {
+		    --body-background-color: var(--bg-dialog);
         position: fixed;
         z-index: 10;
     }

@@ -4,4 +4,6 @@ import { createContext } from "svelte";
 
 export const [getEnablePortraitContext, setEnablePortraitContext] = createContext<LocalStore<boolean>>();
 export const [getEnableDialogOverlayContext, setEnableDialogOverlayContext] = createContext<LocalStore<boolean>>();
+
 export const [getOverlayTypeContext, setOverlayTypeContext] = createContext<LocalStore<OverlayType>>();
+export const [getIgnoreOverlayOverride, setIgnoreOverlayOverride] = createContext<boolean>();
