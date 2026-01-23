@@ -1,6 +1,7 @@
 <script lang="ts">
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import { FourPartCard, PinyaAccordion, PinyaAccordionItem } from "$pkg/ui/components/index";
+	import { addToast } from "$pkg/ui/components/MeltToaster/MeltToaster.svelte";
 
 	import { ColorScheme, ImageIcon, PinyaButton, PinyaCard } from "$pkg/ui/elements/index";
 	import PinyaSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
@@ -12,6 +13,13 @@
 
 	let testSwitchVal = $state(false);
 	let value = $state(["club"]);
+
+	let toasterIndex = $state(0);
+
+	const toasterOnClick = () => {
+		toasterIndex += 1;
+		addToast({ data: { title: "Success", description: `The resource was created! Index count ${toasterIndex}` } });
+	};
 </script>
 
 <div class="flex flex-col gap-4">
@@ -43,6 +51,12 @@
 			</PinyaAccordionItem>
 		</PinyaAccordion>
 		<PinyaAnchorButton href="/test">Go to /test (anchor test)</PinyaAnchorButton>
+	</PinyaCard>
+
+	<PinyaCard widthClass="max-w-2xl" flexClass="flex flex-col gap-4">
+		<PinyaButton onclick={toasterOnClick}>
+			Click here to test toaster
+		</PinyaButton>
 	</PinyaCard>
 
 	<PinyaCard widthClass="max-w-2xl">
@@ -125,6 +139,6 @@
         flex-direction: column;
         text-align: start;
         gap: 0.5lh;
-		    align-items: flex-start;
+        align-items: flex-start;
     }
 </style>

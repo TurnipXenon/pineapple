@@ -1,4 +1,4 @@
-<!-- TODO: Migration: review and migrate this component -->
+<!-- TODO: add suspend? load images first before showing them up slowly? -->
 
 <script lang="ts">
 	import { fade } from 'svelte/transition';

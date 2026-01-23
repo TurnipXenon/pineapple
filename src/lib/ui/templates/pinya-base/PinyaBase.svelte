@@ -5,6 +5,7 @@
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 	import { locales, localizeHref } from "$pkg/external/paraglide/runtime";
 	import "$pkg/styles/global.css";
+	import MeltToaster from "$pkg/ui/components/MeltToaster/MeltToaster.svelte";
 	import type { PinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 	import PineappleBaseContext from "$pkg/util/context/PineappleBaseContext.svelte";
 	// import { ToastProvider } from "@skeletonlabs/skeleton-svelte";
@@ -49,10 +50,7 @@
 	</Modals>
 	<ModeWatcher defaultTheme="turnip" />
 
-	<!-- todo: toast -->
-	<!--<ToastProvider>-->
-	<!--	{@render children()}-->
-	<!--</ToastProvider>-->
+	<MeltToaster />
 
 	{@render children()}
 </PineappleBaseContext>

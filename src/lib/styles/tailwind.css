@@ -499,7 +499,7 @@
     color-scheme:dark
   }
   :root {
-    scrollbar-color:var(--color-surface-300-700)var(--color-surface-100-900);
+    scrollbar-color: var(--color-primary-400-600) var(--color-surface-100-900);
     scrollbar-width:thin
   }
   html {
