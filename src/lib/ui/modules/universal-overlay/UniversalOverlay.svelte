@@ -143,7 +143,9 @@ See panels:
 	</div>
 {/if}
 
-<style>
+<style lang="scss">
+	  @use "$styles/surface-colors" as *;
+
     #main-dialog-box-container {
         background-color: var(--bg-dialog);
         position: fixed;
@@ -164,19 +166,20 @@ See panels:
         /*    background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);*/
         /*}*/
 
+
+	      :global(#panel-container > *:first-child) {
+	        flex: 1;
+	        overflow-y: auto;
+	        border-width: 0 2px 0 0;
+	        padding: 1.3lh 1em;
+	        border-color: var(--color-primary-50-900);
+	      }
+
         #panel-container {
             height: 100%;
             font-size: 1.5em;
             display: flex;
             flex-direction: row;
-
-            :global(&>*:first-child) {
-                flex: 1;
-                overflow-y: auto;
-                border-width: 0 2px 0 0;
-                padding: 1.3lh 1em;
-                border-color: var(--color-primary-50-900);
-            }
 
             #settings-menu-bar {
                 display: flex;
@@ -194,7 +197,7 @@ See panels:
     }
 
     .dialog-elements {
-		    --body-background-color: var(--bg-dialog);
+		    @extend %surface-dialog;
         position: fixed;
         z-index: 10;
     }

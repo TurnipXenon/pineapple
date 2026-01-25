@@ -41,33 +41,63 @@
 	});
 </script>
 
+<!-- @component MeltToaster
+ todo: implement outgoing animation
+ todo: add animation indicating its duration
+ -->
 <div {...toaster.root} bind:this={toasterRoot} class="pinya-toaster-root">
 	{#each toaster.toasts as toast (toast.id)}
 
-		<div {...toast.content} class={`pinya-toast ${toast.data.type}`}>
-			<h3 {...toast.title}>{toast.data.title}</h3>
+		<div {...toast.content} class={`toast-instance ${toast.data.type}`}>
+			<div class="toast-header">
+				<h3 {...toast.title}>{toast.data.title}</h3>
+				<button {...toast.close} aria-label="dismiss alert">X</button>
+			</div>
 			<div {...toast.description}>{toast.data.description}</div>
-			<button {...toast.close} aria-label="dismiss alert">X</button>
 		</div>
 	{/each}
 </div>
 
-<style>
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
     .pinya-toaster-root {
 
-        .pinya-toast {
+        .toast-instance {
+            @extend %surface-body;
+
             position: fixed;
 
             --toast-gap: -10lh;
             bottom: calc(var(--toast-gap));
-            transition: bottom 0.25s ease, transform 0.25s ease;
+            transition: bottom 0.25s linear 0.2s, transform 0.25s linear 0.2s;
 
-		        transform: scale(var(--toast-scale));
+		        &:last-child {
+				      // the entering new child will bounce with y2=1.2
+              transition: bottom 0.25s cubic-bezier(0, 0, 0.5, 1.2), transform 0.25s linear;
+		        }
+
+            transform: scale(var(--toast-scale));
             z-index: var(--toast-index);
 
-		        background-color: white;
             left: 1rem;
             box-shadow: var(--toast-shadow-px) var(--toast-shadow-px) var(--toast-shadow-px) var(--shadow-color);
+
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+
+            &.success {
+                @extend %surface-success;
+            }
+
+            &.error {
+                @extend %surface-error;
+            }
+
+            .toast-header {
+                display: flex;
+                justify-content: space-between;
+            }
         }
     }
 </style>

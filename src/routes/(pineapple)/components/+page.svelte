@@ -16,9 +16,15 @@
 
 	let toasterIndex = $state(0);
 
-	const toasterOnClick = () => {
+	const toasterOnClick = (type: "info" | "success" | "error" = "info") => {
 		toasterIndex += 1;
-		addToast({ data: { title: "Success", description: `The resource was created! Index count ${toasterIndex}` } });
+		addToast({
+			data: {
+				title: "Success",
+				description: `The resource was created! Index count ${toasterIndex}`,
+				type,
+			}
+		});
 	};
 </script>
 
@@ -54,8 +60,14 @@
 	</PinyaCard>
 
 	<PinyaCard widthClass="max-w-2xl" flexClass="flex flex-col gap-4">
-		<PinyaButton onclick={toasterOnClick}>
-			Click here to test toaster
+		<PinyaButton onclick={() => toasterOnClick('info')}>
+			Click here to test default (info) toaster
+		</PinyaButton>
+		<PinyaButton onclick={() => toasterOnClick('success')}>
+			Click here to test default (success) toaster
+		</PinyaButton>
+		<PinyaButton onclick={() => toasterOnClick('error')}>
+			Click here to test default (error) toaster
 		</PinyaButton>
 	</PinyaCard>
 

@@ -1,0 +1,21 @@
+// todo: add dark mode colors or maybe the on-surface-color
+
+%surface-body {
+    --current-surface-color: var(--body-background-color);
+    background-color: var(--current-surface-color);
+}
+
+%surface-dialog {
+    --current-surface-color: var(--bg-dialog);
+    background-color: var(--current-surface-color);
+}
+
+%surface-success {
+    --current-surface-color: var(--color-success-500);
+    background-color: var(--current-surface-color);
+}
+
+%surface-error {
+    --current-surface-color: var(--color-error-500);
+    background-color: var(--current-surface-color);
+}

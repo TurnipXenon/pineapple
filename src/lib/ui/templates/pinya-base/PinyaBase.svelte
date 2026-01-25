@@ -79,7 +79,13 @@
 	{/each}
 </svelte:head>
 
-<style>
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+    body{
+        @extend %surface-body;
+    }
+
     .backdrop {
         position: fixed;
         z-index: 19;

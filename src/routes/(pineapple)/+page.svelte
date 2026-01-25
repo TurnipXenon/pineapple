@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
-	import { PinyaCard } from "$pkg/ui/elements/PinyaCard/index";
-	import { PinyaButton } from "$pkg/ui/elements/PinyaButton/index";
 	import { enableUniversalOverlaySvelte4 } from "$pkg";
+	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
+	import { PinyaButton } from "$pkg/ui/elements/PinyaButton/index";
+	import { PinyaCard } from "$pkg/ui/elements/PinyaCard/index";
 	import { setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { onMount } from "svelte";
 

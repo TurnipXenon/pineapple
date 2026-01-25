@@ -70,9 +70,11 @@ When migrating from Skeleton to Melt, change the value is no longer an array T[]
 	</div>
 </div>
 
-<style>
+<style lang="scss">
+		@use "$styles/surface-colors" as *;
+
     [data-melt-combobox-content] {
-        background-color: var(--bg-dialog);
+		    @extend %surface-body;
         border-color: var(--color-primary-500);
         border-style: var(--tw-border-style);
         border-radius: var(--radius-xl);
@@ -92,7 +94,6 @@ When migrating from Skeleton to Melt, change the value is no longer an array T[]
             padding-block: calc(var(--spacing) * 1);
             padding-inline: calc(var(--spacing) * 4);
             border-radius: var(--radius-lg);
-            /*background-color: var(--body-background-color);*/
 
             &[aria-selected="true"] {
                 background-color: light-dark(var(--color-secondary-400), var(--color-secondary-600));
