@@ -19,17 +19,17 @@
 		observer = new MutationObserver((mutationList) => {
 			for (const mutation of mutationList) {
 				if (mutation.type === "childList") {
-					// get all toasterRoot children
-					const children = Array.from(toasterRoot.children);
-					console.log(children);
-					// iterate through children and set css variable indicating their index
-					children.forEach((child, index) => {
-						child.style.setProperty("--toast-index", (index + 1).toString());
-
-						// exponential curve with -2,+6 roots and max adjusted to y=1.5, x=2 is max
-						child.style.setProperty("--toast-gap", `${Math.max(index * (0.24 - 0.06 * index) + 1.44, 1)}lh`);
-						child.style.setProperty("--toast-scale", `${Math.max(1 - (index*index/360), 0.9)}`);
-					});
+					setTimeout(() => {
+						// get all toasterRoot children
+						const children = Array.from(toasterRoot.children);
+						children.forEach((child, index) => {
+							const revNum = Math.min(Math.abs(children.length - 1 - index), 5);
+							child.style.setProperty("--toast-index", index.toString());
+							child.style.setProperty("--toast-gap", `${Math.max(2 - (revNum * 0.2), 1)}lh`);
+							child.style.setProperty("--toast-scale", `${Math.max(1 - (revNum * 0.02), 0.9)}`);
+							child.style.setProperty("--toast-shadow-px", `${Math.max(8 - (revNum), 3)}px`);
+						});
+					}, 16); // 16 is an approximate ms for 60 Hz
 				}
 			}
 		});
@@ -41,7 +41,7 @@
 	});
 </script>
 
-<div {...toaster.root} bind:this={toasterRoot}>
+<div {...toaster.root} bind:this={toasterRoot} class="pinya-toaster-root">
 	{#each toaster.toasts as toast (toast.id)}
 
 		<div {...toast.content} class={`pinya-toast ${toast.data.type}`}>
@@ -53,14 +53,21 @@
 </div>
 
 <style>
-    .pinya-toast {
-        position: fixed;
-        bottom: calc(var(--toast-gap));
-		    transform: scale(var(--toast-scale));
-        z-index: var(--toast-index);
-        background-color: white;
-        left: 1rem;
-        box-shadow: 3px 3px 3px var(--shadow-color);
-        /* todo: change position when dialog is active */
+    .pinya-toaster-root {
+
+        .pinya-toast {
+            position: fixed;
+
+            --toast-gap: -10lh;
+            bottom: calc(var(--toast-gap));
+            transition: bottom 0.25s ease, transform 0.25s ease;
+
+		        transform: scale(var(--toast-scale));
+            z-index: var(--toast-index);
+
+		        background-color: white;
+            left: 1rem;
+            box-shadow: var(--toast-shadow-px) var(--toast-shadow-px) var(--toast-shadow-px) var(--shadow-color);
+        }
     }
 </style>
