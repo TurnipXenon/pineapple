@@ -1,5 +1,6 @@
 html {
     --color-primary-50-900: var(--color-primary-50);
+    --color-primary-300-700: var(--color-primary-300);
     --color-primary-400-600: var(--color-primary-400);
     --color-secondary-400-600: var(--color-secondary-400);
     --color-secondary-950-0: var(--color-secondary-950);
@@ -11,6 +12,7 @@ html {
 
 html.dark {
     --color-primary-50-900: var(--color-primary-900);
+    --color-primary-300-700: var(--color-primary-700);
     --color-primary-400-600: var(--color-primary-600);
     --color-secondary-400-600: var(--color-secondary-600);
     --color-secondary-950-0: var(--color-secondary-0);

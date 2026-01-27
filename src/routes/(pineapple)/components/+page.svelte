@@ -11,8 +11,8 @@
 	import { modals } from "svelte-modals";
 	import TestModal from "./TestModal.svelte";
 
-	let testSwitchVal = $state(false);
-	let value = $state(["club"]);
+	let allowMultipleOpenAccordion = $state(false);
+	let openAccordionIds = $state(["club"]);
 
 	let toasterIndex = $state(0);
 
@@ -38,8 +38,8 @@
 			Click here to test confirmation modal
 		</PinyaButton>
 		<div class="mt-4 mb-4">
-			<label for="test-switch">Switch is {testSwitchVal}</label>
-			<PinyaSwitch bind:checked={testSwitchVal} name="test-switch"></PinyaSwitch>
+			<label for="test-switch">Multiple is {allowMultipleOpenAccordion}</label>
+			<PinyaSwitch bind:checked={allowMultipleOpenAccordion} name="test-switch"></PinyaSwitch>
 		</div>
 
 		<h3 class="mb-2">Placeholders</h3>
@@ -48,10 +48,16 @@
 
 		<div class="h-8"></div>
 
-		<PinyaAccordion {value}>
-			<PinyaAccordionItem value="club">
+		<PinyaAccordion openItems={openAccordionIds} multiple={allowMultipleOpenAccordion}>
+			<PinyaAccordionItem pinyaValue="club">
 				<!-- Control -->
 				{#snippet control()}Club{/snippet}
+				<!-- Panel -->
+				{#snippet panel()}Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore.{/snippet}
+			</PinyaAccordionItem>
+			<PinyaAccordionItem pinyaValue="club2">
+				<!-- Control -->
+				{#snippet control()}Club 2{/snippet}
 				<!-- Panel -->
 				{#snippet panel()}Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore.{/snippet}
 			</PinyaAccordionItem>

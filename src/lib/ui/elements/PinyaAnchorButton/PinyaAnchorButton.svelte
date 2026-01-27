@@ -21,7 +21,7 @@
 
 <a
 	{...props}
-	class={`a-as-btn ${tailwindClass}}`}
+	class={`a-as-btn ${tailwindClass}`}
 >
 	{@render children()}
 </a>

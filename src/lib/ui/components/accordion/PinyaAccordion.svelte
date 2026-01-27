@@ -1,52 +1,63 @@
-<!-- TODO: Migration: review and migrate this component -->
-
 <script lang="ts">
-	import { Accordion, type AccordionItem } from "melt/builders";
-	import type { Snippet } from "svelte";
-
-	// import { Accordion } from "@skeletonlabs/skeleton-svelte";
-
-	type PinyaAccordionItemProps = AccordionItem<{
-		snippet: Snippet;
-		title: string;
-		description: string;
-	}>;
+	import { Accordion } from "melt/builders";
+	import { setContext, type Snippet } from "svelte";
+	import type { SvelteSet } from "svelte/reactivity";
+	import { accordionContextKey, type AccordionContext } from "./accordionContext";
 
 	let {
-		childrenMeta
+		children,
+		openItems = $bindable(),
+		multiple = true
 	}: {
-		childrenMeta: PinyaAccordionItemProps[],
+		children: Snippet,
+		openItems: string[],
+		multiple: boolean,
 	} = $props();
+	let accordion = $derived(new Accordion({
+		value: (() => {
+			if (openItems) {
+				if (multiple) {
+					return new Set(openItems);
+				} else if (openItems.length > 0) {
+					return openItems[0];
+				}
+			}
 
-	const accordion = new Accordion();
+			return undefined;
+		})(),
+		onValueChange: (t: SvelteSet<string> | string | undefined) => {
+			if (typeof t === "string") {
+				openItems = t ? [t] : [];
+			} else if (t) {
+				openItems = [...t];
+			} else {
+				openItems = [];
+			}
+		}, multiple
+	}));
+	setContext<AccordionContext>(accordionContextKey, (key) => accordion.getItem(key));
 </script>
 
-<!-- todo: move to melt -->
-<!--<div>-->
-<!--	TODO: Accordion-->
-<!--	{@render children()}-->
-<!--</div>-->
-
-<div {...accordion.root}>
-	{#each childrenMeta as ch (ch.heading)}
-		{@const item = accordion.getItem(ch)}
-		<h2 {...item.heading}>
-			<button {...item.trigger}>
-				{item.item.title}
-			</button>
-		</h2>
-
-		<div {...item.content}>
-			{item.item.description}
-		</div>
-	{/each}
+<div class="pinya-accordion-root" {...accordion.root}>
+	{@render children?.()}
 </div>
 
-<!--<Accordion-->
-<!--	classes="bg-primary-100 dark:bg-tertiary-900 dark:saturate-75"-->
-<!--	{value}-->
-<!--	onValueChange={(e) => (value = e.value)}-->
-<!--	collapsible-->
-<!--&gt;-->
-<!--	{@render children()}-->
-<!--</Accordion>-->
+<style>
+    :global {
+        .pinya-accordion-root {
+            .pinya-accordion-item {
+                &:first-child, &:first-child .consider-top-edge {
+                    border-top-left-radius: var(--radius-lg);
+                    border-top-right-radius: var(--radius-lg);
+                }
+            }
+
+            .pinya-accordion-item {
+                &:last-child, &:last-child .consider-bottom-edge, &:last-child .consider-top-edge[data-state="closed"] {
+                    border-bottom-left-radius: var(--radius-lg);
+                    border-bottom-right-radius: var(--radius-lg);
+                }
+            }
+        }
+    }
+</style>

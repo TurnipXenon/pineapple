@@ -1,7 +1,4 @@
-<!-- TODO: Migration: review and migrate this component -->
-
 <script lang="ts">
-	// import { Switch } from "@skeletonlabs/skeleton-svelte";
 	import type { Snippet } from "svelte";
 
 	interface Props {
