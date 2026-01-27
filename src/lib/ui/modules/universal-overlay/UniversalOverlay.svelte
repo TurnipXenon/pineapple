@@ -275,7 +275,8 @@ See panels:
             transform: scale3d(1, 1, 1.5);
             background-color: var(--color-tertiary-500);
             padding: 0.3rem;
-            width: clamp(2rem, 5vw, 4rem);
+            width: 4rem;
+		        height: 4rem;
             border-radius: 50%;
             z-index: 100;
             box-shadow: 3px 3px 3px var(--shadow-color);
@@ -309,4 +310,7 @@ See panels:
         }
     }
 
+    .turnip-icon {
+		    width: 3rem;
+    }
 </style>

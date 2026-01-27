@@ -1,5 +1,3 @@
-<!-- TODO: Migration: review and migrate this component -->
-
 <script lang="ts">
 	import UpwardIcon from "$pkg/assets/icons/arrow-upward.svg";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
@@ -7,10 +5,7 @@
 	import { PinyaButton } from "$pkg/ui/elements/PinyaButton";
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
-	// import { type ToastContext } from "@skeletonlabs/skeleton-svelte";
-	import { getContext } from "svelte";
-
-	// export const toast: ToastContext = getContext("toast");
+	import { addToast } from "$pkg/ui/components/MeltToaster/MeltToaster.svelte";
 
 	interface Props {
 		layout: ProjectGroup[];
@@ -105,7 +100,7 @@
 		};
 	});
 
-	let comboboxValue = $state([comboboxData[0].value]);
+	let comboboxValue = $state(comboboxData[0].value);
 
 	const addEntry = () => {
 		const c = allEntries.find(e => e.key === comboboxValue[0]);
@@ -116,12 +111,13 @@
 		}
 
 		if (group.entryList.includes(c)) {
-			// todo: toast
-			// toast.create({
-			// 	title: "Duplicate entry",
-			// 	description: `The entry ${comboboxValue} is already in ${group.title}`,
-			// 	type: "error"
-			// });
+			addToast({
+				data: {
+					title: "Duplicate entry",
+					description: `The entry ${comboboxValue} is already in ${group.title}`,
+					type: "error"
+				}
+			});
 			return;
 		}
 
@@ -228,7 +224,7 @@
     }
 
     .entry-name {
-        grow: 1;
+        flex-grow: 1;
     }
 
     tr, td, th, table {

@@ -20,7 +20,7 @@
 		toasterIndex += 1;
 		addToast({
 			data: {
-				title: "Success",
+				title: type.toUpperCase(),
 				description: `The resource was created! Index count ${toasterIndex}`,
 				type,
 			}

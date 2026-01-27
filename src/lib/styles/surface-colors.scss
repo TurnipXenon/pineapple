@@ -1,5 +1,10 @@
 // todo: add dark mode colors or maybe the on-surface-color
 
+
+.apply-current-surface {
+    background-color: var(--current-surface-color);
+}
+
 %surface-body {
     --current-surface-color: var(--body-background-color);
     background-color: var(--current-surface-color);

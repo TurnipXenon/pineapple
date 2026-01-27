@@ -13,7 +13,6 @@ TODO: delete GeneralSettingsModal.svelte
 	import { getEnablePortraitContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import type { LocalStore } from "$pkg/util/localStore.svelte";
 	import { setMode, userPrefersMode } from "mode-watcher";
-	import { getContext } from "svelte";
 
 	interface ToggleItem {
 		key: "light" | "dark" | "system"
@@ -60,7 +59,7 @@ TODO: delete GeneralSettingsModal.svelte
 
 <div class="wrapper">
 	<fieldset id="dark-mode-fieldset" class="border-primary-500 border-2 flex-col p-2 md:flex-row">
-		<legend class="bg-surface-100-900 pl-4 pr-4">Mode</legend>
+		<legend class="apply-current-surface pl-4 pr-4">Mode</legend>
 		<div id="field-flex">
 			{#each modes as mode (mode)}
 				<button
@@ -89,10 +88,6 @@ TODO: delete GeneralSettingsModal.svelte
 
 	<LanguagePicker />
 
-	<div>
-		Outer: {enablePortraitContext.value}
-	</div>
-
 	<div class="actions">
 		<!-- todo: decide if we want an explicit save button or set the settings on the go -->
 		<!--		<button class="btn preset-filled-primary-400-600 text-surface-100" onclick={() => props.close()}-->
@@ -105,11 +100,11 @@ TODO: delete GeneralSettingsModal.svelte
 <style>
     :global {
         html {
-					--primary-btn-color-selected: var(--color-secondary-400);
+            --primary-btn-color-selected: var(--color-secondary-400);
         }
 
         html.dark {
-					--primary-btn-color-selected: var(--color-secondary-800);
+            --primary-btn-color-selected: var(--color-secondary-800);
         }
     }
 
@@ -141,9 +136,9 @@ TODO: delete GeneralSettingsModal.svelte
         }
 
         button {
-		        img {
-				        filter: invert(80%);
-		        }
+            img {
+                filter: invert(80%);
+            }
         }
 
         button.selected {
