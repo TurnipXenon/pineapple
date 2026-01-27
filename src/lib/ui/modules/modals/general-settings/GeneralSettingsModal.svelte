@@ -69,7 +69,9 @@
 	</div>
 </ModalBase>
 
-<style>
+<style lang="scss">
+		@use "$styles/surface-colors" as *;
+
     .actions {
         display: flex;
         flex-direction: row-reverse;

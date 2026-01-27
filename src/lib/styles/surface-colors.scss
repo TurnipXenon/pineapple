@@ -10,6 +10,11 @@
     background-color: var(--current-surface-color);
 }
 
+%card-body {
+    --current-surface-color: var( --pinya-card-bg-color);
+    background-color: var( --pinya-card-bg-color);
+}
+
 %surface-dialog {
     --current-surface-color: var(--bg-dialog);
     background-color: var(--current-surface-color);

@@ -33,20 +33,23 @@ When with texts, wrap the text content inside a div so flex wont apply
 	</div>
 {/if}
 
-<style>
+<style lang="scss">
+		@use "$styles/surface-colors" as *;
+
     :global {
         html {
-            --pinya-card-color: var(--color-primary-200);
+            --pinya-card-bg-color: var(--color-primary-200);
             --pinya-card-border-color: var(--color-primary-500);
         }
 
         html.dark {
-            --pinya-card-color: var(--color-surface-900);
+            --pinya-card-bg-color: var(--color-surface-900);
             --pinya-card-border-color: transparent;
         }
     }
 
     .pinya-card-default {
+		    @extend %card-body;
         /*might need to switch*/
         padding: calc(var(--spacing) * 16) 1lh;
         display: flex;
@@ -55,6 +58,5 @@ When with texts, wrap the text content inside a div so flex wont apply
         max-width: var(--container-md);
         border-width: 2px;
         border-color: var(--pinya-card-border-color);
-        background-color: var(--pinya-card-color);
     }
 </style>

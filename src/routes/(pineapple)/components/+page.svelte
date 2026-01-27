@@ -39,7 +39,7 @@
 		</PinyaButton>
 		<div class="mt-4 mb-4">
 			<label for="test-switch">Switch is {testSwitchVal}</label>
-			<PinyaSwitch name="test-switch"></PinyaSwitch>
+			<PinyaSwitch bind:checked={testSwitchVal} name="test-switch"></PinyaSwitch>
 		</div>
 
 		<h3 class="mb-2">Placeholders</h3>
