@@ -1,5 +1,6 @@
 <script lang="ts" module>
 	import type { ToastSettings } from "$pkg/ui/components/MeltToaster/ToastSettings";
+	import { Toaster } from "melt/builders";
 
 	// const toaster = new Toaster<ToastSettings>({ closeDelay: 0 });
 	const toaster = new Toaster<ToastSettings>();
@@ -8,7 +9,6 @@
 </script>
 
 <script lang="ts">
-	import { Toaster } from "melt/builders";
 	import { onDestroy, onMount } from "svelte";
 
 	let toasterRoot: HTMLDivElement;
@@ -50,7 +50,7 @@
 
 		<div {...toast.content} class={`toast-instance ${toast.data.type}`}>
 			<div class="toast-header">
-				<h3 {...toast.title}>{toast.data.title}</h3>
+				<div {...toast.title} class="fake-h4">{toast.data.title ?? (toast.data.type ?? "Info").toUpperCase()}</div>
 				<button {...toast.close} aria-label="dismiss alert">X</button>
 			</div>
 			<div {...toast.description}>{toast.data.description}</div>
@@ -67,15 +67,16 @@
             @extend %surface-body;
 
             position: fixed;
+		        width: min(90vw, 14em);
 
             --toast-gap: -10lh;
             bottom: calc(var(--toast-gap));
             transition: bottom 0.25s linear 0.2s, transform 0.25s linear 0.2s;
 
-		        &:last-child {
-				      // the entering new child will bounce with y2=1.2
-              transition: bottom 0.25s cubic-bezier(0, 0, 0.5, 1.2), transform 0.25s linear;
-		        }
+            &:last-child {
+                // the entering new child will bounce with y2=1.2
+                transition: bottom 0.25s cubic-bezier(0, 0, 0.5, 1.2), transform 0.25s linear;
+            }
 
             transform: scale(var(--toast-scale));
             z-index: var(--toast-index);

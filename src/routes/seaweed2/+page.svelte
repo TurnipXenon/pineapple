@@ -110,6 +110,6 @@
     }
 
     .accordion-wrapper {
-		    margin: 0 -3rem;
+		    margin: 0 -1rem;
     }
 </style>

@@ -7,7 +7,7 @@
 	let {
 		title,
 		entryList,
-		projectComponentProps,
+		projectComponentProps
 	}: ProjectGroup = $props();
 
 	const isSpecial = $derived(entryList.length % 3 === 1);
@@ -21,7 +21,7 @@
 </script>
 
 <div class="mt-8 flex flex-col items-center">
-	<PinyaCard widthClass="w-full" className="mb-8">
+	<PinyaCard class="group-header">
 		<h2 class="m-auto">{title}</h2>
 	</PinyaCard>
 	<div class="normal-project-container">
@@ -64,5 +64,12 @@
         max-width: calc((28rem * 2) + 3rem);
         justify-content: center;
         align-items: start;
+    }
+
+    :global {
+        .group-header.pinya-card-default {
+            margin-bottom: calc(var(--spacing) * 8);
+            max-width: unset;
+        }
     }
 </style>

@@ -1,9 +1,7 @@
-<!-- TODO: Migration: review and migrate this component -->
-
 <script lang="ts">
 
-	import type { Snippet } from 'svelte';
-	import { PinyaCard, type PinyaCardProps } from '$pkg/ui/elements';
+	import { PinyaCard, type PinyaCardProps } from "$pkg/ui/elements";
+	import type { Snippet } from "svelte";
 
 	interface Props extends PinyaCardProps {
 		headerCover?: Snippet;
@@ -16,12 +14,11 @@
 		header,
 		footer,
 		headerCover,
-		paddingClass = '',
 		...props
 	}: Props = $props();
 </script>
 
-<PinyaCard {...props} {paddingClass}>
+<PinyaCard {...props} class={`pinya-four-part-card ${props.class}`}>
 	<section class="mb-6">
 
 		{#if headerCover}
@@ -47,3 +44,11 @@
 		</section>
 	</section>
 </PinyaCard>
+
+<style>
+    :global {
+        .pinya-four-part-card.pinya-card-default {
+            padding: 0;
+        }
+    }
+</style>

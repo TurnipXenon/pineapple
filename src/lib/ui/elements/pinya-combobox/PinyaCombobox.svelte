@@ -44,7 +44,7 @@ Melt-based Combobox
 When migrating from Skeleton to Melt, change the value is no longer an array T[] but it's now T | undefined
 -->
 
-<div class="pinya-combobox-wrapper">
+<div class={`pinya-combobox-wrapper ${props.class}`}>
 	<label {...combobox.label}>{props.label}</label>
 	<div class="pinya-combobox-control">
 		<input {...combobox.input} />

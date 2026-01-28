@@ -2,13 +2,9 @@
 
 <script lang="ts">
 	import { type CreateUrlRequest, CreateUrlResult, jsonToCreateUrlResponse } from "$pkg/types/api/CreateUrl";
-	// import type { ToastContext } from "@skeletonlabs/skeleton-svelte";
-	import { getContext } from "svelte";
-	import type { ToastSettings } from "../../components/MeltToaster/ToastSettings";
+	import { addToast } from "$pkg/ui/components/MeltToaster/MeltToaster.svelte";
 	import PinyaButton from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
-
-	// export const toast: ToastContext = getContext("toast");
-
+	import type { ToastSettings } from "../../components/MeltToaster/ToastSettings";
 
 	interface Props {
 		queryParams?: string;
@@ -28,15 +24,17 @@
 
 
 	const failToast: ToastSettings = {
-		title: "Adding new url failed",
-		type: "error"
+		type: "error",
+		description: "Adding new url failed"
 	};
 	const toastMap = new Map<CreateUrlResult, ToastSettings>([
 		[CreateUrlResult.Success, {
-			title: "Successfully added new url"
+			type: "success",
+			description: "Successfully added new url"
 		}],
 		[CreateUrlResult.Duplicate, {
-			title: "Short url already used; try again with another url"
+			type: "error",
+			description: "Short url already used; try again with another url"
 		}],
 		[CreateUrlResult.Fail, failToast]
 	]);
@@ -51,8 +49,7 @@
 			resp.json()
 		).then(json => {
 			const properResp = jsonToCreateUrlResponse(json);
-			// todo: toast
-			// toast.create(toastMap.get(properResp.result) ?? failToast);
+			addToast({ data: toastMap.get(properResp.result) ?? failToast });
 		});
 	};
 </script>
@@ -78,6 +75,6 @@
         display: flex;
         flex-direction: column;
         gap: 0.5lh;
-		    margin-top: 1lh;
+        margin-top: 1lh;
     }
 </style>

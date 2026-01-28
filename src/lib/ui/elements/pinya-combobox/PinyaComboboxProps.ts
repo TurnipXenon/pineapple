@@ -1,3 +1,5 @@
+import type { HTMLAttributes } from "svelte/elements";
+
 export interface GenericComboboxItem<T extends string> {
 	label: string;
 	value: T;
@@ -8,7 +10,7 @@ export interface ValueChangeDetails<T extends string> {
 	items: GenericComboboxItem<T>[]
 }
 
-export interface PinyaComboboxProps<T extends string> {
+export type PinyaComboboxProps<T extends string> = {
 	/* list of options */
 	data: GenericComboboxItem<T>[]
 	defaultValue: T | undefined;
@@ -22,4 +24,4 @@ export interface PinyaComboboxProps<T extends string> {
 	onValueChangeBase?: (e: T | undefined) => void;
 	contentZIndex?: string;
 	disabled?: boolean;
-}
+} & HTMLAttributes<HTMLDivElement>;

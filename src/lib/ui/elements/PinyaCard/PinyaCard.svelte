@@ -51,7 +51,7 @@ When with texts, wrap the text content inside a div so flex wont apply
     .pinya-card-default {
 		    @extend %card-body;
         /*might need to switch*/
-        padding: calc(var(--spacing) * 16) 1lh;
+        padding: 1lh calc(var(--spacing) * 8);
         display: flex;
         flex-direction: column;
         width: 100%;

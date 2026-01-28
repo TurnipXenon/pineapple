@@ -286,4 +286,9 @@
         gap: 0.25em;
         margin-top: 1lh;
     }
+
+    .advanced-setting {
+		    margin-left: 1em;
+		    margin-right: 1em;
+    }
 </style>

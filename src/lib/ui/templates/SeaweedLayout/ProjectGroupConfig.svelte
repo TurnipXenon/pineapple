@@ -128,10 +128,9 @@
 </script>
 
 <PinyaCard
-	widthClass="max-w-2xl"
+	class="project-group-config-card"
 	borderClass="border-[2px] border-primary-500"
 	marginClass="mt-4 mb-4"
-	paddingClass=""
 >
 
 	<div class="m-4 flex flex-row gap-2">
@@ -202,6 +201,7 @@
 				<PinyaButton onclick={addEntry}>Add Entry
 				</PinyaButton>
 				<PinyaCombobox
+					class="project-group-config"
 					data={comboboxData}
 					defaultValue={comboboxValue}
 					bind:value={comboboxValue}
@@ -258,5 +258,16 @@
         display: flex;
         flex-direction: row;
         gap: 1em;
+    }
+
+    :global {
+        .project-group-config-card.pinya-card-default {
+            max-width:var(--container-2xl);
+		        padding: 0;
+        }
+
+        .project-group-config.pinya-combobox-wrapper {
+		        flex-grow: 1;
+        }
     }
 </style>
