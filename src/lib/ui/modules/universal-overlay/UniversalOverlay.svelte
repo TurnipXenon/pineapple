@@ -12,10 +12,12 @@ See panels:
 
 	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
+	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
 	import { m } from "$pkg/external/paraglide/messages";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
-	import { ColorScheme } from "$pkg/ui/elements/index";
+	import { ButtonVariant, ColorScheme, ImageIcon } from "$pkg/ui/elements/index";
+	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
 	import DialogPanel from "$pkg/ui/modules/universal-overlay/DialogPanel.svelte";
 	import SettingsPanel from "$pkg/ui/modules/universal-overlay/SettingsPanel.svelte";
 	import { appState } from "$pkg/ui/templates/PinyaPageLayout/pinyaPageLayoutRunes.svelte.js";
@@ -25,6 +27,7 @@ See panels:
 		getOverlayTypeContext
 	} from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { onMount } from "svelte";
+	import { modals } from "svelte-modals";
 	import { slide } from "svelte/transition";
 	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
 	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
@@ -94,34 +97,39 @@ See panels:
 				<SettingsPanel></SettingsPanel>
 			{/if}
 			<div id="settings-menu-bar">
-				<!-- settings -->
-				<PinyaButton
-					colorScheme={_overlayType.value === 'settings' ? ColorScheme.Secondary : undefined}
-					onclick={()=>{_overlayType.value = 'settings';}}
-				>
-					S
-				</PinyaButton>
-				<!-- site map -->
-				<PinyaButton
-					colorScheme={_overlayType.value === 'site-map' ? ColorScheme.Secondary : undefined}
-					onclick={()=>{_overlayType.value = 'site-map';}}
-				>
-					M
-				</PinyaButton>
-				<!-- convo (active) -->
-				<PinyaButton
-					colorScheme={_overlayType.value === 'dialog' ? ColorScheme.Secondary : undefined}
-					onclick={()=>{_overlayType.value = "dialog";}}
-				>
-					C
-				</PinyaButton>
 				<!-- close -->
 				<PinyaButton
+					buttonVariant={ButtonVariant.Image}
 					title="close overlay"
 					onclick={()=>{dialogManager.toggleDialogOverlay();}}
 				>
-					X
+					<ImageIcon src={CloseIcon} aria-hidden="true" alt=""></ImageIcon>
 				</PinyaButton>
+				<!-- settings -->
+				<PinyaButton
+					title="settings"
+					buttonVariant={ButtonVariant.Image}
+					colorScheme={_overlayType.value === 'settings' ? ColorScheme.Secondary : undefined}
+					onclick={()=>{modals.open(GeneralSettingsModal);}}
+				>
+					<ImageIcon src={SettingsLogo} aria-hidden="true" alt=""></ImageIcon>
+				</PinyaButton>
+				<!-- site map -->
+				<PinyaButton
+					title="site map"
+					colorScheme={_overlayType.value === 'site-map' ? ColorScheme.Secondary : undefined}
+					onclick={()=>{alert('not yet implemented')}}
+				>
+					M
+				</PinyaButton>
+<!--				 convo (active) -->
+<!--				<PinyaButton-->
+<!--					title="dialog"-->
+<!--					colorScheme={_overlayType.value === 'dialog' ? ColorScheme.Secondary : undefined}-->
+<!--					onclick={()=>{_overlayType.value = "dialog";}}-->
+<!--				>-->
+<!--					C-->
+<!--				</PinyaButton>-->
 			</div>
 		</div>
 	</div>
@@ -172,7 +180,7 @@ See panels:
 	        overflow-y: auto;
 	        border-width: 0 2px 0 0;
 	        padding: 1.3lh 1em;
-	        border-color: var(--color-primary-50-900);
+	        border-color: var(--color-primary-400-600);
 	      }
 
         #panel-container {
@@ -184,17 +192,27 @@ See panels:
             #settings-menu-bar {
                 display: flex;
                 flex-direction: column;
-                justify-content: flex-end;
+                justify-content: flex-start;
                 padding-bottom: 0.2rem;
+                padding-top: 0.5rem;
                 gap: 0.5rem;
                 margin: 0 0.4rem;
-
-                * {
-                    padding: 0.4rem;
-                }
+		            overflow-y: auto;
             }
         }
     }
+
+	  :global {
+        #settings-menu-bar {
+            * {
+                padding: 0.4rem;
+            }
+
+            .pinya-button {
+                border-radius: 2rem;
+            }
+        }
+	  }
 
     .dialog-elements {
 		    @extend %surface-dialog;

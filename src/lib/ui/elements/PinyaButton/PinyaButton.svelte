@@ -19,7 +19,7 @@
 
 <button
 	{...props}
-	class={`${props.class ?? ''} ${tailwindClass}`}
+	class={`pinya-button ${props.class ?? ''} ${tailwindClass}`}
 >
 	{@render children()}
 </button>
