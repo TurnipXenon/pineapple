@@ -1,5 +1,3 @@
-<!-- TODO: Migration: review and migrate this component -->
-
 <script lang="ts">
 	import { scale } from 'svelte/transition';
 	import { elasticOut } from 'svelte/easing';

@@ -1,5 +1,3 @@
-<!-- TODO: Migration: review and migrate this component -->
-
 <script lang="ts">
 	let {
 		src,
@@ -33,8 +31,9 @@
     }
 
     img {
-        width: 8rem;
-        height: 8rem;
+		    --randomized-image-size: min(10vw, 10vh);
+        width: var(--randomized-image-size);
+        height: var(--randomized-image-size);
         transform: rotate(var(--rotateRandom));
     }
 
