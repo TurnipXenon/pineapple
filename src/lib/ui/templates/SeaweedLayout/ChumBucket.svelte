@@ -1,5 +1,3 @@
-<!-- TODO: Migration: review and migrate this component -->
-
 <script lang="ts">
 	import { type PageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { onMount } from "svelte";

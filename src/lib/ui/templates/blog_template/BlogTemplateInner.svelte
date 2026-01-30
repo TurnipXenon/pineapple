@@ -1,5 +1,3 @@
-<!-- TODO: Migration: review and migrate this component -->
-
 <script lang="ts">
 	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 
@@ -25,7 +23,7 @@
 		{#if pageMeta.tags.length > 0}
 			<section id="article-tags">
 				Tags:
-				{#each pageMeta.tags as tag}
+				{#each pageMeta.tags as tag, index (index)}
 					<span class="badge preset-filled">{tag}</span>
 				{/each}
 			</section>

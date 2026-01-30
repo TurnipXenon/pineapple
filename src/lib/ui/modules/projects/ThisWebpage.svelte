@@ -1,5 +1,3 @@
-<!-- TODO: Migration: review and migrate this component -->
-
 <script module lang="ts">
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
 	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
