@@ -10,6 +10,8 @@
     "sourceMap": true,
     "strict": true,
     "moduleResolution": "bundler",
+    "declaration": true,
+    "declarationMap": true,
     "types": [
       "./src/worker-configuration.d.ts",
       "node"
