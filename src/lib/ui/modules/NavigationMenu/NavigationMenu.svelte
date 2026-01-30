@@ -1,5 +1,3 @@
-<!-- TODO: Migration: review and migrate this component -->
-
 <script lang="ts">
 	import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
 	import NavigationControl from "$pkg/ui/modules/NavigationMenu/NavigationControl.svelte";
@@ -74,7 +72,7 @@
 <div class="navigation-wrapper">
 	{#if (title)}
 		<div>
-			<PinyaCard widthClass="">
+			<PinyaCard widthClass="w-full">
 				<h1 class="navigation-title">
 					{title}
 				</h1>
@@ -145,13 +143,13 @@
             border-radius: var(--theme-rounded-container) var(--theme-rounded-container) 0 0;
         }
 
-        :global(.navigation-element) {
+        :global(.navigation-element.pinya-card) {
             flex-direction: column;
         }
     }
 
     @container (min-width: 801px) {
-        :global(.navigation-element) {
+        :global(.navigation-element.pinya-card) {
             flex-direction: row;
         }
 
@@ -160,7 +158,7 @@
         }
     }
 
-    :global(.navigation-element) {
+    :global(.navigation-element.pinya-card) {
         /* todo: migration */
         /*@apply btn card card-hover bg-surface-100 dark:bg-surface-900;*/
         container-type: inline-size;

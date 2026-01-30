@@ -47,7 +47,7 @@
 
 <style>
     :global {
-        .pinya-four-part-card.pinya-card-default {
+        .pinya-four-part-card.pinya-card {
             padding: 0;
         }
     }

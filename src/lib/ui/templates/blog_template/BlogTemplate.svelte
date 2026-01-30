@@ -1,8 +1,6 @@
-<!-- TODO: Migration: review and migrate this component -->
-
 <script lang="ts">
 	import "./blog-template.css";
-	import { getIgnoreOverlayOverride, setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions";
+	import { setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { onDestroy, onMount, type Snippet } from "svelte";
 	import BlogTemplateInner from "$pkg/ui/templates/blog_template/BlogTemplateInner.svelte";
 	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
@@ -29,15 +27,15 @@
 
 	let initialDialogState = false;
 
+	setIgnoreOverlayOverride(true);
+
 	onMount(() => {
 		initialDialogState = $enableUniversalOverlaySvelte4;
-		setIgnoreOverlayOverride(true);
 		enableUniversalOverlaySvelte4.set(shouldEnableDialogOverlay);
 	});
 
 	onDestroy(() => {
 		appState.bgOpacity = 1;
-		setIgnoreOverlayOverride(true);
 		enableUniversalOverlaySvelte4.set(initialDialogState);
 	});
 

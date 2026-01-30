@@ -67,7 +67,7 @@
     }
 
     :global {
-        .group-header.pinya-card-default {
+        .group-header.pinya-card {
             margin-bottom: calc(var(--spacing) * 8);
             max-width: unset;
         }

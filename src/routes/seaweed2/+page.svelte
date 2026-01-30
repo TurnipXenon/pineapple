@@ -71,7 +71,7 @@
 				</div>
 			</PinyaCard>
 
-			<PinyaCard paddingClass="pt-6 pb-6">
+			<PinyaCard paddingClass="social-section-card">
 				{@render socialSection()}
 				<ElementVisibilityDetector bind:isVisible={isSocialVisible} />
 			</PinyaCard>
@@ -111,5 +111,10 @@
 
     .accordion-wrapper {
 		    margin: 0 -1rem;
+    }
+
+    :global(.social-section-card) {
+		    padding-top: calc(var(--spacing) * 6);
+		    padding-bottom: calc(var(--spacing) * 6);
     }
 </style>

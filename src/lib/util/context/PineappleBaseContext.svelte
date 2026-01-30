@@ -36,7 +36,6 @@
 	onMount(() => {
 		enableUniversalOverlaySvelte4.subscribe((value) => {
 			if (ignoreOverlaySet) {
-				console.log('initial enable-dialog-overlay')
 				ignoreOverlaySet = false;
 				// force initial value?
 				enableUniversalOverlaySvelte4.set(_enableDialogOverlayRunes.value);

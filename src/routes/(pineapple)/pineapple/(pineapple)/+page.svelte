@@ -35,30 +35,63 @@
 	let allowPagination = $state(true);
 </script>
 
-<div class="mb-8">
-	<PinyaCard widthClass="w-auto" flexClass="flex flex-row gap-4 items-center justify-center flex-wrap">
-		<PinyaButton
-			onclick={onTestDialogClick}
-		>
-			<div class="fake-h4">Test dialog</div>
-		</PinyaButton>
-		<div>
-			<PineappleSwitch
-				name="advanced-setting-slider"
-				bind:checked={allowPagination}>
-				Allow pagination: {allowPagination ? "On" : "Off"}
-			</PineappleSwitch>
-		</div>
-	</PinyaCard>
+<div class="page-wrapper">
+	<div class="mb-8">
+		<PinyaCard class="test-dialog-card">
+			<PinyaButton
+				onclick={onTestDialogClick}
+			>
+				<div class="fake-h4">Test dialog</div>
+			</PinyaButton>
+			<div class="advanced-setting-slider-wrapper">
+				<PineappleSwitch
+					name="advanced-setting-slider"
+					bind:checked={allowPagination}>
+				</PineappleSwitch>
+				<label for="advanced-setting-slider">
+					Allow pagination: {allowPagination ? "On" : "Off"}
+				</label>
+			</div>
+		</PinyaCard>
+	</div>
+
+	<NavigationMenu
+		title="Navigation Component Test"
+		fileList={fileList}
+		jsonList={jsonList}
+		imageMap={ImageMap}
+		shouldAllowControl={allowPagination}
+		parentSubpath="/pineapple/"
+		parsnipOverall={data.parsnipOverall}
+	>
+	</NavigationMenu>
 </div>
 
-<NavigationMenu
-	title="Navigation Component Test"
-	fileList={fileList}
-	jsonList={jsonList}
-	imageMap={ImageMap}
-	shouldAllowControl={allowPagination}
-	parentSubpath="/pineapple/"
-	parsnipOverall={data.parsnipOverall}
->
-</NavigationMenu>
+<style>
+    .page-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    :global {
+        .test-dialog-card.pinya-card {
+            width: auto;
+            max-width: var(--container-lg);
+            display: flex;
+            flex-direction: row;
+            justify-items: center;
+            flex-wrap: wrap;
+            gap: calc(var(--spacing) * 4);
+        }
+    }
+
+    .advanced-setting-slider-wrapper {
+        display: flex;
+        flex-direction: row;
+		    gap: 1em;
+		    justify-items: center;
+    }
+</style>

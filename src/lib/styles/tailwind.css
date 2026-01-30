@@ -3098,7 +3098,7 @@ a:not(.a-as-btn):hover,
 a:not(.a-as-btn):focus {
   filter:brightness(150%)
 }
-a.a-as-btn:hover {
+.a-as-btn:hover {
   filter:brightness(110%)
 }
 a:not(.a-as-btn):visited {

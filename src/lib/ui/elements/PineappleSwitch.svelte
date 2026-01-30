@@ -26,7 +26,7 @@ Posted by Naeem Akhtar
 Retrieved 2026-01-26, License - CC BY-SA 4.0
 -->
 <label class="pinya-toggle toggle">
-	<input type="checkbox" bind:checked={checked} name={name} onchange={_onChange} />
+	<input type="checkbox" bind:checked={checked} {name} onchange={_onChange} />
 	<span class="slider"></span>
 	{@render children?.()}
 </label>

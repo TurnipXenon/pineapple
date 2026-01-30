@@ -6,8 +6,8 @@
 	import { setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { onMount } from "svelte";
 
+	setIgnoreOverlayOverride(true);
 	onMount(() => {
-		setIgnoreOverlayOverride(true);
 		enableUniversalOverlaySvelte4.set(true);
 	});
 </script>

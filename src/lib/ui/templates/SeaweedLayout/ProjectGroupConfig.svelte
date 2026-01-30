@@ -261,7 +261,7 @@
     }
 
     :global {
-        .project-group-config-card.pinya-card-default {
+        .project-group-config-card.pinya-card {
             max-width:var(--container-2xl);
 		        padding: 0;
         }
