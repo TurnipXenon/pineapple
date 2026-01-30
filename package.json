@@ -98,7 +98,10 @@
   "engines": {
     "node": ">=22"
   },
-  "repository": "https://github.com/TurnipXenon/pineapple",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TurnipXenon/pineapple.git"
+  },
   "author": "turnipxenon <turnipxenon@gmail.com>",
   "license": "MIT",
   "svelte": "./dist/index.js",
