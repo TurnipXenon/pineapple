@@ -1,4 +1,6 @@
-<!-- TODO: Migration: review and migrate this component -->
+<!-- @component TextChip
+ todo: consider current-surface scss and tailwind cleanup
+ -->
 
 <script lang="ts">
 	import type { TextChipProps } from "./TextChipProps";

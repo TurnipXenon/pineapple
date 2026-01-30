@@ -1,16 +1,19 @@
-<!-- TODO: Migration: review and migrate this component -->
+<!-- @component TextLink
+ todo: consider current-surface scss
+ -->
 
 <script lang="ts">
-	import { type Snippet } from 'svelte';
+	import { type Snippet } from "svelte";
+	import type { HTMLAnchorAttributes } from "svelte/elements";
 
 	let {
 		children,
-		href
-	}: { href: string, children: Snippet } = $props();
+		...props
+	}: { href: string, children: Snippet } & HTMLAnchorAttributes = $props();
 </script>
 
 <a
-	{href}
+	{...props}
 	class="visited:text-surface-950 dark:visited:text-surface-400">
 	{@render children?.()}
 </a>

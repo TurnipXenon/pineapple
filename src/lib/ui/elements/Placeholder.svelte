@@ -1,4 +1,6 @@
-<!-- TODO: Migration: review and migrate this component -->
+<!-- @component Placeholder
+ todo: consider current-surface scss
+ -->
 
 <script lang="ts">
 	let {
@@ -13,7 +15,7 @@
 <div
 	class="
 	{isCircle ?'placeholder-circle' : 'placeholder'}
-	animate-pulse bg-surface-600 dark:bg-surface-800
+	animate-pulse bg-surface-400 dark:bg-surface-800
 	{classes}
 "
 ></div>

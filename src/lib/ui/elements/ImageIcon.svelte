@@ -1,4 +1,6 @@
-<!-- TODO: Migration: review and migrate this component -->
+<!-- @component ImageIcon
+ todo: consider current-surface scss
+ -->
 
 <script lang="ts">
 	import type { HTMLImgAttributes } from 'svelte/elements';

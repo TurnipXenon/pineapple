@@ -1,4 +1,6 @@
-<!-- TODO: Migration: review and migrate this component -->
+<!-- @component PinyaAnchorButton
+ todo: consider current-surface scss and tailwind cleanup
+ -->
 
 <script lang="ts">
 	import { ColorScheme } from "$pkg/ui/elements/ColorScheme";
