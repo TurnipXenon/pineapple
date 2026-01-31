@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 
 	import { PinyaCard, type PinyaCardProps } from "$pkg/ui/elements";

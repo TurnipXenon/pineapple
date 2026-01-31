@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <!-- @component PinyaAnchorButton
  todo: consider current-surface scss and tailwind cleanup
  -->

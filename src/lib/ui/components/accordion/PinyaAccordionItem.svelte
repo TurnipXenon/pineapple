@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <!-- TODO: remove tailwind like classes -->
 
 <script lang="ts">

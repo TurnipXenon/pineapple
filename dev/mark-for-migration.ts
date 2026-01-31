@@ -3,7 +3,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const MARKER = "<!-- TODO: Migration: review and migrate this component -->";
+const MARKER = "<!-- TODO: Documentation: consider documentation showcase -->";
 
 async function getAllSvelteFiles(dir: string, out: string[] = []): Promise<string[]> {
 	const entries = await fs.readdir(dir, { withFileTypes: true });

@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
 	import LinkedinIcon from "$pkg/assets/icons/linkedin.svg";

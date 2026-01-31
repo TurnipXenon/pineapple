@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import { type PinyaButtonProps } from "./PinyaButtonProps";
 	import { ColorScheme } from "$pkg/ui/elements/ColorScheme";

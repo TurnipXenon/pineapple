@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import { fly } from "svelte/transition";
 	import type { ProjectGroup, SeaweedLayoutProps } from "./props";

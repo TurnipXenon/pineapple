@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import { type PageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { onMount } from "svelte";

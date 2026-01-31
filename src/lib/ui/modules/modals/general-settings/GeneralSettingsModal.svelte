@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import type { ModalProps } from 'svelte-modals';
 	import { setMode, userPrefersMode } from 'mode-watcher';

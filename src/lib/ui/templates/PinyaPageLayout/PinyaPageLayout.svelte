@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import { dialogManager } from "$pkg";
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";

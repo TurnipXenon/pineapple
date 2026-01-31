@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <!-- @component
 Overlay that contains the dialog, settings, and site map
 

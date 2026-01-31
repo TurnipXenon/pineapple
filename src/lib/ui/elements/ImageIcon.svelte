@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <!-- @component ImageIcon
  todo: consider current-surface scss
  -->

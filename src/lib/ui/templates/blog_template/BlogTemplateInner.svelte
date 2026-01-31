@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 

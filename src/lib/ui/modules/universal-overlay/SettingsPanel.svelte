@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <!-- @component
 Layout and logic for Settings
 

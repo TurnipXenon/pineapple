@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts" module>
 	import type { ToastSettings } from "$pkg/ui/components/MeltToaster/ToastSettings";
 	import { Toaster } from "melt/builders";

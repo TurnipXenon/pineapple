@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import { Accordion } from "melt/builders";
 	import { setContext, type Snippet } from "svelte";

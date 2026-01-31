@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <!-- @component
 # Note:
 When with texts, wrap the text content inside a div so flex wont apply

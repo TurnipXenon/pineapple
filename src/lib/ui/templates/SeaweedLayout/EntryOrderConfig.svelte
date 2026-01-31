@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
 	import ProjectGroupConfig from "$pkg/ui/templates/SeaweedLayout/ProjectGroupConfig.svelte";

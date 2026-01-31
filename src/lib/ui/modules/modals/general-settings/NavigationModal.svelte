@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import ConstrastIcon from "$pkg/assets/icons/icon-contrast.svg";
 	import DarkIcon from "$pkg/assets/icons/icon-dark-mode.svg";

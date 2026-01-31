@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <!-- TODO: add suspend? load images first before showing them up slowly? -->
 
 <script lang="ts">

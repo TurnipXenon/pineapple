@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import { page } from "$app/state";
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";

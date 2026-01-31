@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import UpwardIcon from "$pkg/assets/icons/arrow-upward.svg";
 	import CloseIcon from "$pkg/assets/icons/close.svg";

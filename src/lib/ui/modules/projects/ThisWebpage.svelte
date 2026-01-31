@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script module lang="ts">
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
 	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";

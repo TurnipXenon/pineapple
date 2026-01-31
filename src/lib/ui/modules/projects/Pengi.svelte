@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script module lang="ts">
 	import HeaderPengi from "$pkg/assets/temp/header-pengi.mp4";
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";

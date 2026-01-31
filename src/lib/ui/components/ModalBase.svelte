@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import { scale } from 'svelte/transition';
 	import { elasticOut } from 'svelte/easing';

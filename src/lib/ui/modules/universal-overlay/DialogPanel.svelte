@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <!-- @component
 Layout and logic for DialogPanel. Some of the logics for the portraits are in UniversalOverlay.svelte
 -->
