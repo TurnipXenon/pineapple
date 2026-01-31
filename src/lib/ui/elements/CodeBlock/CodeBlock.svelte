@@ -68,8 +68,11 @@
 <style>
 	:global {
 			.pinya-code-block {
-					margin-top: 1lh;
-					margin-bottom: 1lh;
+					margin-bottom: 1rlh;
+			}
+
+			h2 + .pinya-code-block {
+					margin-top: 0.5rlh;
 			}
 	}
 </style>

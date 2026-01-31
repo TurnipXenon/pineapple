@@ -77,6 +77,7 @@
                 margin: 0 1rem;
                 height: 1lh;
                 width: unset;
+		            z-index: 10;
             }
         }
 

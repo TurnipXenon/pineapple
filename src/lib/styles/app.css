@@ -188,4 +188,8 @@ pre button.copy {
     }
 }
 
+ul + h2 {
+    margin-top: 1rlh;
+}
+
 /* endregion general styles */
