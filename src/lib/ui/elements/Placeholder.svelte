@@ -5,16 +5,20 @@
  -->
 
 <script lang="ts">
+	import type { HTMLAttributes } from "svelte/elements";
+
 	let {
 		isCircle = false,
 		classes = '',
+		...props
 	}: {
 		isCircle?: boolean;
 		classes?: string;
-	} = $props();
+	} & HTMLAttributes<HTMLDivElement>= $props();
 </script>
 
 <div
+	{...props}
 	class="
 	{isCircle ?'placeholder-circle' : 'placeholder'}
 	animate-pulse bg-surface-600 dark:bg-surface-800

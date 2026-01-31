@@ -65,7 +65,7 @@
 	<h2>Navigation</h2>
 
 	<div class="wrapper nested-navigation">
-		<NestedNavigation layout={siteLayout} depth={0} close={props.close}></NestedNavigation>
+		<NestedNavigation layout={siteLayout} depth={0} close={props.close} openBehavior="open-active"></NestedNavigation>
 	</div>
 
 	<div class="actions">

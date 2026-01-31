@@ -10,7 +10,7 @@ When with texts, wrap the text content inside a div so flex wont apply
 
 	let _props: PinyaCardProps = $props();
 
-	let cardClass = $derived(`
+	let cardClass = $derived(`pinya-card
 	${_props.paddingClass ?? "default-padding"} ${_props.flexClass ?? "default-flex"} ${_props.className ?? ""}
 	${_props.widthClass ?? "default-width"} ${_props.borderClass ?? "default-border"} ${_props.marginClass ?? "default-margin"}
 	${_props.colorClass ?? "default-color"}

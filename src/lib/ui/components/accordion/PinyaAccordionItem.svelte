@@ -5,6 +5,7 @@
 <script lang="ts">
 	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
 	import { getContext, type Snippet } from "svelte";
+	import type { HTMLAttributes } from "svelte/elements";
 	import { type AccordionContext, accordionContextKey } from "./accordionContext";
 
 	let {
@@ -21,7 +22,7 @@
 		panel?: Snippet;
 		pinyaValue?: string
 		hasNoChild?: boolean,
-	} = $props();
+	} & HTMLAttributes<HTMLDivElement> = $props();
 
 	let uid = $props.id();
 	let accordionContext = getContext<AccordionContext>(accordionContextKey);
@@ -31,7 +32,7 @@
 	);
 </script>
 
-<div class="pinya-accordion-item consider-top-edge consider-bottom-edge bg-primary-100 dark:bg-tertiary-900 dark:saturate-75" {...props}>
+<div {...props} class="pinya-accordion-item consider-top-edge consider-bottom-edge bg-primary-100 dark:bg-tertiary-900 dark:saturate-75 {props.class}">
 	{#if accordionItem}
 		<div {...accordionItem.heading} class="consider-top-edge accordion-heading">
 			{#if hasNoChild}

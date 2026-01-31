@@ -26,7 +26,7 @@
 </script>
 <div id="documentation-layout-wrapper">
 	<div id="documentation-header">
-		<NestedNavigation layout={documentationLayout} depth={0} close={() => {}}></NestedNavigation>
+		<NestedNavigation layout={documentationLayout} depth={0} close={() => {}} openBehavior="open-all"></NestedNavigation>
 	</div>
 	<div id="container2">
 		{@render children()}
