@@ -44,9 +44,6 @@ importers:
       shiki:
         specifier: ^3.14.0
         version: 3.14.0
-      shiki-transformer-copy-button:
-        specifier: 0.0.3
-        version: 0.0.3
       string-width:
         specifier: ^7.2.0
         version: 7.2.0
@@ -117,6 +114,9 @@ importers:
       sass:
         specifier: ^1.97.3
         version: 1.97.3
+      shiki-transformer-copy-button:
+        specifier: 0.0.3
+        version: 0.0.3
       svelte:
         specifier: ^5.43.2
         version: 5.43.2
