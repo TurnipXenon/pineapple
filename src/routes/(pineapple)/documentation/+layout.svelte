@@ -31,7 +31,7 @@
 	let documentationLayout = $derived.by(() => {
 		const siteList = getSiteLayout().filter(layout => layout.relativeLink.includes("documentation"));
 		if (siteList.length > 0) {
-			return siteList[0].nestedPages;
+			return [siteList[0]];
 		}
 		return [];
 	});
@@ -84,6 +84,7 @@
             margin: 1lh 1rem;
             min-width: calc(66em * 0.5);
             max-width: 66em;
+		        align-self: flex-start;
 
             @media (max-width: 58em) {
                 min-width: unset;
@@ -91,6 +92,7 @@
                 margin: 0 1rem;
                 margin-top: 1lh;
                 width: unset;
+		            align-self: unset;
             }
         }
     }
