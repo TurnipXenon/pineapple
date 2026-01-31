@@ -14,7 +14,7 @@
 	import { pinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 	import { appState, PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/index";
 	import { setSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions";
-	import type { Snippet } from "svelte";
+	import { onMount, type Snippet } from "svelte";
 	import { getParsnipDataRemote } from "./pineapple/getParsnipData.remote";
 
 	interface Props {
@@ -30,14 +30,17 @@
 	const jsonList = import.meta.glob("./**/meta.json", { query: "?raw", eager: true });
 	let fileBasedList = $state<PageMeta[]>([]);
 	setSiteLayout(fileBasedList);
-	getParsnipDataRemote().then(data => {
-		fileBasedList.push(...parsePageMetaNested({
-			fileList,
-			jsonList,
-			imageMap: new Map<string, string>(),
-			parsnipOverall: data.parsnipOverall,
-			parsnipBasePath: "pineapple/"
-		}));
+
+	onMount(() => {
+		getParsnipDataRemote().then(data => {
+			fileBasedList.push(...parsePageMetaNested({
+				fileList,
+				jsonList,
+				imageMap: new Map<string, string>(),
+				parsnipOverall: data.parsnipOverall,
+				parsnipBasePath: "pineapple/"
+			}));
+		});
 	});
 </script>
 

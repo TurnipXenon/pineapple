@@ -150,6 +150,10 @@
                 border-radius: 50%;
             }
         }
+
+				:root {
+		      --default-page-container-margin: 4rem 1rem 0 1rem;
+				}
 		}
 
     header {
@@ -164,7 +168,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 4rem 1rem 0 1rem;
+        margin: var(--default-page-container-margin);
         flex-direction: column;
     }
 

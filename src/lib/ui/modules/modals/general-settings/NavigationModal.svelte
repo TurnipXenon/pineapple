@@ -121,15 +121,15 @@
 
         .nested-navigation {
             overflow: auto;
-		        padding: 0;
+            padding: 0;
 
             & > * {
                 margin: 1lh 1rem;
             }
 
-		        .wrapper {
-				        padding-inline-start: 1rem;
-		        }
+            .wrapper {
+                padding-inline-start: 1rem;
+            }
         }
     }
 
