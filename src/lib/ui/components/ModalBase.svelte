@@ -5,7 +5,7 @@
 	import type { ModalProps } from 'svelte-modals';
 
 	import { onMount, type Snippet } from 'svelte';
-	import { PinyaCard } from '$pkg/ui/elements';
+	import { PinyaCard, type PinyaCardProps } from "$pkg/ui/elements";
 
 	// https://svelte-modals.mattjennin.gs/modal-components/props/#typescript
 	interface ModalBaseProps extends ModalProps {
@@ -15,8 +15,9 @@
 	let {
 		children,
 		isOpen,
-		close
-	}: ModalBaseProps = $props();
+		close,
+		...props
+	}: ModalBaseProps & PinyaCardProps = $props();
 
 	let container = $state<HTMLDivElement>();
 	onMount(() => {
@@ -44,6 +45,7 @@
 			<PinyaCard
 				widthClass="max-w-xl2"
 				paddingClass="pl-8 pr-8 pt-4 pb-8"
+				{...props}
 			>
 				{@render children?.()}
 			</PinyaCard>

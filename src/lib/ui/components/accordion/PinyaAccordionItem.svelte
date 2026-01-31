@@ -3,64 +3,82 @@
 <script lang="ts">
 	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
 	import { getContext, type Snippet } from "svelte";
-	import { accordionContextKey, type AccordionContext } from "./accordionContext";
+	import { type AccordionContext, accordionContextKey } from "./accordionContext";
 
 	let {
 		control: controlSnippet,
 		controlIndicator = undefined,
-		panel: panelSnippet,
+		panel: panelSnippet = undefined,
+		hasNoChild = false,
 		pinyaValue,
 		...props
 	}: {
 		control: Snippet;
 		/** take advantage that the parent has [data-state="closed"] */
 		controlIndicator?: Snippet;
-		panel: Snippet;
+		panel?: Snippet;
 		pinyaValue?: string
+		hasNoChild?: boolean,
 	} = $props();
 
 	let uid = $props.id();
 	let accordionContext = getContext<AccordionContext>(accordionContextKey);
-	let accordionItem = $derived(accordionContext({ id: pinyaValue ?? uid }));
+	let accordionItem = $derived(hasNoChild
+		? { heading: {}, trigger: {}, content: {} }
+		: accordionContext({ id: pinyaValue ?? uid })
+	);
 </script>
 
 <div class="pinya-accordion-item consider-top-edge consider-bottom-edge bg-primary-100 dark:bg-tertiary-900 dark:saturate-75" {...props}>
 	{#if accordionItem}
 		<div {...accordionItem.heading} class="consider-top-edge accordion-heading">
-			<button {...accordionItem.trigger} class="consider-top-edge add-padding">
-				{#if controlIndicator}
-					{@render controlSnippet?.()}
-					{@render controlIndicator()}
-				{:else }
-					<div>{@render controlSnippet?.()}</div>
-					<svg class="indicator" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-						<line class="line-h" x1="5" y1="12" x2="19" y2="12" />
-						<line class="line-v" x1="12" y1="5" x2="12" y2="19" />
-					</svg>
-				{/if}
-			</button>
+			{#if hasNoChild}
+				<div {...accordionItem.trigger} class="consider-top-edge add-padding like-button consider-bottom-edge">
+					{#if controlIndicator}
+						{@render controlSnippet?.()}
+						{@render controlIndicator()}
+					{:else }
+						<div>{@render controlSnippet?.()}</div>
+					{/if}
+				</div>
+			{:else}
+				<button {...accordionItem.trigger} class="consider-top-edge add-padding">
+					{#if controlIndicator}
+						{@render controlSnippet?.()}
+						{@render controlIndicator()}
+					{:else }
+						<div>{@render controlSnippet?.()}</div>
+						<svg class="indicator" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+							<line class="line-h" x1="5" y1="12" x2="19" y2="12" />
+							<line class="line-v" x1="12" y1="5" x2="12" y2="19" />
+						</svg>
+					{/if}
+				</button>
+			{/if}
 		</div>
-		<div {...accordionItem.content} class="accordion-panel consider-bottom-edge add-padding">
-			{@render panelSnippet?.()}
-		</div>
+		{#if !hasNoChild}
+			<div {...accordionItem.content} class="accordion-panel consider-bottom-edge add-padding">
+				{@render panelSnippet?.()}
+			</div>
+		{/if}
 	{:else }
 		<Placeholder classes="mb-2" />
 	{/if}
 </div>
 
 <style lang="scss">
-		@use "$styles/surface-colors" as *;
+    @use "$styles/surface-colors" as *;
 
-		.pinya-accordion-item:not(:last-child) .accordion-heading::after {
-				content: "";
-				display: block;
-				height: 2px;
-				width: 100%;
-				background-color: var(--color-primary-300-700);
-		}
+    .pinya-accordion-item:not(:last-child) .accordion-heading::after {
+        content: "";
+        display: block;
+        height: 2px;
+        width: 100%;
+        background-color: var(--color-primary-300-700);
+    }
 
-    button {
-		    @extend %surface-primary-button;
+    button, .like-button {
+        @extend %surface-primary-button;
         width: 100%;
         text-align: start;
         display: flex;

@@ -1,4 +1,4 @@
-import type { OverlayType } from "$pkg";
+import type { OverlayType, PageMeta } from "$pkg";
 import { LocalStore } from "$pkg/util/localStore.svelte";
 import { createContext } from "svelte";
 
@@ -11,3 +11,4 @@ export const [getEnableDialogOverlayContext, setEnableDialogOverlayContext] = cr
 
 export const [getOverlayTypeContext, setOverlayTypeContext] = createContext<LocalStore<OverlayType>>();
 export const [getIgnoreOverlayOverride, setIgnoreOverlayOverride] = createContext<boolean>();
+export const [getSiteLayout, setSiteLayout] = createContext<PageMeta[]>();

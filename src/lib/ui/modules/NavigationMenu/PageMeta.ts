@@ -220,6 +220,43 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 	return pageFlatList;
 };
 
+export const parsePageMetaNested = (args: {
+	fileList: Record<string, unknown>;
+	jsonList: Record<string, unknown>;
+	imageMap: Map<string, string>;
+	compareFn?: ParsePageMetaCompareFn;
+}): PageMeta[] => {
+	const pageFlatList = parsePageMeta(args.fileList, args.jsonList, args.imageMap, args.compareFn);
+	const pageMap = new Map(pageFlatList.map(page => [page.relativeLink, page]));
+	const nestedChildLinks = new Set<string>();
+
+	pageFlatList.forEach(page => {
+		if (!page.relativeLink) {
+			if (page.title === ".") {
+				page.title = "Home";
+			}
+			return;
+		}
+
+		const parts = page.relativeLink.split("/");
+		for (let i = parts.length - 1; i > 0; i--) {
+			const parentLink = parts.slice(0, i).join("/");
+			const parent = pageMap.get(parentLink);
+			if (parent && page.relativeLink.startsWith(`${parent.relativeLink}/`)) {
+				const alreadyNested = parent.nestedPages.some(nested => nested.relativeLink === page.relativeLink);
+				if (!alreadyNested) {
+					parent.nestedPages.push(page);
+				}
+				nestedChildLinks.add(page.relativeLink);
+				break;
+			}
+		}
+	});
+
+	// dont include links that have parents in the base page list
+	return pageFlatList.filter(page => !nestedChildLinks.has(page.relativeLink));
+};
+
 const AWins = -1;
 const BWins = 1;
 

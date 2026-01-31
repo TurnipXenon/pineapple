@@ -10,8 +10,8 @@
 		multiple = true
 	}: {
 		children: Snippet,
-		openItems: string[],
-		multiple: boolean,
+		openItems?: string[],
+		multiple?: boolean,
 	} = $props();
 	let accordion = $derived(new Accordion({
 		value: (() => {
