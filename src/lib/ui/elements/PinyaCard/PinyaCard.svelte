@@ -46,6 +46,11 @@ When with texts, wrap the text content inside a div so flex wont apply
             --pinya-card-bg-color: var(--color-surface-900);
             --pinya-card-border-color: transparent;
         }
+
+        :root {
+            scrollbar-color: var(--color-primary-400-600) var(--pinya-card-bg-color);
+            scrollbar-width:thin
+        }
     }
 
     .default-color {

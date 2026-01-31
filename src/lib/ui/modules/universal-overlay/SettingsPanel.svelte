@@ -131,6 +131,7 @@ TODO: delete GeneralSettingsModal.svelte
 
         #field-flex {
             display: flex;
+		        flex-wrap: wrap;
             gap: 1rem;
             padding: 0.25lh 1rem;
         }

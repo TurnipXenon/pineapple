@@ -498,10 +498,6 @@
   .dark *) {
     color-scheme:dark
   }
-  :root {
-    scrollbar-color: var(--color-primary-400-600) var(--color-surface-100-900);
-    scrollbar-width:thin
-  }
   html {
     -webkit-tap-highlight-color:#7373734d
   }

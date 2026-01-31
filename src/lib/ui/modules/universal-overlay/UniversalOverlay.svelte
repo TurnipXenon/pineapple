@@ -100,56 +100,31 @@ See panels:
 				<!-- close -->
 				<PinyaButton
 					buttonVariant={ButtonVariant.Image}
-					title="close overlay"
+					title="Close conversation"
 					onclick={()=>{dialogManager.toggleDialogOverlay();}}
 				>
 					<ImageIcon src={CloseIcon} aria-hidden="true" alt=""></ImageIcon>
 				</PinyaButton>
-				<!-- settings -->
-				<PinyaButton
-					title="settings"
-					buttonVariant={ButtonVariant.Image}
-					colorScheme={_overlayType.value === 'settings' ? ColorScheme.Secondary : undefined}
-					onclick={()=>{modals.open(GeneralSettingsModal);}}
-				>
-					<ImageIcon src={SettingsLogo} aria-hidden="true" alt=""></ImageIcon>
-				</PinyaButton>
-				<!-- site map -->
-				<PinyaButton
-					title="site map"
-					colorScheme={_overlayType.value === 'site-map' ? ColorScheme.Secondary : undefined}
-					onclick={()=>{alert('not yet implemented')}}
-				>
-					M
-				</PinyaButton>
-<!--				 convo (active) -->
-<!--				<PinyaButton-->
-<!--					title="dialog"-->
-<!--					colorScheme={_overlayType.value === 'dialog' ? ColorScheme.Secondary : undefined}-->
-<!--					onclick={()=>{_overlayType.value = "dialog";}}-->
-<!--				>-->
-<!--					C-->
-<!--				</PinyaButton>-->
 			</div>
 		</div>
 	</div>
 </div>
 
-
-{#if appState.allowDialog && isMounted && !enableUniversalOverlay.value}
-	<div id="fab-container" transition:slide>
-		<PinyaButton
-			classes="fab"
-			onclick={()=>{dialogManager.toggleDialogOverlay();}}
-		>
-			{#if enableUniversalOverlay.value}
-				<img class="turnip-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">
-			{:else }
-				<img class="turnip-icon" src={FABIcon} alt="interactive floating action button represented as a turnip">
-			{/if}
-		</PinyaButton>
-	</div>
-{/if}
+<!-- todo: consider keeping or not... -->
+<!--{#if appState.allowDialog && isMounted && !enableUniversalOverlay.value}-->
+<!--	<div id="fab-container" transition:slide>-->
+<!--		<PinyaButton-->
+<!--			classes="fab"-->
+<!--			onclick={()=>{dialogManager.toggleDialogOverlay();}}-->
+<!--		>-->
+<!--			{#if enableUniversalOverlay.value}-->
+<!--				<img class="turnip-icon" src={CloseIcon} alt="interactive floating action button represented as a turnip">-->
+<!--			{:else }-->
+<!--				<img class="turnip-icon" src={FABIcon} alt="interactive floating action button represented as a turnip">-->
+<!--			{/if}-->
+<!--		</PinyaButton>-->
+<!--	</div>-->
+<!--{/if}-->
 
 <style lang="scss">
 	  @use "$styles/surface-colors" as *;
@@ -164,23 +139,10 @@ See panels:
         /* radius-base is from dialog-text and 0.8lh is from dialog-box padding */
         border-radius: 0 2rem 0 0;
 
-        /*todo: implement later*/
-        /*#dialog-scroll-indicator {*/
-        /*    position: fixed;*/
-        /*    border-radius: 0 2rem 0 0;*/
-        /*    width: 100%;*/
-        /*    height: 1.3lh;*/
-        /*    background: #2A7B9B;*/
-        /*    background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);*/
-        /*}*/
-
-
 	      :global(#panel-container > *:first-child) {
 	        flex: 1;
 	        overflow-y: auto;
-	        border-width: 0 2px 0 0;
 	        padding: 1.3lh 1em;
-	        border-color: var(--color-primary-400-600);
 	      }
 
         #panel-container {
@@ -204,12 +166,15 @@ See panels:
 
 	  :global {
         #settings-menu-bar {
-            * {
+            &> * {
                 padding: 0.4rem;
+                &> * {
+                    width: 90%;
+                }
             }
 
             .pinya-button {
-                border-radius: 2rem;
+                border-radius: 50%;
             }
         }
 	  }

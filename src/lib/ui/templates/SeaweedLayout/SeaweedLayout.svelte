@@ -168,7 +168,7 @@
 		linkedinSlug={linkedinSlug}
 	/>
 {/snippet}
-<PinyaPageLayout>
+<PinyaPageLayout appBardEndStyle="classic">
 	{#snippet appBarLead()}
 		{#if showMiniSocial}
 			<div
