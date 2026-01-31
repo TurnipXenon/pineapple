@@ -8,6 +8,7 @@
 	import { localizeHref } from "$pkg/external/paraglide/runtime";
 	import { PinyaAccordion, PinyaAccordionItem } from "$pkg/ui/components/index";
 	import ModalBase from "$pkg/ui/components/ModalBase.svelte";
+	import NestedNavigation from "$pkg/ui/components/NestedNavigation.svelte";
 	import { TextLink } from "$pkg/ui/elements/index";
 	import { getSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { setMode, userPrefersMode } from "mode-watcher";
@@ -60,32 +61,11 @@
 	let siteLayout = getSiteLayout();
 </script>
 
-{#snippet NestedNavigation(layout, depth)}
-	<PinyaAccordion>
-		{#each layout as site (site.relativeLink)}
-			<PinyaAccordionItem hasNoChild={site.nestedPages.length === 0}>
-				{#snippet control()}
-					<TextLink href={localizeHref(site.relativeLink)} onclick={() => props.close()}>
-						{site.title}
-					</TextLink>
-				{/snippet}
-				{#snippet panel()}
-					{#if site.nestedPages.length > 0 && depth < 5}
-						<div class="wrapper">
-							{@render NestedNavigation(site.nestedPages, depth + 1)}
-						</div>
-					{/if}
-				{/snippet}
-			</PinyaAccordionItem>
-		{/each}
-	</PinyaAccordion>
-{/snippet}
-
 <ModalBase {...props} class="navigation-modal">
 	<h2>Navigation</h2>
 
 	<div class="wrapper nested-navigation">
-		{@render NestedNavigation(siteLayout, 0)}
+		<NestedNavigation layout={siteLayout} depth={0} close={props.close}></NestedNavigation>
 	</div>
 
 	<div class="actions">

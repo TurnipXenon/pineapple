@@ -8,7 +8,7 @@
 
 	let {
 		children,
-		openItems = $bindable(),
+		openItems = $bindable([]),
 		multiple = true
 	}: {
 		children: Snippet,
@@ -38,6 +38,7 @@
 		}, multiple
 	}));
 	setContext<AccordionContext>(accordionContextKey, (key) => accordion.getItem(key));
+	setContext<string[]>('accordionOpenItems', openItems);
 </script>
 
 <div class="pinya-accordion-root" {...accordion.root}>
