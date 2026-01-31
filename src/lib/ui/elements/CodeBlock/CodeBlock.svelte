@@ -61,8 +61,17 @@
 </script>
 
 <div
-	class="{base} {rounded} {shadow} {classes} {preBase} {prePadding} {preClasses}"
+	class="pinya-code-block {base} {rounded} {shadow} {classes} {preBase} {prePadding} {preClasses}"
 >
 	<!-- Output Shiki's Generated HTML -->
 	{@html generatedHtml}
 </div>
+
+<style>
+	:global {
+			.pinya-code-block {
+					margin-top: 1lh;
+					margin-bottom: 1lh;
+			}
+	}
+</style>
