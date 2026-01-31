@@ -1,6 +1,7 @@
 <!-- TODO: Documentation: consider documentation showcase -->
 
 <script lang="ts">
+	import { beforeNavigate } from "$app/navigation";
 	import { page } from "$app/state";
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 	import { locales, localizeHref } from "$pkg/external/paraglide/runtime";

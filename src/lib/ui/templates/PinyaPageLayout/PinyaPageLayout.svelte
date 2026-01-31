@@ -112,7 +112,7 @@
 
 <RandomizedBackground enabled={$enableBackground} />
 
-<div class="default-page-container">
+<div id="default-page-container">
 	{@render children?.()}
 </div>
 
@@ -164,7 +164,7 @@
         transform: translateX(-5vw);
     }
 
-    .default-page-container {
+    #default-page-container {
         display: flex;
         justify-content: center;
         align-items: center;
