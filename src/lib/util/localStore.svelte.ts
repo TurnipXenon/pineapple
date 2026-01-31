@@ -74,13 +74,13 @@ export class LocalStore<T> {
 
 export interface LocalStoreRestriction {
 	"enable-portrait": boolean;
-	"enable-dialog-overlay": boolean;
+	"enable-dialog-preference": boolean;
 	"overlay-type": OverlayType;
 }
 
 const localStoreDefault: Readonly<LocalStoreRestriction> = {
 	"enable-portrait": true,
-	"enable-dialog-overlay": true, // todo: turn to false once we implement an onboarding/welcome screen
+	"enable-dialog-preference": true,
 	"overlay-type": 'dialog',
 };
 

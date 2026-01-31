@@ -34,9 +34,6 @@
 			<PinyaButton onclick={() => {location.href = localizeHref('components');}}>
 				Components
 			</PinyaButton>
-			<PinyaButton onclick={() => {location.href = localizeHref('pineapple5');}}>
-				Pineapple 5
-			</PinyaButton>
 		</div>
 	</main>
 </PinyaCard>

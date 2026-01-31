@@ -8,9 +8,13 @@ TODO: delete GeneralSettingsModal.svelte
 	import ConstrastIcon from "$pkg/assets/icons/icon-contrast.svg";
 	import DarkIcon from "$pkg/assets/icons/icon-dark-mode.svg";
 	import LightIcon from "$pkg/assets/icons/icon-light-mode.svg";
+	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
 
 	import LanguagePicker from "$pkg/ui/modules/modals/general-settings/LanguagePicker.svelte";
-	import { getEnablePortraitContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
+	import {
+		getEnableDialogPreferenceContext,
+		getEnablePortraitContext
+	} from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import type { LocalStore } from "$pkg/util/localStore.svelte";
 	import { setMode, userPrefersMode } from "mode-watcher";
 
@@ -27,7 +31,6 @@ TODO: delete GeneralSettingsModal.svelte
 	];
 
 	let selectedItem: ToggleItem = $state(modes[0]);
-	let enablePortraitContext: LocalStore<boolean> = getEnablePortraitContext();
 
 	// when mode is edited outside, adjust toggle button
 	// do not use runes here because we only want explicit changes outside
@@ -38,6 +41,9 @@ TODO: delete GeneralSettingsModal.svelte
 			selectedItem = si;
 		}
 	});
+
+	let enableDialogPreference = getEnableDialogPreferenceContext();
+	let enablePortraitContext = getEnablePortraitContext();
 
 	// when mode is changed inside the button, adjust the mode
 	$effect(() => {
@@ -88,12 +94,23 @@ TODO: delete GeneralSettingsModal.svelte
 
 	<LanguagePicker />
 
-	<div class="actions">
-		<!-- todo: decide if we want an explicit save button or set the settings on the go -->
-		<!--		<button class="btn preset-filled-primary-400-600 text-surface-100" onclick={() => props.close()}-->
-		<!--		        title="Close modal">-->
-		<!--			Close-->
-		<!--		</button>-->
+	<div class="switch-default">
+		<PineappleSwitch
+			name="conversation-preference"
+			bind:checked={enableDialogPreference.value}>
+		</PineappleSwitch>
+		<label for="conversation-preference">
+			Conversation preference: {enableDialogPreference.value ? "Always on" : "Always off"}
+		</label>
+	</div>
+	<div class="switch-default">
+		<PineappleSwitch
+			name="portrait-preference"
+			bind:checked={enablePortraitContext.value}>
+		</PineappleSwitch>
+		<label for="portrait-preference">
+			Show conversation portrait: {enablePortraitContext.value ? "Always on" : "Always off"}
+		</label>
 	</div>
 </div>
 
@@ -149,5 +166,11 @@ TODO: delete GeneralSettingsModal.svelte
                 filter: unset;
             }
         }
+    }
+
+    .switch-default {
+		    display: flex;
+		    justify-items: center;
+		    gap: 1em;
     }
 </style>

@@ -8,38 +8,28 @@ See panels:
  -->
 
 <script lang="ts">
-	import FABIcon from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
-
 	import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
 	import { m } from "$pkg/external/paraglide/messages";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
-	import { ButtonVariant, ColorScheme, ImageIcon } from "$pkg/ui/elements/index";
+	import { ButtonVariant, ImageIcon } from "$pkg/ui/elements/index";
 	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
 	import DialogPanel from "$pkg/ui/modules/universal-overlay/DialogPanel.svelte";
 	import SettingsPanel from "$pkg/ui/modules/universal-overlay/SettingsPanel.svelte";
-	import { appState } from "$pkg/ui/templates/PinyaPageLayout/pinyaPageLayoutRunes.svelte.js";
-	import {
-		getEnableDialogOverlayContext,
-		getEnablePortraitContext,
-		getOverlayTypeContext
-	} from "$pkg/util/context/pineappleBaseContextDefinitions";
+	import { getEnablePortraitContext, getOverlayTypeContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { onMount } from "svelte";
 	import { modals } from "svelte-modals";
-	import { slide } from "svelte/transition";
 	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
 	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
 
 	let currentPortrait = $state(AresHappy);
-	let isMounted = $state(false);
 
 	let hidePercent = $state(100);
 	let hidePercentLinear = $state(100);
 	let isHidden = $state(true);
 
-	let enableUniversalOverlay = getEnableDialogOverlayContext();
 	let _overlayType = getOverlayTypeContext();
 
 	let enablePortrait = getEnablePortraitContext();
@@ -65,7 +55,6 @@ See panels:
 		});
 
 		dialogManager.update(0);
-		isMounted = true;
 	});
 </script>
 
@@ -104,6 +93,13 @@ See panels:
 					onclick={()=>{dialogManager.toggleDialogOverlay();}}
 				>
 					<ImageIcon src={CloseIcon} aria-hidden="true" alt=""></ImageIcon>
+				</PinyaButton>
+				<PinyaButton
+					title="Settings"
+					buttonVariant={ButtonVariant.Image}
+					onclick={()=>{modals.open(GeneralSettingsModal);}}
+				>
+					<ImageIcon src={SettingsLogo} aria-hidden="true" alt=""></ImageIcon>
 				</PinyaButton>
 			</div>
 		</div>

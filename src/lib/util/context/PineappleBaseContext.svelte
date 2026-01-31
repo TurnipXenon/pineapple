@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { enableUniversalOverlaySvelte4 } from "$pkg";
 	import {
-		getEnableDialogOverlayContext, getIgnoreOverlayOverride,
+		getIgnoreOverlayOverride,
 		setEnableDialogOverlayContext,
-		setEnablePortraitContext, setIgnoreOverlayOverride,
+		setEnableDialogPreferenceContext,
+		setEnablePortraitContext,
+		setIgnoreOverlayOverride,
 		setOverlayTypeContext
 	} from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { createLocalStore } from "$pkg/util/localStore.svelte";
@@ -29,8 +31,11 @@
 	 */
 
 	// special logic since we would need to change the extensions for all the typescript code if we dont
-	setEnableDialogOverlayContext(createLocalStore("enable-dialog-overlay"));
-	let _enableDialogOverlayRunes = getEnableDialogOverlayContext();
+	const enableDialogPrefStore = createLocalStore("enable-dialog-preference");
+	setEnableDialogPreferenceContext(enableDialogPrefStore);
+
+	let enableDialog = $state({ value: enableDialogPrefStore.value });
+	setEnableDialogOverlayContext(enableDialog);
 	setIgnoreOverlayOverride(true);
 	let ignoreOverlaySet = getIgnoreOverlayOverride();
 	onMount(() => {
@@ -38,10 +43,10 @@
 			if (ignoreOverlaySet) {
 				ignoreOverlaySet = false;
 				// force initial value?
-				enableUniversalOverlaySvelte4.set(_enableDialogOverlayRunes.value);
+				enableUniversalOverlaySvelte4.set(enableDialogPrefStore.value);
+				enableDialog.value = enableDialogPrefStore.value;
 			} else {
-				console.log('subscribing enable-dialog-overlay')
-				_enableDialogOverlayRunes.value = value;
+				enableDialog.value = value;
 			}
 		});
 

@@ -11,6 +11,7 @@
 	import RandomizedBackground from "$pkg/ui/components/randomized-background/RandomizedBackground.svelte";
 	import { ButtonVariant, ColorScheme, ImageIcon } from "$pkg/ui/elements/index";
 	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
+	import NavigationModal from "$pkg/ui/modules/modals/general-settings/NavigationModal.svelte";
 	import UniversalOverlay from "$pkg/ui/modules/universal-overlay/UniversalOverlay.svelte";
 	import { getEnableDialogOverlayContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import type { Snippet } from "svelte";
@@ -79,7 +80,7 @@
 				<!-- site map -->
 				<PinyaButton
 					title="Navigation"
-					onclick={()=>{alert('not yet implemented')}}
+					onclick={()=>{modals.open(NavigationModal);}}
 				>
 					<ImageIcon src={HamburgerIcon} aria-hidden="true" alt=""></ImageIcon>
 				</PinyaButton>
