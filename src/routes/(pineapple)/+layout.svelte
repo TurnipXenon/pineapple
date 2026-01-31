@@ -9,12 +9,13 @@
 
 	// region highlightjs
 	import "highlight.js/styles/github-dark.css";
-	import { parsePageMetaNested } from "$pkg";
+	import { type PageMeta, parsePageMetaNested } from "$pkg";
 	import PinyaBase from "$pkg/ui/templates/pinya-base/PinyaBase.svelte";
 	import { pinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 	import { appState, PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/index";
 	import { setSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import type { Snippet } from "svelte";
+	import { getParsnipDataRemote } from "./pineapple/getParsnipData.remote";
 
 	interface Props {
 		children: Snippet;
@@ -27,10 +28,17 @@
 
 	const fileList = import.meta.glob("./**/+page.svelte", { query: "?raw" });
 	const jsonList = import.meta.glob("./**/meta.json", { query: "?raw", eager: true });
-	const fileBasedList = parsePageMetaNested({
-		fileList, jsonList, imageMap: new Map<string, string>()
-	});
+	let fileBasedList = $state<PageMeta[]>([]);
 	setSiteLayout(fileBasedList);
+	getParsnipDataRemote().then(data => {
+		fileBasedList.push(...parsePageMetaNested({
+			fileList,
+			jsonList,
+			imageMap: new Map<string, string>(),
+			parsnipOverall: data.parsnipOverall,
+			parsnipBasePath: "pineapple/"
+		}));
+	});
 </script>
 
 <PinyaBase>

@@ -12,13 +12,11 @@ See panels:
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
-	import { m } from "$pkg/external/paraglide/messages";
 	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 	import { ButtonVariant, ImageIcon } from "$pkg/ui/elements/index";
 	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
 	import DialogPanel from "$pkg/ui/modules/universal-overlay/DialogPanel.svelte";
-	import SettingsPanel from "$pkg/ui/modules/universal-overlay/SettingsPanel.svelte";
-	import { getEnablePortraitContext, getOverlayTypeContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
+	import { getEnablePortraitContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
 	import { onMount } from "svelte";
 	import { modals } from "svelte-modals";
 	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
@@ -29,8 +27,6 @@ See panels:
 	let hidePercent = $state(100);
 	let hidePercentLinear = $state(100);
 	let isHidden = $state(true);
-
-	let _overlayType = getOverlayTypeContext();
 
 	let enablePortrait = getEnablePortraitContext();
 
@@ -67,24 +63,12 @@ See panels:
 	</div>
 	<div id="main-dialog-box-container">
 		<PinyaCard id="dialog-name">
-			{#if _overlayType.value === 'dialog'}
-				<div class="fake-h1">Turnip</div>
-			{:else if _overlayType.value === 'site-map'}
-				<div class="fake-h1">Turnip</div>
-			{:else}
-				<div class="fake-h1">{m.settings()}</div>
-			{/if}
+			<div class="fake-h1">Turnip</div>
 		</PinyaCard>
 		<!-- todo: implement this properly later -->
 		<!--<div id="dialog-scroll-indicator"></div>-->
 		<div id="panel-container">
-			{#if _overlayType.value === 'dialog'}
-				<DialogPanel></DialogPanel>
-			{:else if _overlayType.value === 'site-map'}
-				<DialogPanel></DialogPanel>
-			{:else}
-				<SettingsPanel></SettingsPanel>
-			{/if}
+			<DialogPanel></DialogPanel>
 			<div id="settings-menu-bar">
 				<!-- close -->
 				<PinyaButton
@@ -123,7 +107,7 @@ See panels:
 <!--{/if}-->
 
 <style lang="scss">
-	  @use "$styles/surface-colors" as *;
+    @use "$styles/surface-colors" as *;
 
     #main-dialog-box-container {
         background-color: var(--bg-dialog);
@@ -135,11 +119,11 @@ See panels:
         /* radius-base is from dialog-text and 0.8lh is from dialog-box padding */
         border-radius: 0 2rem 0 0;
 
-	      :global(#panel-container > *:first-child) {
-	        flex: 1;
-	        overflow-y: auto;
-	        padding: 1.3lh 1em;
-	      }
+        :global(#panel-container > *:first-child) {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.3lh 1em;
+        }
 
         #panel-container {
             height: 100%;
@@ -155,16 +139,17 @@ See panels:
                 padding-top: 0.5rem;
                 gap: 0.5rem;
                 margin: 0 0.4rem;
-		            overflow-y: auto;
+                overflow-y: auto;
             }
         }
     }
 
-	  :global {
+    :global {
         #settings-menu-bar {
-            &> * {
+            & > * {
                 padding: 0.4rem;
-                &> * {
+
+                & > * {
                     width: 90%;
                 }
             }
@@ -173,10 +158,10 @@ See panels:
                 border-radius: 50%;
             }
         }
-	  }
+    }
 
     .dialog-elements {
-		    @extend %surface-dialog;
+        @extend %surface-dialog;
         position: fixed;
         z-index: 10;
     }
@@ -255,7 +240,7 @@ See panels:
             background-color: var(--color-tertiary-500);
             padding: 0.3rem;
             width: 4rem;
-		        height: 4rem;
+            height: 4rem;
             border-radius: 50%;
             z-index: 100;
             box-shadow: 3px 3px 3px var(--shadow-color);
@@ -290,6 +275,6 @@ See panels:
     }
 
     .turnip-icon {
-		    width: 3rem;
+        width: 3rem;
     }
 </style>

@@ -1,3 +1,4 @@
+import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
 import type { RawGlob } from "$pkg/util/util";
 
 export interface PageMeta {
@@ -225,8 +226,25 @@ export const parsePageMetaNested = (args: {
 	jsonList: Record<string, unknown>;
 	imageMap: Map<string, string>;
 	compareFn?: ParsePageMetaCompareFn;
+	parsnipOverall?: ParsnipOverall | undefined;
+	parsnipBasePath?: string;
 }): PageMeta[] => {
+	const parsnipBasedList = args.parsnipOverall?.files.map(pf => {
+		const meta: PageMeta = {
+			title: pf.basename,
+			nestedPages: [],
+			relativeLink: `${args.parsnipBasePath}${pf.slug}`,
+			tags: pf.tags,
+			imageUrl: pf.preview ? `${args.parsnipOverall?.baseUrl}/${pf.preview}` : undefined,
+			imageAlt: pf.previewAlt,
+			datePublished: pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
+			lastUpdated: pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined,
+			description: pf.tagline
+		};
+		return meta;
+	}) ?? [];
 	const pageFlatList = parsePageMeta(args.fileList, args.jsonList, args.imageMap, args.compareFn);
+	pageFlatList.push(...parsnipBasedList);
 	const pageMap = new Map(pageFlatList.map(page => [page.relativeLink, page]));
 	const nestedChildLinks = new Set<string>();
 
