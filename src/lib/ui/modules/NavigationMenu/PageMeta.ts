@@ -47,6 +47,13 @@ export interface PageMeta {
 	 * title defaults to the directory name if it's an empty string.
 	 */
 	title: string;
+
+	/**
+	 * priority is used to sort pages in the navigation menu. Higher priority pages will be displayed first.
+	 * if you don't have a priority, it will be set to 0
+	 * all pages with the same priority will be sorted based on date, description, title, then relative link
+	 */
+	priority: number;
 }
 
 export interface SimplePageMeta {
@@ -168,7 +175,8 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 			relativeLink: subPath.join("/"),
 			title,
 			tags: [],
-			nestedPages: []
+			nestedPages: [],
+			priority: 0
 			// todo: transform the data in server.ts?
 		};
 
@@ -182,6 +190,7 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 			meta.lastUpdated = metadata["lastUpdated"] as string;
 			meta.shouldGroup = metadata["shouldGroup"] as boolean;
 			meta.shouldHide = metadata["shouldHide"] as boolean;
+			meta.priority = metadata["priority"] as number ?? 0;
 
 			meta.imageID = metadata["imageID"] as string;
 			meta.imageUrl = imageMap.get(meta.imageID) ?? metadata["imageUrl"] as string;
@@ -239,7 +248,8 @@ export const parsePageMetaNested = (args: {
 			imageAlt: pf.previewAlt,
 			datePublished: pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
 			lastUpdated: pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined,
-			description: pf.tagline
+			description: pf.tagline,
+			priority: 0
 		};
 		return meta;
 	}) ?? [];
@@ -286,6 +296,10 @@ const BWins = 1;
  * @constructor
  */
 export const DefaultPageMetaSorter: ParsePageMetaCompareFn = (a, b) => {
+	if (a.priority !== b.priority) {
+		return b.priority - a.priority;
+	}
+
 	const aDate = a.lastUpdated || a.datePublished;
 	const bDate = b.lastUpdated || b.datePublished;
 
@@ -304,5 +318,10 @@ export const DefaultPageMetaSorter: ParsePageMetaCompareFn = (a, b) => {
 		return BWins;
 	}
 
-	return a.title.localeCompare(b.title);
+	const titleCompare = a.title.localeCompare(b.title);
+	if (titleCompare !== 0) {
+		return titleCompare;
+	}
+
+	return a.relativeLink.localeCompare(b.relativeLink);
 };
