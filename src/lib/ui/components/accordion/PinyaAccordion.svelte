@@ -3,18 +3,20 @@
 <script lang="ts">
 	import { Accordion } from "melt/builders";
 	import { setContext, type Snippet } from "svelte";
+	import type { HTMLAttributes } from "svelte/elements";
 	import type { SvelteSet } from "svelte/reactivity";
 	import { accordionContextKey, type AccordionContext } from "./accordionContext";
 
 	let {
 		children,
 		openItems = $bindable([]),
-		multiple = true
+		multiple = true,
+		...props
 	}: {
 		children: Snippet,
 		openItems?: string[],
 		multiple?: boolean,
-	} = $props();
+	} & HTMLAttributes<HTMLDivElement> = $props();
 	let accordion = $derived(new Accordion({
 		value: (() => {
 			if (openItems) {
@@ -41,7 +43,7 @@
 	setContext<string[]>('accordionOpenItems', openItems);
 </script>
 
-<div class="pinya-accordion-root" {...accordion.root}>
+<div {...props} class={`pinya-accordion-root ${props.class ?? ''}`} {...accordion.root}>
 	{@render children?.()}
 </div>
 

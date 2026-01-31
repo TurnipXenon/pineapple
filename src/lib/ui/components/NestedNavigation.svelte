@@ -5,6 +5,7 @@
 	import { PinyaAccordion, PinyaAccordionItem } from "$pkg/ui/components/accordion/index";
 	import { PinyaCard, TextLink } from "$pkg/ui/elements/index";
 	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
+	import type { HTMLAttributes } from "svelte/elements";
 	import Self from "./NestedNavigation.svelte";
 
 	let {
@@ -12,13 +13,15 @@
 		depth,
 		close = () => {
 		},
-		openBehavior
+		openBehavior,
+		...props
 	}: {
 		layout: PageMeta[],
 		depth: number,
 		close?: () => void,
-		openBehavior?: "open-all" | "open-active"
-	} = $props();
+		openBehavior?: "open-all" | "open-active" | "close-all"
+		// we have to omit id since id is auto assigned by melt
+	} & Omit<HTMLAttributes<HTMLDivElement>, 'id'> = $props();
 
 	let openItems = $state<string[]>([]);
 
@@ -28,6 +31,10 @@
 		currentPath = deLocalizeUrl(page.url).pathname.replace(/^\/|\/$/g, "");
 
 		switch (openBehavior) {
+			case "close-all":
+				openItems = [];
+				break;
+
 			case "open-all":
 				openItems = layout.map(site => site.relativeLink);
 				break;
@@ -66,7 +73,7 @@
 </script>
 
 {#if layout.length > 0}
-	<PinyaAccordion bind:openItems={openItems}>
+	<PinyaAccordion bind:openItems={openItems} {...props} class="pinya-nested-navigation {props.class ?? ''}">
 		{#each layout as site (site.relativeLink)}
 			<!-- todo: add highlighted class when relativeLink === page.url -->
 			<PinyaAccordionItem
@@ -89,7 +96,7 @@
 		{/each}
 	</PinyaAccordion>
 {:else }
-	<PinyaCard class="nested-navigation-placeholder" colorClass="bg-primary-100 dark:bg-tertiary-900">
+	<PinyaCard {...props} class={`nested-navigation-placeholder ${props.class ?? ''}`} colorClass="bg-primary-100 dark:bg-tertiary-900">
 		{#each { length: 10 } as _, idx (idx)}
 			<Placeholder class="mb-2 placeholder" />
 		{/each}
