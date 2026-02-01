@@ -17,7 +17,6 @@ TODO: delete GeneralSettingsModal.svelte
 		getEnableDialogPreferenceContext,
 		getEnablePortraitContext
 	} from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
-	import type { LocalStore } from "$pkg/util/localStore.svelte";
 	import { setMode, userPrefersMode } from "mode-watcher";
 
 	interface ToggleItem {
@@ -99,19 +98,19 @@ TODO: delete GeneralSettingsModal.svelte
 	<div class="switch-default">
 		<PineappleSwitch
 			name="conversation-preference"
-			bind:checked={enableDialogPreference.value}>
+			bind:checked={$enableDialogPreference}>
 		</PineappleSwitch>
 		<label for="conversation-preference">
-			Conversation preference: {enableDialogPreference.value ? "Always on" : "Always off"}
+			Conversation preference: {$enableDialogPreference ? "Always on" : "Always off"}
 		</label>
 	</div>
 	<div class="switch-default">
 		<PineappleSwitch
 			name="portrait-preference"
-			bind:checked={enablePortraitContext.value}>
+			bind:checked={$enablePortraitContext}>
 		</PineappleSwitch>
 		<label for="portrait-preference">
-			Show conversation portrait: {enablePortraitContext.value ? "Always on" : "Always off"}
+			Show conversation portrait: {$enablePortraitContext ? "Always on" : "Always off"}
 		</label>
 	</div>
 </div>

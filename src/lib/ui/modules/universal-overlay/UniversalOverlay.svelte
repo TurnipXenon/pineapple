@@ -60,7 +60,7 @@ See panels:
      hidden={isHidden}
      style="--hidePercentWidth: -{hidePercent}vw;
             --hidePercentHeight: {hidePercentLinear}vh;">
-	<div class="dialog-portrait-container" class:is-portrait-enabled={enablePortrait.value}>
+	<div class="dialog-portrait-container" class:is-portrait-enabled={$enablePortrait}>
 		<img src={currentPortrait} alt="Ares" class="dialog-portrait" />
 	</div>
 	<div id="main-dialog-box-container">

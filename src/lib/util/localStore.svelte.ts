@@ -1,76 +1,12 @@
 /** from https://www.reddit.com/r/sveltejs/comments/1d43d8p/svelte_5_runes_with_localstorage_thanks_to_joy_of/ */
 import { browser } from "$app/environment";
 import type { OverlayType } from "$pkg";
-
-type LocalStorageState = 'initial' | 'accessed' | 'writable';
+import { writable, type Writable } from "svelte/store";
 
 // const localConsole = console;
 const localConsole: Console | undefined = undefined;
 
-export class LocalStore<T> {
-	value = $state<T>() as T;
-	key = "";
-	valueType: "undefined" | "object" | "boolean" | "number" | "string" | "function" | "symbol" | "bigint";
-	defaultValue: T;
-
-	constructor(key: string, defaultValue: T) {
-		this.key = key;
-		this.defaultValue = defaultValue;
-		this.value = defaultValue;
-		this.valueType = typeof defaultValue;
-		let localStorageState: LocalStorageState = $state<LocalStorageState>('initial');
-
-		if (browser) {
-			const item = localStorage.getItem(`pinya-local-${key}`);
-			if (item) {
-				this.value = this.deserialize(item);
-				localConsole?.log(`initializing initial ${this.key}: ${this.value}`)
-			}
-			localStorageState = 'accessed';
-		}
-
-		$effect(() => {
-			localConsole?.log(`updating ${this.key}: ${this.value}`)
-			switch (localStorageState) {
-				case "initial":
-					// completely ignore all next changes
-					break;
-				case "accessed":
-					// for the initial change, we ignore it but allow the next changes to be writable
-					localStorageState = 'writable';
-					localConsole?.log(`setting writable for ${this.key}`)
-					break;
-				case "writable":
-					localStorage.setItem(`pinya-local-${this.key}`, this.serialize(this.value));
-					localConsole?.log(`initializing after ${this.key}: ${this.value}`)
-					break;
-			}
-		});
-	}
-
-	serialize(value: T): string {
-		if (this.valueType !== "object") {
-			return value as string;
-		}
-
-		return JSON.stringify(value);
-	}
-
-	deserialize(item: string): T {
-			localConsole?.log(`deserializing item ${item}`)
-		if (this.valueType === "string") {
-			localConsole?.log(`deserializing string ${item}`)
-			return item as never;
-		}
-
-		try {
-			return JSON.parse(item);
-		} catch (error) {
-			console.error(error);
-			return this.defaultValue;
-		}
-	}
-}
+export type LocalStore<T> = Writable<T>;
 
 export interface LocalStoreRestriction {
 	"enable-portrait": boolean;
@@ -81,16 +17,60 @@ export interface LocalStoreRestriction {
 const localStoreDefault: Readonly<LocalStoreRestriction> = {
 	"enable-portrait": true,
 	"enable-dialog-preference": true,
-	"overlay-type": 'dialog',
+	"overlay-type": "dialog"
 };
 
 export const createLocalStore = <k extends keyof LocalStoreRestriction>(key: k) => {
-	return new LocalStore(key, localStoreDefault[key]);
-};
+	const defaultValue = localStoreDefault[key];
+	const valueType = typeof defaultValue;
+	const store = writable(defaultValue);
+	const storageKey = `pinya-local-${key}`;
 
-// export const createAllLocalStore = () => {
-// 	let enablePortrait = $state(createLocalStore('enablePortrait'));
-// 	return {
-// 		enablePortrait
-// 	}
-// }
+	const serialize = (value: LocalStoreRestriction[k]) => {
+		if (valueType !== "object") {
+			return `${value}`;
+		}
+
+		return JSON.stringify(value);
+	};
+
+	const deserialize = (item: string): LocalStoreRestriction[k] => {
+		localConsole?.log(`deserializing item ${item}`);
+		if (valueType === "string") {
+			localConsole?.log(`deserializing string ${item}`);
+			return item as LocalStoreRestriction[k];
+		}
+
+		try {
+			return JSON.parse(item) as LocalStoreRestriction[k];
+		} catch (error) {
+			console.error(error);
+			return defaultValue;
+		}
+	};
+
+	if (browser) {
+		const item = localStorage.getItem(storageKey);
+		if (item) {
+			store.set(deserialize(item));
+			localConsole?.log(`initializing initial ${storageKey}: ${item}`);
+		}
+	}
+
+	let skipWrite = true;
+	store.subscribe((value) => {
+		if (!browser) {
+			return;
+		}
+
+		if (skipWrite) {
+			skipWrite = false;
+			return;
+		}
+
+		localStorage.setItem(storageKey, serialize(value));
+		localConsole?.log(`initializing after ${storageKey}: ${value}`);
+	});
+
+	return store;
+};

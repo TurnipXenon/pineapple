@@ -34,7 +34,7 @@
 	const enableDialogPrefStore = createLocalStore("enable-dialog-preference");
 	setEnableDialogPreferenceContext(enableDialogPrefStore);
 
-	let enableDialog = $state({ value: enableDialogPrefStore.value });
+	let enableDialog = $state({ value: $enableDialogPrefStore });
 	setEnableDialogOverlayContext(enableDialog);
 	setIgnoreOverlayOverride(true);
 	let ignoreOverlaySet = getIgnoreOverlayOverride();
@@ -43,8 +43,8 @@
 			if (ignoreOverlaySet) {
 				ignoreOverlaySet = false;
 				// force initial value?
-				enableUniversalOverlaySvelte4.set(enableDialogPrefStore.value);
-				enableDialog.value = enableDialogPrefStore.value;
+				enableUniversalOverlaySvelte4.set($enableDialogPrefStore);
+				enableDialog.value = $enableDialogPrefStore;
 			} else {
 				enableDialog.value = value;
 			}
