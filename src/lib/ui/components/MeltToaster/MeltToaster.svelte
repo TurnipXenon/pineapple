@@ -11,6 +11,7 @@
 </script>
 
 <script lang="ts">
+	import { browser } from "$app/environment";
 	import { onDestroy, onMount } from "svelte";
 
 	let toasterRoot: HTMLDivElement;
@@ -39,7 +40,9 @@
 	});
 
 	onDestroy(() => {
-		if (observer) observer.disconnect();
+		if (browser) {
+			if (observer) observer.disconnect();
+		}
 	});
 </script>
 

@@ -2,6 +2,7 @@
 
 <script lang="ts">
 	import "./blog-template.css";
+	import { browser } from "$app/environment";
 	import { setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { onDestroy, onMount, type Snippet } from "svelte";
 	import BlogTemplateInner from "$pkg/ui/templates/blog_template/BlogTemplateInner.svelte";
@@ -37,8 +38,10 @@
 	});
 
 	onDestroy(() => {
-		appState.bgOpacity = 1;
-		enableUniversalOverlaySvelte4.set(initialDialogState);
+		if (browser) {
+			appState.bgOpacity = 1;
+			enableUniversalOverlaySvelte4.set(initialDialogState);
+		}
 	});
 
 	appState.bgOpacity = shouldFillWholePage ? 0.2 : 1;

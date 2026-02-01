@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from "$app/environment";
 	import { onDestroy, onMount } from "svelte";
 	import { ErrorYarn } from "./ErrorYarn";
 	import { PinyaCard } from "$pkg/ui/elements/index";
@@ -13,7 +14,9 @@
 	});
 
 	onDestroy(() => {
-		dialogManager.toggleDialogOverlay();
+		if (browser) {
+			dialogManager.toggleDialogOverlay();
+		}
 	});
 </script>
 
