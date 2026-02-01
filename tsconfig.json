@@ -10,6 +10,10 @@
     "sourceMap": true,
     "strict": true,
     "moduleResolution": "bundler",
+    "module": "ESNext",
+    "target": "ES2015",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "declaration": true,
     "declarationMap": true,
     "types": [
