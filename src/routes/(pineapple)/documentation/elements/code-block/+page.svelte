@@ -12,7 +12,7 @@
 		import: "default",
 		eager: true
 	});
-	const propsCode = propSources["/src/lib/ui/elements/CodeBlock/CodeBlockProps.ts"] ?? "";
+	const propsCode = propSources["/src/lib/ui/elements/CodeBlock/CodeBlockProps.ts"] as string ?? "";
 
 	const basicUsage = `<CodeBlock
   code={\`<EntryOrderConfig
@@ -40,7 +40,8 @@
 
 <h2>Features</h2>
 <ul>
-	<li>Syntax highlighting powered by Shiki.</li>
+	<li>Syntax highlighting powered by Shiki. See <TextLink href="https://shiki.style/">https://shiki.style/</TextLink> and
+		<TextLink href="https://www.skeleton.dev/docs/integrations/code-block/svelte/">https://www.skeleton.dev/docs/integrations/code-block/svelte/</TextLink></li>
 	<li>Light and dark theme pairing using Catppuccin palettes.</li>
 	<li>Copy button for quick clipboard access.</li>
 	<li>Wrapper and pre-element styling hooks for layout control.</li>

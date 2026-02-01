@@ -297,39 +297,6 @@ h6 {
     text-decoration: underline;
 }
 
-a.a-as-btn {
-    text-decoration: none;
-}
-
-a:not(.a-as-btn) {
-    text-decoration: underline;
-    color: var(--color-secondary-500);
-
-    /*todo: migration*/
-    /*@variant dark {*/
-    /*    color: var(--color-secondary-300);*/
-    /*}*/
-}
-
-a:not(.a-as-btn):hover, a:not(.a-as-btn):focus {
-    filter: brightness(150%);
-}
-
-/*  we're fighting a specificity war with skeleton components */
-.a-as-btn:hover {
-    filter: brightness(110%);
-}
-
-a:not(.a-as-btn):visited {
-    color: var(--color-secondary-950);
-
-    /*todo: migration*/
-    /*@variant dark {*/
-    /*    color: var(--color-secondary-200);*/
-    /*}*/
-}
-
-
 ul {
     list-style: inside;
 }

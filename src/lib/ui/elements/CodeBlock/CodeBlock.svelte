@@ -1,6 +1,6 @@
 <!-- @component Code Block based on: https://shiki.style/ and https://www.skeleton.dev/docs/integrations/code-block/svelte/ -->
 
-<script module>
+<script module lang="ts">
 	import { addCopyButton } from "shiki-transformer-copy-button";
 	import { createHighlighterCoreSync } from "shiki/core";
 	import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
@@ -17,6 +17,7 @@
 	import ts from "shiki/langs/typescript.mjs";
 	import markdown from "shiki/langs/markdown.mjs";
 	import xml from "shiki/langs/xml.mjs";
+	import svelte from "shiki/langs/svelte.mjs";
 
 	// https://shiki.style/guide/sync-usage
 	const shiki = createHighlighterCoreSync({
@@ -24,7 +25,7 @@
 		// Implement your import theme.
 		themes: [themeLight, themeDark],
 		// Implement your imported and supported languages.
-		langs: [console, html, css, js, ts, markdown, xml]
+		langs: [console, html, css, js, ts, markdown, xml, svelte]
 	});
 </script>
 

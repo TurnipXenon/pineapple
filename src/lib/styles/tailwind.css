@@ -3090,20 +3090,6 @@ a:not(.a-as-btn):where(.dark,
 .dark *) {
   color:var(--color-secondary-300)
 }
-a:not(.a-as-btn):hover,
-a:not(.a-as-btn):focus {
-  filter:brightness(150%)
-}
-.a-as-btn:hover {
-  filter:brightness(110%)
-}
-a:not(.a-as-btn):visited {
-  color:var(--color-secondary-950)
-}
-a:not(.a-as-btn):visited:where(.dark,
-.dark *) {
-  color:var(--color-secondary-200)
-}
 ul {
   list-style:inside
 }
