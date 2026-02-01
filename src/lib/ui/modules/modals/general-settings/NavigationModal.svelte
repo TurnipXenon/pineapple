@@ -4,13 +4,9 @@
 	import ConstrastIcon from "$pkg/assets/icons/icon-contrast.svg";
 	import DarkIcon from "$pkg/assets/icons/icon-dark-mode.svg";
 	import LightIcon from "$pkg/assets/icons/icon-light-mode.svg";
-
-	import { localizeHref } from "$pkg/external/paraglide/runtime";
-	import { PinyaAccordion, PinyaAccordionItem } from "$pkg/ui/components/index";
 	import ModalBase from "$pkg/ui/components/ModalBase.svelte";
 	import NestedNavigation from "$pkg/ui/components/NestedNavigation.svelte";
-	import { TextLink } from "$pkg/ui/elements/index";
-	import { getSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions";
+	import { getSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { setMode, userPrefersMode } from "mode-watcher";
 	import type { ModalProps } from "svelte-modals";
 

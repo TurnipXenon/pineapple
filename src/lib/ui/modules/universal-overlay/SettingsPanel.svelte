@@ -16,7 +16,7 @@ TODO: delete GeneralSettingsModal.svelte
 	import {
 		getEnableDialogPreferenceContext,
 		getEnablePortraitContext
-	} from "$pkg/util/context/pineappleBaseContextDefinitions";
+	} from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import type { LocalStore } from "$pkg/util/localStore.svelte";
 	import { setMode, userPrefersMode } from "mode-watcher";
 

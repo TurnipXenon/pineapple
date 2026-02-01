@@ -13,7 +13,7 @@
 	import PinyaBase from "$pkg/ui/templates/pinya-base/PinyaBase.svelte";
 	import { pinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 	import { appState, PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/index";
-	import { setSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions";
+	import { setSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { onMount, type Snippet } from "svelte";
 	import { getParsnipDataRemote } from "./pineapple/getParsnipData.remote";
 

@@ -7,7 +7,7 @@
 		setEnablePortraitContext,
 		setIgnoreOverlayOverride,
 		setOverlayTypeContext
-	} from "$pkg/util/context/pineappleBaseContextDefinitions";
+	} from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { createLocalStore } from "$pkg/util/localStore.svelte";
 	import { onMount } from "svelte";
 

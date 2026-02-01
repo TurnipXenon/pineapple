@@ -2,7 +2,7 @@
 	import { beforeNavigate } from "$app/navigation";
 	import NestedNavigation from "$pkg/ui/components/NestedNavigation.svelte";
 	import { PinyaCard } from "$pkg/ui/elements/index";
-	import { getSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions";
+	import { getSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { onMount } from "svelte";
 
 	let { children } = $props();

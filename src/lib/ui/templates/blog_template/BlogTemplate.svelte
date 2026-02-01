@@ -2,7 +2,7 @@
 
 <script lang="ts">
 	import "./blog-template.css";
-	import { setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions";
+	import { setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { onDestroy, onMount, type Snippet } from "svelte";
 	import BlogTemplateInner from "$pkg/ui/templates/blog_template/BlogTemplateInner.svelte";
 	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";

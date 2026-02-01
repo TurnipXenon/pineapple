@@ -18,7 +18,7 @@ See panels:
 	import { ButtonVariant, ImageIcon } from "$pkg/ui/elements/index";
 	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
 	import DialogPanel from "$pkg/ui/modules/universal-overlay/DialogPanel.svelte";
-	import { getEnablePortraitContext } from "$pkg/util/context/pineappleBaseContextDefinitions";
+	import { getEnablePortraitContext } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { onMount } from "svelte";
 	import { modals } from "svelte-modals";
 	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
