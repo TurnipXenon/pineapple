@@ -158,8 +158,14 @@ pre button.copy {
 /* endregion shiki copy button */
 
 
-ul + h2 {
+ul + h2, ol + h2 {
     margin-top: 1rlh;
+}
+
+.default-flex {
+    display: flex;
+    gap: 0.5lh;
+    flex-direction: column;
 }
 
 /* endregion general styles */

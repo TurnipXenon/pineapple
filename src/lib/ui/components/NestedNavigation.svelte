@@ -77,7 +77,7 @@
 		{#each layout as site (site.relativeLink)}
 			<!-- todo: add highlighted class when relativeLink === page.url -->
 			<PinyaAccordionItem
-				class={currentPath === site.relativeLink ? "highlighted" : ""}
+				class="{currentPath === site.relativeLink ? 'highlighted' : ''}"
 				hasNoChild={site.nestedPages.length === 0}
 				pinyaValue={site.relativeLink}>
 				{#snippet control()}
@@ -103,7 +103,9 @@
 	</PinyaCard>
 {/if}
 
-<style>
+<style lang="scss">
+		@use "$styles/surface-colors" as *;
+
     .wrapper {
         display: flex;
         flex-direction: column;
@@ -115,9 +117,8 @@
     :global {
         .pinya-accordion-item.highlighted > .accordion-heading {
             & > .like-button, & > button {
+		            @extend %surface-secondary-button;
                 font-weight: bolder;
-                background-color: var(--color-secondary-400-600);
-                color: var(--color-secondary-950-0);
             }
         }
 
@@ -126,6 +127,10 @@
             padding: 1em;
             gap: 0.5lh
         }
+
+		    .pinya-nested-navigation {
+
+		    }
     }
 
 </style>

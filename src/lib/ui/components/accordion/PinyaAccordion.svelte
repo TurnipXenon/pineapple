@@ -2,21 +2,17 @@
 
 <script lang="ts">
 	import { Accordion } from "melt/builders";
-	import { setContext, type Snippet } from "svelte";
-	import type { HTMLAttributes } from "svelte/elements";
+	import { setContext } from "svelte";
 	import type { SvelteSet } from "svelte/reactivity";
 	import { accordionContextKey, type AccordionContext } from "./accordionContext";
+	import type { PinyaAccordionProps } from "./PinyaAccordionProps";
 
 	let {
 		children,
 		openItems = $bindable([]),
 		multiple = true,
 		...props
-	}: {
-		children: Snippet,
-		openItems?: string[],
-		multiple?: boolean,
-	} & HTMLAttributes<HTMLDivElement> = $props();
+	}: PinyaAccordionProps = $props();
 	let accordion = $derived(new Accordion({
 		value: (() => {
 			if (openItems) {
@@ -51,14 +47,19 @@
     :global {
         .pinya-accordion-root {
             .pinya-accordion-item {
-                &:first-child, &:first-child .consider-top-edge {
+                &:first-child,
+                &:first-child > .accordion-heading,
+                &:first-child > .accordion-heading .consider-top-edge {
                     border-top-left-radius: var(--radius-lg);
                     border-top-right-radius: var(--radius-lg);
                 }
             }
 
             .pinya-accordion-item {
-                &:last-child, &:last-child .consider-bottom-edge, &:last-child .consider-top-edge[data-state="closed"] {
+                &:last-child,
+                &:last-child > .accordion-panel,
+                &:last-child > .accordion-heading .consider-bottom-edge,
+                &:last-child > .accordion-heading .consider-top-edge[data-state="closed"] {
                     border-bottom-left-radius: var(--radius-lg);
                     border-bottom-right-radius: var(--radius-lg);
                 }

@@ -25,7 +25,7 @@
         html.dark {
 		        /* when adding new surfaces, apply the property like this */
             --link-color-dark: var(--color-secondary-300);
-            --visited-link-color-dark: var(--color-secondary-500);
+            --visited-link-color-dark: var(--color-secondary-400);
         }
 
         a.a-as-btn {

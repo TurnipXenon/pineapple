@@ -41,3 +41,15 @@
     --link-color-dark: var(--color-secondary-600);
     --visited-link-color-dark: var(--color-secondary-800);
 }
+
+%surface-secondary-button {
+    --current-surface-color: var(--color-secondary-400-600);
+    --current-surface-contrast: var(--color-secondary-950-0);
+    background-color: var(--current-surface-color);
+    color: var(--current-surface-contrast);
+
+    --link-color: var(--color-secondary-400);
+    --visited-link-color: var(--color-secondary-900);
+    --link-color-dark: var(--color-secondary-200);
+    --visited-link-color-dark: var(--color-secondary-300);
+}

@@ -4,9 +4,9 @@
 
 <script lang="ts">
 	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
-	import { getContext, type Snippet } from "svelte";
-	import type { HTMLAttributes } from "svelte/elements";
+	import { getContext } from "svelte";
 	import { type AccordionContext, accordionContextKey } from "./accordionContext";
+	import type { PinyaAccordionItemProps } from "./PinyaAccordionItemProps";
 
 	let {
 		control: controlSnippet,
@@ -15,14 +15,7 @@
 		hasNoChild = false,
 		pinyaValue,
 		...props
-	}: {
-		control: Snippet;
-		/** take advantage that the parent has [data-state="closed"] */
-		controlIndicator?: Snippet;
-		panel?: Snippet;
-		pinyaValue?: string
-		hasNoChild?: boolean,
-	} & HTMLAttributes<HTMLDivElement> = $props();
+	}: PinyaAccordionItemProps = $props();
 
 	let uid = $props.id();
 	let accordionContext = getContext<AccordionContext>(accordionContextKey);
@@ -32,7 +25,7 @@
 	);
 </script>
 
-<div {...props} class="pinya-accordion-item consider-top-edge consider-bottom-edge bg-primary-100 dark:bg-tertiary-900 dark:saturate-75 {props.class}">
+<div {...props} class="pinya-accordion-item consider-top-edge consider-bottom-edge bg-primary-100 dark:bg-tertiary-900 {props.class}">
 	{#if accordionItem}
 		<div {...accordionItem.heading} class="consider-top-edge accordion-heading">
 			{#if hasNoChild}
@@ -72,7 +65,7 @@
 <style lang="scss">
     @use "$styles/surface-colors" as *;
 
-    .pinya-accordion-item:not(:last-child) .accordion-heading::after {
+    .pinya-accordion-item:not(:last-child) > .accordion-heading::after {
         content: "";
         display: block;
         height: 2px;

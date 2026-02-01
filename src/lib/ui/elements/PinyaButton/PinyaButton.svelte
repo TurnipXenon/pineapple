@@ -44,8 +44,7 @@
             }
 
             &.secondary {
-                background-color: var(--color-secondary-400-600);
-                color: var(--color-secondary-950-0);
+                @extend %surface-secondary-button;
             }
 
             &.warning {
