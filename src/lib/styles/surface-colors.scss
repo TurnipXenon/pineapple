@@ -32,7 +32,12 @@
 
 %surface-primary-button {
     --current-surface-color: var(--color-primary-400-600);
-    --current-surface-contrast-dark: var(--color-secondary-950-0);
+    --current-surface-contrast: var(--color-secondary-950-0);
     background-color: var(--current-surface-color);
-    color: var(--current-surface-contrast-dark);
+    color: var(--current-surface-contrast);
+
+    --link-color: var(--color-secondary-400);
+    --visited-link-color: var(--color-secondary-900);
+    --link-color-dark: var(--color-secondary-600);
+    --visited-link-color-dark: var(--color-secondary-800);
 }

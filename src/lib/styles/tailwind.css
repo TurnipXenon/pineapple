@@ -539,11 +539,6 @@
   ::selection {
     background-color:#73737380
   }
-  @supports (color:color-mix(in lab,red,red)) {
-    ::selection {
-      background-color:color-mix(in srgb,var(--color-primary-500)50%,transparent)
-    }
-  }
   :disabled,
   .disabled {
     opacity:.5
@@ -3081,14 +3076,6 @@ h6 {
 }
 a.a-as-btn {
   text-decoration:none
-}
-a:not(.a-as-btn) {
-  color:var(--color-secondary-500);
-  text-decoration:underline
-}
-a:not(.a-as-btn):where(.dark,
-.dark *) {
-  color:var(--color-secondary-300)
 }
 ul {
   list-style:inside
