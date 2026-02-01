@@ -10,6 +10,7 @@
 	} from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { createLocalStore } from "$pkg/util/localStore.svelte";
 	import { onMount } from "svelte";
+	import { writable } from "svelte/store";
 
 	let { children } = $props();
 
@@ -34,8 +35,8 @@
 	const enableDialogPrefStore = createLocalStore("enable-dialog-preference");
 	setEnableDialogPreferenceContext(enableDialogPrefStore);
 
-	let enableDialog = $state({ value: $enableDialogPrefStore });
-	setEnableDialogOverlayContext(enableDialog);
+	const enableDialogOverlayStore = writable($enableDialogPrefStore);
+	setEnableDialogOverlayContext(enableDialogOverlayStore);
 	setIgnoreOverlayOverride(true);
 	let ignoreOverlaySet = getIgnoreOverlayOverride();
 	onMount(() => {
@@ -44,9 +45,9 @@
 				ignoreOverlaySet = false;
 				// force initial value?
 				enableUniversalOverlaySvelte4.set($enableDialogPrefStore);
-				enableDialog.value = $enableDialogPrefStore;
+				enableDialogOverlayStore.set($enableDialogPrefStore);
 			} else {
-				enableDialog.value = value;
+				enableDialogOverlayStore.set(value);
 			}
 		});
 

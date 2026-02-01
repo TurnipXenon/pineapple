@@ -94,12 +94,12 @@
 				>
 					<ImageIcon src={SettingsLogo} aria-hidden="true" alt=""></ImageIcon>
 				</PinyaButton>
-				<PinyaButton
-					title="Toggle conversation"
-					buttonVariant={ButtonVariant.Image}
-					colorScheme={enableUniversalOverlay.value ? ColorScheme.Secondary : undefined}
-					onclick={()=>{dialogManager.toggleDialogOverlay();}}
-				>
+					<PinyaButton
+						title="Toggle conversation"
+						buttonVariant={ButtonVariant.Image}
+						colorScheme={$enableUniversalOverlay ? ColorScheme.Secondary : undefined}
+						onclick={()=>{dialogManager.toggleDialogOverlay();}}
+					>
 					<ImageIcon src={DialogIcon} aria-hidden="true" alt=""></ImageIcon>
 				</PinyaButton>
 			</div>
