@@ -74,23 +74,33 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "svelte": "./dist/index.js"
+      "svelte": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./components": {
       "types": "./dist/ui/components/index.d.ts",
-      "svelte": "./dist/ui/components/index.js"
+      "svelte": "./dist/ui/components/index.js",
+      "import": "./dist/ui/components/index.js",
+      "default": "./dist/ui/components/index.js"
     },
     "./elements": {
       "types": "./dist/ui/elements/index.d.ts",
-      "svelte": "./dist/ui/elements/index.js"
+      "svelte": "./dist/ui/elements/index.js",
+      "import": "./dist/ui/elements/index.js",
+      "default": "./dist/ui/elements/index.js"
     },
     "./modules": {
       "types": "./dist/ui/modules/index.d.ts",
-      "svelte": "./dist/ui/modules/index.js"
+      "svelte": "./dist/ui/modules/index.js",
+      "import": "./dist/ui/modules/index.js",
+      "default": "./dist/ui/modules/index.js"
     },
     "./templates": {
       "types": "./dist/ui/templates/index.d.ts",
-      "svelte": "./dist/ui/templates/index.js"
+      "svelte": "./dist/ui/templates/index.js",
+      "import": "./dist/ui/templates/index.js",
+      "default": "./dist/ui/templates/index.js"
     }
   },
   "files": [
