@@ -1,0 +1,15 @@
+diff --git a/package.json b/package.json
+index ad1abbaa2a18228f51025fa776fcef853785b05a..b021f13531b8662f9159345e4a5cca7b0cf6db8e 100644
+--- a/package.json
++++ b/package.json
+@@ -11,7 +11,9 @@
+   "exports": {
+     ".": {
+       "types": "./dist/index.d.ts",
+-      "svelte": "./dist/index.js"
++      "svelte": "./dist/index.js",
++      "import": "./dist/index.js",
++      "default": "./dist/index.js"
+     }
+   },
+   "files": [
