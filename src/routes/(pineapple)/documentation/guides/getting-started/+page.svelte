@@ -1,7 +1,26 @@
-<script lang="ts"></script>
+<script lang="ts">
+	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
+	import ImageIcon from "$pkg/ui/elements/ImageIcon.svelte";
+	import { ButtonVariant, PinyaButton } from "$pkg/ui/elements/index";
+</script>
 
 <h1>Getting Started</h1>
-TODO: Explain what this project is all about
+
+<PinyaButton
+	class="documentation-social-button"
+	buttonVariant={ButtonVariant.SmallIcon}
+	title="https://github.com/TurnipXenon"
+	onclick={() => window.open("https://github.com/TurnipXenon/pineapple")}>
+	<ImageIcon src={GithubIcon} alt="" aria-hidden />
+	<span>TurnipXenon/pineapple</span>
+</PinyaButton>
+
+<h2>About</h2>
+
+<p>Base package for all my websites.</p>
+
+<p>TODO: Explain what this project is all about</p>
+
 
 <h2>About our project structure</h2>
 
@@ -27,3 +46,10 @@ TODO: Explain what this project is all about
 </ul>
 
 <p>Do take note that it took a while to arrive to this rule, so several existing files aren't properly organized yet.</p>
+<style>
+    :global {
+        .documentation-social-button {
+		        align-self: center;
+        }
+    }
+</style>

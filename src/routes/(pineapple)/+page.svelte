@@ -32,7 +32,10 @@
 				</div>
 			</PinyaButton>
 			<PinyaButton onclick={() => {location.href = localizeHref('components');}}>
-				Components
+				Components testing
+			</PinyaButton>
+			<PinyaButton onclick={() => {location.href = localizeHref('documentation/guides/getting-started');}}>
+				Library documentation
 			</PinyaButton>
 		</div>
 	</main>
