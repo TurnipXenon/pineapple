@@ -54,6 +54,20 @@
 <h2>Props</h2>
 <CodeBlock code={propsCode} lang="ts" classes="max-w-2xl" />
 
+<h2>When creating new color schemes</h2>
+
+<ol>
+	<li>The base color should be placed in the style section of the component.
+		<TextLink href="https://github.com/TurnipXenon/pineapple/blob/4a013654df446ae330a5ff4955723240490c67c3/src/lib/ui/elements/TextLink.svelte#L20">https://github.com/TurnipXenon/pineapple/blob/4a013654df446ae330a5ff4955723240490c67c3/src/lib/ui/elements/TextLink.svelte#L20</TextLink>
+	</li>
+	<li>Create base property in the root, and the alternative dark counter parts in the root. Also, in the component's style section.</li>
+	<li>Apply the properties to the components style at the very end. Like
+		<code>a &lbrace;color: var(--link-color)&rbrace;</code></li>
+	<li>For surface variants, apply the properties on the variants in
+		<TextLink href="https://github.com/TurnipXenon/pineapple/blob/4a013654df446ae330a5ff4955723240490c67c3/src/lib/styles/surface-colors.scss">https://github.com/TurnipXenon/pineapple/blob/4a013654df446ae330a5ff4955723240490c67c3/src/lib/styles/surface-colors.scss</TextLink>
+	</li>
+</ol>
+
 <h2>Notes</h2>
 <ul>
 	<li>Visited link color is styled for both light and dark themes.</li>
@@ -69,6 +83,6 @@
         display: flex;
         flex-direction: column;
         gap: 0.5lh;
-		    margin-bottom: 1lh;
+        margin-bottom: 1lh;
     }
 </style>

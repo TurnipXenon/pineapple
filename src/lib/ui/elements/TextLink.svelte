@@ -1,5 +1,3 @@
-<!-- TODO: Documentation: consider documentation showcase -->
-
 <!-- @component TextLink
  todo: consider current-surface scss
  -->
