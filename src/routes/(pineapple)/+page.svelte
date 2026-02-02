@@ -3,10 +3,9 @@
 	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
 	import { PinyaButton } from "$pkg/ui/elements/PinyaButton/index";
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard/index";
-	import { setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { onMount } from "svelte";
 
-	setIgnoreOverlayOverride(true);
+	// setIgnoreOverlayOverride(true);
 	onMount(() => {
 		enableUniversalOverlaySvelte4.set(true);
 	});
