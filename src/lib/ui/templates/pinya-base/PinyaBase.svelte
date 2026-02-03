@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/state";
-	import { type PageMeta, parsePageMetaNested } from "$pkg";
+	import { menuPageServerLoad, type PageMeta, parsePageMetaNested } from "$pkg";
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 	import { locales, localizeHref } from "$pkg/external/paraglide/runtime";
 	import "$pkg/styles/global.css";
@@ -12,7 +12,6 @@
 	import "$pkg/styles/app.css";
 	import { onMount, type Snippet } from "svelte";
 	import { Modals } from "svelte-modals";
-	import { getParsnipDataRemote } from "../../../../routes/(pineapple)/pineapple/getParsnipData.remote";
 
 	let { children, fileList, jsonList }
 		: {
@@ -46,7 +45,7 @@
 	setSiteLayout(fileBasedList);
 
 	onMount(() => {
-		getParsnipDataRemote().then(data => {
+		menuPageServerLoad().then(data => {
 			fileBasedList.push(...parsePageMetaNested({
 				fileList,
 				jsonList,
