@@ -1,4 +1,6 @@
+import type { PageMeta } from "$pkg";
 import { createLocalStore } from "$pkg/util/localStore.svelte";
+import { createContext } from "svelte";
 
 // export const [getEnablePortraitContext, setEnablePortraitContext] = createContext<LocalStore<boolean>>();
 export const getEnablePortraitContext = () => createLocalStore("enable-portrait");
@@ -14,5 +16,5 @@ export const getEnableDialogOverlayContext = () => ({ value: false });
 export const getOverlayTypeContext = () => createLocalStore("overlay-type");
 // export const [getIgnoreOverlayOverride, setIgnoreOverlayOverride] = createContext<boolean>();
 export const getIgnoreOverlayOverride = () => ({ value: false });
-// export const [getSiteLayout, setSiteLayout] = createContext<PageMeta[]>();
-export const getSiteLayout = () => [];
+export const [getSiteLayout, setSiteLayout] = createContext<PageMeta[]>();
+// export const getSiteLayout = () => [];
