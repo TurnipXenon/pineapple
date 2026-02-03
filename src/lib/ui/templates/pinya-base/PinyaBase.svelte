@@ -1,16 +1,24 @@
 <script lang="ts">
 	import { page } from "$app/state";
+	import { menuPageServerLoad, type PageMeta, parsePageMetaNested } from "$pkg";
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 	import { locales, localizeHref } from "$pkg/external/paraglide/runtime";
 	import "$pkg/styles/global.css";
 	import MeltToaster from "$pkg/ui/components/MeltToaster/MeltToaster.svelte";
 	import type { PinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 	import PineappleBaseContext from "$pkg/util/context/PineappleBaseContext.svelte";
+	import { setSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { ModeWatcher } from "mode-watcher";
 	import "$pkg/styles/app.css";
+	import { onMount, type Snippet } from "svelte";
 	import { Modals } from "svelte-modals";
 
-	let { children } = $props();
+	let { children, fileList, jsonList }
+		: {
+		children: Snippet,
+		fileList: Record<string, () => Promise<unknown>>,
+		jsonList: Record<string, unknown>
+	} = $props();
 
 	// https://github.com/sveltejs/kit/issues/1540#issuecomment-2029016082
 	const meta: PinyaHead = ({
@@ -31,6 +39,22 @@
 
 		return img;
 	}) ?? []);
+
+
+	let fileBasedList = $state<PageMeta[]>([]);
+	setSiteLayout(fileBasedList);
+
+	onMount(() => {
+		menuPageServerLoad().then(data => {
+			fileBasedList.push(...parsePageMetaNested({
+				fileList,
+				jsonList,
+				imageMap: new Map<string, string>(),
+				parsnipOverall: data.parsnipOverall,
+				parsnipBasePath: "pineapple/"
+			}));
+		});
+	});
 </script>
 
 <PineappleBaseContext>
@@ -79,7 +103,7 @@
 <style lang="scss">
     @use "$styles/surface-colors" as *;
 
-    body{
+    body {
         @extend %surface-body;
     }
 

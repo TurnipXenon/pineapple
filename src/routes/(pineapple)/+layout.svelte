@@ -28,23 +28,9 @@
 
 	const fileList = import.meta.glob("./**/+page.svelte", { query: "?raw" });
 	const jsonList = import.meta.glob("./**/meta.json", { query: "?raw", eager: true });
-	let fileBasedList = $state<PageMeta[]>([]);
-	setSiteLayout(fileBasedList);
-
-	onMount(() => {
-		getParsnipDataRemote().then(data => {
-			fileBasedList.push(...parsePageMetaNested({
-				fileList,
-				jsonList,
-				imageMap: new Map<string, string>(),
-				parsnipOverall: data.parsnipOverall,
-				parsnipBasePath: "pineapple/"
-			}));
-		});
-	});
 </script>
 
-<PinyaBase>
+<PinyaBase {fileList} {jsonList}>
 	<PinyaPageLayout>
 		{@render children()}
 	</PinyaPageLayout>
