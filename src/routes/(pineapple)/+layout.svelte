@@ -9,13 +9,10 @@
 
 	// region highlightjs
 	import "highlight.js/styles/github-dark.css";
-	import { type PageMeta, parsePageMetaNested } from "$pkg";
 	import PinyaBase from "$pkg/ui/templates/pinya-base/PinyaBase.svelte";
 	import { pinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 	import { appState, PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/index";
-	import { setSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
-	import { onMount, type Snippet } from "svelte";
-	import { getParsnipDataRemote } from "./pineapple/getParsnipData.remote";
+	import { type Snippet } from "svelte";
 
 	interface Props {
 		children: Snippet;
