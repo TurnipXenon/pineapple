@@ -16,7 +16,8 @@
 	import NavigationModal from "$pkg/ui/modules/modals/general-settings/NavigationModal.svelte";
 	import UniversalOverlay from "$pkg/ui/modules/universal-overlay/UniversalOverlay.svelte";
 	import { getEnableDialogOverlayContext } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
-	import { onMount, type Snippet } from "svelte";
+	import type { Snippet } from "svelte";
+	import { type Snippet } from "svelte";
 	import { modals } from "svelte-modals";
 	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
 	import { appState } from "./pinyaPageLayoutRunes.svelte.js";
@@ -131,24 +132,24 @@
 
 
 <style>
-    :global {
+		:global {
         #header-action-wrapper {
-            max-height: 2rem;
+		        max-height: 2rem;
             display: flex;
             flex-direction: row-reverse;
             gap: 0.5rem;
 
-            & > * {
+            &> * {
                 padding: 0;
-                aspect-ratio: 1 / 1;
-                height: 100%;
+		            aspect-ratio: 1 / 1;
+		            height: 100%;
 
-                & > img {
-                    padding: 0.3rem;
-                    height: 95%;
-                    aspect-ratio: 1 / 1;
-                    object-fit: contain;
-                }
+		            &> img {
+				            padding: 0.3rem;
+		                height: 95%;
+				            aspect-ratio: 1 / 1;
+				            object-fit: contain;
+		            }
             }
 
             .pinya-button {
@@ -156,10 +157,10 @@
             }
         }
 
-        :root {
-            --default-page-container-margin: 4rem 1rem 0 1rem;
-        }
-    }
+				:root {
+		      --default-page-container-margin: 4rem 1rem 0 1rem;
+				}
+		}
 
     header {
         top: 0;
