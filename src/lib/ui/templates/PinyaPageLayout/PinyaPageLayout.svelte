@@ -16,8 +16,7 @@
 	import NavigationModal from "$pkg/ui/modules/modals/general-settings/NavigationModal.svelte";
 	import UniversalOverlay from "$pkg/ui/modules/universal-overlay/UniversalOverlay.svelte";
 	import { getEnableDialogOverlayContext } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
-	import type { Snippet } from "svelte";
-	import { type Snippet } from "svelte";
+	import { onMount, type Snippet } from "svelte";
 	import { modals } from "svelte-modals";
 	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
 	import { appState } from "./pinyaPageLayoutRunes.svelte.js";
@@ -42,7 +41,7 @@
 
 	let isMounted = $state(false);
 	onMount(() => {
-		isMounted = false;
+		isMounted = true;
 	});
 </script>
 
