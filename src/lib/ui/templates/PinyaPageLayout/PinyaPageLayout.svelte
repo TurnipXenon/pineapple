@@ -132,6 +132,10 @@
 
 <style>
 		:global {
+				.hidden {
+						opacity: 0;
+				}
+
         #header-action-wrapper {
 		        max-height: 2rem;
             display: flex;

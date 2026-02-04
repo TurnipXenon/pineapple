@@ -16,9 +16,9 @@
 	let { children, fileList = {}, jsonList = {}, parsnipBasePath = "/pineapple" }
 		: {
 		children: Snippet,
-		fileList: Record<string, () => Promise<unknown>>,
-		jsonList: Record<string, unknown>,
-		parsnipBasePath: string
+		fileList?: Record<string, () => Promise<unknown>>,
+		jsonList?: Record<string, unknown>,
+		parsnipBasePath?: string
 	} = $props();
 
 	// https://github.com/sveltejs/kit/issues/1540#issuecomment-2029016082
