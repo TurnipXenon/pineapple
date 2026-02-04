@@ -3,9 +3,9 @@
 <script lang="ts">
 	import { dialogManager } from "$pkg";
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
-	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";
-	import HamburgerIcon from "$pkg/assets/icons/icon-menu.svg";
 	import DialogIcon from "$pkg/assets/icons/icon-chat.svg";
+	import HamburgerIcon from "$pkg/assets/icons/icon-menu.svg";
+	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";
 
 	import { m } from "$pkg/external/paraglide/messages";
 	import { localizeHref } from "$pkg/external/paraglide/runtime";
@@ -16,7 +16,7 @@
 	import NavigationModal from "$pkg/ui/modules/modals/general-settings/NavigationModal.svelte";
 	import UniversalOverlay from "$pkg/ui/modules/universal-overlay/UniversalOverlay.svelte";
 	import { getEnableDialogOverlayContext } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
-	import type { Snippet } from "svelte";
+	import { onMount, type Snippet } from "svelte";
 	import { modals } from "svelte-modals";
 	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
 	import { appState } from "./pinyaPageLayoutRunes.svelte.js";
@@ -38,6 +38,11 @@
 	const onSettingsClick = () => {
 		modals.open(GeneralSettingsModal);
 	};
+
+	let isMounted = $state(false);
+	onMount(() => {
+		isMounted = false;
+	});
 </script>
 
 {#snippet header(extraClass: string)}
@@ -94,12 +99,12 @@
 				>
 					<ImageIcon src={SettingsLogo} aria-hidden="true" alt=""></ImageIcon>
 				</PinyaButton>
-					<PinyaButton
-						title="Toggle conversation"
-						buttonVariant={ButtonVariant.Image}
-						colorScheme={$enableUniversalOverlay ? ColorScheme.Secondary : undefined}
-						onclick={()=>{dialogManager.toggleDialogOverlay();}}
-					>
+				<PinyaButton
+					title="Toggle conversation"
+					buttonVariant={ButtonVariant.Image}
+					colorScheme={isMounted && enableUniversalOverlay.value ? ColorScheme.Secondary : undefined}
+					onclick={()=>{dialogManager.toggleDialogOverlay();}}
+				>
 					<ImageIcon src={DialogIcon} aria-hidden="true" alt=""></ImageIcon>
 				</PinyaButton>
 			</div>
@@ -126,24 +131,24 @@
 
 
 <style>
-		:global {
+    :global {
         #header-action-wrapper {
-		        max-height: 2rem;
+            max-height: 2rem;
             display: flex;
             flex-direction: row-reverse;
             gap: 0.5rem;
 
-            &> * {
+            & > * {
                 padding: 0;
-		            aspect-ratio: 1 / 1;
-		            height: 100%;
+                aspect-ratio: 1 / 1;
+                height: 100%;
 
-		            &> img {
-				            padding: 0.3rem;
-		                height: 95%;
-				            aspect-ratio: 1 / 1;
-				            object-fit: contain;
-		            }
+                & > img {
+                    padding: 0.3rem;
+                    height: 95%;
+                    aspect-ratio: 1 / 1;
+                    object-fit: contain;
+                }
             }
 
             .pinya-button {
@@ -151,10 +156,10 @@
             }
         }
 
-				:root {
-		      --default-page-container-margin: 4rem 1rem 0 1rem;
-				}
-		}
+        :root {
+            --default-page-container-margin: 4rem 1rem 0 1rem;
+        }
+    }
 
     header {
         top: 0;
