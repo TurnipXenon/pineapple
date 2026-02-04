@@ -217,6 +217,7 @@
 
 html.dark {
     --header-color: var(--color-primary-100);
+    --body-background-color: var(--body-background-color-dark);
     /*todo: migration*/
     /*@variant turnip {*/
     /*    --border-card: 0;*/
