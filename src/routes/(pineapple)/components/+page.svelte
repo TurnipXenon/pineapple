@@ -1,6 +1,7 @@
 <script lang="ts">
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import { FourPartCard, PinyaAccordion, PinyaAccordionItem } from "$pkg/ui/components/index";
+	import { addToast } from "$pkg/ui/components/MeltToaster/MeltToaster.svelte";
 
 	import { ColorScheme, ImageIcon, PinyaButton, PinyaCard } from "$pkg/ui/elements/index";
 	import PinyaSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
@@ -10,8 +11,21 @@
 	import { modals } from "svelte-modals";
 	import TestModal from "./TestModal.svelte";
 
-	let testSwitchVal = $state(false);
-	let value = $state(["club"]);
+	let allowMultipleOpenAccordion = $state(false);
+	let openAccordionIds = $state(["club"]);
+
+	let toasterIndex = $state(0);
+
+	const toasterOnClick = (type: "info" | "success" | "error" = "info") => {
+		toasterIndex += 1;
+		addToast({
+			data: {
+				title: type.toUpperCase(),
+				description: `The resource was created! Index count ${toasterIndex}`,
+				type,
+			}
+		});
+	};
 </script>
 
 <div class="flex flex-col gap-4">
@@ -24,8 +38,8 @@
 			Click here to test confirmation modal
 		</PinyaButton>
 		<div class="mt-4 mb-4">
-			<label for="test-switch">Switch is {testSwitchVal}</label>
-			<PinyaSwitch name="test-switch"></PinyaSwitch>
+			<label for="test-switch">Multiple is {allowMultipleOpenAccordion}</label>
+			<PinyaSwitch bind:checked={allowMultipleOpenAccordion} name="test-switch"></PinyaSwitch>
 		</div>
 
 		<h3 class="mb-2">Placeholders</h3>
@@ -34,15 +48,33 @@
 
 		<div class="h-8"></div>
 
-		<PinyaAccordion {value}>
-			<PinyaAccordionItem value="club">
+		<PinyaAccordion openItems={openAccordionIds} multiple={allowMultipleOpenAccordion}>
+			<PinyaAccordionItem pinyaValue="club">
 				<!-- Control -->
 				{#snippet control()}Club{/snippet}
 				<!-- Panel -->
 				{#snippet panel()}Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore.{/snippet}
 			</PinyaAccordionItem>
+			<PinyaAccordionItem pinyaValue="club2">
+				<!-- Control -->
+				{#snippet control()}Club 2{/snippet}
+				<!-- Panel -->
+				{#snippet panel()}Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore.{/snippet}
+			</PinyaAccordionItem>
 		</PinyaAccordion>
 		<PinyaAnchorButton href="/test">Go to /test (anchor test)</PinyaAnchorButton>
+	</PinyaCard>
+
+	<PinyaCard widthClass="max-w-2xl" flexClass="flex flex-col gap-4">
+		<PinyaButton onclick={() => toasterOnClick('info')}>
+			Click here to test default (info) toaster
+		</PinyaButton>
+		<PinyaButton onclick={() => toasterOnClick('success')}>
+			Click here to test default (success) toaster
+		</PinyaButton>
+		<PinyaButton onclick={() => toasterOnClick('error')}>
+			Click here to test default (error) toaster
+		</PinyaButton>
 	</PinyaCard>
 
 	<PinyaCard widthClass="max-w-2xl">
@@ -93,7 +125,7 @@
 	</PinyaCard>
 
 	<PinyaCard widthClass="max-w-2xl">
-		<div class="card-container items-start">
+		<div class="card-container">
 			<h1>Button types</h1>
 			<PinyaButton>Text button</PinyaButton>
 			<PinyaButton buttonVariant={ButtonVariant.Image}>
@@ -103,7 +135,7 @@
 	</PinyaCard>
 
 	<PinyaCard widthClass="max-w-2xl">
-		<div class="card-container items-start">
+		<div class="card-container">
 			<h1>Button variations</h1>
 			{#each Object.values(ColorScheme).filter(v => typeof v === 'string') as cs (cs)}
 				<PinyaButton colorScheme={cs}>{cs}</PinyaButton>
@@ -125,5 +157,6 @@
         flex-direction: column;
         text-align: start;
         gap: 0.5lh;
+        align-items: flex-start;
     }
 </style>

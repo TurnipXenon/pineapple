@@ -21,9 +21,16 @@ import type { DialogDetail } from "$lib/types/pineapple_fiber/DialogDetail";
  * onDestroy(() => {
  *     enableDialogueOverlay.update(() =>  true);
  * });
+ *
+ * @deprecated we need to move to Svelte 5. Review usage and maybe create a way to force overlay (or not) without changing preferences.
  * ```
  */
-export const enableDialogueOverlay = writable(false);
+export const enableUniversalOverlaySvelte4 = writable(false);
+
+export type OverlayType = 'dialog' | 'settings' | 'site-map';
+
+// todo: migrate all these stores to runes
+// find a way to make sure we preserve *.ts file on several files
 
 export const dialogVariableStore: DialogMapStore = createNewMapStore();
 export const updateRate: number = 40 / 1000; // *at least* 40ms per letter

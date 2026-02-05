@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
@@ -5,7 +7,7 @@
 	let {
 		title,
 		entryList,
-		projectComponentProps,
+		projectComponentProps
 	}: ProjectGroup = $props();
 
 	const isSpecial = $derived(entryList.length % 3 === 1);
@@ -19,7 +21,7 @@
 </script>
 
 <div class="mt-8 flex flex-col items-center">
-	<PinyaCard widthClass="w-full" className="mb-8">
+	<PinyaCard class="group-header">
 		<h2 class="m-auto">{title}</h2>
 	</PinyaCard>
 	<div class="normal-project-container">
@@ -33,12 +35,6 @@
 		{/each}
 	</div>
 </div>
-
-<!--todo: implement in seaweedlayout #migration-->
-<!--{@html styleStr}-->
-
-<!-- Force tailwind to pickup some classes -->
-<div class="hidden rounded-2xl hover:brightness-110"></div>
 
 <style>
     .normal-project-container {
@@ -62,5 +58,12 @@
         max-width: calc((28rem * 2) + 3rem);
         justify-content: center;
         align-items: start;
+    }
+
+    :global {
+        .group-header.pinya-card {
+            margin-bottom: calc(var(--spacing) * 8);
+            max-width: unset;
+        }
     }
 </style>

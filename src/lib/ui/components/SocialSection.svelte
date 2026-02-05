@@ -1,23 +1,50 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
+	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
+	import LinkedinIcon from "$pkg/assets/icons/linkedin.svg";
+
+	import MailIcon from "$pkg/assets/icons/mail.svg";
+	import RevealInfo from "$pkg/components/reveal-info/RevealInfo.svelte";
+	import type { RevealInfoRecord } from "$pkg/components/reveal-info/RevealInfoCollection";
+	import { ItchLogoHotLink } from "$pkg/consts";
+	import { getDefaultEmail, getDefaultLinkedin } from "$pkg/ui/components/socialSectionRemote.remote";
+	import ImageIcon from "$pkg/ui/elements/ImageIcon.svelte";
+	import { PinyaButton } from "$pkg/ui/elements/PinyaButton/index";
+	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 	import { onMount } from "svelte";
 	import { scale } from "svelte/transition";
 
-	import MailIcon from "$pkg/assets/icons/mail.svg";
-	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
-	import LinkedinIcon from "$pkg/assets/icons/linkedin.svg";
-	import { ItchLogoHotLink } from "$pkg/consts";
-	import { PinyaButton } from "$pkg/ui/elements/PinyaButton/index";
-	import ImageIcon from "$pkg/ui/elements/ImageIcon.svelte";
-	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
+	type SocialSectionProps = {
+		isSmallVersion?: boolean,
+		emailRemoteQuery?: RevealInfoRecord,
+		linkedinRemoteQuery?: RevealInfoRecord,
+		isSlot?: boolean,
+		allowLinkedIn?: boolean
+	};
 
-	/** @type {{isSmallVersion?: boolean, email?: string, linkedinSlug?: string, isSlot?: boolean, allowLinkedIn?: boolean}} */
 	let {
 		isSmallVersion = false,
-		email = "turnipxenon@gmail.com",
-		linkedinSlug = "turnip-xenon",
+		emailRemoteQuery,
+		linkedinRemoteQuery,
 		isSlot = false,
 		allowLinkedIn = true
-	} = $props();
+	}: SocialSectionProps = $props();
+
+	const getDefaultEmailQuery = {
+		query: {
+			run: getDefaultEmail,
+			type: "void"
+		},
+		placeholder: "See email"
+	} as const;
+	const getDefaultLinkedinQuery = {
+		query: {
+			run: getDefaultLinkedin,
+			type: "void"
+		},
+		placeholder: "See Linkedin"
+	} as const;
 
 	let shouldShowExtra = $state(false);
 	const style = `
@@ -41,26 +68,32 @@
 		{/if}
 	</PinyaButton>
 	{#if allowLinkedIn}
-		<PinyaButton
+		<RevealInfo
+			infoRecord={linkedinRemoteQuery ?? getDefaultLinkedinQuery}
 			buttonVariant={ButtonVariant.SmallIcon}
-			title={`https://www.linkedin.com/in/${linkedinSlug}/`}
-			onclick={() => window.open(`https://www.linkedin.com/in/${linkedinSlug}/`)}>
-			<ImageIcon src={LinkedinIcon} alt="linkedin icon" />
-			{#if (!isSmallVersion)}
-				<span>{linkedinSlug}</span>
-			{/if}
-		</PinyaButton>
+			titleBuilder={(info) => `https://www.linkedin.com/in/${info}/`}
+			onclickBuilder={(info) => (() => window.open(`https://www.linkedin.com/in/${info}/`))}>
+			{#snippet bodySnippet(info)}
+				<ImageIcon src={LinkedinIcon} alt="linkedin icon" />
+				{#if (!isSmallVersion)}
+					<span>{info}</span>
+				{/if}
+			{/snippet}
+		</RevealInfo>
 	{/if}
-	<PinyaButton
+	<RevealInfo
+		infoRecord={emailRemoteQuery ?? getDefaultEmailQuery}
 		buttonVariant={ButtonVariant.SmallIcon}
-		title={`mailto:${email}`}
-		onclick={() => window.open(`mailto:${email}`)}
+		titleBuilder={(info) => `mailto:${info}`}
+		onclickBuilder={(info) => (() => window.open(`mailto:${info}`))}
 	>
-		<ImageIcon src={MailIcon} alt="mail icon" />
-		{#if (!isSmallVersion)}
-			<span>{email}</span>
-		{/if}
-	</PinyaButton>
+		{#snippet bodySnippet(info)}
+			<ImageIcon src={MailIcon} aria-hidden />
+			{#if (!isSmallVersion)}
+				<span>{info}</span>
+			{/if}
+		{/snippet}
+	</RevealInfo>
 	{#if (shouldShowExtra)}
 		<div transition:scale>
 			<PinyaButton
@@ -79,7 +112,7 @@
 </div>
 
 <style>
-    span {
+    :global(.socials button span) {
         font-size: 0.8em;
     }
 
@@ -88,6 +121,6 @@
         flex-wrap: wrap;
         justify-content: var(--preferred-justify-content);
         gap: 0.7rem;
-		    align-items: stretch;
+        align-items: stretch;
     }
 </style>

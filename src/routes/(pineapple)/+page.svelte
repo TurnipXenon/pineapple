@@ -1,12 +1,14 @@
 <script lang="ts">
+	import { enableUniversalOverlaySvelte4 } from "$pkg";
 	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
-	import { PinyaCard } from "$pkg/ui/elements/PinyaCard/index";
 	import { PinyaButton } from "$pkg/ui/elements/PinyaButton/index";
-	import { enableDialogueOverlay } from "$pkg";
+	import { PinyaCard } from "$pkg/ui/elements/PinyaCard/index";
+	import { setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { onMount } from "svelte";
 
+	setIgnoreOverlayOverride(true);
 	onMount(() => {
-		enableDialogueOverlay.set(true);
+		enableUniversalOverlaySvelte4.set(true);
 	});
 </script>
 
@@ -30,7 +32,10 @@
 				</div>
 			</PinyaButton>
 			<PinyaButton onclick={() => {location.href = localizeHref('components');}}>
-				Components
+				Components testing
+			</PinyaButton>
+			<PinyaButton onclick={() => {location.href = localizeHref('documentation/guides/getting-started');}}>
+				Library documentation
 			</PinyaButton>
 		</div>
 	</main>

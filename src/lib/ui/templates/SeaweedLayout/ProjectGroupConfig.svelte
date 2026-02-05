@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import UpwardIcon from "$pkg/assets/icons/arrow-upward.svg";
 	import CloseIcon from "$pkg/assets/icons/close.svg";
@@ -5,10 +7,7 @@
 	import { PinyaButton } from "$pkg/ui/elements/PinyaButton";
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
-	import { type ToastContext } from "@skeletonlabs/skeleton-svelte";
-	import { getContext } from "svelte";
-
-	export const toast: ToastContext = getContext("toast");
+	import { addToast } from "$pkg/ui/components/MeltToaster/MeltToaster.svelte";
 
 	interface Props {
 		layout: ProjectGroup[];
@@ -103,7 +102,7 @@
 		};
 	});
 
-	let comboboxValue = $state([comboboxData[0].value]);
+	let comboboxValue = $state(comboboxData[0].value);
 
 	const addEntry = () => {
 		const c = allEntries.find(e => e.key === comboboxValue[0]);
@@ -114,10 +113,12 @@
 		}
 
 		if (group.entryList.includes(c)) {
-			toast.create({
-				title: "Duplicate entry",
-				description: `The entry ${comboboxValue} is already in ${group.title}`,
-				type: "error"
+			addToast({
+				data: {
+					title: "Duplicate entry",
+					description: `The entry ${comboboxValue} is already in ${group.title}`,
+					type: "error"
+				}
 			});
 			return;
 		}
@@ -129,10 +130,9 @@
 </script>
 
 <PinyaCard
-	widthClass="max-w-2xl"
+	class="project-group-config-card"
 	borderClass="border-[2px] border-primary-500"
 	marginClass="mt-4 mb-4"
-	paddingClass=""
 >
 
 	<div class="m-4 flex flex-row gap-2">
@@ -203,6 +203,7 @@
 				<PinyaButton onclick={addEntry}>Add Entry
 				</PinyaButton>
 				<PinyaCombobox
+					class="project-group-config"
 					data={comboboxData}
 					defaultValue={comboboxValue}
 					bind:value={comboboxValue}
@@ -225,7 +226,7 @@
     }
 
     .entry-name {
-        grow: 1;
+        flex-grow: 1;
     }
 
     tr, td, th, table {
@@ -259,5 +260,16 @@
         display: flex;
         flex-direction: row;
         gap: 1em;
+    }
+
+    :global {
+        .project-group-config-card.pinya-card {
+            max-width:var(--container-2xl);
+		        padding: 0;
+        }
+
+        .project-group-config.pinya-combobox-wrapper {
+		        flex-grow: 1;
+        }
     }
 </style>

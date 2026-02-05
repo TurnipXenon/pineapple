@@ -1,3 +1,9 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
+<!-- @component PinyaAnchorButton
+ todo: consider current-surface scss and tailwind cleanup
+ -->
+
 <script lang="ts">
 	import { ColorScheme } from "$pkg/ui/elements/ColorScheme";
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
@@ -19,7 +25,7 @@
 
 <a
 	{...props}
-	class={`a-as-btn ${tailwindClass}}`}
+	class={`a-as-btn ${tailwindClass}`}
 >
 	{@render children()}
 </a>

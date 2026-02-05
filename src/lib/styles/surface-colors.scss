@@ -1,0 +1,55 @@
+// todo: add dark mode colors or maybe the on-surface-color
+
+
+.apply-current-surface {
+    background-color: var(--current-surface-color);
+}
+
+%surface-body {
+    --current-surface-color: var(--body-background-color);
+    background-color: var(--current-surface-color);
+}
+
+%card-body {
+    --current-surface-color: var(--pinya-card-bg-color);
+    background-color: var( --pinya-card-bg-color);
+}
+
+%surface-dialog {
+    --current-surface-color: var(--bg-dialog);
+    background-color: var(--current-surface-color);
+}
+
+%surface-success {
+    --current-surface-color: var(--color-success-500);
+    background-color: var(--current-surface-color);
+}
+
+%surface-error {
+    --current-surface-color: var(--color-error-500);
+    background-color: var(--current-surface-color);
+}
+
+%surface-primary-button {
+    --current-surface-color: var(--color-primary-400-600);
+    --current-surface-contrast: var(--color-secondary-950-0);
+    background-color: var(--current-surface-color);
+    color: var(--current-surface-contrast);
+
+    --link-color: var(--color-secondary-400);
+    --visited-link-color: var(--color-secondary-900);
+    --link-color-dark: var(--color-secondary-600);
+    --visited-link-color-dark: var(--color-secondary-800);
+}
+
+%surface-secondary-button {
+    --current-surface-color: var(--color-secondary-400-600);
+    --current-surface-contrast: var(--color-secondary-950-0);
+    background-color: var(--current-surface-color);
+    color: var(--current-surface-contrast);
+
+    --link-color: var(--color-secondary-400);
+    --visited-link-color: var(--color-secondary-900);
+    --link-color-dark: var(--color-secondary-200);
+    --visited-link-color-dark: var(--color-secondary-300);
+}

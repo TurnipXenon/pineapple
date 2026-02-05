@@ -1,3 +1,4 @@
+import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
 import type { RawGlob } from "$pkg/util/util";
 
 export interface PageMeta {
@@ -46,6 +47,13 @@ export interface PageMeta {
 	 * title defaults to the directory name if it's an empty string.
 	 */
 	title: string;
+
+	/**
+	 * priority is used to sort pages in the navigation menu. Higher priority pages will be displayed first.
+	 * if you don't have a priority, it will be set to 0
+	 * all pages with the same priority will be sorted based on date, description, title, then relative link
+	 */
+	priority: number;
 }
 
 export interface SimplePageMeta {
@@ -167,7 +175,8 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 			relativeLink: subPath.join("/"),
 			title,
 			tags: [],
-			nestedPages: []
+			nestedPages: [],
+			priority: 0
 			// todo: transform the data in server.ts?
 		};
 
@@ -181,6 +190,7 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 			meta.lastUpdated = metadata["lastUpdated"] as string;
 			meta.shouldGroup = metadata["shouldGroup"] as boolean;
 			meta.shouldHide = metadata["shouldHide"] as boolean;
+			meta.priority = metadata["priority"] as number ?? 0;
 
 			meta.imageID = metadata["imageID"] as string;
 			meta.imageUrl = imageMap.get(meta.imageID) ?? metadata["imageUrl"] as string;
@@ -220,6 +230,61 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 	return pageFlatList;
 };
 
+export const parsePageMetaNested = (args: {
+	fileList: Record<string, unknown>;
+	jsonList: Record<string, unknown>;
+	imageMap: Map<string, string>;
+	compareFn?: ParsePageMetaCompareFn;
+	parsnipOverall?: ParsnipOverall | undefined;
+	parsnipBasePath?: string;
+}): PageMeta[] => {
+	const parsnipBasedList = args.parsnipOverall?.files.map(pf => {
+		const meta: PageMeta = {
+			title: pf.basename,
+			nestedPages: [],
+			relativeLink: `${args.parsnipBasePath}${pf.slug}`,
+			tags: pf.tags,
+			imageUrl: pf.preview ? `${args.parsnipOverall?.baseUrl}/${pf.preview}` : undefined,
+			imageAlt: pf.previewAlt,
+			datePublished: pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
+			lastUpdated: pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined,
+			description: pf.tagline,
+			priority: 0
+		};
+		return meta;
+	}) ?? [];
+	const pageFlatList = parsePageMeta(args.fileList, args.jsonList, args.imageMap, args.compareFn);
+	pageFlatList.push(...parsnipBasedList);
+	const pageMap = new Map(pageFlatList.map(page => [page.relativeLink, page]));
+	const nestedChildLinks = new Set<string>();
+
+	pageFlatList.forEach(page => {
+		if (!page.relativeLink) {
+			if (page.title === ".") {
+				page.title = "Home";
+			}
+			return;
+		}
+
+		const parts = page.relativeLink.split("/");
+		for (let i = parts.length - 1; i > 0; i--) {
+			const parentLink = parts.slice(0, i).join("/");
+			const parent = pageMap.get(parentLink);
+			if (parent && page.relativeLink.startsWith(`${parent.relativeLink}/`)) {
+				const alreadyNested = parent.nestedPages.some(nested => nested.relativeLink === page.relativeLink);
+				if (!alreadyNested) {
+					parent.nestedPages.push(page);
+				}
+				nestedChildLinks.add(page.relativeLink);
+				break;
+			}
+		}
+	});
+
+	// dont include links that have parents in the base page list
+	return pageFlatList.filter(page => !nestedChildLinks.has(page.relativeLink));
+};
+
 const AWins = -1;
 const BWins = 1;
 
@@ -231,6 +296,10 @@ const BWins = 1;
  * @constructor
  */
 export const DefaultPageMetaSorter: ParsePageMetaCompareFn = (a, b) => {
+	if (a.priority !== b.priority) {
+		return b.priority - a.priority;
+	}
+
 	const aDate = a.lastUpdated || a.datePublished;
 	const bDate = b.lastUpdated || b.datePublished;
 
@@ -249,5 +318,10 @@ export const DefaultPageMetaSorter: ParsePageMetaCompareFn = (a, b) => {
 		return BWins;
 	}
 
-	return a.title.localeCompare(b.title);
+	const titleCompare = a.title.localeCompare(b.title);
+	if (titleCompare !== 0) {
+		return titleCompare;
+	}
+
+	return a.relativeLink.localeCompare(b.relativeLink);
 };

@@ -1,15 +1,26 @@
 <script lang="ts">
 	import { page } from "$app/state";
-	import { locales, localizeHref } from "$pkg/external/paraglide/runtime";
-	import "$lib/styles/global.css";
+	import { menuPageServerLoad, type PageMeta, parsePageMetaNested } from "$pkg";
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
-	import type { PinyaHead } from "$pkg/ui/templates/runes.svelte";
-	import { ToastProvider } from "@skeletonlabs/skeleton-svelte";
+	import { locales, localizeHref } from "$pkg/external/paraglide/runtime";
+	import "$pkg/styles/global.css";
+	import MeltToaster from "$pkg/ui/components/MeltToaster/MeltToaster.svelte";
+	import type { PinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
+	import PineappleBaseContext from "$pkg/util/context/PineappleBaseContext.svelte";
+	import { setSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { ModeWatcher } from "mode-watcher";
 	import "$pkg/styles/app.css";
+	import { onMount, type Snippet } from "svelte";
 	import { Modals } from "svelte-modals";
+	import { getParsnipDataRemote } from "../../../../routes/(pineapple)/pineapple/getParsnipData.remote";
 
-	let { children } = $props();
+	let { children, fileList = {}, jsonList = {}, parsnipBasePath = "/pineapple" }
+		: {
+		children: Snippet,
+		fileList?: Record<string, () => Promise<unknown>>,
+		jsonList?: Record<string, unknown>,
+		parsnipBasePath?: string
+	} = $props();
 
 	// https://github.com/sveltejs/kit/issues/1540#issuecomment-2029016082
 	const meta: PinyaHead = ({
@@ -30,23 +41,42 @@
 
 		return img;
 	}) ?? []);
+
+
+	let fileBasedList = $state<PageMeta[]>([]);
+	setSiteLayout(fileBasedList);
+
+	onMount(() => {
+		getParsnipDataRemote().then(data => {
+			fileBasedList.push(...parsePageMetaNested({
+				fileList,
+				jsonList,
+				imageMap: new Map<string, string>(),
+				parsnipOverall: data.parsnipOverall,
+				parsnipBasePath
+			}));
+		});
+	});
 </script>
 
-<Modals>
-	<!-- shown when any modal is opened -->
-	{#snippet backdrop({ close })}
-		<div
-			aria-hidden="true"
-			class="backdrop"
-			onclick={() => close()}
-		></div>
-	{/snippet}
-</Modals>
-<ModeWatcher defaultTheme="turnip" />
+<PineappleBaseContext>
 
-<ToastProvider>
+	<Modals>
+		<!-- shown when any modal is opened -->
+		{#snippet backdrop({ close })}
+			<div
+				aria-hidden="true"
+				class="backdrop"
+				onclick={() => close()}
+			></div>
+		{/snippet}
+	</Modals>
+	<ModeWatcher defaultTheme="turnip" />
+
+	<MeltToaster />
+
 	{@render children()}
-</ToastProvider>
+</PineappleBaseContext>
 
 <!--invisible ink-->
 <div style="display:none">
@@ -72,7 +102,13 @@
 	{/each}
 </svelte:head>
 
-<style>
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+    body {
+        @extend %surface-body;
+    }
+
     .backdrop {
         position: fixed;
         z-index: 19;

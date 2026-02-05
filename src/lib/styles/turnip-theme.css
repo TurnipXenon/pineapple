@@ -211,39 +211,47 @@
     --filter-button-image: brightness(0) saturate(100%) invert(21%) sepia(75%) saturate(397%) hue-rotate(338deg) brightness(99%) contrast(93%);
 }
 
+:root {
+    --header-color: var(--color-primary-900);
+}
+
 html.dark {
-    @variant turnip {
-        --border-card: 0;
-        --filter-randomized-image: brightness(50%);
-        --filter-ares-logo: brightness(0) saturate(100%) invert(72%) sepia(8%) saturate(1524%) hue-rotate(3deg) brightness(90%) contrast(88%);
-        --filter-button-image: brightness(0) saturate(100%) invert(72%) sepia(8%) saturate(1524%) hue-rotate(3deg) brightness(90%) contrast(88%);
-    }
+    --header-color: var(--color-primary-100);
+    --body-background-color: var(--body-background-color-dark);
+    /*todo: migration*/
+    /*@variant turnip {*/
+    /*    --border-card: 0;*/
+    /*    --filter-randomized-image: brightness(50%);*/
+    /*    --filter-ares-logo: brightness(0) saturate(100%) invert(72%) sepia(8%) saturate(1524%) hue-rotate(3deg) brightness(90%) contrast(88%);*/
+    /*    --filter-button-image: brightness(0) saturate(100%) invert(72%) sepia(8%) saturate(1524%) hue-rotate(3deg) brightness(90%) contrast(88%);*/
+    /*}*/
 }
 
 .icon {
-    @variant turnip {
-        filter: var(--filter-button-image);
-        margin: 0.3rem 0.2rem 0.2rem;
-    }
+    /*todo: migration*/
+    /*@variant turnip {*/
+    /*    filter: var(--filter-button-image);*/
+    /*    margin: 0.3rem 0.2rem 0.2rem;*/
+    /*}*/
 }
 
+/*todo: migration*/
+/*@layer base {*/
+/*    @variant turnip {*/
 
-@layer base {
-    @variant turnip {
+/*        !* region components *!*/
+/*        color: var(--color-secondary-0);*/
 
-        /* region components */
-        color: var(--color-secondary-0);
-
-        @variant dark {
-            color: var(--color-surface-950);
-        }
-        /* endregion components */
-    }
-}
+/*        @variant dark {*/
+/*            color: var(--color-surface-950);*/
+/*        }*/
+/*        !* endregion components *!*/
+/*    }*/
+/*}*/
 
 
 blockquote {
-    @apply mb-4;
+    margin-bottom: 1lh;
     font-style: italic;
     border: 0;
     text-align: center;
@@ -254,11 +262,7 @@ h1, h2, h3, h4, h5, h6, .fake-h1, .fake-h2, .fake-h3, .fake-h4 {
     text-align: start;
     margin-top: 0;
     font-weight: bolder;
-    color: var(--color-primary-900);
-
-    @variant dark {
-        color: var(--color-primary-100);
-    }
+    color: var(--header-color);
 }
 
 h1 {
@@ -269,60 +273,30 @@ h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p, .fake-h2 + p, .fake-h3 + p, .fak
     margin-top: 0.5lh;
 }
 
-h1, .fake-h1 {
-    @apply text-4xl;
-}
+/*in tailwind.css*/
+/*h1, .fake-h1 {*/
+/*    @apply text-4xl;*/
+/*}*/
 
-h2, .fake-h2 {
-    @apply text-3xl;
-}
+/*h2, .fake-h2 {*/
+/*    @apply text-3xl;*/
+/*}*/
 
-h3, .fake-h3 {
-    @apply text-2xl;
-}
+/*h3, .fake-h3 {*/
+/*    @apply text-2xl;*/
+/*}*/
 
-h4, .fake-h4 {
-    @apply text-xl;
-}
+/*h4, .fake-h4 {*/
+/*    @apply text-xl;*/
+/*}*/
 
-h5 {
-    @apply text-lg;
-}
+/*h5 {*/
+/*    @apply text-lg;*/
+/*}*/
 
 h6 {
     text-decoration: underline;
 }
-
-a.a-as-btn {
-    text-decoration: none;
-}
-
-a:not(.a-as-btn) {
-    text-decoration: underline;
-    color: var(--color-secondary-500);
-
-    @variant dark {
-        color: var(--color-secondary-300);
-    }
-}
-
-a:not(.a-as-btn):hover, a:not(.a-as-btn):focus {
-    filter: brightness(150%);
-}
-
-/*  we're fighting a specificity war with skeleton components */
-a.a-as-btn:hover {
-    filter: brightness(110%);
-}
-
-a:not(.a-as-btn):visited {
-    color: var(--color-secondary-950);
-
-    @variant dark {
-        color: var(--color-secondary-200);
-    }
-}
-
 
 ul {
     list-style: inside;
@@ -336,9 +310,10 @@ li > ul, li > ol {
     margin-inline-start: 2em;
 }
 
-p {
-    @apply mb-3;
-}
+/*in tailwind.css*/
+/*p {*/
+/*    @apply mb-3;*/
+/*}*/
 
 @theme {
     --color-secondary-0: oklch(99% 0.02 38.38deg);

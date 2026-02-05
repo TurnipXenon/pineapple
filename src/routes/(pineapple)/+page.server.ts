@@ -1,5 +1,5 @@
 import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
-import { type PinyaHead } from "$pkg/ui/templates/runes.svelte";
+import { type PinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = () => {

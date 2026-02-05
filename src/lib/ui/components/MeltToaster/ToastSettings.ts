@@ -1,7 +1,7 @@
 // from node_modules/@skeletonlabs/skeleton-svelte/dist/components/Toast/types.d.ts
 export interface ToastSettings {
 	/** The unique toast ID. */
-	id?: string;
+	// id?: string;
 	/** The unique toast title text. */
 	title?: string;
 	/** The unique toast description text. */

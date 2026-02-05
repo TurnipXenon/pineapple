@@ -1,7 +1,9 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import { deLocalizeHref, getLocale, localizeHref } from "$pkg/external/paraglide/runtime";
 	import PinyaCombobox from "$pkg/ui/elements/pinya-combobox/PinyaCombobox.svelte";
-	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte";
+	import { appState } from "$pkg/ui/templates/PinyaPageLayout/pinyaPageLayoutRunes.svelte.js";
 
 	interface ComboxData {
 		label: string;
@@ -14,16 +16,14 @@
 		{ label: "Tagalog", value: "tl" }
 	];
 
-	let selectedCountry = $state([getLocale()]);
+	let selectedCountry = $state(getLocale());
 
-	interface ValueDetail {
-		value: string[];
-	}
+	const onValueChange = (e: { value: ComboxData["value"] | undefined }) => {
+		if (!e.value) return;
 
-	const onValueChange = (e: ValueDetail) => {
-		const data = comboboxData.find((d) => d.value === e.value[0]);
+		const data = comboboxData.find((d) => d.value === e.value);
 		if (data) {
-			selectedCountry = [data.value];
+			selectedCountry = data.value;
 			const pathname = deLocalizeHref(location.href);
 			location.href = localizeHref(pathname, { locale: data.value });
 		}

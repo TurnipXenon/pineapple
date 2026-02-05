@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import { fly } from "svelte/transition";
 	import type { ProjectGroup, SeaweedLayoutProps } from "./props";
@@ -168,7 +170,7 @@
 		linkedinSlug={linkedinSlug}
 	/>
 {/snippet}
-<PinyaPageLayout>
+<PinyaPageLayout appBardEndStyle="classic">
 	{#snippet appBarLead()}
 		{#if showMiniSocial}
 			<div
@@ -285,5 +287,10 @@
         flex-wrap: wrap;
         gap: 0.25em;
         margin-top: 1lh;
+    }
+
+    .advanced-setting {
+		    margin-left: 1em;
+		    margin-right: 1em;
     }
 </style>

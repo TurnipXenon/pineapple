@@ -1,3 +1,5 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import { type PageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { onMount } from "svelte";
@@ -73,7 +75,7 @@
 
     .chum-bucket {
 		    margin-top: 2lh;
-        padding: 1.5lh 0;
+        padding: 1.5lh 1em;
         width: 100%;
         max-width: var(--container-3xl);
     }

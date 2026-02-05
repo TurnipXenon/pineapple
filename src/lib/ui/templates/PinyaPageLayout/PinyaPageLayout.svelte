@@ -1,31 +1,48 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
-	import type { Snippet } from "svelte";
-	import { modals } from "svelte-modals";
+	import { dialogManager } from "$pkg";
+	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
+	import DialogIcon from "$pkg/assets/icons/icon-chat.svg";
+	import HamburgerIcon from "$pkg/assets/icons/icon-menu.svg";
+	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";
+
 	import { m } from "$pkg/external/paraglide/messages";
 	import { localizeHref } from "$pkg/external/paraglide/runtime";
-
-	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
-	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";
-	import RandomizedBackground from "$pkg/ui/components/randomized-background/RandomizedBackground.svelte";
-	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
-	import { appState } from "./runes.svelte";
 	import { enableBackground } from "$pkg/store";
-	import DialogOverlay from "$pkg/ui/modules/dialog_overlay/DialogOverlay.svelte";
+	import RandomizedBackground from "$pkg/ui/components/randomized-background/RandomizedBackground.svelte";
+	import { ButtonVariant, ColorScheme, ImageIcon } from "$pkg/ui/elements/index";
+	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
+	import NavigationModal from "$pkg/ui/modules/modals/general-settings/NavigationModal.svelte";
+	import UniversalOverlay from "$pkg/ui/modules/universal-overlay/UniversalOverlay.svelte";
+	import { getEnableDialogOverlayContext } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
+	import { onMount, type Snippet } from "svelte";
+	import { modals } from "svelte-modals";
+	import PinyaButton from "../../elements/PinyaButton/PinyaButton.svelte";
+	import { appState } from "./pinyaPageLayoutRunes.svelte.js";
 
 	let {
 		children,
 		appBarLead = $bindable(),
-		footer
+		footer,
+		appBardEndStyle = "functional"
 	}: {
 		children: Snippet
 		appBarLead?: Snippet
-		footer?: Snippet
+		footer?: Snippet,
+		appBardEndStyle?: "classic" | "functional"
 	} = $props();
 
+	let enableUniversalOverlay = getEnableDialogOverlayContext();
 
 	const onSettingsClick = () => {
 		modals.open(GeneralSettingsModal);
 	};
+
+	let isMounted = $state(false);
+	onMount(() => {
+		isMounted = true;
+	});
 </script>
 
 {#snippet header(extraClass: string)}
@@ -56,14 +73,42 @@
 		{/if}
 
 
-		<button
-			title={m.settings()}
-			aria-label={m.settings()}
-			class="btn-icon preset-outlined-primary-500 hover:brightness-125"
-			onclick={onSettingsClick}
-		>
-			<img class="icon" src={SettingsLogo} aria-hidden="true" alt="">
-		</button>
+		{#if appBardEndStyle === 'classic'}
+			<button
+				title={m.settings()}
+				aria-label={m.settings()}
+				class="btn-icon preset-outlined-primary-500 hover:brightness-125"
+				onclick={onSettingsClick}
+			>
+				<img class="icon" src={SettingsLogo} aria-hidden="true" alt="">
+			</button>
+		{:else }
+			<div id="header-action-wrapper">
+				<!-- site map -->
+				<PinyaButton
+					title="Navigation"
+					onclick={()=>{modals.open(NavigationModal);}}
+				>
+					<ImageIcon src={HamburgerIcon} aria-hidden="true" alt=""></ImageIcon>
+				</PinyaButton>
+				<!-- settings -->
+				<PinyaButton
+					title="Settings"
+					buttonVariant={ButtonVariant.Image}
+					onclick={()=>{modals.open(GeneralSettingsModal);}}
+				>
+					<ImageIcon src={SettingsLogo} aria-hidden="true" alt=""></ImageIcon>
+				</PinyaButton>
+				<PinyaButton
+					title="Toggle conversation"
+					buttonVariant={ButtonVariant.Image}
+					colorScheme={isMounted && enableUniversalOverlay.value ? ColorScheme.Secondary : undefined}
+					onclick={()=>{dialogManager.toggleDialogOverlay();}}
+				>
+					<ImageIcon src={DialogIcon} aria-hidden="true" alt=""></ImageIcon>
+				</PinyaButton>
+			</div>
+		{/if}
 	</header>
 {/snippet}
 
@@ -72,11 +117,11 @@
 
 <RandomizedBackground enabled={$enableBackground} />
 
-<div class="default-page-container">
+<div id="default-page-container">
 	{@render children?.()}
 </div>
 
-<DialogOverlay></DialogOverlay>
+<UniversalOverlay></UniversalOverlay>
 
 {#if footer}
 	{@render footer()}
@@ -86,19 +131,53 @@
 
 
 <style>
+		:global {
+				.hidden {
+						opacity: 0;
+				}
+
+        #header-action-wrapper {
+		        max-height: 2rem;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 0.5rem;
+
+            &> * {
+                padding: 0;
+		            aspect-ratio: 1 / 1;
+		            height: 100%;
+
+		            &> img {
+				            padding: 0.3rem;
+		                height: 95%;
+				            aspect-ratio: 1 / 1;
+				            object-fit: contain;
+		            }
+            }
+
+            .pinya-button {
+                border-radius: 50%;
+            }
+        }
+
+				:root {
+		      --default-page-container-margin: 4rem 1rem 0 1rem;
+				}
+		}
+
     header {
         top: 0;
         display: flex;
-        padding: 1rem 1rem 1rem calc(1rem + 5vw);
+        padding: 0.5rem calc(0.5rem + 1vw) 0.5rem calc(0.5rem + 5vw);
         align-items: center;
         transform: translateX(-5vw);
     }
 
-    .default-page-container {
+    #default-page-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 4rem 1rem 0 1rem;
+        margin: var(--default-page-container-margin);
         flex-direction: column;
     }
 

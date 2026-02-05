@@ -1,0 +1,4 @@
+patchedDependencies:
+  mode-watcher: patches/mode-watcher.patch
+packages:
+  - 'dist/*'

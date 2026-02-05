@@ -1,3 +1,9 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
+<!-- @component ImageIcon
+ todo: consider current-surface scss
+ -->
+
 <script lang="ts">
 	import type { HTMLImgAttributes } from 'svelte/elements';
 	import type { GeneralUIProps } from "$pkg/ui/elements/GeneralUIProps";

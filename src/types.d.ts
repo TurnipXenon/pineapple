@@ -3,3 +3,5 @@ declare namespace env {
 	export const VITE_CMS_BASE_URL: string;
 	export const VITE_WEB_BASE_URL: string;
 }
+
+declare module 'shiki-transformer-copy-button';

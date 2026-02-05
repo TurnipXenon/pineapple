@@ -7,14 +7,12 @@
 
 	import "$pkg/styles/global.css";
 
-	// region Skeleton Store
-	// endregion Skeleton Store
 	// region highlightjs
 	import "highlight.js/styles/github-dark.css";
-	import PinyaBase from "$pkg/ui/templates/PinyaBase.svelte";
+	import PinyaBase from "$pkg/ui/templates/pinya-base/PinyaBase.svelte";
+	import { pinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 	import { appState, PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/index";
-	import { pinyaHead } from "$pkg/ui/templates/runes.svelte";
-	import type { Snippet } from "svelte";
+	import { type Snippet } from "svelte";
 
 	interface Props {
 		children: Snippet;
@@ -24,9 +22,12 @@
 
 	appState.allowDialog = true;
 	pinyaHead.rootUrl = import.meta.env.PROD ?? process.env.PROD ? "https://pineapple-gamma-blush.vercel.app" : "http://localhost:5173";
+
+	const fileList = import.meta.glob("./**/+page.svelte", { query: "?raw" });
+	const jsonList = import.meta.glob("./**/meta.json", { query: "?raw", eager: true });
 </script>
 
-<PinyaBase>
+<PinyaBase {fileList} {jsonList}>
 	<PinyaPageLayout>
 		{@render children()}
 	</PinyaPageLayout>

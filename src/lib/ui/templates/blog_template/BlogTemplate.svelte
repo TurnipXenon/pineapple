@@ -1,11 +1,15 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
 <script lang="ts">
 	import "./blog-template.css";
+	import { browser } from "$app/environment";
+	import { setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { onDestroy, onMount, type Snippet } from "svelte";
 	import BlogTemplateInner from "$pkg/ui/templates/blog_template/BlogTemplateInner.svelte";
 	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
-	import { enableDialogueOverlay } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { enableUniversalOverlaySvelte4 } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
-	import { appState } from "$pkg/ui/templates/PinyaPageLayout/runes.svelte";
+	import { appState } from "$pkg/ui/templates/PinyaPageLayout/pinyaPageLayoutRunes.svelte.js";
 
 	// grab page meta from the adjacent meta.json
 	interface Props {
@@ -26,14 +30,18 @@
 
 	let initialDialogState = false;
 
+	setIgnoreOverlayOverride(true);
+
 	onMount(() => {
-		initialDialogState = $enableDialogueOverlay;
-		enableDialogueOverlay.set(shouldEnableDialogOverlay);
+		initialDialogState = $enableUniversalOverlaySvelte4;
+		enableUniversalOverlaySvelte4.set(shouldEnableDialogOverlay);
 	});
 
 	onDestroy(() => {
-		appState.bgOpacity = 1;
-		enableDialogueOverlay.set(initialDialogState);
+		if (browser) {
+			appState.bgOpacity = 1;
+			enableUniversalOverlaySvelte4.set(initialDialogState);
+		}
 	});
 
 	appState.bgOpacity = shouldFillWholePage ? 0.2 : 1;

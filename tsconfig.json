@@ -10,8 +10,15 @@
     "sourceMap": true,
     "strict": true,
     "moduleResolution": "bundler",
+    "module": "ESNext",
+    "target": "ES2015",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "declaration": true,
+    "declarationMap": true,
     "types": [
-      "./src/worker-configuration.d.ts"
+      "./src/worker-configuration.d.ts",
+      "node"
     ]
   },
   // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias

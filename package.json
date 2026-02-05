@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "4.5.1",
+  "version": "5.0.0-alpha.11",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -16,94 +16,111 @@
     "preview": "pnpm run build && wrangler dev",
     "prepublishOnly": "pnpm package",
     "prepare": "husky",
-    "deploy": "pnpm run build && wrangler deploy",
+    "deploy": "wrangler deploy",
     "cf-typegen": "wrangler types ./src/worker-configuration.d.ts"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
-    "@eslint/compat": "^1.2.5",
-    "@eslint/js": "^9.18.0",
-    "@sveltejs/adapter-cloudflare": "^7.2.4",
-    "@sveltejs/package": "^2.3.7",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0",
-    "eslint": "^9.18.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-svelte": "^3.0.0",
-    "globals": "^16.0.0",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@eslint/compat": "^1.4.1",
+    "@eslint/js": "^9.39.2",
+    "@inlang/paraglide-js": "~2.4.0",
+    "@prisma/client": "^5.22.0",
+    "@shikijs/transformers": "^3.22.0",
+    "@sveltejs/adapter-cloudflare": "^7.2.6",
+    "@sveltejs/kit": "2.49.5",
+    "@sveltejs/package": "^2.5.7",
+    "@sveltejs/vite-plugin-svelte": "^6.2.4",
+    "@types/htmlparser2": "^3.10.7",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^20.19.30",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-svelte": "^3.14.0",
+    "globals": "^16.5.0",
+    "highlight.js": "^11.11.1",
+    "htmlparser2": "^9.1.0",
     "husky": "^9.1.7",
     "madge": "^8.0.0",
     "mdast": "^3.0.0",
-    "mdast-util-from-markdown": "^1.0.2",
-    "prettier": "^3.4.2",
-    "prettier-plugin-svelte": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.11",
-    "prisma": "^5.12.1",
-    "svelte-check": "^4.0.0",
-    "svelte2tsx": "^0.6.20",
-    "tslib": "^2.4.1",
-    "typescript": "^5.5.0",
-    "typescript-eslint": "^8.20.0",
-    "vite": "^5.4.4",
-    "wrangler": "^4.42.2"
+    "mdast-util-from-markdown": "^1.3.1",
+    "node-html-parser": "^6.1.13",
+    "prettier": "^3.8.1",
+    "prettier-plugin-svelte": "^3.4.1",
+    "prisma": "^5.22.0",
+    "publint": "^0.2.12",
+    "sass": "^1.97.3",
+    "string-width": "^7.2.0",
+    "svelte": "^5.49.1",
+    "svelte-check": "^4.3.6",
+    "svelte2tsx": "^0.7.47",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.54.0",
+    "vite": "^7.3.1",
+    "wrangler": "4.59.1"
   },
   "dependencies": {
-    "@inlang/paraglide-js": "2.0.7",
-    "@prisma/client": "^5.12.1",
-    "@skeletonlabs/skeleton": "^3.1.0",
-    "@skeletonlabs/skeleton-svelte": "1.0.0",
-    "@sveltejs/kit": "^2.5.27",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0",
-    "@tailwindcss/vite": "^4.0.14",
-    "@types/htmlparser2": "^3.10.7",
-    "@types/node": "^20.11.25",
-    "highlight.js": "^11.8.0",
-    "htmlparser2": "^9.1.0",
+    "melt": "^0.44.0",
     "mode-watcher": "^0.5.1",
-    "node-html-parser": "^6.1.5",
-    "publint": "^0.2.7",
-    "shiki": "^3.2.1",
+    "shiki": "^3.22.0",
     "shiki-transformer-copy-button": "0.0.3",
-    "string-width": "^7.1.0",
-    "svelte": "^5.0.0",
-    "svelte-modals": "^2.0.1",
-    "tailwindcss": "^4.0.14",
-    "ts-node": "^10.9.1"
+    "svelte-modals": "^2.0.1"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
   },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "svelte": "./dist/index.js"
+      "svelte": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./components": {
       "types": "./dist/ui/components/index.d.ts",
-      "svelte": "./dist/ui/components/index.js"
+      "svelte": "./dist/ui/components/index.js",
+      "import": "./dist/ui/components/index.js",
+      "default": "./dist/ui/components/index.js"
     },
     "./elements": {
       "types": "./dist/ui/elements/index.d.ts",
-      "svelte": "./dist/ui/elements/index.js"
+      "svelte": "./dist/ui/elements/index.js",
+      "import": "./dist/ui/elements/index.js",
+      "default": "./dist/ui/elements/index.js"
     },
     "./modules": {
       "types": "./dist/ui/modules/index.d.ts",
-      "svelte": "./dist/ui/modules/index.js"
+      "svelte": "./dist/ui/modules/index.js",
+      "import": "./dist/ui/modules/index.js",
+      "default": "./dist/ui/modules/index.js"
     },
     "./templates": {
       "types": "./dist/ui/templates/index.d.ts",
-      "svelte": "./dist/ui/templates/index.js"
+      "svelte": "./dist/ui/templates/index.js",
+      "import": "./dist/ui/templates/index.js",
+      "default": "./dist/ui/templates/index.js"
     }
   },
   "files": [
     "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*",
     "src/lib/styles/app.css",
     "src/lib/theme.css"
   ],
   "engines": {
     "node": ">=22"
   },
-  "repository": "https://github.com/TurnipXenon/pineapple",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TurnipXenon/pineapple.git"
+  },
   "author": "turnipxenon <turnipxenon@gmail.com>",
   "license": "MIT",
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "type": "module"
+  "type": "module",
+  "packageManager": "pnpm@10.18.2"
 }

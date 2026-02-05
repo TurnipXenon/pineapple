@@ -1,3 +1,9 @@
+<!-- TODO: Documentation: consider documentation showcase -->
+
+<!-- @component TextChip
+ todo: consider current-surface scss and tailwind cleanup
+ -->
+
 <script lang="ts">
 	import type { TextChipProps } from "./TextChipProps";
 

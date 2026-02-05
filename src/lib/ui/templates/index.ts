@@ -1,4 +1,4 @@
-export { default as PinyaBase } from "./PinyaBase.svelte";
+export { default as PinyaBase } from "./pinya-base/PinyaBase.svelte";
 
 export * from "./PinyaPageLayout";
 export * from "./SeaweedLayout";
