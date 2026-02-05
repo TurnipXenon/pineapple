@@ -24,8 +24,6 @@
 @import "@skeletonlabs/skeleton"; /*[!code --]*/
 @import "@skeletonlabs/skeleton/optional/presets"; /*[!code --]*/
 @import "@skeletonlabs/skeleton/themes/legacy"; /*[!code --]*/
-@import '../../../node_modules/@turnipxenon/pineapple/dist/styles/app.css'; /*[!code --]*/
-@import '../../../node_modules/@turnipxenon/pineapple/dist/styles/turnip-theme.css'; /*[!code --]*/
 
 /* Note: Remove these code below. I've commented it here because it's breaking the CodeBlock element's parser */
 /*@source '../../../node_modules/@skeletonlabs/skeleton-svelte/dist';*/ /*[!code --]*/
@@ -33,6 +31,8 @@
 /*@plugin '@tailwindcss/forms';*/ /*[!code --]*/
 /*@plugin '@tailwindcss/typography';*/ /*[!code --]*/
 
+@import '../../../node_modules/@turnipxenon/pineapple/dist/styles/app.css';
+@import '../../../node_modules/@turnipxenon/pineapple/dist/styles/turnip-theme.css';
 @import '../../../node_modules/@turnipxenon/pineapple/dist/styles/tailwind.css';
 @import '../../../node_modules/@turnipxenon/pineapple/dist/styles/color-tokens.css';`}
 					lang="css"
@@ -83,8 +83,9 @@
 				<CodeBlock
 					code={`import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import { sveltekit } from "@sveltejs/kit/vite";
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from "@tailwindcss/vite"; // [!code --]
 import { defineConfig } from "vite";
+import path from "path";  // [!code ++]
 
 export default defineConfig({
 \tplugins: [
@@ -96,7 +97,13 @@ export default defineConfig({
 \t\ttailwindcss(), // [!code --]
 \t\tsveltekit() // [!code --]
 \t\t})
-\t]
+\t] // [!code --]
+\t], // [!code ++]
+\tresolve: { // [!code ++]
+\t\talias: { // [!code ++]
+\t\t\t$pinyaBase: path.resolve(__dirname, "./node_modules/@turnipxenon/pineapple") // [!code ++]
+\t\t} // [!code ++]
+\t} // [!code ++]
 });`}
 					lang="ts"
 					classes=""
@@ -107,7 +114,7 @@ export default defineConfig({
 	<li>Update primary <code>src/routes/+layout.svelte</code>
 		<CodeBlock code={`<script lang="ts">
 \timport { appState, PinyaBase, PinyaPageLayout } from "@turnipxenon/pineapple/templates";
-\timport { getParsnipDataRemote } from "@turnipxenon/pineapple/remote";
+\timport { getParsnipDataRemote } from "$pinyaBase/dist/remoteIndex.remote.js";
 \t//more code here...
 
 \tappState.allowDialog = true;
