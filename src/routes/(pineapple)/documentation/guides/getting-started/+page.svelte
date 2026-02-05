@@ -24,7 +24,7 @@
 
 <h2>About our project structure</h2>
 
-<p><i><b>We value locality over.
+<p><i><b>We value locality over groupings.
 	We only escalate their scope when needed.</b></i></p>
 
 <p>If we know a component will not be used elsewhere, we keep that component next to the component that uses it.
