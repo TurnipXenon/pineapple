@@ -12,6 +12,7 @@
 	import "$pkg/styles/app.css";
 	import { onMount, type Snippet } from "svelte";
 	import { Modals } from "svelte-modals";
+	import { getParsnipDataRemote } from "../../../../routes/(pineapple)/pineapple/getParsnipData.remote";
 
 	let { children, fileList = {}, jsonList = {}, parsnipBasePath = "/pineapple" }
 		: {
@@ -46,7 +47,7 @@
 	setSiteLayout(fileBasedList);
 
 	onMount(() => {
-		menuPageServerLoad().then(data => {
+		getParsnipDataRemote().then(data => {
 			fileBasedList.push(...parsePageMetaNested({
 				fileList,
 				jsonList,

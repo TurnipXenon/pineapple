@@ -536,9 +536,6 @@
   .ig-textarea::placeholder {
     color:var(--color-surface-700-300)
   }
-  ::selection {
-    background-color:#73737380
-  }
   :disabled,
   .disabled {
     opacity:.5
