@@ -10,6 +10,7 @@
 	import console from "shiki/langs/console.mjs";
 	import css from "shiki/langs/css.mjs";
 	import html from "shiki/langs/html.mjs";
+	import json from "shiki/langs/json.mjs";
 	import js from "shiki/langs/javascript.mjs";
 	import markdown from "shiki/langs/markdown.mjs";
 	import svelte from "shiki/langs/svelte.mjs";
@@ -26,7 +27,7 @@
 		// Implement your import theme.
 		themes: [themeLight, themeDark],
 		// Implement your imported and supported languages.
-		langs: [console, html, css, js, ts, markdown, xml, svelte]
+		langs: [console, html, css, js, ts, markdown, xml, svelte, json]
 	});
 </script>
 
@@ -101,30 +102,32 @@
             &.has-diff {
                 padding-inline-start: 2em;
 
-                span.diff.remove::before {
-                    display: block;
-                    position: absolute;
-                    content: "-";
-                    width: calc(100% + calc(var(--spacing) * 4));
-                    margin-inline-start: calc((var(--spacing) * -4) - 2em);
-                    padding-inline-start: 1.75em;
-                    font-weight: bold;
-                    height: 1lh;
+                span.diff.remove {
                     background-color: rgba(255, 0, 0, 0.15);
-		                pointer-events: none;
+
+                    &::before {
+                        display: block;
+                        position: absolute;
+                        content: "-";
+                        margin-inline-start: calc((var(--spacing) * -4) - 2em);
+                        padding-inline-start: 1.75em;
+                        font-weight: bold;
+                        pointer-events: none;
+                    }
                 }
 
-                span.diff.add::before {
-                    display: block;
-                    position: absolute;
-                    content: "+";
-                    width: calc(100% + calc(var(--spacing) * 4));
-                    margin-inline-start: calc((var(--spacing) * -4) - 2em);
-                    padding-inline-start: 1.75em;
-                    font-weight: bold;
-                    height: 1lh;
+                span.diff.add {
                     background-color: rgba(0, 255, 0, 0.15);
-                    pointer-events: none;
+
+                    &::before {
+                        display: block;
+                        position: absolute;
+                        content: "+";
+                        margin-inline-start: calc((var(--spacing) * -4) - 2em);
+                        padding-inline-start: 1.75em;
+                        font-weight: bold;
+                        pointer-events: none;
+                    }
                 }
             }
         }
