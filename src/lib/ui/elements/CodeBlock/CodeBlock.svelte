@@ -7,17 +7,18 @@
 	import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 	// Languages
 	// https://shiki.style/languages
-	import console from "shiki/langs/console.mjs";
+	import shikiConsole from "shiki/langs/console.mjs";
 	import css from "shiki/langs/css.mjs";
 	import html from "shiki/langs/html.mjs";
 	import js from "shiki/langs/javascript.mjs";
+	import json from "shiki/langs/json.mjs";
 	import markdown from "shiki/langs/markdown.mjs";
 	import svelte from "shiki/langs/svelte.mjs";
 	import ts from "shiki/langs/typescript.mjs";
 	import xml from "shiki/langs/xml.mjs";
-	import themeDark from "shiki/themes/catppuccin-frappe.mjs";
 	// Themes
 	// https://shiki.style/themes
+	import themeDark from "shiki/themes/catppuccin-frappe.mjs";
 	import themeLight from "shiki/themes/catppuccin-latte.mjs";
 
 	// https://shiki.style/guide/sync-usage
@@ -26,11 +27,12 @@
 		// Implement your import theme.
 		themes: [themeLight, themeDark],
 		// Implement your imported and supported languages.
-		langs: [console, html, css, js, ts, markdown, xml, svelte]
+		langs: [shikiConsole, html, css, js, ts, markdown, xml, svelte, json]
 	});
 </script>
 
 <script lang="ts">
+	import { onMount } from "svelte";
 	import type { CodeBlockProps } from "./CodeBlockProps";
 
 	let {
@@ -77,7 +79,7 @@
         /*https://shiki.style/guide/dual-themes*/
 
         html.dark .shiki,
-        html.dark .shiki span {
+        html.dark .shiki > span {
             color: var(--shiki-dark);
             background-color: var(--shiki-dark-bg);
             /* Optional, if you also want font styles */
@@ -85,6 +87,20 @@
             font-weight: var(--shiki-dark-font-weight);
             text-decoration: var(--shiki-dark-text-decoration);
         }
+
+
+        html.dark .shiki {
+            color: var(--shiki-dark) !important;
+            background-color: var(--shiki-dark-bg) !important;
+            font-style: var(--shiki-dark-font-style) !important;
+            font-weight: var(--shiki-dark-font-weight) !important;
+            -webkit-text-decoration: var(--shiki-dark-text-decoration) !important;
+            text-decoration: var(--shiki-dark-text-decoration) !important
+        }
+
+		    html.dark .shiki.has-diff span.diff.add {
+            background-color: rgba(0, 255, 0, 0.05);
+		    }
 
         .inline-code {
             background-color: aliceblue;
@@ -99,32 +115,48 @@
             }
 
             &.has-diff {
-                padding-inline-start: 2em;
+                padding-inline-start: 0;
+                padding-inline-end: 0;
 
-                span.diff.remove::before {
-                    display: block;
-                    position: absolute;
-                    content: "-";
-                    width: calc(100% + calc(var(--spacing) * 4));
-                    margin-inline-start: calc((var(--spacing) * -4) - 2em);
-                    padding-inline-start: 1.75em;
-                    font-weight: bold;
-                    height: 1lh;
-                    background-color: rgba(255, 0, 0, 0.15);
-		                pointer-events: none;
+                code {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.2lh;
+
+                    & > span {
+                        display: flex;
+                        flex-wrap: wrap;
+                        padding-inline-start: 2em;
+                        padding-inline-end: 1em;
+                    }
                 }
 
-                span.diff.add::before {
-                    display: block;
-                    position: absolute;
-                    content: "+";
-                    width: calc(100% + calc(var(--spacing) * 4));
-                    margin-inline-start: calc((var(--spacing) * -4) - 2em);
-                    padding-inline-start: 1.75em;
-                    font-weight: bold;
-                    height: 1lh;
+                span.diff.remove {
+                    background-color: rgba(255, 0, 0, 0.15);
+
+                    &::before {
+                        display: block;
+                        position: absolute;
+                        content: "-";
+                        margin-inline-start: calc((var(--spacing) * -4) - 2em);
+                        padding-inline-start: 1.75em;
+                        font-weight: bold;
+                        pointer-events: none;
+                    }
+                }
+
+                span.diff.add {
                     background-color: rgba(0, 255, 0, 0.15);
-                    pointer-events: none;
+
+                    &::before {
+                        display: block;
+                        position: absolute;
+                        content: "+";
+                        margin-inline-start: calc((var(--spacing) * -4) - 2em);
+                        padding-inline-start: 1.75em;
+                        font-weight: bold;
+                        pointer-events: none;
+                    }
                 }
             }
         }
