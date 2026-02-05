@@ -9,7 +9,7 @@
 	It's also a change in the way we'll handle styling. We are in an in-between where I kept existing Tailwind flavored styling so I don't have to migrate everything.
 	Although, if it's new, we're sticking to a different way of styling things, sticking to vanilla CSS on Svelte as we can, and employing some Sass if it's needed. We are anticipating this particular issue to eventually make our styling much cleaner by reducing
 	<code>global:</code> usage (
-	<TextLink href="https://github.comsveltejs/vite-plugin-svelte/issues/1221 for how to do scoping with styles">https://github.com/sveltejs/vite-plugin-svelte/issues/1221</TextLink>
+	<TextLink href="https://github.com/sveltejs/vite-plugin-svelte/issues/1221">https://github.com/sveltejs/vite-plugin-svelte/issues/1221</TextLink>
 	).
 </p>
 
