@@ -57,16 +57,16 @@ import { CodeBlock } from "@turnipxenon/pineapple/elements";
 
 <h2>Sample</h2>
 
-<CodeBlock code={sampleCode} lang="ts" classes="max-w-2xl" />
+<CodeBlock code={sampleCode} lang="svelte" classes="max-w-2xl" />
 
 
 <h2>Usage</h2>
 
 <p><b>Basic usage:</b></p>
-<CodeBlock code={basicUsage} lang="ts" classes="max-w-2xl" />
+<CodeBlock code={basicUsage} lang="svelte" classes="max-w-2xl" />
 
 <p><b>Custom styling:</b></p>
-<CodeBlock code={styledUsage} lang="ts" classes="max-w-2xl" />
+<CodeBlock code={styledUsage} lang="svelte" classes="max-w-2xl" />
 
 <p><b>transformerNotationDiff (see <TextLink href="https://shiki.style/packages/transformers#transformernotationdiff">https://shiki.style/packages/transformers#transformernotationdiff</TextLink>):</b></p>
 <CodeBlock

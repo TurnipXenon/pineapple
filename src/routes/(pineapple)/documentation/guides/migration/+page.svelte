@@ -98,7 +98,7 @@ export default defineConfig({
 \t\t})
 \t]
 });`}
-					lang="js"
+					lang="ts"
 					classes=""
 				/>
 			</li>
@@ -153,7 +153,7 @@ const config = {
 \t\t\tasync: true // [!code ++]
 \t\t} // [!code ++]
 \t}
-};`} lang="svelte" classes="" />
+};`} lang="js" classes="" />
 	</li>
 	<li>Clean up <code>tsconfig.json</code>. Should look like below.
 		<CodeBlock code={`{
