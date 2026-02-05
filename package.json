@@ -26,7 +26,6 @@
     "@eslint/js": "^9.39.2",
     "@inlang/paraglide-js": "~2.4.0",
     "@prisma/client": "^5.22.0",
-    "@shikijs/transformers": "^3.22.0",
     "@sveltejs/adapter-cloudflare": "^7.2.6",
     "@sveltejs/kit": "2.49.5",
     "@sveltejs/package": "^2.5.7",
@@ -66,6 +65,7 @@
     "mode-watcher": "^0.5.1",
     "shiki": "^3.22.0",
     "shiki-transformer-copy-button": "0.0.3",
+    "@shikijs/transformers": "^3.22.0",
     "svelte-modals": "^2.0.1"
   },
   "peerDependencies": {
