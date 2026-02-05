@@ -12,6 +12,7 @@
 	import PinyaBase from "$pkg/ui/templates/pinya-base/PinyaBase.svelte";
 	import { pinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 	import { appState, PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/index";
+	import { getParsnipDataRemote } from "$pkg/util/getParsnipData.remote";
 	import { type Snippet } from "svelte";
 
 	interface Props {
@@ -27,7 +28,7 @@
 	const jsonList = import.meta.glob("./**/meta.json", { query: "?raw", eager: true });
 </script>
 
-<PinyaBase {fileList} {jsonList}>
+<PinyaBase {fileList} {jsonList} {getParsnipDataRemote}>
 	<PinyaPageLayout>
 		{@render children()}
 	</PinyaPageLayout>

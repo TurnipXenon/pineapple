@@ -4,21 +4,27 @@
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 	import { locales, localizeHref } from "$pkg/external/paraglide/runtime";
 	import "$pkg/styles/global.css";
+	import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
 	import MeltToaster from "$pkg/ui/components/MeltToaster/MeltToaster.svelte";
 	import type { PinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 	import PineappleBaseContext from "$pkg/util/context/PineappleBaseContext.svelte";
 	import { setSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
-	import { getParsnipDataRemote } from "$pkg/remoteIndex.remote";
+	import type { RemoteQueryFunction } from "@sveltejs/kit";
 	import { ModeWatcher } from "mode-watcher";
 	import "$pkg/styles/app.css";
 	import { onMount, type Snippet } from "svelte";
 	import { Modals } from "svelte-modals";
 
-	let { children, fileList = {}, jsonList = {}, parsnipBasePath = "/pineapple" }
+	let { children, fileList = {}, jsonList = {}, parsnipBasePath = "/pineapple", getParsnipDataRemote }
 		: {
 		children: Snippet,
 		fileList?: Record<string, () => Promise<unknown>>,
 		jsonList?: Record<string, unknown>,
+		getParsnipDataRemote?: RemoteQueryFunction<void, {
+			parsnipOverall: ParsnipOverall
+		} | {
+			parsnipOverall?: undefined
+		}>,
 		parsnipBasePath?: string
 	} = $props();
 
@@ -47,7 +53,7 @@
 	setSiteLayout(fileBasedList);
 
 	onMount(() => {
-		getParsnipDataRemote().then(data => {
+		getParsnipDataRemote?.().then(data => {
 			fileBasedList.push(...parsePageMetaNested({
 				fileList,
 				jsonList,
@@ -56,6 +62,15 @@
 				parsnipBasePath
 			}));
 		});
+
+		if (!getParsnipDataRemote) {
+			fileBasedList.push(...parsePageMetaNested({
+				fileList,
+				jsonList,
+				imageMap: new Map<string, string>(),
+				parsnipBasePath
+			}));
+		}
 	});
 </script>
 

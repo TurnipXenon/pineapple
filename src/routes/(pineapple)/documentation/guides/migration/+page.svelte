@@ -106,6 +106,8 @@ export default defineConfig({
 	</li>
 	<li>Update primary <code>src/routes/+layout.svelte</code>
 		<CodeBlock code={`<script lang="ts">
+\timport { appState, PinyaBase, PinyaPageLayout } from "@turnipxenon/pineapple/templates";
+\timport { getParsnipDataRemote } from "@turnipxenon/pineapple/remote";
 \t//more code here...
 
 \tappState.allowDialog = true;
@@ -121,7 +123,7 @@ export default defineConfig({
 </svelte:head>
 
 <PinyaBase> // [!code --]
-<PinyaBase {fileList} {jsonList} parsnipBasePath="blogs/"> // [!code ++]
+<PinyaBase {fileList} {jsonList} {getParsnipDataRemote} parsnipBasePath="blogs/"> // [!code ++]
 \t<PinyaPageLayout>
 \t\t{@render children?.()}
 \t</PinyaPageLayout>`} lang="svelte" classes="" />
