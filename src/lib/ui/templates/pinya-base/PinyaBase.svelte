@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/state";
-	import { menuPageServerLoad, type PageMeta, parsePageMetaNested } from "$pkg";
+	import { type PageMeta, parsePageMetaNested } from "$pkg";
 	import WebThumbnailImage from "$pkg/assets/placeholder/placeholder_circle.png";
 	import { locales, localizeHref } from "$pkg/external/paraglide/runtime";
 	import "$pkg/styles/global.css";
@@ -8,11 +8,11 @@
 	import type { PinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 	import PineappleBaseContext from "$pkg/util/context/PineappleBaseContext.svelte";
 	import { setSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
+	import { getParsnipDataRemote } from "$pkg/remoteIndex.remote";
 	import { ModeWatcher } from "mode-watcher";
 	import "$pkg/styles/app.css";
 	import { onMount, type Snippet } from "svelte";
 	import { Modals } from "svelte-modals";
-	import { getParsnipDataRemote } from "../../../../routes/(pineapple)/pineapple/getParsnipData.remote";
 
 	let { children, fileList = {}, jsonList = {}, parsnipBasePath = "/pineapple" }
 		: {

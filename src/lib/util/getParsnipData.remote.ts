@@ -1,4 +1,4 @@
 import { query } from "$app/server";
 import { menuPageServerLoad } from "$pkg";
 
-export const getParsnipDataRemote = query(menuPageServerLoad)
+export const getParsnipDataRemote = query(menuPageServerLoad);
