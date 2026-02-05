@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enableUniversalOverlaySvelte4 } from "$pkg";
 	import {
-		getIgnoreOverlayOverride,
 		setEnableDialogOverlayContext,
 		setEnableDialogPreferenceContext,
 		setEnablePortraitContext,
@@ -36,12 +35,12 @@
 
 	let enableDialog = $state({ value: enableDialogPrefStore.value });
 	setEnableDialogOverlayContext(enableDialog);
-	setIgnoreOverlayOverride(true);
-	let ignoreOverlaySet = getIgnoreOverlayOverride();
+	let ignoreOverlaySet = $state({ value: true });
+	setIgnoreOverlayOverride(ignoreOverlaySet);
 	onMount(() => {
 		enableUniversalOverlaySvelte4.subscribe((value) => {
-			if (ignoreOverlaySet) {
-				ignoreOverlaySet = false;
+			if (ignoreOverlaySet.value) {
+				ignoreOverlaySet.value = false;
 				// force initial value?
 				enableUniversalOverlaySvelte4.set(enableDialogPrefStore.value);
 				enableDialog.value = enableDialogPrefStore.value;
