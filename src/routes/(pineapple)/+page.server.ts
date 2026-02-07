@@ -7,9 +7,9 @@ export const load: PageServerLoad = () => {
 
 	const meta: PinyaHead = {
 		rootUrl,
-		title: "Test",
-		ogTitle: "Turnip time!",
-		ogDescription: "Welcome to Turnip's test portfolio",
+		title: "Pineapple Home Directory",
+		ogTitle: "Pineapple Home Directory",
+		ogDescription: "Welcome to Pineapple's Home Directory",
 		ogImage: [WebThumbnailImage]
 	};
 

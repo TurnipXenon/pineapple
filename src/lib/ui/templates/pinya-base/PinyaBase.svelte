@@ -31,9 +31,9 @@
 	// https://github.com/sveltejs/kit/issues/1540#issuecomment-2029016082
 	const meta: PinyaHead = ({
 		rootUrl: "http://localhost:5173",
-		title: "Welcome to my portfolio",
-		ogTitle: "Turnip time!",
-		ogDescription: "Welcome to Turnip's test portfolio",
+		title: "Pineapple",
+		ogTitle: "Pineapple",
+		ogDescription: "Pineapple is my personal UI component library",
 		ogImage: [WebThumbnailImage],
 		...(page.data?.meta ?? []) // override
 	});

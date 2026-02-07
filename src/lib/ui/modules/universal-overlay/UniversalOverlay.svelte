@@ -66,7 +66,7 @@ See panels:
 	</div>
 	<div id="main-dialog-box-container">
 		<PinyaCard id="dialog-name">
-			<div class="fake-h1">Turnip {isHidden} {hidePercent}</div>
+			<div class="fake-h1">Turnip</div>
 		</PinyaCard>
 		<!-- todo: implement this properly later -->
 		<!--<div id="dialog-scroll-indicator"></div>-->
