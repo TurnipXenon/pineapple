@@ -9,6 +9,8 @@
 	let { children }: Props = $props();
 
 	appState.allowDialog = false;
+	appState.enableDialogOnByDefault = false;
+	appState.isLanguagePickerAvailable = false;
 </script>
 
 

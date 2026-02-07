@@ -47,6 +47,11 @@
 				return;
 			}
 
+			if (appState.enableDialogOnByDefault === false) {
+				enableDialog.value = false;
+				return;
+			}
+
 			if (ignoreOverlaySet.value) {
 				ignoreOverlaySet.value = false;
 				// force initial value?

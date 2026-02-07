@@ -13,11 +13,11 @@ TODO: delete GeneralSettingsModal.svelte
 	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
 
 	import LanguagePicker from "$pkg/ui/modules/modals/general-settings/LanguagePicker.svelte";
+	import { appState } from "$pkg/ui/templates/index";
 	import {
 		getEnableDialogPreferenceContext,
 		getEnablePortraitContext
 	} from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
-	import type { LocalStore } from "$pkg/util/localStore.svelte";
 	import { setMode, userPrefersMode } from "mode-watcher";
 
 	interface ToggleItem {
@@ -94,26 +94,30 @@ TODO: delete GeneralSettingsModal.svelte
 		</div>
 	</fieldset>
 
-	<LanguagePicker />
+	{#if appState.isLanguagePickerAvailable}
+		<LanguagePicker />
+	{/if}
 
-	<div class="switch-default">
-		<PineappleSwitch
-			name="conversation-preference"
-			bind:checked={enableDialogPreference.value}>
-		</PineappleSwitch>
-		<label for="conversation-preference">
-			Conversation preference: {enableDialogPreference.value ? "Always on" : "Always off"}
-		</label>
-	</div>
-	<div class="switch-default">
-		<PineappleSwitch
-			name="portrait-preference"
-			bind:checked={enablePortraitContext.value}>
-		</PineappleSwitch>
-		<label for="portrait-preference">
-			Show conversation portrait: {enablePortraitContext.value ? "Always on" : "Always off"}
-		</label>
-	</div>
+	{#if appState.allowDialog}
+		<div class="switch-default">
+			<PineappleSwitch
+				name="conversation-preference"
+				bind:checked={enableDialogPreference.value}>
+			</PineappleSwitch>
+			<label for="conversation-preference">
+				Conversation preference: {enableDialogPreference.value ? "Always on" : "Always off"}
+			</label>
+		</div>
+		<div class="switch-default">
+			<PineappleSwitch
+				name="portrait-preference"
+				bind:checked={enablePortraitContext.value}>
+			</PineappleSwitch>
+			<label for="portrait-preference">
+				Show conversation portrait: {enablePortraitContext.value ? "Always on" : "Always off"}
+			</label>
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -150,7 +154,7 @@ TODO: delete GeneralSettingsModal.svelte
 
         #field-flex {
             display: flex;
-		        flex-wrap: wrap;
+            flex-wrap: wrap;
             gap: 1rem;
             padding: 0.25lh 1rem;
         }
@@ -171,8 +175,8 @@ TODO: delete GeneralSettingsModal.svelte
     }
 
     .switch-default {
-		    display: flex;
-		    justify-items: center;
-		    gap: 1em;
+        display: flex;
+        justify-items: center;
+        gap: 1em;
     }
 </style>
