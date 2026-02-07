@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { appState } from "$pkg/ui/templates/index";
 	import PinyaBase from "$pkg/ui/templates/pinya-base/PinyaBase.svelte";
 
 	interface Props {
@@ -6,6 +7,8 @@
 	}
 
 	let { children }: Props = $props();
+
+	appState.allowDialog = false;
 </script>
 
 

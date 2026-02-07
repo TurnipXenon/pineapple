@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { browser } from "$app/environment";
 	import { beforeNavigate } from "$app/navigation";
 	import NestedNavigation from "$pkg/ui/components/NestedNavigation.svelte";
 	import { PinyaCard } from "$pkg/ui/elements/index";
+	import { appState } from "$pkg/ui/templates/index";
 	import { forceSetDialog, getSiteLayout } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
-	import { onMount } from "svelte";
+	import { onDestroy, onMount } from "svelte";
 
 	let { children } = $props();
 	let openBehavior = $state<"open-all" | "close-all">("open-all");
@@ -20,8 +22,6 @@
 				openBehavior = "open-all";
 			}
 		};
-
-		forceSetDialog(false);
 	});
 
 	beforeNavigate((navigation) => {
@@ -37,6 +37,13 @@
 		}
 		return [];
 	});
+
+	appState.allowDialog = false;
+	onDestroy(() => {
+		if (browser) {
+			// appState.allowDialog = true;
+		}
+	})
 </script>
 <div id="documentation-layout-wrapper">
 	<div class="documentation-header">

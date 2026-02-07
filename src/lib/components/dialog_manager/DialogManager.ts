@@ -71,12 +71,14 @@ export class DialogManager implements IDialogManager {
 				this.hidePercent.set(0);
 				this.hidePercentLinear.set(0).then(() => {
 					this.currentState = DialogState.Visible;
+					console.log('visible')
 					this.currentReadableState.set(this.currentState);
 				});
 			} else {
 				this.hidePercent.set(100);
 				this.hidePercentLinear.set(100).then(() => {
 					this.currentState = DialogState.Invisible;
+					console.log('invisible')
 					this.currentReadableState.set(this.currentState);
 				});
 				this.setDialogTree([{ textContent: "" }]);

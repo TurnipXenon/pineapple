@@ -33,7 +33,7 @@
 		appBardEndStyle?: "classic" | "functional"
 	} = $props();
 
-	let enableUniversalOverlay = getEnableDialogOverlayContext();
+	let enableUniversalOverlay = $derived(getEnableDialogOverlayContext().value);
 
 	const onSettingsClick = () => {
 		modals.open(GeneralSettingsModal);
@@ -99,10 +99,12 @@
 				>
 					<ImageIcon src={SettingsLogo} aria-hidden="true" alt=""></ImageIcon>
 				</PinyaButton>
+				<!-- todo: investigate why enableUniversalOverlay is false here -->
 				<PinyaButton
 					title="Toggle conversation"
 					buttonVariant={ButtonVariant.Image}
-					colorScheme={isMounted && enableUniversalOverlay.value ? ColorScheme.Secondary : undefined}
+					disabled={appState.allowDialog === false}
+					colorScheme={isMounted && enableUniversalOverlay && appState.allowDialog !== false ? ColorScheme.Secondary : undefined}
 					onclick={()=>{dialogManager.toggleDialogOverlay();}}
 				>
 					<ImageIcon src={DialogIcon} aria-hidden="true" alt=""></ImageIcon>
@@ -131,28 +133,28 @@
 
 
 <style>
-		:global {
-				.hidden {
-						opacity: 0;
-				}
+    :global {
+        .hidden {
+            opacity: 0;
+        }
 
         #header-action-wrapper {
-		        max-height: 2rem;
+            max-height: 2rem;
             display: flex;
             flex-direction: row-reverse;
             gap: 0.5rem;
 
-            &> * {
+            & > * {
                 padding: 0;
-		            aspect-ratio: 1 / 1;
-		            height: 100%;
+                aspect-ratio: 1 / 1;
+                height: 100%;
 
-		            &> img {
-				            padding: 0.3rem;
-		                height: 95%;
-				            aspect-ratio: 1 / 1;
-				            object-fit: contain;
-		            }
+                & > img {
+                    padding: 0.3rem;
+                    height: 95%;
+                    aspect-ratio: 1 / 1;
+                    object-fit: contain;
+                }
             }
 
             .pinya-button {
@@ -160,10 +162,10 @@
             }
         }
 
-				:root {
-		      --default-page-container-margin: 4rem 1rem 0 1rem;
-				}
-		}
+        :root {
+            --default-page-container-margin: 4rem 1rem 0 1rem;
+        }
+    }
 
     header {
         top: 0;
