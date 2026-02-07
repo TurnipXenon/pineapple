@@ -48,7 +48,6 @@
 				let bestMatch: string | null = null;
 
 				layout.forEach(site => {
-					console.log(`Current path (${currentPath}) vs layout path (${site.relativeLink})`);
 					const link = site.relativeLink;
 					if (!link) {
 						return;

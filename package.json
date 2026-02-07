@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "5.0.0-alpha.11",
+  "version": "5.0.0-alpha.17",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -26,7 +26,6 @@
     "@eslint/js": "^9.39.2",
     "@inlang/paraglide-js": "~2.4.0",
     "@prisma/client": "^5.22.0",
-    "@shikijs/transformers": "^3.22.0",
     "@sveltejs/adapter-cloudflare": "^7.2.6",
     "@sveltejs/kit": "2.49.5",
     "@sveltejs/package": "^2.5.7",
@@ -66,6 +65,7 @@
     "mode-watcher": "^0.5.1",
     "shiki": "^3.22.0",
     "shiki-transformer-copy-button": "0.0.3",
+    "@shikijs/transformers": "^3.22.0",
     "svelte-modals": "^2.0.1"
   },
   "peerDependencies": {
@@ -77,6 +77,12 @@
       "svelte": "./dist/index.js",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./remote": {
+      "types": "./dist/remoteIndex.remote.d.ts",
+      "svelte": "./dist/remoteIndex.remote.js",
+      "import": "./dist/remoteIndex.remote.js",
+      "default": "./dist/remoteIndex.remote.js"
     },
     "./components": {
       "types": "./dist/ui/components/index.d.ts",

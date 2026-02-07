@@ -3,6 +3,7 @@
 <script module lang="ts">
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
 	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
+	import LinkIcon from "$pkg/assets/icons/link-icon.svg";
 	import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout/ProjectComponentProps";
 	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
 	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
@@ -61,6 +62,14 @@
 				title="https://github.com/TurnipXenon/pineapple"
 				onclick={() => window.open("https://github.com/TurnipXenon/pineapple")}>
 				<ImageIcon src={GithubIcon} class="long-btn-image" alt="github icon" />
+			</PinyaButton>
+			<PinyaButton
+				data-nosnippet
+				buttonVariant={ButtonVariant.SmallIcon}
+				title="https://pineapple.turnipxenon.com/documentation"
+				onclick={() => window.open("https://pineapple.turnipxenon.com/documentation")}>
+				<ImageIcon src={LinkIcon} aria-hidden />
+					<span>pineapple.turnipxenon.com</span>
 			</PinyaButton>
 		</section>
 	</FourPartCard>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
+	import { getParsnipDataRemote } from "$pkg/util/getParsnipData.remote";
 	import { onDestroy, onMount } from "svelte";
 	import { ErrorYarn } from "./ErrorYarn";
 	import { PinyaCard } from "$pkg/ui/elements/index";
@@ -18,9 +19,12 @@
 			dialogManager.toggleDialogOverlay();
 		}
 	});
+
+	const fileList = import.meta.glob("./**/+page.svelte", { query: "?raw" });
+	const jsonList = import.meta.glob("./**/meta.json", { query: "?raw", eager: true });
 </script>
 
-<PinyaBase>
+<PinyaBase {fileList} {jsonList} {getParsnipDataRemote} parsnipBasePath='pineapple/'>
 	<PinyaPageLayout>
 		<PinyaCard widthClass="w-lg">
 			<h1>Page not found...</h1>

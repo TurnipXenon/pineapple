@@ -50,6 +50,7 @@ See panels:
 
 		dialogManager.currentReadableState.subscribe((value) => {
 			isHidden = value === DialogState.Invisible;
+			console.log(value, DialogState.Invisible, isHidden)
 		});
 
 		dialogManager.update(0);
@@ -57,7 +58,7 @@ See panels:
 </script>
 
 <div class="dialog-elements"
-     hidden={isHidden}
+     aria-hidden={hidePercent >= (99 * 0.4)}
      style="--hidePercentWidth: -{hidePercent}vw;
             --hidePercentHeight: {hidePercentLinear}vh;">
 	<div class="dialog-portrait-container" class:is-portrait-enabled={enablePortrait.value}>
@@ -166,6 +167,11 @@ See panels:
         @extend %surface-dialog;
         position: fixed;
         z-index: 10;
+
+		    &[aria-hidden="true"] {
+				    opacity: 0;
+				    pointer-events: none;
+		    }
     }
 
     .dialog-elements:dir(ltr) {

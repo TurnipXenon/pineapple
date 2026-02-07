@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enableUniversalOverlaySvelte4 } from "$pkg";
+	import { appState } from "$pkg/ui/templates/index";
 	import {
 		setEnableDialogOverlayContext,
 		setEnableDialogPreferenceContext,
@@ -39,6 +40,18 @@
 	setIgnoreOverlayOverride(ignoreOverlaySet);
 	onMount(() => {
 		enableUniversalOverlaySvelte4.subscribe((value) => {
+			if (appState.allowDialog === false && value) {
+				// force disable if appState allowDialog = false
+				enableUniversalOverlaySvelte4.set(false);
+				enableDialog.value = false;
+				return;
+			}
+
+			if (appState.enableDialogOnByDefault === false) {
+				enableDialog.value = false;
+				return;
+			}
+
 			if (ignoreOverlaySet.value) {
 				ignoreOverlaySet.value = false;
 				// force initial value?

@@ -9,7 +9,7 @@
 	It's also a change in the way we'll handle styling. We are in an in-between where I kept existing Tailwind flavored styling so I don't have to migrate everything.
 	Although, if it's new, we're sticking to a different way of styling things, sticking to vanilla CSS on Svelte as we can, and employing some Sass if it's needed. We are anticipating this particular issue to eventually make our styling much cleaner by reducing
 	<code>global:</code> usage (
-	<TextLink href="https://github.comsveltejs/vite-plugin-svelte/issues/1221 for how to do scoping with styles">https://github.com/sveltejs/vite-plugin-svelte/issues/1221</TextLink>
+	<TextLink href="https://github.com/sveltejs/vite-plugin-svelte/issues/1221">https://github.com/sveltejs/vite-plugin-svelte/issues/1221</TextLink>
 	).
 </p>
 
@@ -24,8 +24,6 @@
 @import "@skeletonlabs/skeleton"; /*[!code --]*/
 @import "@skeletonlabs/skeleton/optional/presets"; /*[!code --]*/
 @import "@skeletonlabs/skeleton/themes/legacy"; /*[!code --]*/
-@import '../../../node_modules/@turnipxenon/pineapple/dist/styles/app.css'; /*[!code --]*/
-@import '../../../node_modules/@turnipxenon/pineapple/dist/styles/turnip-theme.css'; /*[!code --]*/
 
 /* Note: Remove these code below. I've commented it here because it's breaking the CodeBlock element's parser */
 /*@source '../../../node_modules/@skeletonlabs/skeleton-svelte/dist';*/ /*[!code --]*/
@@ -33,6 +31,8 @@
 /*@plugin '@tailwindcss/forms';*/ /*[!code --]*/
 /*@plugin '@tailwindcss/typography';*/ /*[!code --]*/
 
+@import '../../../node_modules/@turnipxenon/pineapple/dist/styles/app.css';
+@import '../../../node_modules/@turnipxenon/pineapple/dist/styles/turnip-theme.css';
 @import '../../../node_modules/@turnipxenon/pineapple/dist/styles/tailwind.css';
 @import '../../../node_modules/@turnipxenon/pineapple/dist/styles/color-tokens.css';`}
 					lang="css"
@@ -83,8 +83,9 @@
 				<CodeBlock
 					code={`import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import { sveltekit } from "@sveltejs/kit/vite";
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from "@tailwindcss/vite"; // [!code --]
 import { defineConfig } from "vite";
+import path from "path";  // [!code ++]
 
 export default defineConfig({
 \tplugins: [
@@ -96,7 +97,13 @@ export default defineConfig({
 \t\ttailwindcss(), // [!code --]
 \t\tsveltekit() // [!code --]
 \t\t})
-\t]
+\t] // [!code --]
+\t], // [!code ++]
+\tresolve: { // [!code ++]
+\t\talias: { // [!code ++]
+\t\t\t$pinyaBase: path.resolve(__dirname, "./node_modules/@turnipxenon/pineapple") // [!code ++]
+\t\t} // [!code ++]
+\t} // [!code ++]
 });`}
 					lang="ts"
 					classes=""
@@ -106,6 +113,8 @@ export default defineConfig({
 	</li>
 	<li>Update primary <code>src/routes/+layout.svelte</code>
 		<CodeBlock code={`<script lang="ts">
+\timport { appState, PinyaBase, PinyaPageLayout } from "@turnipxenon/pineapple/templates";
+\timport { getParsnipDataRemote } from "$pinyaBase/dist/remoteIndex.remote.js";
 \t//more code here...
 
 \tappState.allowDialog = true;
@@ -121,7 +130,7 @@ export default defineConfig({
 </svelte:head>
 
 <PinyaBase> // [!code --]
-<PinyaBase {fileList} {jsonList} parsnipBasePath="blogs/"> // [!code ++]
+<PinyaBase {fileList} {jsonList} {getParsnipDataRemote} parsnipBasePath="blogs/"> // [!code ++]
 \t<PinyaPageLayout>
 \t\t{@render children?.()}
 \t</PinyaPageLayout>`} lang="svelte" classes="" />

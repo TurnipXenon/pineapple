@@ -5,7 +5,7 @@ export declare const getParsnipDataRemote: import("@sveltejs/kit").RemoteQueryFu
         baseUrl: any;
     };
 } | {
-    parsnipOverall: import("../../../lib/modules/parsnip/ParsnipOverall").ParsnipOverall;
+    parsnipOverall: import("../modules/parsnip/ParsnipOverall").ParsnipOverall;
 } | {
     parsnipOverall?: undefined;
 }>;

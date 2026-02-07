@@ -17,3 +17,4 @@ export { default as UniversalOverlay } from "$pkg/ui/modules/universal-overlay/U
 export { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
 
 export * from "./modules/parsnip/index";
+export * from "./util/context/pineappleBaseContextDefinitions.svelte"
