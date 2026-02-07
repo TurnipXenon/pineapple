@@ -41,7 +41,7 @@
 	appState.allowDialog = false;
 	onDestroy(() => {
 		if (browser) {
-			// appState.allowDialog = true;
+			appState.allowDialog = true;
 		}
 	})
 </script>
