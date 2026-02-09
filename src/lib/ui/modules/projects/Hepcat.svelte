@@ -11,8 +11,11 @@
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "Hepcat";
+	const dateStarted = "2019-09-01";
+	const dateFinished = "2019-12-15";
+	const tags = ["unity", "csharp", "game", "rhythm", "rpgmaker"];
 	// type SnippetMeta at src/lib/ui/templates/SeaweedLayout/props.ts:6
-	export { component, key };
+	export { component, key, dateStarted, dateFinished, tags };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}

@@ -11,7 +11,10 @@
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "Soulwork";
-	export { component, key };
+	const dateStarted = "2019-10-18";
+	const dateFinished = "2019-10-20";
+	const tags = ["unity", "csharp", "game", "gamejam", "physics"];
+	export { component, key, dateStarted, dateFinished, tags };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}

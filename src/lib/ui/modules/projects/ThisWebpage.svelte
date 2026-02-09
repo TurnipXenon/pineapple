@@ -12,7 +12,9 @@
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "This Webpage";
-	export { component, key };
+	const dateStarted = "2023-06-01";
+	const tags = ["svelte", "typescript", "web", "tailwind", "postgres", "prisma", "ongoing"];
+	export { component, key, dateStarted, tags };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}

@@ -19,8 +19,8 @@
 	let {
 		email,
 		linkedinSlug,
-		children,
-		sideSection,
+		children = undefined,
+		sideSection = undefined,
 		entryList, // todo
 		layout, // todo
 		domain = "http://localhost:5173/seaweed2",
@@ -186,16 +186,21 @@
 		{/if}
 	{/snippet}
 
-	<div id="upper-section">
+	{#if sideSection || children}
+		<div id="upper-section">
+			{#if sideSection}
+				<div class="upper-section-start">
+					{@render sideSection(socialSection)}
+				</div>
+			{/if}
 
-		<div class="upper-section-start">
-			{@render sideSection(socialSection)}
+			{#if children}
+				<div class="upper-section-end">
+					{@render children()}
+				</div>
+			{/if}
 		</div>
-
-		<div class="upper-section-end">
-			{@render children()}
-		</div>
-	</div>
+	{/if}
 
 	<!--todo: render list #migration-->
 	{#each actualLayout as group (group.title)}
