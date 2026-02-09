@@ -14,23 +14,24 @@
 
 {#snippet component(props: ProjectComponentProps)}
 	<FourPartCard>
-		{#snippet media()}
+		{#snippet headerCover()}
 			<div class="company-logo-placeholder">
 				<h1>CX</h1>
 			</div>
 		{/snippet}
 
-		{#snippet description()}
+		{#snippet header()}
 			<h3>Software Engineer</h3>
 			<h4>Company X</h4>
 			<p class="date-range">Jan 2022 - Dec 2024</p>
-			<p>
-				Built scalable web applications using
-				<TextChip queryClass="qt-typescript">TypeScript</TextChip> and
-				<TextChip queryClass="qt-svelte">Svelte</TextChip>.
-				Collaborated with cross-functional teams to deliver high-quality software solutions.
-			</p>
 		{/snippet}
+
+		<p>
+			Built scalable web applications using
+			<TextChip queryClass="qt-typescript">TypeScript</TextChip> and
+			<TextChip queryClass="qt-svelte">Svelte</TextChip>.
+			Collaborated with cross-functional teams to deliver high-quality software solutions.
+		</p>
 	</FourPartCard>
 {/snippet}
 
