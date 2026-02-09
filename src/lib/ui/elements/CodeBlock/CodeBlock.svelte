@@ -119,15 +119,17 @@
                 padding-inline-end: 0;
 
                 code {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.2lh;
+                    display: block;
 
                     & > span {
-                        display: flex;
-                        flex-wrap: wrap;
+                        display: block;
                         padding-inline-start: 2em;
                         padding-inline-end: 1em;
+                        margin-block-end: -1lh;
+
+                        &:last-child {
+                            margin-block-end: 0;
+                        }
                     }
                 }
 
