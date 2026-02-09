@@ -6,13 +6,13 @@ NPM package: https://www.npmjs.com/package/@turnipxenon/pineapple
 
 ## Developing
 
-Once you've created a project and installed dependencies with `yarn`, start a development server:
+Once you've created a project and installed dependencies with `pnpm`, start a development server:
 
 ```bash
-yarn dev
+pnpm dev
 
 # or start the server and open the app in a new browser tab
-yarn dev -- --open
+pnpm dev -- --open
 ```
 
 ## Building
@@ -20,10 +20,10 @@ yarn dev -- --open
 To create a production version of your app:
 
 ```bash
-yarn build
+pnpm build
 ```
 
-You can preview the production build with `yarn preview`.
+You can preview the production build with `pnpm preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
@@ -35,7 +35,7 @@ TODO: If you're curious how to install this on a fresh package or a package not 
 ## Migration from v2 to v3
 
 ```bash
-yarn add @turnipxenon2/pineapple
+pnpm add @turnipxenon2/pineapple
 ```
 
 **Manual steps**
@@ -119,13 +119,13 @@ kit: {
 
 ## Local linking
 
-1. In pineapple, run `yarn link`
-2. In seaweed2, run `yarn unlink @turnipxenon/pineapple`
+1. In pineapple, run `pnpm link`
+2. In seaweed2, run `pnpm link @turnipxenon/pineapple`
 
 **To unlink:**
 
-1. In seaweed2, run `yarn unlink @turnipxenon/pineapple`
-2. In pineapple, run `yarn unlink`
+1. In seaweed2, run `pnpm unlink @turnipxenon/pineapple`
+2. In pineapple, run `pnpm unlink`
 3. **If unlinking, remember to restart PC cause Windows symlinking is tricky**
 
-To reinstall a single package: `yarn add @turnipxenon/pineapple --no-package-lock --no-save`
+To reinstall a single package: `pnpm add @turnipxenon/pineapple --no-package-lock --no-save`
