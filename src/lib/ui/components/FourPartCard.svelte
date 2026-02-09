@@ -51,6 +51,11 @@
     :global {
         .pinya-four-part-card.pinya-card {
             padding: 0;
+
+            .card-header-cover > img {
+                border-top-right-radius: var(--radius-xl);
+                border-top-left-radius: var(--radius-xl);
+            }
         }
     }
 </style>
