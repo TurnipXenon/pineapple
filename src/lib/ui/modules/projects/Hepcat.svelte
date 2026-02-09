@@ -11,6 +11,7 @@
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "Hepcat";
+	// type SnippetMeta at src/lib/ui/templates/SeaweedLayout/props.ts:6
 	export { component, key };
 </script>
 
