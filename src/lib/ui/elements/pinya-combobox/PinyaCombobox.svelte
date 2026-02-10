@@ -10,7 +10,7 @@
 		},
 		multiple = false,
 		...props
-	}: PinyaComboboxProps = $props();
+	}: PinyaComboboxProps<T> = $props();
 
 	const combobox = $derived(new Combobox({
 		value: (() => {
@@ -24,31 +24,25 @@
 
 			return undefined;
 		})(),
-		onValueChange: (t) => {
-			if (typeof t === "string") {
-				value = t ? [t] : [];
-			} else if (t instanceof SvelteSet) {
+		// todo: investigate later why typescript says it's the wrong type?
+		onValueChange: (t: T | SvelteSet<T> | undefined) => {
+			if (t instanceof SvelteSet) {
 				if (t.size > 0) {
-					const newVal: string[] = [];
-					t.forEach(el => {
-						if (typeof el === "string") {
-							newVal.push(el);
-						} else {
-							newVal.push(...el);
-						}
-					});
-					value = newVal;
+					value = [...t];
 				} else {
 					value = [];
 				}
-			} else if (t && (t.length > 0)) {
-				value = [...t];
+			} else if (t) {
+				value = [t];
 			} else {
 				value = [];
 			}
 			onValueChange?.(value);
 		},
 		inputValue: function() {
+			if (value.length === props.data.length) {
+				return "All";
+			}
 			if (value.length === 0) {
 				return "---";
 			}
