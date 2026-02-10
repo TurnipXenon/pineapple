@@ -9,8 +9,12 @@
 		onValueChange = () => {
 		},
 		multiple = false,
+		name = "",
 		...props
 	}: PinyaComboboxProps<T> = $props();
+
+	const uid = $props.id();
+	const _name = $derived(name ? name : `combobox-${uid}`);
 
 	const combobox = $derived(new Combobox({
 		value: (() => {
@@ -57,6 +61,8 @@
 			o.value.toLowerCase().includes(combobox.inputValue.trim().toLowerCase())
 		);
 	});
+
+	const clearAll = () => value = [];
 </script>
 
 <!--
@@ -67,9 +73,16 @@ When migrating from Skeleton to Melt, change the value is no longer an array T[]
 -->
 
 <div class={`pinya-combobox-wrapper ${props.class}`} {...props}>
-	<label {...combobox.label}>{props.label}</label>
+	<div class="label-section">
+		<label {...combobox.label} for={_name}>{props.label}</label>
+		{#if value.length > 0 && multiple}
+			<button class="clear-btn" onclick={clearAll}>Clear all</button>
+		{:else }
+			<button class="clear-btn invisible" onclick={clearAll}>Clear all</button>
+		{/if}
+	</div>
 	<div class="pinya-combobox-control">
-		<input {...combobox.input} disabled={props.disabled} />
+		<input {...combobox.input} disabled={props.disabled} name={_name} />
 		<button class="size-[3rem]" {...combobox.trigger} disabled={props.disabled}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5" class="size-[2rem] m-auto">
 				<path d="m6 9 6 6 6-6"></path>
@@ -126,6 +139,7 @@ When migrating from Skeleton to Melt, change the value is no longer an array T[]
     .pinya-combobox-wrapper {
         display: flex;
         flex-direction: column;
+        gap: 0.2lh
     }
 
     .pinya-combobox-control {
@@ -148,5 +162,30 @@ When migrating from Skeleton to Melt, change the value is no longer an array T[]
             padding: var(--spacing-2) var(--spacing-4);
             padding-right: 0;
         }
+    }
+
+    .clear-btn {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-primary-500);
+        background: transparent;
+        color: var(--color-primary-500);
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &.invisible {
+            pointer-events: none;
+		        opacity: 0;
+        }
+    }
+
+    .clear-btn:hover {
+        background: var(--color-primary-100);
+    }
+
+    .label-section {
+        display: flex;
+        gap: 0.5em;
     }
 </style>

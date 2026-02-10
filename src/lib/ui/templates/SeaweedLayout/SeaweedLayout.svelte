@@ -277,11 +277,8 @@
     }
 
     #upper-section {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 2rem;
-        justify-content: center;
+        max-width: calc((28rem * 3) + 5rem);
+        width: 100%;
     }
 
     .query-term-grid {

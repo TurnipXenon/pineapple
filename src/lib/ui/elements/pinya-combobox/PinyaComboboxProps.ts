@@ -16,6 +16,7 @@ export type PinyaComboboxProps<T extends string> = {
 	/* selected option value */
 	value?: T[];
 	label?: string;
+	name?: string;
 	placeholder?: string;
 	onValueChange?: (selectedList: T[]) => void;
 	disabled?: boolean;

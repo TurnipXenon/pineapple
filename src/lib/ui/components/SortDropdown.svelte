@@ -40,16 +40,11 @@
 		bind:value={sortBy}
 		label="Sort by"
 		placeholder="Select sort order"
-		class="sort-combobox"
 	/>
 </div>
 
 <style>
     .sort-dropdown {
         min-width: 200px;
-    }
-
-    :global(.sort-combobox) {
-        width: 100%;
     }
 </style>

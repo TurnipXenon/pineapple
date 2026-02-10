@@ -79,7 +79,7 @@
 >
 	{#snippet sideSection(socialSection: Snippet)}
 		<div>
-			<PinyaCard class="about-section">
+			<PinyaCard class="about-section" flexClass="">
 				<div class="about-text">
 					<h2>About</h2>
 					<p>Hi I'm Turnip! Put stuff here! Say more impressive things, like a summary of some sort.</p>
@@ -104,10 +104,32 @@
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
+            justify-content: space-between;
 
-		        &.pinya-card {
-				        max-width: 64em;
-		        }
+            &.pinya-card {
+                width: 100%;
+                max-width: unset;
+            }
+
+            .about-text {
+                flex-basis: 50em;
+            }
+
+            .about-social-section > .socials {
+                display: flex;
+                flex-direction: column;
+            }
+
+            @media (width < 70em) {
+		            &.pinya-card {
+				            gap: 1lh;
+		            }
+
+                .about-social-section > .socials {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                }
+            }
         }
     }
 
