@@ -1,33 +1,61 @@
 <script lang="ts" generics="T extends string">
 	import type { PinyaComboboxProps } from "$pkg/ui/elements/pinya-combobox/PinyaComboboxProps";
 	import { Combobox } from "melt/builders";
+	import { SvelteSet } from "svelte/reactivity";
 
 	let {
 		// todo: fix this
-		value = $bindable(),
+		value = $bindable([]),
 		onValueChange = () => {
 		},
-		onValueChangeBase = undefined,
-		// multiple = false,
+		multiple = false,
 		...props
-	}: PinyaComboboxProps<T> = $props();
+	}: PinyaComboboxProps = $props();
 
-	const onValueChangeBaseImpl = (e: T | undefined) => {
-		value = e;
-		console.log("change", e);
-		onValueChange({
-			value: e,
-			items: props.data
-		});
-	};
+	const combobox = $derived(new Combobox({
+		value: (() => {
+			if (value) {
+				if (multiple) {
+					return value;
+				} else if (value.length > 0) {
+					return value[0];
+				}
+			}
 
-	const combobox = new Combobox<T, false>({
-		value: props.defaultValue,
-		inputValue: function() {
-			return props.data.find((o) => o.value === value)?.label ?? "---";
+			return undefined;
+		})(),
+		onValueChange: (t) => {
+			if (typeof t === "string") {
+				value = t ? [t] : [];
+			} else if (t instanceof SvelteSet) {
+				if (t.size > 0) {
+					const newVal: string[] = [];
+					t.forEach(el => {
+						if (typeof el === "string") {
+							newVal.push(el);
+						} else {
+							newVal.push(...el);
+						}
+					});
+					value = newVal;
+				} else {
+					value = [];
+				}
+			} else if (t && (t.length > 0)) {
+				value = [...t];
+			} else {
+				value = [];
+			}
+			onValueChange?.(value);
 		},
-		onValueChange: onValueChangeBase ?? onValueChangeBaseImpl,
-	});
+		inputValue: function() {
+			if (value.length === 0) {
+				return "---";
+			}
+			return value.join(", ");
+		},
+		multiple
+	}));
 
 	const filtered = $derived.by(() => {
 		if (!combobox.touched) return props.data;
@@ -71,10 +99,10 @@ When migrating from Skeleton to Melt, change the value is no longer an array T[]
 </div>
 
 <style lang="scss">
-		@use "$styles/surface-colors" as *;
+    @use "$styles/surface-colors" as *;
 
     [data-melt-combobox-content] {
-		    @extend %surface-body;
+        @extend %surface-body;
         border-color: var(--color-primary-500);
         border-style: var(--tw-border-style);
         border-radius: var(--radius-xl);

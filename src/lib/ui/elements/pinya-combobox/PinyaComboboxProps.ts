@@ -10,18 +10,18 @@ export interface ValueChangeDetails<T extends string> {
 	items: GenericComboboxItem<T>[]
 }
 
-export type PinyaComboboxProps<T extends string> = {
+export type PinyaComboboxProps = {
 	/* list of options */
-	data: GenericComboboxItem<T>[]
-	defaultValue: T | undefined;
+	data: GenericComboboxItem<string>[]
 	/* selected option value */
-	value: T | undefined;
-	label: string;
-	placeholder: string;
-	onValueChange?: (selectedList: ValueChangeDetails<T>) => void;
+	value?: string[];
+	label?: string;
+	placeholder?: string;
+	onValueChange?: any; // todo: fix
+	// onValueChange?: (selectedList: ValueChangeDetails<string>) => void;
 	// override this if you want to override the behavior of settings value automatically
 	// useful if you arent using basic strings
-	onValueChangeBase?: (e: T | undefined) => void;
+	onValueChangeBase?: (e: string[] | undefined) => void;
 	disabled?: boolean;
 	multiple?: boolean;
 } & HTMLAttributes<HTMLDivElement>;

@@ -1,4 +1,5 @@
 <script lang="ts">
+	// should import from "@turnipxenon/pinaepple/elements" instead if used as external library
 	import PinyaSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
 	import PinyaCombobox from "$pkg/ui/elements/pinya-combobox/PinyaCombobox.svelte";
 
@@ -13,14 +14,15 @@
 		{ label: "Tagalog", value: "tl" }
 	];
 
-	let selectedCountry = $state<"en" | "fr" | "tl">("fr");
+	let selectedCountry = $state<string[]>(["fr"]);
 
-	const onValueChange = (e: { value: ComboxData["value"] | undefined }) => {
-		if (!e.value) return;
+	const onValueChange = (e: ComboxData["value"][] | undefined ) => {
+		if (!e || e.length === 0) return;
 
-		const data = comboboxData.find((d) => d.value === e.value);
+		console.log('chosen', e)
+		const data = comboboxData.filter(v => e.includes(v.value));
 		if (data) {
-			alert(`You chose ${data.label}`);
+			alert(`You chose ${JSON.stringify(data)}`);
 		}
 	};
 
@@ -29,15 +31,23 @@
 </script>
 
 <div class="default-flex">
+	<div>Chosen values:
+		{#each selectedCountry as country, idx (country)}
+			{#if (idx > 0)}
+			,
+			{/if}
+			{country}
+		{/each}
+	</div>
+
 	<PinyaCombobox
 		data={comboboxData}
 		bind:value={selectedCountry}
-		defaultValue={selectedCountry}
 		label="Select Language"
 		placeholder="Select Language"
-		{onValueChange}
 		{disabled}
 		{multiple}
+		{onValueChange}
 	/>
 
 	<h3>Props</h3>
