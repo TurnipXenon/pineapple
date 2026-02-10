@@ -16,10 +16,10 @@
 
 	let selectedCountry = $state<string[]>(["fr"]);
 
-	const onValueChange = (e: ComboxData["value"][] | undefined ) => {
+	const onValueChange = (e: ComboxData["value"][] | undefined) => {
 		if (!e || e.length === 0) return;
 
-		console.log('chosen', e)
+		console.log("chosen", e);
 		const data = comboboxData.filter(v => e.includes(v.value));
 		if (data) {
 			alert(`You chose ${JSON.stringify(data)}`);
@@ -34,7 +34,7 @@
 	<div>Chosen values:
 		{#each selectedCountry as country, idx (country)}
 			{#if (idx > 0)}
-			,
+				,
 			{/if}
 			{country}
 		{/each}

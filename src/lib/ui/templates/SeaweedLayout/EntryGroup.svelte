@@ -1,11 +1,11 @@
 <!-- TODO: Documentation: consider documentation showcase -->
 
 <script lang="ts">
+	import SortDropdown from "$pkg/ui/components/SortDropdown.svelte";
+	import TagFilter from "$pkg/ui/components/TagFilter.svelte";
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
 	import { SectionType } from "$pkg/ui/templates/SeaweedLayout/props";
-	import TagFilter from "$pkg/ui/components/TagFilter.svelte";
-	import SortDropdown from "$pkg/ui/components/SortDropdown.svelte";
 
 	let {
 		title,
@@ -20,7 +20,7 @@
 
 	// State
 	let selectedTags = $state<string[]>([]);
-	let sortBy = $state<string>("default");
+	let sortBy = $state<string[]>(["default"]);
 	let isExpanded = $state(false);
 
 	// Derived values
@@ -77,7 +77,7 @@
 		return new Date(entry.dateFinished).getTime() - new Date(entry.dateStarted).getTime();
 	}
 
-	const sortedList = $derived(sortEntries(filteredList, sortBy));
+	const sortedList = $derived(sortEntries(filteredList, sortBy.length > 0 ? sortBy[0] : "default"));
 
 	const visibleList = $derived(
 		showMoreLimit > 0 && !isExpanded
@@ -97,7 +97,7 @@
 					<TagFilter bind:selectedTags {allTags} />
 				{/if}
 				{#if showSort}
-					<SortDropdown bind:sortBy {sectionType} />
+					<SortDropdown bind:sortBy={sortBy} {sectionType} />
 				{/if}
 			</div>
 		</div>

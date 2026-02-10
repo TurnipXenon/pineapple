@@ -95,7 +95,11 @@
             font-style: var(--shiki-dark-font-style) !important;
             font-weight: var(--shiki-dark-font-weight) !important;
             -webkit-text-decoration: var(--shiki-dark-text-decoration) !important;
-            text-decoration: var(--shiki-dark-text-decoration) !important
+            text-decoration: var(--shiki-dark-text-decoration) !important;
+
+		        span[style*="color:#4C4F69"] {
+                color: oklch(0.835 0.043 279.325) !important;
+            }
         }
 
 		    html.dark .shiki.has-diff span.diff.add {
