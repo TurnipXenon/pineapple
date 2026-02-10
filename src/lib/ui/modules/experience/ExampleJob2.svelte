@@ -8,7 +8,8 @@
 	const key = "Senior Developer at Current Company";
 	const dateStarted = "2024-01-01";
 	// No dateFinished export - indicates ongoing position
-	const tags = ["rust", "systems", "performance", "ongoing"];
+	// qt-ongoing, qt-systems, qt-performance, qt-infrastructure
+	const tags = ["ongoing", "rust", "systems", "performance", "infrastructure"];
 	export { component, key, dateStarted, tags };
 </script>
 
@@ -28,11 +29,15 @@
 
 		<p>
 			Currently working on high-performance systems using
-			<TextChip queryClass="qt-rust">Rust</TextChip>.
-			Leading development of critical infrastructure components and mentoring junior developers.
+			<span class="qt-rust">Rust</span>.
+			Leading development of critical infrastructure components and mentoring junior developers to preach our love of
+			<span class="qt-rust">Rust</span>. Did I forget to mention <span class="qt-rust">RUST</span>?!?!
 		</p>
-		<div class="ongoing-badge">
-			<TextChip queryClass="qt-ongoing">Ongoing</TextChip>
+
+		<div class="text-chip-container">
+			{#each tags as t (t)}
+				<TextChip queryClass="qt-{t}">{t}</TextChip>
+			{/each}
 		</div>
 	</FourPartCard>
 {/snippet}

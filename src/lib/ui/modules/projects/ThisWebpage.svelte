@@ -50,7 +50,7 @@
 			<TextChip queryClass="qt-svelte">Svelte 5</TextChip>
 			<TextChip queryClass="qt-tailwind">Tailwind 4</TextChip>
 			<TextChip queryClass="qt-skeleton">Skeleton (Svelte UI library)</TextChip>
-			<TextChip queryClass="qt-ts">Typescript</TextChip>
+			<TextChip queryClass="qt-typescript">Typescript</TextChip>
 			<TextChip queryClass="qt-vercel qt-cicd">Vercel</TextChip>
 			<TextChip queryClass="qt-gamedev">YarnSpinner</TextChip>
 			<TextChip queryClass="qt-postgres qt-db">Postgres (SQL database)</TextChip>

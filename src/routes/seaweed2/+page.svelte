@@ -1,18 +1,23 @@
 <script lang="ts">
 	import { PinyaCard } from "$pkg/ui/elements";
-	import { type ProjectGroup, SeaweedLayout, type SnippetMeta, SectionType } from "$pkg/ui/templates/SeaweedLayout/index";
-	import type { Snippet } from "svelte";
-
-	import * as Pengi from "$pkg/ui/modules/projects/Pengi.svelte";
-	import * as Soulwork from "$pkg/ui/modules/projects/Soulwork.svelte";
-	import * as Hepcat from "$pkg/ui/modules/projects/Hepcat.svelte";
-	import * as ThisWebpage from "$pkg/ui/modules/projects/ThisWebpage.svelte";
 
 	import * as ExampleJob1 from "$pkg/ui/modules/experience/ExampleJob1.svelte";
 	import * as ExampleJob2 from "$pkg/ui/modules/experience/ExampleJob2.svelte";
+	import * as Hepcat from "$pkg/ui/modules/projects/Hepcat.svelte";
+
+	import * as Pengi from "$pkg/ui/modules/projects/Pengi.svelte";
+	import * as Soulwork from "$pkg/ui/modules/projects/Soulwork.svelte";
+	import * as ThisWebpage from "$pkg/ui/modules/projects/ThisWebpage.svelte";
+	import {
+		type ProjectGroup,
+		SeaweedLayout,
+		SectionType,
+		type SnippetMeta
+	} from "$pkg/ui/templates/SeaweedLayout/index";
+	import type { Snippet } from "svelte";
+	import ElementVisibilityDetector from "../../lib/ui/elements/ElementVisibilityDetector.svelte";
 
 	import type { PageProps } from "./$types";
-	import ElementVisibilityDetector from "../../lib/ui/elements/ElementVisibilityDetector.svelte";
 
 	let { data }: PageProps = $props();
 
@@ -73,31 +78,41 @@
 	showMiniSocial={shouldShowSmallSocial}
 >
 	{#snippet sideSection(socialSection: Snippet)}
-		<div class="flex flex-col gap-4">
-			<PinyaCard>
-				<div class="side-section">
+		<div>
+			<PinyaCard class="about-section">
+				<div class="about-text">
 					<h2>About</h2>
-					<p>Hi I'm Turnip! Put stuff here!</p>
+					<p>Hi I'm Turnip! Put stuff here! Say more impressive things, like a summary of some sort.</p>
 					<p>More stuff here!!</p>
+					<p>Study here maybe</p>
+					<p>Quirky thing maybe</p>
+				</div>
+
+				<div class="about-social-section">
+					{@render socialSection()}
 				</div>
 			</PinyaCard>
 
-			<PinyaCard paddingClass="social-section-card">
-				{@render socialSection()}
-				<ElementVisibilityDetector bind:isVisible={isSocialVisible} />
-			</PinyaCard>
+			<ElementVisibilityDetector bind:isVisible={isSocialVisible} />
 		</div>
 	{/snippet}
 </SeaweedLayout>
 
 <style>
-    .side-section {
-        display: flex;
-        flex-direction: column;
+    :global {
+        .about-section {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+		        &.pinya-card {
+				        max-width: 64em;
+		        }
+        }
     }
 
     :global(.social-section-card) {
-		    padding-top: calc(var(--spacing) * 6);
-		    padding-bottom: calc(var(--spacing) * 6);
+        padding-top: calc(var(--spacing) * 6);
+        padding-bottom: calc(var(--spacing) * 6);
     }
 </style>

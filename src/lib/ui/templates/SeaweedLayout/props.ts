@@ -1,5 +1,7 @@
 import type { Snippet } from "svelte";
 import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout";
+import { createContext } from 'svelte';
+import type { SvelteSet } from "svelte/reactivity";
 
 type ComponentSnippet = Snippet<[ProjectComponentProps]>;
 
@@ -43,3 +45,6 @@ export interface SeaweedLayoutProps {
 	showMiniSocial?: boolean;
 	serverParams?: string;
 }
+
+/* A list of terms to be prepended with qt- later */
+export const [getQueryTermContext, setQueryTermContext] = createContext<SvelteSet<string>>();

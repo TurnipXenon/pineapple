@@ -165,10 +165,7 @@
 
 
 {#snippet socialSection()}
-	<SocialSection
-		email={email}
-		linkedinSlug={linkedinSlug}
-	/>
+	<SocialSection />
 {/snippet}
 <PinyaPageLayout appBardEndStyle="classic">
 	{#snippet appBarLead()}
