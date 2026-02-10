@@ -22,6 +22,6 @@ export type PinyaComboboxProps<T extends string> = {
 	// override this if you want to override the behavior of settings value automatically
 	// useful if you arent using basic strings
 	onValueChangeBase?: (e: T | undefined) => void;
-	contentZIndex?: string;
 	disabled?: boolean;
+	multiple?: boolean;
 } & HTMLAttributes<HTMLDivElement>;

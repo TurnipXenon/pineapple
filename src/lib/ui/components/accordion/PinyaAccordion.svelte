@@ -13,6 +13,7 @@
 		multiple = true,
 		...props
 	}: PinyaAccordionProps = $props();
+
 	let accordion = $derived(new Accordion({
 		value: (() => {
 			if (openItems) {

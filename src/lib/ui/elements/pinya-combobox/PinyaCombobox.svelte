@@ -1,16 +1,14 @@
-<!-- TODO: Documentation: consider documentation showcase -->
-
 <script lang="ts" generics="T extends string">
 	import type { PinyaComboboxProps } from "$pkg/ui/elements/pinya-combobox/PinyaComboboxProps";
 	import { Combobox } from "melt/builders";
 
 	let {
 		// todo: fix this
-		contentZIndex = "auto",
 		value = $bindable(),
 		onValueChange = () => {
 		},
 		onValueChangeBase = undefined,
+		// multiple = false,
 		...props
 	}: PinyaComboboxProps<T> = $props();
 
