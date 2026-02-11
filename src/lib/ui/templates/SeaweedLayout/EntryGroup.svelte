@@ -88,7 +88,7 @@
 	const hasMore = $derived(showMoreLimit > 0 && sortedList.length > showMoreLimit);
 </script>
 
-<div class="mt-8 flex flex-col items-center entry-group-wrapper">
+<div class="flex flex-col items-center entry-group-wrapper">
 	<PinyaCard class="group-header">
 		<div class="header-content">
 			<h2>{title}</h2>

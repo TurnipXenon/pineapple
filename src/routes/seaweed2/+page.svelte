@@ -98,38 +98,38 @@
 	{/snippet}
 </SeaweedLayout>
 
+<!-- todo: we need to port this styling to seaweed, or at least mirror it -->
 <style>
     :global {
         .about-section {
             display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
             justify-content: space-between;
+		        flex-wrap: wrap;
+		        gap: 1lh;
 
             &.pinya-card {
-                width: 100%;
+                width: unset;
                 max-width: unset;
             }
 
             .about-text {
-                flex-basis: 50em;
+		            flex-basis: 26em;
             }
 
             .about-social-section > .socials {
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
+                flex-wrap: wrap;
             }
+        }
 
-            @media (width < 70em) {
-		            &.pinya-card {
-				            gap: 1lh;
-		            }
+        .is-mobile .about-section .about-social-section > .socials {
+            flex-direction: column;
+        }
 
-                .about-social-section > .socials {
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                }
-            }
+        .is-mobile.is-very-narrow .about-section .about-social-section > .socials {
+            flex-direction: row;
         }
     }
 
