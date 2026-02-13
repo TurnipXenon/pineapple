@@ -178,7 +178,6 @@
 		}
 
 		// code has to be below filterSearchParams!
-		const entryWrapper = upperSectionWrapper?.querySelector(".entry-group-wrapper");
 		if (browser && document.body) {
 			// Create a new ResizeObserver instance
 			resizeObserver = new ResizeObserver(entries => {
@@ -187,7 +186,6 @@
 					const { width } = entry.contentRect; // or entry.borderBoxSize
 					const emWidth = width / getElementFontSize(document.body);
 
-					console.log(width, emWidth);
 					// 26em (about) + 50em (experience) + 2em (margin)
 					isMobile = emWidth < 79;
 					// magic number
@@ -235,6 +233,7 @@
 		<div
 			id="upper-section"
 			bind:this={upperSectionWrapper}
+			class="upper-section-style"
 			class:is-mobile={isMobile}
 			class:is-very-narrow={isVeryNarrow}
 		>

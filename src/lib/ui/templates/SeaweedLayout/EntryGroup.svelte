@@ -163,8 +163,22 @@
         align-items: start;
     }
 
+    :global {
+        .upper-section-style .normal-project-container > .pinya-four-part-card {
+            max-width: revert;
+            flex-grow: revert;
+            flex-basis: revert;
+        }
+
+        .normal-project-container > .pinya-four-part-card {
+            max-width: 30em;
+            flex-grow: 1;
+            flex-basis: 25em;
+        }
+    }
+
     .show-more-btn {
-        margin-top: 2rem;
+        margin-bottom: 1.5lh;
         padding: 0.5rem 1rem;
         border-radius: var(--radius-lg);
         border: 2px solid var(--color-primary-500);

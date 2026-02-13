@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@turnipxenon/pineapple': link:../../../AppData/Local/pnpm/global/5/node_modules/@turnipxenon/pineapple
+
 patchedDependencies:
   mode-watcher:
     hash: 5e2275ff94a8ca25302874f92b334be1415e8bf3c76804710863622c6235b95b
@@ -16,6 +19,9 @@ importers:
       '@shikijs/transformers':
         specifier: ^3.22.0
         version: 3.22.0
+      '@turnipxenon/pineapple':
+        specifier: link:../../../AppData/Local/pnpm/global/5/node_modules/@turnipxenon/pineapple
+        version: link:../../../AppData/Local/pnpm/global/5/node_modules/@turnipxenon/pineapple
       melt:
         specifier: ^0.44.0
         version: 0.44.0(@floating-ui/dom@1.7.4)(svelte@5.49.2)
