@@ -384,10 +384,10 @@
 
                     > .pinya-four-part-card > section {
                         .card-header-cover {
-                            max-width: 12em;
+                            flex: 1 1 12em;
 
                             & > * {
-                                border-radius: 0;
+                                border-radius: var(--radius-xl);
                                 border-bottom-left-radius: var(--radius-xl);
                                 border-top-left-radius: var(--radius-xl);
                             }
@@ -395,10 +395,14 @@
 
                         .card-content {
                             padding-bottom: 1lh;
+		                        flex: 9999 1 20em;
                         }
 
                         display: flex;
                         flex-direction: row;
+		                    flex-wrap: wrap;
+		                    justify-content: stretch;
+		                    align-items: stretch;
                         margin: 0;
                     }
                 }
