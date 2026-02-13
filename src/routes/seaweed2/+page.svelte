@@ -58,7 +58,7 @@
 			sectionType: SectionType.Projects,
 			showFilter: true,
 			showSort: true,
-			showMoreLimit: 6,  // Show first 6 projects, rest behind "show more"
+			showMoreLimit: 3,  // Show first 6 projects, rest behind "show more"
 			projectComponentProps: { isPineapple: true }
 		}
 	];

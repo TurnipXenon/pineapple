@@ -1,3 +1,4 @@
+import type { RevealInfoRecord } from "$pkg/components/reveal-info/RevealInfoCollection";
 import type { Snippet } from "svelte";
 import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout";
 import { createContext } from 'svelte';
@@ -44,6 +45,8 @@ export interface SeaweedLayoutProps {
 	queryTerms: string[];
 	showMiniSocial?: boolean;
 	serverParams?: string;
+	emailRemoteQuery?: RevealInfoRecord,
+	linkedinRemoteQuery?: RevealInfoRecord,
 }
 
 /* A list of terms to be prepended with qt- later */

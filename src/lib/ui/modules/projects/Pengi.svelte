@@ -11,8 +11,8 @@
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "Pengi";
-	const dateStarted = "2020-01-15";
-	const dateFinished = "2020-04-30";
+	const dateStarted = "2020-08-01";
+	const dateFinished = "2020-12-15";
 	const tags = ["unity", "csharp", "game", "narrative", "yarnspinner"];
 	export { component, key, dateStarted, dateFinished, tags };
 </script>

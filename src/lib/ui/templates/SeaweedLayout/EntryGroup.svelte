@@ -73,7 +73,12 @@
 	}
 
 	function getDuration(entry: SnippetMeta): number {
-		if (!entry.dateStarted || !entry.dateFinished) return 0;
+		if (!entry.dateStarted) return 0;
+
+		if (!entry.dateFinished) {
+			return new Date().getTime() - new Date(entry.dateStarted).getTime();
+		}
+
 		return new Date(entry.dateFinished).getTime() - new Date(entry.dateStarted).getTime();
 	}
 

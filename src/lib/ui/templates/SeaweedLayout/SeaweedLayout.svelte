@@ -18,8 +18,8 @@
 	import type { ProjectGroup, SeaweedLayoutProps } from "./props";
 
 	let {
-		email,
-		linkedinSlug,
+		email = "",
+		linkedinSlug = "",
 		children = undefined,
 		sideSection = undefined,
 		entryList, // todo
@@ -27,7 +27,9 @@
 		domain = "http://localhost:5173/seaweed2",
 		queryTerms,
 		showMiniSocial = false,
-		serverParams = ""
+		serverParams = "",
+		emailRemoteQuery,
+		linkedinRemoteQuery
 	}: SeaweedLayoutProps = $props();
 
 	let actualLayout = $state(layout);
@@ -65,15 +67,29 @@
 				termList.push(qtTerm);
 				chipList.push(`.text-chip${qtTerm}`);
 			});
+		// language=HTML
 		styleStr = `<style>
 			${termList.join(", ")} {
 				font-weight: bolder;
-				color: var(--color-secondary-400);
+
+				&:not(.chip) {
+					color: var(--color-secondary-500);
+				}
+			}
+
+			html.dark {
+				${termList.join(", ")} {
+					font-weight: bolder;
+
+					&:not(.chip) {
+						color: var(--color-secondary-200);
+					}
+				}
 			}
 
 			${chipList.join(", ")} {
 				background-color: var(--color-secondary-500) /* oklch(55.6% 0 0deg) = #737373 */;
-				color: var(--color-secondary-contrast-500) /* var(--color-secondary-contrast-light) */;
+				color: #FFF5EFFF /* var(--color-secondary-contrast-light) */;
 			}
 			</style>`;
 	});
@@ -211,7 +227,7 @@
 
 
 {#snippet socialSection()}
-	<SocialSection />
+	<SocialSection {emailRemoteQuery} {linkedinRemoteQuery} />
 {/snippet}
 <PinyaPageLayout appBardEndStyle="classic">
 	{#snippet appBarLead()}
@@ -222,8 +238,8 @@
 			>
 				<SocialSection
 					isSmallVersion={true}
-					email={email}
-					linkedinSlug={linkedinSlug}
+					{emailRemoteQuery}
+					{linkedinRemoteQuery}
 				/>
 			</div>
 		{/if}
@@ -347,9 +363,9 @@
 
                 .upper-section-start, .entry-group-wrapper {
                     width: 100%;
-		                max-width: 64em;
-		                margin: auto;
-		                flex: unset;
+                    max-width: 64em;
+                    margin: auto;
+                    flex: unset;
                 }
 
                 .normal-project-container {
@@ -368,7 +384,7 @@
             .entry-group-wrapper {
                 width: unset;
                 max-width: 64em;
-		            flex: 1;
+                flex: 1;
 
                 .group-header {
                     max-width: 64em;
@@ -395,14 +411,14 @@
 
                         .card-content {
                             padding-bottom: 1lh;
-		                        flex: 9999 1 20em;
+                            flex: 9999 1 26em;
                         }
 
                         display: flex;
                         flex-direction: row;
-		                    flex-wrap: wrap;
-		                    justify-content: stretch;
-		                    align-items: stretch;
+                        flex-wrap: wrap;
+                        justify-content: stretch;
+                        align-items: stretch;
                         margin: 0;
                     }
                 }

@@ -57,5 +57,9 @@
                 border-top-left-radius: var(--radius-xl);
             }
         }
+
+		    html.dark .pinya-four-part-card {
+				    border: 0;
+		    }
     }
 </style>

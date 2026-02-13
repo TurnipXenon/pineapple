@@ -13,7 +13,7 @@
 
 	const key = "This Webpage";
 	const dateStarted = "2023-06-01";
-	const tags = ["svelte", "typescript", "web", "tailwind", "postgres", "prisma", "ongoing"];
+	const tags = ["svelte", "typescript", "web", "tailwind", "postgres", "prisma", "ongoing", "database"];
 	export { component, key, dateStarted, tags };
 </script>
 
