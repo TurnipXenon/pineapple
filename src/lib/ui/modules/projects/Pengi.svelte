@@ -11,10 +11,11 @@
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "Pengi";
-	const dateStarted = "2020-08-01";
-	const dateFinished = "2020-12-15";
+	const startCommit = "https://github.com/GreenTea-M/ProjectPengi/commit/401cbf7448374109f1a330bba11db87326034801"; // fill in GitHub commit URL to auto-resolve dateStarted
+	const endCommit = "https://github.com/GreenTea-M/ProjectPengi/commit/0175ec669a3c935a798fdb3c85fb37506d4b5557"; // fill in GitHub commit URL to auto-resolve dateFinished
+	const gitRepoLink = "https://github.com/GreenTea-M/ProjectPengi";
 	const tags = ["unity", "csharp", "game", "narrative", "yarnspinner"];
-	export { component, key, dateStarted, dateFinished, tags };
+	export { component, key, startCommit, endCommit, gitRepoLink, tags };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}

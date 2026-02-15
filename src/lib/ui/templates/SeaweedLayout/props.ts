@@ -18,6 +18,9 @@ export interface SnippetMeta {
 	dateStarted?: Date | string;
 	dateFinished?: Date | string;
 	tags?: string[];  // Use "ongoing" tag for ongoing projects/jobs
+	startCommit?: string;    // GitHub commit URL for auto-resolving dateStarted
+	endCommit?: string;      // GitHub commit URL for auto-resolving dateFinished
+	gitRepoLink?: string;    // GitHub repo URL — if set without endCommit, uses latest commit on main
 }
 
 export interface ProjectGroup {

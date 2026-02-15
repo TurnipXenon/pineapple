@@ -12,9 +12,10 @@
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "This Webpage";
-	const dateStarted = "2023-06-01";
+	const startCommit = "https://github.com/TurnipXenon/pineapple/commit/b16aa69b9f5ad224871e80c09aa4cca067dc2a52"; // fill in GitHub commit URL to auto-resolve dateStarted
+	const gitRepoLink = "https://github.com/TurnipXenon/pineapple";
 	const tags = ["svelte", "typescript", "web", "tailwind", "postgres", "prisma", "ongoing", "database"];
-	export { component, key, dateStarted, tags };
+	export { component, key, startCommit, gitRepoLink, tags };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}

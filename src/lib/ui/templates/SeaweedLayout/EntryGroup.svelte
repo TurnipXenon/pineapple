@@ -6,6 +6,8 @@
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
 	import { SectionType } from "$pkg/ui/templates/SeaweedLayout/props";
+	import { getCommitDateRemote } from "$pkg/util/getCommitDate.remote";
+	import { onMount } from "svelte";
 
 	let {
 		title,
@@ -18,18 +20,47 @@
 		showMoreLimit = 0
 	}: ProjectGroup = $props();
 
-	// State
+	// State — resolvedEntryList allows date overrides after fetching from GitHub
+	let resolvedEntryList = $state<SnippetMeta[]>([...entryList]);
 	let selectedTags = $state<string[]>([]);
 	let sortBy = $state<string[]>(["default"]);
 	let isExpanded = $state(false);
 
+	onMount(async () => {
+		const refs = entryList
+			.filter(e => e.startCommit || e.endCommit || e.gitRepoLink)
+			.map(e => ({
+				key: e.key,
+				startCommit: e.startCommit,
+				endCommit: e.endCommit,
+				gitRepoLink: e.gitRepoLink
+			}));
+
+		if (refs.length === 0) return;
+
+		try {
+			const dates = await getCommitDateRemote(refs);
+			resolvedEntryList = entryList.map(e => {
+				const d = dates[e.key];
+				if (!d) return e;
+				return {
+					...e,
+					...(d.dateStarted ? { dateStarted: d.dateStarted } : {}),
+					...(d.dateFinished ? { dateFinished: d.dateFinished } : {})
+				};
+			});
+		} catch {
+			// Keep original entryList on failure
+		}
+	});
+
 	// Derived values
-	const allTags = $derived([...new Set(entryList.flatMap(e => e.tags ?? []))]);
+	const allTags = $derived([...new Set(resolvedEntryList.flatMap(e => e.tags ?? []))]);
 
 	const filteredList = $derived(
 		selectedTags.length === 0
-			? entryList
-			: entryList.filter(e => e.tags?.some(t => selectedTags.includes(t)))
+			? resolvedEntryList
+			: resolvedEntryList.filter(e => e.tags?.some(t => selectedTags.includes(t)))
 	);
 
 	function sortEntries(list: SnippetMeta[], sort: string): SnippetMeta[] {

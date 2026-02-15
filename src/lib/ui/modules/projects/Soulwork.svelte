@@ -11,10 +11,11 @@
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "Soulwork";
-	const dateStarted = "2019-11-09";
-	const dateFinished = "2019-11-10";
+	const startCommit = "https://github.com/Zeyu-Li/Clockwork/commit/b033be1b2e6cd3ff8cb706f2860a22456e911acb"; // fill in GitHub commit URL to auto-resolve dateStarted
+	const endCommit = "https://github.com/Zeyu-Li/Clockwork/commit/38bfaad25e7489fb52b22df765ed421edc512e8e"; // fill in GitHub commit URL to auto-resolve dateFinished
+	const gitRepoLink = "https://github.com/Zeyu-Li/Clockwork";
 	const tags = ["unity", "csharp", "game", "gamejam", "physics"];
-	export { component, key, dateStarted, dateFinished, tags };
+	export { component, key, startCommit, endCommit, gitRepoLink, tags };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}
