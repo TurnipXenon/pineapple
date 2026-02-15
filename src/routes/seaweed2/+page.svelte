@@ -5,11 +5,6 @@
 	import * as ExampleJob1 from "$pkg/ui/modules/experience/ExampleJob1.svelte";
 	import * as ExampleJob2 from "$pkg/ui/modules/experience/ExampleJob2.svelte";
 
-	import * as Hepcat from "$pkg/ui/modules/projects/Hepcat.svelte";
-	import * as Pengi from "$pkg/ui/modules/projects/Pengi.svelte";
-	import * as Soulwork from "$pkg/ui/modules/projects/Soulwork.svelte";
-	import * as ThisWebpage from "$pkg/ui/modules/projects/ThisWebpage.svelte";
-	import * as ObsidianPublisher from "$pkg/ui/modules/projects/ObsidianPublisher.svelte";
 	import {
 		type ProjectGroup,
 		SeaweedLayout,
@@ -22,14 +17,6 @@
 	import type { PageProps } from "./$types";
 
 	let { data }: PageProps = $props();
-
-	const uiList: SnippetMeta[] = [
-		ThisWebpage,
-		Hepcat,
-		Pengi,
-		Soulwork,
-		ObsidianPublisher,
-	];
 
 	const experienceList: SnippetMeta[] = [
 		ExampleJob2,  // Ongoing job first
@@ -68,7 +55,7 @@
 	email="niko@gmail.com"
 	linkedinSlug="niko"
 	domain="https://turnipxenon.com"
-	entryList={uiList}
+	entryList={projectList}
 	layout={layout}
 	queryTerms={data.queryTerms}
 	showMiniSocial={shouldShowSmallSocial}

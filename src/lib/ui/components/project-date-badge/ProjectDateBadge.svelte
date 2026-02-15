@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { slide } from 'svelte/transition';
 	import type { ProjectDateBageProps } from "$pkg/ui/components/project-date-badge/ProjectDateBageProps";
 	import { TextLink } from "$pkg/ui/elements/index";
 
@@ -40,7 +41,7 @@
 </script>
 
 {#if hasData}
-	<section class="project-date-badge">
+	<section transition:slide class="project-date-badge">
 		<div class="badge-row">
 			<span class="date-info">
 				{formatDate(dateStarted!)}
