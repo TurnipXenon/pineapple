@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ProjectDateBageProps } from "$pkg/ui/components/project-date-badge/ProjectDateBageProps";
+	import { TextLink } from "$pkg/ui/elements/index";
 
 	let {
 		dateStarted,
@@ -66,9 +67,9 @@
 					<span class="ongoing-badge">ongoing</span>
 				{/if}
 				{#if commitCount != null && gitRepoLink}
-					<a href={gitRepoLink} target="_blank" rel="noopener noreferrer" class="commit-count">
+					<TextLink href={gitRepoLink} target="_blank" rel="noopener noreferrer" class="commit-count">
 						{commitCount} commit{commitCount !== 1 ? "s" : ""}
-					</a>
+					</TextLink>
 				{:else if commitCount != null}
 					<span class="commit-count">{commitCount} commit{commitCount !== 1 ? "s" : ""}</span>
 				{/if}
@@ -84,7 +85,7 @@
         gap: 0.375rem;
         padding: 0.75rem 0;
         margin-top: 0.75rem;
-        border-top: 1px solid var(--color-surface-400, #d1d5db);
+        border-top: 1px solid var(--color-surface-900-100);
         font-size: 0.8125rem;
         line-height: 1.4;
     }
@@ -98,26 +99,26 @@
     }
 
     .date-info {
-        color: var(--color-text-secondary, #6b7280);
+        color: var(--color-surface-900-100);
     }
 
     .separator {
         margin: 0 0.25rem;
-        color: var(--color-text-secondary, #6b7280);
+        color: var(--color-surface-900-100);
     }
 
     .ongoing-label {
-        color: var(--color-primary-500, #3b82f6);
+        color: var(--color-primary-400-600);
         font-weight: 600;
     }
 
     .unknown-label {
-        color: var(--color-text-secondary, #9ca3af);
+        color: var(--color-surface-900-100);
         font-style: italic;
     }
 
     .duration {
-        color: var(--color-text-secondary, #6b7280);
+        color: var(--color-surface-900-100);
         font-weight: 500;
     }
 
@@ -130,8 +131,8 @@
         display: inline-block;
         padding: 0.125rem 0.5rem;
         border-radius: var(--radius-md, 0.375rem);
-        background-color: var(--color-primary-100, #dbeafe);
-        color: var(--color-primary-700, #1d4ed8);
+        background-color: var(--color-primary-50-900);
+        color: var(--color-primary-700);
         font-size: 0.75rem;
         font-weight: 600;
         text-transform: uppercase;
@@ -139,13 +140,12 @@
     }
 
     :global(html.dark) .ongoing-badge {
-        background-color: var(--color-primary-900, #1e3a5f);
-        color: var(--color-primary-300, #93c5fd);
+        color: var(--color-primary-300);
     }
 
     .commit-count {
         font-size: 0.75rem;
-        color: var(--color-text-secondary, #6b7280);
+        color: var(--color-surface-900-100);
     }
 
     a.commit-count {
@@ -154,6 +154,6 @@
 
     a.commit-count:hover {
         text-decoration: underline;
-        color: var(--color-primary-500, #3b82f6);
+        color: var(--color-primary-400-600);
     }
 </style>

@@ -8,6 +8,7 @@ html {
     --color-warning-700-400: var(--color-warning-700);
     --color-surface-50-950: var(--color-surface-50);
     --color-surface-700-600: var(--color-surface-700);
+    --color-surface-900-100: var(--color-surface-900);
 }
 
 html.dark {
@@ -20,4 +21,5 @@ html.dark {
     --color-warning-700-400: var(--color-warning-400);
     --color-surface-50-950: var(--color-surface-950);
     --color-surface-700-600: var(--color-surface-600);
+    --color-surface-900-100: var(--color-surface-100);
 }
