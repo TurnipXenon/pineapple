@@ -2,11 +2,13 @@
 
 	import { dialogManager } from "$pkg";
 	import { enableUniversalOverlaySvelte4 } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 	import { PinyaButton } from "$pkg/ui/elements/index";
 	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
 	import PinyaCard from "$pkg/ui/elements/PinyaCard/PinyaCard.svelte";
 	import NavigationMenu from "$pkg/ui/modules/NavigationMenu/NavigationMenu.svelte";
 	import { setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
+	import { get } from "svelte/store";
 	import type { PageProps } from "./$types";
 	import { ImageMap } from "./ImageMap";
 	import TestDialogYarn from "./TestDialog.yarn?raw";
@@ -21,7 +23,9 @@
 		if (!parsed) {
 			// todo: use this to read yarn files instead of having to generate the yarn files all the time
 			dialogManager.parseAndSetDialogTree(TestDialogYarn).then(() => {
-				dialogManager.toggleDialogOverlay();
+				if (get(dialogManager.currentReadableState) !== DialogState.Visible) {
+					dialogManager.toggleDialogOverlay();
+				}
 			});
 			parsed = true;
 		} else {
@@ -91,7 +95,7 @@
     .advanced-setting-slider-wrapper {
         display: flex;
         flex-direction: row;
-		    gap: 1em;
-		    justify-items: center;
+        gap: 1em;
+        justify-items: center;
     }
 </style>

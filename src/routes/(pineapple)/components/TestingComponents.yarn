@@ -1,0 +1,44 @@
+title: AboutStart
+position: 0,0
+---
+Portrait: AresNeutral
+<p>Hi! I'm <b>Turnip</b>! I like chocolate, and maybe some seals! You should read
+<a href="https://archive.nytimes.com/opinionator.blogs.nytimes.com/2013/06/15/i-know-what-you-think-of-me/" target=”_blank”>this article</a>.
+Hope we can be friends!<br>ヾ(≧ ▽ ≦)ゝ</p>
+<choice Chocolate>I like chocolates too!</choice> | <choice Seal>I like seals!</choice>
+<ChoiceBreak>
+
+-> Chocolate
+    <<jump Chocolate>>
+-> Seal
+    <<jump Seal>>
+===
+title: Chocolate
+position: 238,149
+---
+Portrait: AresHappy
+<p>You like chocolates, too? I see. Good taste! B)</p><br><choice Cool>Cool!</choice>
+<ChoiceBreak>
+
+-> Cool
+    <<jump AboutStart>>
+===
+title: Seal
+position: -227,152
+---
+Portrait: AresYay
+<p>Here's a seal :3</p><video playsinline autoplay muted loop style="max-height: 5rem;">
+<source src="https://video.twimg.com/ext_tw_video/1318728494256410624/pu/vid/640x360/TMklz6hiTkQu3xhn.mp4" type="video/mp4">Video of a seal</video>
+<br>
+<choice SealFart><i>*seal_fart.mp4*</i></choice>
+<ChoiceBreak>
+
+-> SealFart
+    <<jump AboutStart>>
+===
+title: AboutChoiceless
+position: -4,285
+---
+Portrait: AresNeutral
+I am choiceless
+===

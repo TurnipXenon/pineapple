@@ -253,6 +253,7 @@ export class DialogManager implements IDialogManager {
 		// text transition loop
 		if (!this.isDoneTransition && this.currentIndex > this.fullCurrentMessage.length) {
 			const elementList = document.getElementsByClassName("dialog-choice");
+			console.log('check here. adding click even.')
 			for (const el of elementList) {
 				el.addEventListener("click", () => {
 					// todo: make more robust; for now we're assuming first class is our choice
@@ -309,6 +310,7 @@ export class DialogManager implements IDialogManager {
 	async parseAndSetDialogTree(dialogYarn: string): Promise<DialogDetail[]> {
 		return parseYarn(dialogYarn)
 			.then((dialogTree) => {
+				dialogManager.setDialogTree(dialogTree);
 				return dialogTree;
 			});
 	}
