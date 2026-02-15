@@ -79,7 +79,6 @@ export class DialogManager implements IDialogManager {
 					this.currentState = DialogState.Invisible;
 					this.currentReadableState.set(this.currentState);
 				});
-				this.setDialogTree([{ textContent: "" }]);
 			}
 		});
 	}
@@ -253,7 +252,6 @@ export class DialogManager implements IDialogManager {
 		// text transition loop
 		if (!this.isDoneTransition && this.currentIndex > this.fullCurrentMessage.length) {
 			const elementList = document.getElementsByClassName("dialog-choice");
-			console.log('check here. adding click even.')
 			for (const el of elementList) {
 				el.addEventListener("click", () => {
 					// todo: make more robust; for now we're assuming first class is our choice
