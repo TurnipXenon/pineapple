@@ -13,6 +13,30 @@ interface ResolvedDates {
 	commitCount?: number;
 }
 
+// Module-level cache to avoid hitting GitHub's 60 req/hr unauthenticated rate limit.
+// Specific commit SHAs are immutable, so cache for 24h. Dynamic queries (latest commit,
+// commit count) can change, so cache for 1h.
+const fetchCache = new Map<string, { data: unknown; expiresAt: number }>();
+const IMMUTABLE_TTL = 24 * 60 * 60 * 1000;
+// nah we're making it 24 hours it's okay to be stale
+const DYNAMIC_TTL = 24 * 60 * 60 * 1000;
+
+async function githubFetch(url: string, ttlMs: number): Promise<unknown | null> {
+	const cached = fetchCache.get(url);
+	if (cached && Date.now() < cached.expiresAt) {
+		return cached.data;
+	}
+	try {
+		const res = await fetch(url, { headers: { Accept: "application/vnd.github.v3+json" } });
+		if (!res.ok) return null;
+		const data = await res.json();
+		fetchCache.set(url, { data, expiresAt: Date.now() + ttlMs });
+		return data;
+	} catch {
+		return null;
+	}
+}
+
 function parseGithubCommitUrl(url: string): { owner: string; repo: string; sha: string } | null {
 	const match = url.match(/github\.com\/([^/]+)\/([^/]+)\/commit\/([a-f0-9]+)/i);
 	if (!match) return null;
@@ -26,33 +50,20 @@ function parseGithubRepoUrl(url: string): { owner: string; repo: string } | null
 }
 
 async function fetchCommitDate(owner: string, repo: string, sha: string): Promise<string | null> {
-	try {
-		const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/commits/${sha}`, {
-			headers: { Accept: "application/vnd.github.v3+json" }
-		});
-		if (!res.ok) return null;
-		const data = await res.json();
-		return data.commit?.committer?.date ?? null;
-	} catch {
-		return null;
-	}
+	const data = await githubFetch(
+		`https://api.github.com/repos/${owner}/${repo}/commits/${sha}`,
+		IMMUTABLE_TTL
+	);
+	return (data as { commit?: { committer?: { date?: string } } })?.commit?.committer?.date ?? null;
 }
 
 async function fetchLatestCommitDate(owner: string, repo: string): Promise<string | null> {
-	try {
-		const res = await fetch(
-			`https://api.github.com/repos/${owner}/${repo}/commits?sha=main&per_page=1`,
-			{ headers: { Accept: "application/vnd.github.v3+json" } }
-		);
-		if (!res.ok) return null;
-		const data = await res.json();
-		if (Array.isArray(data) && data.length > 0) {
-			return data[0].commit?.committer?.date ?? null;
-		}
-		return null;
-	} catch {
-		return null;
-	}
+	const data = await githubFetch(
+		`https://api.github.com/repos/${owner}/${repo}/commits?sha=main&per_page=1`,
+		DYNAMIC_TTL
+	);
+	if (!Array.isArray(data) || data.length === 0) return null;
+	return data[0].commit?.committer?.date ?? null;
 }
 
 async function fetchCommitCount(
@@ -61,17 +72,11 @@ async function fetchCommitCount(
 	baseSha: string,
 	headSha: string
 ): Promise<number | null> {
-	try {
-		const res = await fetch(
-			`https://api.github.com/repos/${owner}/${repo}/compare/${baseSha}...${headSha}`,
-			{ headers: { Accept: "application/vnd.github.v3+json" } }
-		);
-		if (!res.ok) return null;
-		const data = await res.json();
-		return data.total_commits ?? null;
-	} catch {
-		return null;
-	}
+	const data = await githubFetch(
+		`https://api.github.com/repos/${owner}/${repo}/compare/${baseSha}...${headSha}`,
+		DYNAMIC_TTL
+	);
+	return (data as { total_commits?: number })?.total_commits ?? null;
 }
 
 async function resolveCommitDates(
