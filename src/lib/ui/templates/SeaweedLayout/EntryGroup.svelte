@@ -6,7 +6,7 @@
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
 	import { SectionType } from "$pkg/ui/templates/SeaweedLayout/props";
-	import { getCommitDateRemote } from "$pkg/util/getCommitDate.remote";
+	import { getCommitDate } from "$pkg/util/getCommitDate";
 	import { onMount } from "svelte";
 
 	let {
@@ -39,7 +39,7 @@
 		if (refs.length === 0) return;
 
 		try {
-			const dates = await getCommitDateRemote(refs);
+			const dates = await getCommitDate(refs);
 			resolvedEntryList = entryList.map(e => {
 				const d = dates[e.key];
 				if (!d) return e;
