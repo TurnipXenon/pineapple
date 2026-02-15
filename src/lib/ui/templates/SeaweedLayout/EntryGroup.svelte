@@ -1,7 +1,7 @@
 <!-- TODO: Documentation: consider documentation showcase -->
 
 <script lang="ts">
-	import ProjectDateBadge from "$pkg/ui/components/ProjectDateBadge.svelte";
+	import ProjectDateBadge from "$pkg/ui/components/project-date-badge/ProjectDateBadge.svelte";
 	import SortDropdown from "$pkg/ui/components/SortDropdown.svelte";
 	import TagFilter from "$pkg/ui/components/TagFilter.svelte";
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
@@ -149,18 +149,7 @@
 		<div class="normal-project-container">
 			{#each visibleList as ui (ui.key)}
 				<div class="project-entry-wrapper">
-					{@render ui.component(projectComponentProps ?? {})}
-					{#if ui.dateStarted || ui.startCommit}
-						<div class="project-date-badge-container">
-							<ProjectDateBadge
-								dateStarted={ui.dateStarted}
-								dateFinished={ui.dateFinished}
-								isOngoing={ui.tags?.includes("ongoing") ?? false}
-								commitCount={ui.commitCount}
-								gitRepoLink={ui.gitRepoLink}
-							/>
-						</div>
-					{/if}
+					{@render ui.component(projectComponentProps ? { ...projectComponentProps, snippetMeta: ui } : { snippetMeta: ui })}
 				</div>
 			{/each}
 		</div>

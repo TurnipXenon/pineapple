@@ -3,6 +3,7 @@
 <script module lang="ts">
 	import HeaderPengi from "$pkg/assets/temp/header-pengi.mp4";
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
+	import ProjectDateBadge from "$pkg/ui/components/project-date-badge/ProjectDateBadge.svelte";
 	import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout/ProjectComponentProps";
 	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
 	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
@@ -63,6 +64,14 @@
 				<ImageIcon alt="" aria-hidden="true" src={ItchLogoHotLink} />
 			</PinyaButton>
 		</section>
+
+		<ProjectDateBadge
+			dateStarted={props.snippetMeta?.dateStarted}
+			dateFinished={props.snippetMeta?.dateFinished}
+			isOngoing={props.snippetMeta?.tags?.includes("ongoing") ?? false}
+			commitCount={props.snippetMeta?.commitCount}
+			gitRepoLink={props.snippetMeta?.gitRepoLink}
+		/>
 
 	</FourPartCard>
 {/snippet}

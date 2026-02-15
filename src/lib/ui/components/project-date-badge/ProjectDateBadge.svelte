@@ -1,11 +1,5 @@
 <script lang="ts">
-	interface Props {
-		dateStarted?: Date | string;
-		dateFinished?: Date | string;
-		isOngoing?: boolean;
-		commitCount?: number;
-		gitRepoLink?: string;
-	}
+	import type { ProjectDateBageProps } from "$pkg/ui/components/project-date-badge/ProjectDateBageProps";
 
 	let {
 		dateStarted,
@@ -13,7 +7,7 @@
 		isOngoing = false,
 		commitCount,
 		gitRepoLink
-	}: Props = $props();
+	}: ProjectDateBageProps = $props();
 
 	function formatDate(date: Date | string): string {
 		const d = date instanceof Date ? date : new Date(date);
@@ -45,7 +39,7 @@
 </script>
 
 {#if hasData}
-	<footer class="project-date-badge">
+	<section class="project-date-badge">
 		<div class="badge-row">
 			<span class="date-info">
 				{formatDate(dateStarted!)}
@@ -80,86 +74,86 @@
 				{/if}
 			</div>
 		{/if}
-	</footer>
+	</section>
 {/if}
 
 <style>
-	.project-date-badge {
-		display: flex;
-		flex-direction: column;
-		gap: 0.375rem;
-		padding: 0.75rem 0;
-		margin-top: 0.75rem;
-		border-top: 1px solid var(--color-surface-400, #d1d5db);
-		font-size: 0.8125rem;
-		line-height: 1.4;
-	}
+    .project-date-badge {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+        padding: 0.75rem 0;
+        margin-top: 0.75rem;
+        border-top: 1px solid var(--color-surface-400, #d1d5db);
+        font-size: 0.8125rem;
+        line-height: 1.4;
+    }
 
-	.badge-row {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-	}
+    .badge-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
 
-	.date-info {
-		color: var(--color-text-secondary, #6b7280);
-	}
+    .date-info {
+        color: var(--color-text-secondary, #6b7280);
+    }
 
-	.separator {
-		margin: 0 0.25rem;
-		color: var(--color-text-secondary, #6b7280);
-	}
+    .separator {
+        margin: 0 0.25rem;
+        color: var(--color-text-secondary, #6b7280);
+    }
 
-	.ongoing-label {
-		color: var(--color-primary-500, #3b82f6);
-		font-weight: 600;
-	}
+    .ongoing-label {
+        color: var(--color-primary-500, #3b82f6);
+        font-weight: 600;
+    }
 
-	.unknown-label {
-		color: var(--color-text-secondary, #9ca3af);
-		font-style: italic;
-	}
+    .unknown-label {
+        color: var(--color-text-secondary, #9ca3af);
+        font-style: italic;
+    }
 
-	.duration {
-		color: var(--color-text-secondary, #6b7280);
-		font-weight: 500;
-	}
+    .duration {
+        color: var(--color-text-secondary, #6b7280);
+        font-weight: 500;
+    }
 
-	.secondary-row {
-		justify-content: flex-start;
-		gap: 0.5rem;
-	}
+    .secondary-row {
+        justify-content: flex-start;
+        gap: 0.5rem;
+    }
 
-	.ongoing-badge {
-		display: inline-block;
-		padding: 0.125rem 0.5rem;
-		border-radius: var(--radius-md, 0.375rem);
-		background-color: var(--color-primary-100, #dbeafe);
-		color: var(--color-primary-700, #1d4ed8);
-		font-size: 0.75rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.025em;
-	}
+    .ongoing-badge {
+        display: inline-block;
+        padding: 0.125rem 0.5rem;
+        border-radius: var(--radius-md, 0.375rem);
+        background-color: var(--color-primary-100, #dbeafe);
+        color: var(--color-primary-700, #1d4ed8);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+    }
 
-	:global(html.dark) .ongoing-badge {
-		background-color: var(--color-primary-900, #1e3a5f);
-		color: var(--color-primary-300, #93c5fd);
-	}
+    :global(html.dark) .ongoing-badge {
+        background-color: var(--color-primary-900, #1e3a5f);
+        color: var(--color-primary-300, #93c5fd);
+    }
 
-	.commit-count {
-		font-size: 0.75rem;
-		color: var(--color-text-secondary, #6b7280);
-	}
+    .commit-count {
+        font-size: 0.75rem;
+        color: var(--color-text-secondary, #6b7280);
+    }
 
-	a.commit-count {
-		text-decoration: none;
-	}
+    a.commit-count {
+        text-decoration: none;
+    }
 
-	a.commit-count:hover {
-		text-decoration: underline;
-		color: var(--color-primary-500, #3b82f6);
-	}
+    a.commit-count:hover {
+        text-decoration: underline;
+        color: var(--color-primary-500, #3b82f6);
+    }
 </style>
