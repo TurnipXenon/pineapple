@@ -50,7 +50,6 @@ See panels:
 
 		dialogManager.currentReadableState.subscribe((value) => {
 			isHidden = value === DialogState.Invisible;
-			console.log(value, DialogState.Invisible, isHidden)
 		});
 
 		dialogManager.update(0);

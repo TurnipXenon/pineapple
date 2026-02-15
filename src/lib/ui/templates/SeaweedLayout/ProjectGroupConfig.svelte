@@ -102,7 +102,7 @@
 		};
 	});
 
-	let comboboxValue = $state(comboboxData[0].value);
+	let comboboxValue = $state([comboboxData[0].value]);
 
 	const addEntry = () => {
 		const c = allEntries.find(e => e.key === comboboxValue[0]);
@@ -205,11 +205,9 @@
 				<PinyaCombobox
 					class="project-group-config"
 					data={comboboxData}
-					defaultValue={comboboxValue}
 					bind:value={comboboxValue}
 					label="New entry"
 					placeholder="Add new entry"
-					contentZIndex="10"
 				/>
 			</td>
 		</tr>

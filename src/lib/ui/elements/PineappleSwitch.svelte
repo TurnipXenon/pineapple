@@ -5,14 +5,14 @@
 
 	interface Props {
 		checked?: boolean;
-		name: string;
+		name?: string;
 		onChange?: ((val: boolean) => void);
 		children?: Snippet;
 	}
 
 	let {
 		checked = $bindable(false),
-		name,
+		name = undefined,
 		onChange = undefined,
 		children = undefined
 	}: Props = $props();

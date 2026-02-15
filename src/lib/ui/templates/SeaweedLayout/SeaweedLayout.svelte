@@ -1,32 +1,35 @@
 <!-- TODO: Documentation: consider documentation showcase -->
 
 <script lang="ts">
-	import { fly } from "svelte/transition";
-	import type { ProjectGroup, SeaweedLayoutProps } from "./props";
-	import ChumBucket from "$pkg/ui/templates/SeaweedLayout/ChumBucket.svelte";
-	import { default as PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/PinyaPageLayout.svelte";
-	import { default as SocialSection } from "$pkg/ui/components/SocialSection.svelte";
-	import EntryGroup from "$pkg/ui/templates/SeaweedLayout/EntryGroup.svelte";
-	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
-	import { CodeBlock } from "$pkg/ui/elements/CodeBlock";
-	import { TextChip } from "../../elements/TextChip";
-	import { SvelteMap } from "svelte/reactivity";
-	import EntryOrderConfig from "$pkg/ui/templates/SeaweedLayout/EntryOrderConfig.svelte";
-	import CreateUrlForm from "./CreateUrlForm.svelte";
-	import { onMount } from "svelte";
+	import { browser } from "$app/environment";
 	import { page } from "$app/state";
+	import { default as SocialSection } from "$pkg/ui/components/SocialSection.svelte";
+	import { CodeBlock } from "$pkg/ui/elements/CodeBlock";
+	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
+	import { default as PinyaPageLayout } from "$pkg/ui/templates/PinyaPageLayout/PinyaPageLayout.svelte";
+	import ChumBucket from "$pkg/ui/templates/SeaweedLayout/ChumBucket.svelte";
+	import EntryGroup from "$pkg/ui/templates/SeaweedLayout/EntryGroup.svelte";
+	import EntryOrderConfig from "$pkg/ui/templates/SeaweedLayout/EntryOrderConfig.svelte";
+	import { onDestroy, onMount } from "svelte";
+	import { SvelteMap } from "svelte/reactivity";
+	import { fly } from "svelte/transition";
+	import { TextChip } from "../../elements/TextChip";
+	import CreateUrlForm from "./CreateUrlForm.svelte";
+	import type { ProjectGroup, SeaweedLayoutProps } from "./props";
 
 	let {
-		email,
-		linkedinSlug,
-		children,
-		sideSection,
+		email = "",
+		linkedinSlug = "",
+		children = undefined,
+		sideSection = undefined,
 		entryList, // todo
 		layout, // todo
 		domain = "http://localhost:5173/seaweed2",
 		queryTerms,
 		showMiniSocial = false,
-		serverParams = ""
+		serverParams = "",
+		emailRemoteQuery,
+		linkedinRemoteQuery
 	}: SeaweedLayoutProps = $props();
 
 	let actualLayout = $state(layout);
@@ -64,15 +67,29 @@
 				termList.push(qtTerm);
 				chipList.push(`.text-chip${qtTerm}`);
 			});
+		// language=HTML
 		styleStr = `<style>
 			${termList.join(", ")} {
 				font-weight: bolder;
-				color: var(--color-secondary-400);
+
+				&:not(.chip) {
+					color: var(--color-secondary-500);
+				}
+			}
+
+			html.dark {
+				${termList.join(", ")} {
+					font-weight: bolder;
+
+					&:not(.chip) {
+						color: var(--color-secondary-200);
+					}
+				}
 			}
 
 			${chipList.join(", ")} {
 				background-color: var(--color-secondary-500) /* oklch(55.6% 0 0deg) = #737373 */;
-				color: var(--color-secondary-contrast-500) /* var(--color-secondary-contrast-light) */;
+				color: #FFF5EFFF /* var(--color-secondary-contrast-light) */;
 			}
 			</style>`;
 	});
@@ -150,11 +167,56 @@
 		// endregion Bold terms
 	};
 
+	let upperSectionWrapper: HTMLDivElement | undefined = $state();
+	let resizeObserver: ResizeObserver | undefined = $state();
+	let isMobile = $state(false);
+	let isVeryNarrow = $state(false);
+
 	onMount(() => {
 		if (serverParams) {
 			filterSearchParams(new URLSearchParams(serverParams));
 		} else if (page.url.searchParams.size) {
 			filterSearchParams(page.url.searchParams);
+		}
+
+		/**
+		 * Get the computed font size of an element in pixels.
+		 * @param {HTMLElement} element The DOM element to check.
+		 * @returns {number} The font size in pixels as a number.
+		 */
+		function getElementFontSize(element) {
+			// Use window.getComputedStyle() to get all resolved CSS properties.
+			const computedStyle = window.getComputedStyle(element);
+			// Get the 'font-size' property value (which will be in 'px').
+			const fontSizeInPx = computedStyle.getPropertyValue("font-size");
+			// Parse the pixel value string (e.g., "16px") to a floating-point number.
+			return parseFloat(fontSizeInPx);
+		}
+
+		// code has to be below filterSearchParams!
+		if (browser && document.body) {
+			// Create a new ResizeObserver instance
+			resizeObserver = new ResizeObserver(entries => {
+				for (const entry of entries) {
+					// Log the new dimensions or perform other actions
+					const { width } = entry.contentRect; // or entry.borderBoxSize
+					const emWidth = width / getElementFontSize(document.body);
+
+					// 26em (about) + 50em (experience) + 2em (margin)
+					isMobile = emWidth < 79;
+					// magic number
+					isVeryNarrow = emWidth < 44;
+				}
+			});
+
+			// Start observing the target element
+			resizeObserver.observe(document.body);
+		}
+	});
+
+	onDestroy(() => {
+		if (browser && resizeObserver) {
+			resizeObserver.disconnect();
 		}
 	});
 </script>
@@ -165,10 +227,7 @@
 
 
 {#snippet socialSection()}
-	<SocialSection
-		email={email}
-		linkedinSlug={linkedinSlug}
-	/>
+	<SocialSection {emailRemoteQuery} {linkedinRemoteQuery} />
 {/snippet}
 <PinyaPageLayout appBardEndStyle="classic">
 	{#snippet appBarLead()}
@@ -179,29 +238,46 @@
 			>
 				<SocialSection
 					isSmallVersion={true}
-					email={email}
-					linkedinSlug={linkedinSlug}
+					{emailRemoteQuery}
+					{linkedinRemoteQuery}
 				/>
 			</div>
 		{/if}
 	{/snippet}
 
-	<div id="upper-section">
+	{#if sideSection || children}
+		<div
+			id="upper-section"
+			bind:this={upperSectionWrapper}
+			class="upper-section-style"
+			class:is-mobile={isMobile}
+			class:is-very-narrow={isVeryNarrow}
+		>
+			{#if sideSection}
+				<div class="upper-section-start">
+					{@render sideSection(socialSection)}
+				</div>
+			{/if}
 
-		<div class="upper-section-start">
-			{@render sideSection(socialSection)}
-		</div>
+			{#if children}
+				<div class="upper-section-end">
+					{@render children()}
+				</div>
+			{/if}
 
-		<div class="upper-section-end">
-			{@render children()}
+			{#if actualLayout.length > 0}
+				<EntryGroup {...actualLayout[0]} />
+			{/if}
 		</div>
-	</div>
+	{/if}
 
 	<!--todo: render list #migration-->
-	{#each actualLayout as group (group.title)}
-		<EntryGroup
-			{...group}
-		/>
+	{#each actualLayout as group, idx (group.title)}
+		{#if idx !== 0}
+			<EntryGroup
+				{...group}
+			/>
+		{/if}
 	{/each}
 
 	{#snippet footer()}
@@ -274,12 +350,80 @@
         border-top: 2px solid var(--color-footer-border);
     }
 
-    #upper-section {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 2rem;
-        justify-content: center;
+    :global {
+        #upper-section {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+
+            &.is-mobile {
+                justify-content: stretch;
+
+                .upper-section-start, .entry-group-wrapper {
+                    width: 100%;
+                    max-width: 64em;
+                    margin: auto;
+                    flex: unset;
+                }
+
+                .normal-project-container {
+                    justify-content: stretch;
+
+                    > .pinya-card {
+                        max-width: calc(60em);
+                    }
+                }
+            }
+
+            .upper-section-start {
+                flex-basis: 26em;
+            }
+
+            .entry-group-wrapper {
+                width: unset;
+                max-width: 64em;
+                flex: 1;
+
+                .group-header {
+                    max-width: 64em;
+                }
+
+                .normal-project-container {
+                    justify-content: stretch;
+                    flex-direction: column;
+
+                    > .pinya-card {
+                        max-width: 64em;
+                    }
+
+                    > .pinya-four-part-card > section {
+                        .card-header-cover {
+                            flex: 1 1 12em;
+
+                            & > * {
+                                border-radius: var(--radius-xl);
+                                border-bottom-left-radius: var(--radius-xl);
+                                border-top-left-radius: var(--radius-xl);
+                            }
+                        }
+
+                        .card-content {
+                            padding-bottom: 1lh;
+                            flex: 9999 1 26em;
+                        }
+
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        justify-content: stretch;
+                        align-items: stretch;
+                        margin: 0;
+                    }
+                }
+            }
+        }
     }
 
     .query-term-grid {
@@ -290,7 +434,7 @@
     }
 
     .advanced-setting {
-		    margin-left: 1em;
-		    margin-right: 1em;
+        margin-left: 1em;
+        margin-right: 1em;
     }
 </style>

@@ -16,16 +16,15 @@
 		{ label: "Tagalog", value: "tl" }
 	];
 
-	let selectedCountry = $state(getLocale());
+	let selectedCountry = $state([getLocale()]);
 
-	const onValueChange = (e: { value: ComboxData["value"] | undefined }) => {
-		if (!e.value) return;
+	const onValueChange = (e: ComboxData["value"][] | undefined) => {
+		if (!e || e.length === 0) return;
 
-		const data = comboboxData.find((d) => d.value === e.value);
-		if (data) {
-			selectedCountry = data.value;
+		const data = comboboxData.filter(v => e.includes(v.value));
+		if (data && data.length > 0) {
 			const pathname = deLocalizeHref(location.href);
-			location.href = localizeHref(pathname, { locale: data.value });
+			location.href = localizeHref(pathname, { locale: data[0].value });
 		}
 	};
 
@@ -34,8 +33,7 @@
 
 <PinyaCombobox
 	data={comboboxData}
-	value={selectedCountry}
-	defaultValue={selectedCountry}
+	bind:value={selectedCountry}
 	label="Select Language"
 	placeholder="Select Language"
 	{onValueChange}

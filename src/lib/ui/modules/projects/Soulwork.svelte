@@ -3,6 +3,7 @@
 <script module lang="ts">
 	import HeaderSoulwork from "$pkg/assets/temp/header-soulwork.mp4";
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
+	import ProjectDateBadge from "$pkg/ui/components/project-date-badge/ProjectDateBadge.svelte";
 	import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout";
 	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
 	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
@@ -11,7 +12,11 @@
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "Soulwork";
-	export { component, key };
+	const startCommit = "https://github.com/Zeyu-Li/Clockwork/commit/b033be1b2e6cd3ff8cb706f2860a22456e911acb"; // fill in GitHub commit URL to auto-resolve dateStarted
+	const endCommit = "https://github.com/Zeyu-Li/Clockwork/commit/7dbfef1fe64b45b2eac4b6555747e18f7b5f8848"; // fill in GitHub commit URL to auto-resolve dateFinished
+	const gitRepoLink = "https://github.com/Zeyu-Li/Clockwork";
+	const tags = ["unity", "csharp", "game", "game-jam", "physics"];
+	export { component, key, startCommit, endCommit, gitRepoLink, tags };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}
@@ -40,6 +45,13 @@
 			was made in <span class="qt-unity">Unity</span> written using <span class="qt-cs">C#</span>.
 		</p>
 
+		<ProjectDateBadge
+			dateStarted={props.snippetMeta?.dateStarted}
+			dateFinished={props.snippetMeta?.dateFinished}
+			isOngoing={props.snippetMeta?.tags?.includes("ongoing") ?? false}
+			commitCount={props.snippetMeta?.commitCount}
+			gitRepoLink={props.snippetMeta?.gitRepoLink}
+		/>
 
 		<section class="game-link-section">
 			<PinyaButton
@@ -55,5 +67,6 @@
 				<ImageIcon alt="itch.io icon" src={ItchLogoHotLink} />
 			</PinyaButton>
 		</section>
+
 	</FourPartCard>
 {/snippet}

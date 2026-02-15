@@ -4,7 +4,7 @@
 	import { Accordion } from "melt/builders";
 	import { setContext } from "svelte";
 	import type { SvelteSet } from "svelte/reactivity";
-	import { accordionContextKey, type AccordionContext } from "./accordionContext";
+	import { type AccordionContext, accordionContextKey } from "./accordionContext";
 	import type { PinyaAccordionProps } from "./PinyaAccordionProps";
 
 	let {
@@ -13,6 +13,7 @@
 		multiple = true,
 		...props
 	}: PinyaAccordionProps = $props();
+
 	let accordion = $derived(new Accordion({
 		value: (() => {
 			if (openItems) {
@@ -33,10 +34,11 @@
 			} else {
 				openItems = [];
 			}
-		}, multiple
+		},
+		multiple,
 	}));
 	setContext<AccordionContext>(accordionContextKey, (key) => accordion.getItem(key));
-	setContext<string[]>('accordionOpenItems', openItems);
+	setContext<string[]>("accordionOpenItems", openItems);
 </script>
 
 <div {...props} class={`pinya-accordion-root ${props.class ?? ''}`} {...accordion.root}>

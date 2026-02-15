@@ -2,17 +2,22 @@
 
 <script module lang="ts">
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
-	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
 	import LinkIcon from "$pkg/assets/icons/link-icon.svg";
-	import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout/ProjectComponentProps";
+	import ThisWebsiteFootage from "$pkg/assets/others/seaweed-showcase.mp4";
 	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
+	import ProjectDateBadge from "$pkg/ui/components/project-date-badge/ProjectDateBadge.svelte";
 	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
 	import { default as PinyaButton } from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
-	import { default as TextChip } from "$pkg/ui/elements/TextChip/TextChip.svelte";
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
+	import { default as TextChip } from "$pkg/ui/elements/TextChip/TextChip.svelte";
+	import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout/ProjectComponentProps";
 
 	const key = "This Webpage";
-	export { component, key };
+	const priority = 70;
+	const startCommit = "https://github.com/TurnipXenon/pineapple/commit/b16aa69b9f5ad224871e80c09aa4cca067dc2a52"; // fill in GitHub commit URL to auto-resolve dateStarted
+	const gitRepoLink = "https://github.com/TurnipXenon/pineapple";
+	const tags = ["svelte", "typescript", "web", "tailwind", "postgres", "prisma", "ongoing", "database"];
+	export { component, key, startCommit, gitRepoLink, tags, priority };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}
@@ -48,13 +53,21 @@
 			<TextChip queryClass="qt-svelte">Svelte 5</TextChip>
 			<TextChip queryClass="qt-tailwind">Tailwind 4</TextChip>
 			<TextChip queryClass="qt-skeleton">Skeleton (Svelte UI library)</TextChip>
-			<TextChip queryClass="qt-ts">Typescript</TextChip>
+			<TextChip queryClass="qt-typescript">Typescript</TextChip>
 			<TextChip queryClass="qt-vercel qt-cicd">Vercel</TextChip>
 			<TextChip queryClass="qt-gamedev">YarnSpinner</TextChip>
 			<TextChip queryClass="qt-postgres qt-db">Postgres (SQL database)</TextChip>
 			<TextChip queryClass="qt-prisma qt-db">Prisma ORM</TextChip>
 			<TextChip queryClass="qt-rest">RESTful API</TextChip>
 		</div>
+
+		<ProjectDateBadge
+			dateStarted={props.snippetMeta?.dateStarted}
+			dateFinished={props.snippetMeta?.dateFinished}
+			isOngoing={props.snippetMeta?.tags?.includes("ongoing") ?? false}
+			commitCount={props.snippetMeta?.commitCount}
+			gitRepoLink={props.snippetMeta?.gitRepoLink}
+		/>
 
 		<section class="game-link-section">
 			<PinyaButton
@@ -69,8 +82,9 @@
 				title="https://pineapple.turnipxenon.com/documentation"
 				onclick={() => window.open("https://pineapple.turnipxenon.com/documentation")}>
 				<ImageIcon src={LinkIcon} aria-hidden />
-					<span>pineapple.turnipxenon.com</span>
+				<span>pineapple.turnipxenon.com</span>
 			</PinyaButton>
 		</section>
+
 	</FourPartCard>
 {/snippet}

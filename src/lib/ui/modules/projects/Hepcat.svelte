@@ -3,6 +3,7 @@
 <script module lang="ts">
 	import HeaderHepCat from "$pkg/assets/temp/header-hep-cat.mp4";
 	import BitbucketIcon from "$pkg/assets/icons/bitbucket-icon.svg";
+	import ProjectDateBadge from "$pkg/ui/components/project-date-badge/ProjectDateBadge.svelte";
 	import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout/ProjectComponentProps";
 	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
 	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
@@ -11,7 +12,12 @@
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "Hepcat";
-	export { component, key };
+	const dateStarted = "2020-01-01";
+	const dateFinished = "2020-04-15";
+	const priority = 100;
+	const tags = ["unity", "csharp", "game", "rhythm", "rpgmaker"];
+	// type SnippetMeta at src/lib/ui/templates/SeaweedLayout/props.ts:6
+	export { component, key, dateStarted, dateFinished, tags, priority };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}
@@ -48,6 +54,13 @@
 			files.
 		</p>
 
+		<ProjectDateBadge
+			dateStarted={props.snippetMeta?.dateStarted}
+			dateFinished={props.snippetMeta?.dateFinished}
+			isOngoing={props.snippetMeta?.tags?.includes("ongoing") ?? false}
+			commitCount={props.snippetMeta?.commitCount}
+			gitRepoLink={props.snippetMeta?.gitRepoLink}
+		/>
 
 		<section class="game-link-section">
 			<PinyaButton
@@ -63,6 +76,7 @@
 				<ImageIcon alt="itch.io icon" src={ItchLogoHotLink}></ImageIcon>
 			</PinyaButton>
 		</section>
+
 	</FourPartCard>
 {/snippet}
 

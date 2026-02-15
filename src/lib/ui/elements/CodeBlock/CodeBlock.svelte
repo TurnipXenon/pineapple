@@ -95,7 +95,11 @@
             font-style: var(--shiki-dark-font-style) !important;
             font-weight: var(--shiki-dark-font-weight) !important;
             -webkit-text-decoration: var(--shiki-dark-text-decoration) !important;
-            text-decoration: var(--shiki-dark-text-decoration) !important
+            text-decoration: var(--shiki-dark-text-decoration) !important;
+
+		        span[style*="color:#4C4F69"] {
+                color: oklch(0.835 0.043 279.325) !important;
+            }
         }
 
 		    html.dark .shiki.has-diff span.diff.add {
@@ -119,15 +123,17 @@
                 padding-inline-end: 0;
 
                 code {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.2lh;
+                    display: block;
 
                     & > span {
-                        display: flex;
-                        flex-wrap: wrap;
+                        display: block;
                         padding-inline-start: 2em;
                         padding-inline-end: 1em;
+                        margin-block-end: -1lh;
+
+                        &:last-child {
+                            margin-block-end: 0;
+                        }
                     }
                 }
 

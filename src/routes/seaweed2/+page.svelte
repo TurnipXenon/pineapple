@@ -1,54 +1,53 @@
 <script lang="ts">
+	import { projectList } from "$pkg/svelteIndex.svelte";
 	import { PinyaCard } from "$pkg/ui/elements";
-	import { type ProjectGroup, SeaweedLayout, type SnippetMeta } from "$pkg/ui/templates/SeaweedLayout/index";
-	import type { Snippet } from "svelte";
 
-	import * as Pengi from "$pkg/ui/modules/projects/Pengi.svelte";
-	import * as Soulwork from "$pkg/ui/modules/projects/Soulwork.svelte";
-	import * as Hepcat from "$pkg/ui/modules/projects/Hepcat.svelte";
-	import * as ThisWebpage from "$pkg/ui/modules/projects/ThisWebpage.svelte";
+	import * as ExampleJob1 from "$pkg/ui/modules/experience/ExampleJob1.svelte";
+	import * as ExampleJob2 from "$pkg/ui/modules/experience/ExampleJob2.svelte";
+
+	import {
+		type ProjectGroup,
+		SeaweedLayout,
+		SectionType,
+		type SnippetMeta
+	} from "$pkg/ui/templates/SeaweedLayout/index";
+	import type { Snippet } from "svelte";
+	import ElementVisibilityDetector from "../../lib/ui/elements/ElementVisibilityDetector.svelte";
 
 	import type { PageProps } from "./$types";
-	import ElementVisibilityDetector from "../../lib/ui/elements/ElementVisibilityDetector.svelte";
-	import PinyaAccordion from "$pkg/ui/components/accordion/PinyaAccordion.svelte";
-	import PinyaAccordionItem from "$pkg/ui/components/accordion/PinyaAccordionItem.svelte";
 
 	let { data }: PageProps = $props();
 
-	const uiList: SnippetMeta[] = [
-		ThisWebpage,
-		Hepcat,
-		Pengi,
-		Soulwork
+	const experienceList: SnippetMeta[] = [
+		ExampleJob2,  // Ongoing job first
+		ExampleJob1
 	];
 
 	const layout: ProjectGroup[] = [
 		{
-			title: "Games",
-			entryList: [
-				Hepcat,
-				Pengi,
-				ThisWebpage
-			],
-			key: "games",
+			key: "experience",
+			title: "Experience",
+			entryList: experienceList,
+			sectionType: SectionType.Experience,
+			showFilter: true,
+			showSort: false,
+			showMoreLimit: 2,  // Show 2 jobs, rest behind "show more"
 			projectComponentProps: { isPineapple: true }
 		},
 		{
-			title: "Projects",
-			entryList: [
-				ThisWebpage,
-				Hepcat,
-				Pengi,
-				Soulwork
-			],
 			key: "projects",
+			title: "Projects",
+			entryList: projectList,  // Merged games + projects
+			sectionType: SectionType.Projects,
+			showFilter: true,
+			showSort: true,
+			showMoreLimit: 3,  // Show first 6 projects, rest behind "show more"
 			projectComponentProps: { isPineapple: true }
 		}
 	];
 
 	let isSocialVisible = $state(true);
 	let shouldShowSmallSocial = $derived(!isSocialVisible);
-	let value = $state(["club"]);
 </script>
 
 <SeaweedLayout
@@ -56,65 +55,69 @@
 	email="niko@gmail.com"
 	linkedinSlug="niko"
 	domain="https://turnipxenon.com"
-	entryList={uiList}
+	entryList={projectList}
 	layout={layout}
 	queryTerms={data.queryTerms}
 	showMiniSocial={shouldShowSmallSocial}
 >
 	{#snippet sideSection(socialSection: Snippet)}
-		<div class="flex flex-col gap-4">
-			<PinyaCard>
-				<div class="side-section">
+		<div>
+			<PinyaCard class="about-section" flexClass="">
+				<div class="about-text">
 					<h2>About</h2>
-					<p>Hi I'm Turnip! Put stuff here!</p>
+					<p>Hi I'm Turnip! Put stuff here! Say more impressive things, like a summary of some sort.</p>
 					<p>More stuff here!!</p>
+					<p>Study here maybe</p>
+					<p>Quirky thing maybe</p>
+				</div>
+
+				<div class="about-social-section">
+					{@render socialSection()}
 				</div>
 			</PinyaCard>
 
-			<PinyaCard paddingClass="social-section-card">
-				{@render socialSection()}
-				<ElementVisibilityDetector bind:isVisible={isSocialVisible} />
-			</PinyaCard>
+			<ElementVisibilityDetector bind:isVisible={isSocialVisible} />
 		</div>
 	{/snippet}
-
-	<PinyaCard>
-		<div class="side-section">
-			<h2>Experience</h2>
-			<p>Test asdf ad fas faf adsffd dasfdf a faf asdfaf a fa sdfaf af ad fafd fafd as fd adsf adfa sf af df asd fsad f dsafas f adsfdf asd sdf</p>
-			<p>Test asdf ad fas faf adsffd dasfdf a faf asdfaf a fa sdfaf af ad fafd fafd as fd adsf adfa sf af df asd fsad f dsafas f adsfdf asd sdf</p>
-			<h3 class="mb-4">Subheading</h3>
-
-			<div class="accordion-wrapper">
-				<PinyaAccordion {value}>
-					<PinyaAccordionItem value="club">
-						<!-- Control -->
-						{#snippet control()}Club{/snippet}
-						<!-- Panel -->
-						{#snippet panel()}Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore.{/snippet}
-					</PinyaAccordionItem>
-				</PinyaAccordion>
-			</div>
-		</div>
-	</PinyaCard>
 </SeaweedLayout>
 
+<!-- todo: we need to port this styling to seaweed, or at least mirror it -->
 <style>
-    h3 {
-        text-align: start;
-    }
+    :global {
+        .about-section {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+		        flex-wrap: wrap;
+		        gap: 1lh;
 
-    .side-section {
-        display: flex;
-        flex-direction: column;
-    }
+            &.pinya-card {
+                width: unset;
+                max-width: unset;
+            }
 
-    .accordion-wrapper {
-		    margin: 0 -1rem;
+            .about-text {
+		            flex-basis: 26em;
+            }
+
+            .about-social-section > .socials {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+        }
+
+        .is-mobile .about-section .about-social-section > .socials {
+            flex-direction: column;
+        }
+
+        .is-mobile.is-very-narrow .about-section .about-social-section > .socials {
+            flex-direction: row;
+        }
     }
 
     :global(.social-section-card) {
-		    padding-top: calc(var(--spacing) * 6);
-		    padding-bottom: calc(var(--spacing) * 6);
+        padding-top: calc(var(--spacing) * 6);
+        padding-bottom: calc(var(--spacing) * 6);
     }
 </style>

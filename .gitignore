@@ -22,3 +22,5 @@ prisma
 #/prisma/migrations/migration_lock.toml
 #/src/lib/server-temp/prisma.ts
 #/prisma/schema.prisma
+
+/docs/plans/current-seaweed-2-layout.htm

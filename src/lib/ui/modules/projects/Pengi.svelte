@@ -3,6 +3,7 @@
 <script module lang="ts">
 	import HeaderPengi from "$pkg/assets/temp/header-pengi.mp4";
 	import GithubIcon from "$pkg/assets/icons/github-mark.svg";
+	import ProjectDateBadge from "$pkg/ui/components/project-date-badge/ProjectDateBadge.svelte";
 	import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout/ProjectComponentProps";
 	import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
 	import { default as ImageIcon } from "$pkg/ui/elements/ImageIcon.svelte";
@@ -11,7 +12,12 @@
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "Pengi";
-	export { component, key };
+	const priority = 80;
+	const startCommit = "https://github.com/GreenTea-M/ProjectPengi/commit/401cbf7448374109f1a330bba11db87326034801"; // fill in GitHub commit URL to auto-resolve dateStarted
+	const endCommit = "https://github.com/GreenTea-M/ProjectPengi/commit/0175ec669a3c935a798fdb3c85fb37506d4b5557"; // fill in GitHub commit URL to auto-resolve dateFinished
+	const gitRepoLink = "https://github.com/GreenTea-M/ProjectPengi";
+	const tags = ["unity", "csharp", "game", "narrative", "yarnspinner"];
+	export { component, key, startCommit, endCommit, gitRepoLink, tags, priority };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}
@@ -40,6 +46,14 @@
 			href="https://yarnspinner.dev/" target="_blank">YarnSpinner</a> commands for writers
 			to use to create expressive stage directions in the script.
 		</p>
+
+		<ProjectDateBadge
+			dateStarted={props.snippetMeta?.dateStarted}
+			dateFinished={props.snippetMeta?.dateFinished}
+			isOngoing={props.snippetMeta?.tags?.includes("ongoing") ?? false}
+			commitCount={props.snippetMeta?.commitCount}
+			gitRepoLink={props.snippetMeta?.gitRepoLink}
+		/>
 
 		<section class="game-link-section">
 			<PinyaButton

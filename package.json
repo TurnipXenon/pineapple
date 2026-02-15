@@ -1,7 +1,7 @@
 {
   "name": "@turnipxenon/pineapple",
   "description": "personal package for base styling for other personal projects",
-  "version": "5.0.0",
+  "version": "5.2.0",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -61,11 +61,11 @@
     "wrangler": "4.59.1"
   },
   "dependencies": {
+    "@shikijs/transformers": "^3.22.0",
     "melt": "^0.44.0",
     "mode-watcher": "^0.5.1",
     "shiki": "^3.22.0",
     "shiki-transformer-copy-button": "0.0.3",
-    "@shikijs/transformers": "^3.22.0",
     "svelte-modals": "^2.0.1"
   },
   "peerDependencies": {
@@ -83,6 +83,12 @@
       "svelte": "./dist/remoteIndex.remote.js",
       "import": "./dist/remoteIndex.remote.js",
       "default": "./dist/remoteIndex.remote.js"
+    },
+    "./svelte": {
+      "types": "./dist/svelteIndex.svelte.d.ts",
+      "svelte": "./dist/svelteIndex.svelte.js",
+      "import": "./dist/svelteIndex.svelte.js",
+      "default": "./dist/svelteIndex.svelte.js"
     },
     "./components": {
       "types": "./dist/ui/components/index.d.ts",
