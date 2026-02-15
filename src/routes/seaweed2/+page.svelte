@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { projectList } from "$pkg/svelteIndex.svelte";
 	import { PinyaCard } from "$pkg/ui/elements";
 
 	import * as ExampleJob1 from "$pkg/ui/modules/experience/ExampleJob1.svelte";
@@ -33,14 +34,6 @@
 	const experienceList: SnippetMeta[] = [
 		ExampleJob2,  // Ongoing job first
 		ExampleJob1
-	];
-
-	const projectList: SnippetMeta[] = [
-		ThisWebpage,
-		Hepcat,
-		Pengi,
-		Soulwork,
-		ObsidianPublisher,
 	];
 
 	const layout: ProjectGroup[] = [

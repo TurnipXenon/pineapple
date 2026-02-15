@@ -159,7 +159,7 @@
 	{:else}
 		<div class="normal-project-container">
 			{#each visibleList as ui (ui.key)}
-				<div class="project-entry-wrapper">
+				<div class="project-entry-wrapper" data-project-priority={ui.priority}>
 					{@render ui.component(projectComponentProps ? { ...projectComponentProps, snippetMeta: ui } : { snippetMeta: ui })}
 				</div>
 			{/each}

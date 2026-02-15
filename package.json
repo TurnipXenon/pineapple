@@ -84,6 +84,12 @@
       "import": "./dist/remoteIndex.remote.js",
       "default": "./dist/remoteIndex.remote.js"
     },
+    "./svelte": {
+      "types": "./dist/svelteIndex.svelte.d.ts",
+      "svelte": "./dist/svelteIndex.svelte.js",
+      "import": "./dist/svelteIndex.svelte.js",
+      "default": "./dist/svelteIndex.svelte.js"
+    },
     "./components": {
       "types": "./dist/ui/components/index.d.ts",
       "svelte": "./dist/ui/components/index.js",
