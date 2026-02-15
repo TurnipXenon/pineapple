@@ -13,9 +13,9 @@
 
 	const key = "Soulwork";
 	const startCommit = "https://github.com/Zeyu-Li/Clockwork/commit/b033be1b2e6cd3ff8cb706f2860a22456e911acb"; // fill in GitHub commit URL to auto-resolve dateStarted
-	const endCommit = "https://github.com/Zeyu-Li/Clockwork/commit/38bfaad25e7489fb52b22df765ed421edc512e8e"; // fill in GitHub commit URL to auto-resolve dateFinished
+	const endCommit = "https://github.com/Zeyu-Li/Clockwork/commit/7dbfef1fe64b45b2eac4b6555747e18f7b5f8848"; // fill in GitHub commit URL to auto-resolve dateFinished
 	const gitRepoLink = "https://github.com/Zeyu-Li/Clockwork";
-	const tags = ["unity", "csharp", "game", "gamejam", "physics"];
+	const tags = ["unity", "csharp", "game", "game-jam", "physics"];
 	export { component, key, startCommit, endCommit, gitRepoLink, tags };
 </script>
 
