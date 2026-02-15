@@ -309,8 +309,6 @@ export class DialogManager implements IDialogManager {
 	async parseAndSetDialogTree(dialogYarn: string): Promise<DialogDetail[]> {
 		return parseYarn(dialogYarn)
 			.then((dialogTree) => {
-				console.log(dialogTree);
-				this.setDialogTree(dialogTree);
 				return dialogTree;
 			});
 	}
