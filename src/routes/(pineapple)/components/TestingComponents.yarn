@@ -28,7 +28,7 @@ position: -227,152
 ---
 Portrait: AresYay
 <p>Here's a seal :3</p><video playsinline autoplay muted loop style="max-height: 5rem;">
-<source src="https://video.twimg.com/ext_tw_video/1318728494256410624/pu/vid/640x360/TMklz6hiTkQu3xhn.mp4" type="video/mp4">Video of a seal</video>
+<source src="/yarn/seal-fart.mp4" type="video/mp4">Video of a seal</video>
 <br>
 <choice SealFart><i>*seal_fart.mp4*</i></choice>
 <ChoiceBreak>
