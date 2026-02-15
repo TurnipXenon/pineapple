@@ -10,6 +10,7 @@ interface CommitDateRequest {
 interface ResolvedDates {
 	dateStarted?: string;
 	dateFinished?: string;
+	commitCount?: number;
 }
 
 function parseGithubCommitUrl(url: string): { owner: string; repo: string; sha: string } | null {
@@ -54,6 +55,25 @@ async function fetchLatestCommitDate(owner: string, repo: string): Promise<strin
 	}
 }
 
+async function fetchCommitCount(
+	owner: string,
+	repo: string,
+	baseSha: string,
+	headSha: string
+): Promise<number | null> {
+	try {
+		const res = await fetch(
+			`https://api.github.com/repos/${owner}/${repo}/compare/${baseSha}...${headSha}`,
+			{ headers: { Accept: "application/vnd.github.v3+json" } }
+		);
+		if (!res.ok) return null;
+		const data = await res.json();
+		return data.total_commits ?? null;
+	} catch {
+		return null;
+	}
+}
+
 async function resolveCommitDates(
 	refs: CommitDateRequest[]
 ): Promise<Record<string, ResolvedDates>> {
@@ -92,6 +112,30 @@ async function resolveCommitDates(
 						if (d) dates.dateFinished = d;
 					})
 				);
+			}
+		}
+
+		// Fetch commit count between start and end commits
+		if (ref.startCommit) {
+			const startParsed = parseGithubCommitUrl(ref.startCommit);
+			if (startParsed) {
+				if (ref.endCommit) {
+					const endParsed = parseGithubCommitUrl(ref.endCommit);
+					if (endParsed && endParsed.owner === startParsed.owner && endParsed.repo === startParsed.repo) {
+						promises.push(
+							fetchCommitCount(startParsed.owner, startParsed.repo, startParsed.sha, endParsed.sha).then((c) => {
+								if (c != null) dates.commitCount = c;
+							})
+						);
+					}
+				} else if (ref.gitRepoLink) {
+					// Compare start commit to HEAD of main
+					promises.push(
+						fetchCommitCount(startParsed.owner, startParsed.repo, startParsed.sha, "main").then((c) => {
+							if (c != null) dates.commitCount = c;
+						})
+					);
+				}
 			}
 		}
 	}

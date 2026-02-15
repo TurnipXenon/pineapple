@@ -1,6 +1,7 @@
 <!-- TODO: Documentation: consider documentation showcase -->
 
 <script lang="ts">
+	import ProjectDateBadge from "$pkg/ui/components/ProjectDateBadge.svelte";
 	import SortDropdown from "$pkg/ui/components/SortDropdown.svelte";
 	import TagFilter from "$pkg/ui/components/TagFilter.svelte";
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
@@ -46,7 +47,8 @@
 				return {
 					...e,
 					...(d.dateStarted ? { dateStarted: d.dateStarted } : {}),
-					...(d.dateFinished ? { dateFinished: d.dateFinished } : {})
+					...(d.dateFinished ? { dateFinished: d.dateFinished } : {}),
+					...(d.commitCount != null ? { commitCount: d.commitCount } : {})
 				};
 			});
 		} catch {
@@ -146,7 +148,20 @@
 	{:else}
 		<div class="normal-project-container">
 			{#each visibleList as ui (ui.key)}
-				{@render ui.component(projectComponentProps ?? {})}
+				<div class="project-entry-wrapper">
+					{@render ui.component(projectComponentProps ?? {})}
+					{#if ui.dateStarted || ui.startCommit}
+						<div class="project-date-badge-container">
+							<ProjectDateBadge
+								dateStarted={ui.dateStarted}
+								dateFinished={ui.dateFinished}
+								isOngoing={ui.tags?.includes("ongoing") ?? false}
+								commitCount={ui.commitCount}
+								gitRepoLink={ui.gitRepoLink}
+							/>
+						</div>
+					{/if}
+				</div>
 			{/each}
 		</div>
 
@@ -199,18 +214,26 @@
         align-items: start;
     }
 
+    .project-entry-wrapper {
+        max-width: 30em;
+        flex-grow: 1;
+        flex-basis: 25em;
+    }
+
     :global {
-        .upper-section-style .normal-project-container > .pinya-four-part-card {
+        .upper-section-style .normal-project-container > .project-entry-wrapper {
             max-width: revert;
             flex-grow: revert;
             flex-basis: revert;
         }
 
-        .normal-project-container > .pinya-four-part-card {
-            max-width: 30em;
-            flex-grow: 1;
-            flex-basis: 25em;
+        .project-entry-wrapper > .pinya-four-part-card {
+            max-width: unset;
         }
+    }
+
+    .project-date-badge-container {
+        padding: 0 1.5rem;
     }
 
     .show-more-btn {
