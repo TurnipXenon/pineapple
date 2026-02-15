@@ -1,7 +1,6 @@
 <!-- TODO: Documentation: consider documentation showcase -->
 
 <script lang="ts">
-	import ProjectDateBadge from "$pkg/ui/components/project-date-badge/ProjectDateBadge.svelte";
 	import SortDropdown from "$pkg/ui/components/SortDropdown.svelte";
 	import TagFilter from "$pkg/ui/components/TagFilter.svelte";
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
@@ -159,9 +158,10 @@
 	{:else}
 		<div class="normal-project-container">
 			{#each visibleList as ui (ui.key)}
-				<div class="project-entry-wrapper" data-project-priority={ui.priority}>
-					{@render ui.component(projectComponentProps ? { ...projectComponentProps, snippetMeta: ui } : { snippetMeta: ui })}
-				</div>
+				{@render ui.component(projectComponentProps ? {
+					...projectComponentProps,
+					snippetMeta: ui
+				} : { snippetMeta: ui })}
 			{/each}
 		</div>
 
@@ -214,26 +214,18 @@
         align-items: start;
     }
 
-    .project-entry-wrapper {
-        max-width: 30em;
-        flex-grow: 1;
-        flex-basis: 25em;
-    }
-
     :global {
-        .upper-section-style .normal-project-container > .project-entry-wrapper {
+        .upper-section-style .normal-project-container > .pinya-four-part-card {
             max-width: revert;
             flex-grow: revert;
             flex-basis: revert;
         }
 
-        .project-entry-wrapper > .pinya-four-part-card {
-            max-width: unset;
+        .normal-project-container > .pinya-four-part-card {
+            max-width: 30em;
+            flex-grow: 1;
+            flex-basis: 25em;
         }
-    }
-
-    .project-date-badge-container {
-        padding: 0 1.5rem;
     }
 
     .show-more-btn {
