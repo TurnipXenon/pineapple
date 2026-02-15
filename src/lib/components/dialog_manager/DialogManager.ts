@@ -79,7 +79,6 @@ export class DialogManager implements IDialogManager {
 					this.currentState = DialogState.Invisible;
 					this.currentReadableState.set(this.currentState);
 				});
-				this.setDialogTree([{ textContent: "" }]);
 			}
 		});
 	}
@@ -309,8 +308,7 @@ export class DialogManager implements IDialogManager {
 	async parseAndSetDialogTree(dialogYarn: string): Promise<DialogDetail[]> {
 		return parseYarn(dialogYarn)
 			.then((dialogTree) => {
-				console.log(dialogTree);
-				this.setDialogTree(dialogTree);
+				dialogManager.setDialogTree(dialogTree);
 				return dialogTree;
 			});
 	}

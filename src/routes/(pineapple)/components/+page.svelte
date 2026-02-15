@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { dialogManager } from "$pkg";
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import { FourPartCard, PinyaAccordion, PinyaAccordionItem } from "$pkg/ui/components/index";
 	import { addToast } from "$pkg/ui/components/MeltToaster/MeltToaster.svelte";
@@ -10,7 +11,9 @@
 	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
 	import { modals } from "svelte-modals";
 	import TestModal from "./TestModal.svelte";
+	import RawYarn from "./TestingComponents.yarn?raw";
 
+	dialogManager.parseAndSetDialogTree(RawYarn);
 	let allowMultipleOpenAccordion = $state(false);
 	let openAccordionIds = $state(["club"]);
 
