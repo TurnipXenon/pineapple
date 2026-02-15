@@ -45,6 +45,13 @@
 			was made in <span class="qt-unity">Unity</span> written using <span class="qt-cs">C#</span>.
 		</p>
 
+		<ProjectDateBadge
+			dateStarted={props.snippetMeta?.dateStarted}
+			dateFinished={props.snippetMeta?.dateFinished}
+			isOngoing={props.snippetMeta?.tags?.includes("ongoing") ?? false}
+			commitCount={props.snippetMeta?.commitCount}
+			gitRepoLink={props.snippetMeta?.gitRepoLink}
+		/>
 
 		<section class="game-link-section">
 			<PinyaButton
@@ -61,12 +68,5 @@
 			</PinyaButton>
 		</section>
 
-		<ProjectDateBadge
-			dateStarted={props.snippetMeta?.dateStarted}
-			dateFinished={props.snippetMeta?.dateFinished}
-			isOngoing={props.snippetMeta?.tags?.includes("ongoing") ?? false}
-			commitCount={props.snippetMeta?.commitCount}
-			gitRepoLink={props.snippetMeta?.gitRepoLink}
-		/>
 	</FourPartCard>
 {/snippet}

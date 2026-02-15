@@ -13,10 +13,11 @@
 	import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout/ProjectComponentProps";
 
 	const key = "This Webpage";
+	const priority = 70;
 	const startCommit = "https://github.com/TurnipXenon/pineapple/commit/b16aa69b9f5ad224871e80c09aa4cca067dc2a52"; // fill in GitHub commit URL to auto-resolve dateStarted
 	const gitRepoLink = "https://github.com/TurnipXenon/pineapple";
 	const tags = ["svelte", "typescript", "web", "tailwind", "postgres", "prisma", "ongoing", "database"];
-	export { component, key, startCommit, gitRepoLink, tags };
+	export { component, key, startCommit, gitRepoLink, tags, priority };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}

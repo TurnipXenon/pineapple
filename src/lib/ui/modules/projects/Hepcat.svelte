@@ -14,9 +14,10 @@
 	const key = "Hepcat";
 	const dateStarted = "2020-01-01";
 	const dateFinished = "2020-04-15";
+	const priority = 100;
 	const tags = ["unity", "csharp", "game", "rhythm", "rpgmaker"];
 	// type SnippetMeta at src/lib/ui/templates/SeaweedLayout/props.ts:6
-	export { component, key, dateStarted, dateFinished, tags };
+	export { component, key, dateStarted, dateFinished, tags, priority };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}
@@ -53,6 +54,13 @@
 			files.
 		</p>
 
+		<ProjectDateBadge
+			dateStarted={props.snippetMeta?.dateStarted}
+			dateFinished={props.snippetMeta?.dateFinished}
+			isOngoing={props.snippetMeta?.tags?.includes("ongoing") ?? false}
+			commitCount={props.snippetMeta?.commitCount}
+			gitRepoLink={props.snippetMeta?.gitRepoLink}
+		/>
 
 		<section class="game-link-section">
 			<PinyaButton
@@ -69,13 +77,6 @@
 			</PinyaButton>
 		</section>
 
-		<ProjectDateBadge
-			dateStarted={props.snippetMeta?.dateStarted}
-			dateFinished={props.snippetMeta?.dateFinished}
-			isOngoing={props.snippetMeta?.tags?.includes("ongoing") ?? false}
-			commitCount={props.snippetMeta?.commitCount}
-			gitRepoLink={props.snippetMeta?.gitRepoLink}
-		/>
 	</FourPartCard>
 {/snippet}
 

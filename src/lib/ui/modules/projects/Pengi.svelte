@@ -12,11 +12,12 @@
 	import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
 	const key = "Pengi";
+	const priority = 80;
 	const startCommit = "https://github.com/GreenTea-M/ProjectPengi/commit/401cbf7448374109f1a330bba11db87326034801"; // fill in GitHub commit URL to auto-resolve dateStarted
 	const endCommit = "https://github.com/GreenTea-M/ProjectPengi/commit/0175ec669a3c935a798fdb3c85fb37506d4b5557"; // fill in GitHub commit URL to auto-resolve dateFinished
 	const gitRepoLink = "https://github.com/GreenTea-M/ProjectPengi";
 	const tags = ["unity", "csharp", "game", "narrative", "yarnspinner"];
-	export { component, key, startCommit, endCommit, gitRepoLink, tags };
+	export { component, key, startCommit, endCommit, gitRepoLink, tags, priority };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}
@@ -46,6 +47,14 @@
 			to use to create expressive stage directions in the script.
 		</p>
 
+		<ProjectDateBadge
+			dateStarted={props.snippetMeta?.dateStarted}
+			dateFinished={props.snippetMeta?.dateFinished}
+			isOngoing={props.snippetMeta?.tags?.includes("ongoing") ?? false}
+			commitCount={props.snippetMeta?.commitCount}
+			gitRepoLink={props.snippetMeta?.gitRepoLink}
+		/>
+
 		<section class="game-link-section">
 			<PinyaButton
 				buttonVariant={ButtonVariant.Image}
@@ -64,14 +73,6 @@
 				<ImageIcon alt="" aria-hidden="true" src={ItchLogoHotLink} />
 			</PinyaButton>
 		</section>
-
-		<ProjectDateBadge
-			dateStarted={props.snippetMeta?.dateStarted}
-			dateFinished={props.snippetMeta?.dateFinished}
-			isOngoing={props.snippetMeta?.tags?.includes("ongoing") ?? false}
-			commitCount={props.snippetMeta?.commitCount}
-			gitRepoLink={props.snippetMeta?.gitRepoLink}
-		/>
 
 	</FourPartCard>
 {/snippet}

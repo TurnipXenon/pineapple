@@ -3,11 +3,12 @@
 
 	import * as ExampleJob1 from "$pkg/ui/modules/experience/ExampleJob1.svelte";
 	import * as ExampleJob2 from "$pkg/ui/modules/experience/ExampleJob2.svelte";
-	import * as Hepcat from "$pkg/ui/modules/projects/Hepcat.svelte";
 
+	import * as Hepcat from "$pkg/ui/modules/projects/Hepcat.svelte";
 	import * as Pengi from "$pkg/ui/modules/projects/Pengi.svelte";
 	import * as Soulwork from "$pkg/ui/modules/projects/Soulwork.svelte";
 	import * as ThisWebpage from "$pkg/ui/modules/projects/ThisWebpage.svelte";
+	import * as ObsidianPublisher from "$pkg/ui/modules/projects/ObsidianPublisher.svelte";
 	import {
 		type ProjectGroup,
 		SeaweedLayout,
@@ -25,7 +26,8 @@
 		ThisWebpage,
 		Hepcat,
 		Pengi,
-		Soulwork
+		Soulwork,
+		ObsidianPublisher,
 	];
 
 	const experienceList: SnippetMeta[] = [
@@ -37,7 +39,8 @@
 		ThisWebpage,
 		Hepcat,
 		Pengi,
-		Soulwork
+		Soulwork,
+		ObsidianPublisher,
 	];
 
 	const layout: ProjectGroup[] = [

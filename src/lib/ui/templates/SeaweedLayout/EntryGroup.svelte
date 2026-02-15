@@ -101,7 +101,18 @@
 					return durationA - durationB;
 				});
 			default:
-				return sorted;
+				return sorted.sort((a, b) => {
+					const priorityDiff = (b.priority ?? 0) - (a.priority ?? 0);
+
+					if (priorityDiff !== 0) {
+						return priorityDiff;
+					}
+
+					// Entries without dateFinished go to the bottom
+					if (!a.dateFinished) return 1;
+					if (!b.dateFinished) return -1;
+					return new Date(b.dateFinished).getTime() - new Date(a.dateFinished).getTime();
+				});
 		}
 	}
 

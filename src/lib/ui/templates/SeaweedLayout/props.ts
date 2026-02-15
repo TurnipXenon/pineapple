@@ -22,6 +22,7 @@ export interface SnippetMeta {
 	endCommit?: string;      // GitHub commit URL for auto-resolving dateFinished
 	gitRepoLink?: string;    // GitHub repo URL — if set without endCommit, uses latest commit on main
 	commitCount?: number;    // Number of commits between startCommit and endCommit (auto-resolved)
+	priority?: number;			 // the higher the number, the higher it appears in default sort
 }
 
 export interface ProjectGroup {
