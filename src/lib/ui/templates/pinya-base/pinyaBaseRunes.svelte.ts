@@ -6,6 +6,7 @@ export interface PinyaHead {
 	ogTitle?: string;
 	ogDescription?: string;
 	ogImage?: string[];
+	ogUrl?: string;
 }
 
 export interface PinyaHeadMetaWrap {

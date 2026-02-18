@@ -38,7 +38,7 @@
 		...(page.data?.meta ?? []) // override
 	});
 
-	const ogUrl = $derived(`${meta?.rootUrl}${page.url.pathname}`);
+	const ogUrl = $derived(meta?.ogUrl ?? `${meta?.rootUrl}${page.url.pathname}`);
 
 	const imageList = $derived.by(() => meta?.ogImage?.map(img => {
 		if (img.startsWith("/")) {
