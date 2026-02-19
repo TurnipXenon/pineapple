@@ -26,11 +26,39 @@ html {
 }
 
 a.dialog-choice {
-    cursor: url("$pkg/assets/icons/chat-cursor.svg"), auto;
+    cursor: url("$pkg/assets/icons/cursor-chat.svg"), auto;
+
+
+    &:before {
+        content: '';
+        display: inline-block;
+        width: 1.1em;
+        height: 1.1em;
+        mask: url("$pkg/assets/icons/icon-chat.svg") no-repeat center;
+        mask-size: contain;
+        background-color: currentColor;
+        vertical-align: middle;
+        position: relative;
+        top: -0.05lh;
+        margin-right: 0.2em;
+    }
 }
 
 a.external-link {
-    cursor: url("$pkg/assets/icons/external-link.svg"), auto;
+    cursor: url("$pkg/assets/icons/cursor-open-in-new.svg"), auto;
+
+    &:after {
+        content: '';
+        display: inline-block;
+        width: 0.8em;
+        height: 0.8em;
+        mask: url("$pkg/assets/icons/icon-open-in-new.svg") no-repeat center;
+        mask-size: contain;
+        background-color: currentColor;
+        vertical-align: middle;
+        position: relative;
+        top: -0.1lh;
+    }
 }
 
 #toast-progress {
