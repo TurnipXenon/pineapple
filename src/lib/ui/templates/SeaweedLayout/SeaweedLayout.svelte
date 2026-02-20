@@ -120,8 +120,6 @@
 	const filterSearchParams = (searchParams: URLSearchParams) => {
 		// region Order
 		const orderParam = searchParams.get("order")?.trim();
-		console.log(searchParams);
-		console.log(orderParam);
 		if (orderParam) {
 			actualLayout = [];
 
@@ -146,7 +144,6 @@
 			});
 
 			actualLayout = [...actualLayout];
-			console.log(actualLayout);
 		}
 		// endregion
 

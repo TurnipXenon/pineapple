@@ -6,7 +6,10 @@
 		setEnableDialogPreferenceContext,
 		setEnablePortraitContext,
 		setIgnoreOverlayOverride,
-		setOverlayTypeContext
+		setOverlayTypeContext,
+
+		setTextSpeedContext
+
 	} from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { createLocalStore } from "$pkg/util/localStore.svelte";
 	import { onMount } from "svelte";
@@ -15,6 +18,7 @@
 
 	setEnablePortraitContext(createLocalStore("enable-portrait"));
 	setOverlayTypeContext(createLocalStore("overlay-type"));
+	setTextSpeedContext(createLocalStore("text-speed"));
 
 	/**
 	 * how do we want to use this context???

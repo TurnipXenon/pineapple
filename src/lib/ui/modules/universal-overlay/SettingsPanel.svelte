@@ -16,14 +16,15 @@ TODO: delete GeneralSettingsModal.svelte
 	import { appState } from "$pkg/ui/templates/index";
 	import {
 		getEnableDialogPreferenceContext,
-		getEnablePortraitContext
+		getEnablePortraitContext,
+		getTextSpeedContext
 	} from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { setMode, userPrefersMode } from "mode-watcher";
 
 	interface ToggleItem {
-		key: "light" | "dark" | "system"
-		imageSrc: string,
-		label: string,
+		key: "light" | "dark" | "system";
+		imageSrc: string;
+		label: string;
 	}
 
 	const modes: ToggleItem[] = [
@@ -38,7 +39,7 @@ TODO: delete GeneralSettingsModal.svelte
 	// do not use runes here because we only want explicit changes outside
 	// our control here!
 	userPrefersMode.subscribe((value) => {
-		const si = modes.find(m => m.key === value);
+		const si = modes.find((m) => m.key === value);
 		if (selectedItem !== si && si) {
 			selectedItem = si;
 		}
@@ -46,6 +47,7 @@ TODO: delete GeneralSettingsModal.svelte
 
 	let enableDialogPreference = getEnableDialogPreferenceContext();
 	let enablePortraitContext = getEnablePortraitContext();
+	let textSpeedContext = getTextSpeedContext();
 
 	// when mode is changed inside the button, adjust the mode
 	$effect(() => {
@@ -74,18 +76,20 @@ TODO: delete GeneralSettingsModal.svelte
 					type="button"
 					title={mode.label}
 					class={`btn pt-3 pb-3 hover:brightness-125
-				${mode.key === selectedItem.key ? 'selected bg-secondary-400 dark:bg-secondary-800' : 'preset-outlined-primary-300-700'}
+				${mode.key === selectedItem.key ? "selected bg-secondary-400 dark:bg-secondary-800" : "preset-outlined-primary-300-700"}
 				`}
-					onclick={() => { setMode(mode.key) }}
+					onclick={() => {
+						setMode(mode.key);
+					}}
 				>
 					<img
 						src={mode.imageSrc}
 						aria-hidden="true"
 						alt=""
 						class={`icon
-					${mode.key === selectedItem.key ? 'reverse' : ''}
+					${mode.key === selectedItem.key ? "reverse" : ""}
 					`}
-					>
+					/>
 					<div>
 						{mode.label}
 					</div>
@@ -99,84 +103,95 @@ TODO: delete GeneralSettingsModal.svelte
 	{/if}
 
 	{#if appState.allowDialog}
+		<h3>Dialog</h3>
 		<div class="switch-default">
-			<PineappleSwitch
-				name="conversation-preference"
-				bind:checked={enableDialogPreference.value}>
-			</PineappleSwitch>
+			<PineappleSwitch name="conversation-preference" bind:checked={enableDialogPreference.value}
+			></PineappleSwitch>
 			<label for="conversation-preference">
 				Conversation preference: {enableDialogPreference.value ? "Always on" : "Always off"}
 			</label>
 		</div>
 		<div class="switch-default">
-			<PineappleSwitch
-				name="portrait-preference"
-				bind:checked={enablePortraitContext.value}>
-			</PineappleSwitch>
+			<PineappleSwitch name="portrait-preference" bind:checked={enablePortraitContext.value}
+			></PineappleSwitch>
 			<label for="portrait-preference">
 				Show conversation portrait: {enablePortraitContext.value ? "Always on" : "Always off"}
 			</label>
+		</div>
+		<div class="input-slider default-flex">
+			<label for="text-speed-input">Text speed {textSpeedContext.value}%</label>
+			<input
+				bind:value={textSpeedContext.value}
+				id="text-speed-input"
+				type="range"
+				min="1"
+				max="100"
+			/>
 		</div>
 	{/if}
 </div>
 
 <style>
-    :global {
-        html {
-            --primary-btn-color-selected: var(--color-secondary-400);
-        }
+	:global {
+		html {
+			--primary-btn-color-selected: var(--color-secondary-400);
+		}
 
-        html.dark {
-            --primary-btn-color-selected: var(--color-secondary-800);
-        }
-    }
+		html.dark {
+			--primary-btn-color-selected: var(--color-secondary-800);
+		}
 
-    .actions {
-        display: flex;
-        flex-direction: row-reverse;
-        margin-top: 1.4lh;
-    }
+		.input-slider {
+			accent-color: var(--primary-btn-color-selected);
+		}
+	}
 
-    .wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        text-align: start;
-        gap: 1lh;
-        overflow-y: auto;
-        font-size: var(--text-base);
-    }
+	.actions {
+		display: flex;
+		flex-direction: row-reverse;
+		margin-top: 1.4lh;
+	}
 
-    #dark-mode-fieldset {
-        legend {
-            background: transparent;
-        }
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		text-align: start;
+		gap: 1lh;
+		overflow-y: auto;
+		font-size: var(--text-base);
+	}
 
-        #field-flex {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            padding: 0.25lh 1rem;
-        }
+	#dark-mode-fieldset {
+		legend {
+			background: transparent;
+		}
 
-        button {
-            img {
-                filter: invert(80%);
-            }
-        }
+		#field-flex {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1rem;
+			padding: 0.25lh 1rem;
+		}
 
-        button.selected {
-            background-color: var(--primary-btn-color-selected);
+		button {
+			img {
+				filter: invert(80%);
+			}
+		}
 
-            img {
-                filter: unset;
-            }
-        }
-    }
+		button.selected {
+			background-color: var(--primary-btn-color-selected);
 
-    .switch-default {
-        display: flex;
-        justify-items: center;
-        gap: 1em;
-    }
+			img {
+				filter: unset;
+			}
+		}
+	}
+
+	.switch-default {
+		display: flex;
+		justify-items: center;
+		gap: 1em;
+	}
 </style>

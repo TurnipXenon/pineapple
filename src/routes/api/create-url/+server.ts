@@ -6,9 +6,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		result: CreateUrlResult.Fail
 	};
 
-	console.log("This is a fake API. The real API is somewhere else.");
 	const data = jsonToCreateUrlRequest(await request.json());
-	console.log(data);
 
 	if (data.password !== "FakePassword") {
 		return new Response(JSON.stringify(response));

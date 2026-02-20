@@ -1,12 +1,15 @@
 <script lang="ts">
-	import { enableUniversalOverlaySvelte4 } from "$pkg";
+	import { dialogManager, enableUniversalOverlaySvelte4 } from "$pkg";
 	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
 	import { PinyaButton } from "$pkg/ui/elements/PinyaButton/index";
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard/index";
 	import { setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { onMount } from "svelte";
+	import TutorialYarn from "$pkg/yarn/Tutorial.yarn?raw";
 
-	setIgnoreOverlayOverride(true);
+	dialogManager.parseAndSetDialogTree(TutorialYarn);
+
+	setIgnoreOverlayOverride({value: true});
 	onMount(() => {
 		enableUniversalOverlaySvelte4.set(true);
 	});

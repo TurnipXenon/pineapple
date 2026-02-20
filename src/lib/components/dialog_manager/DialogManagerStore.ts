@@ -33,7 +33,6 @@ export type OverlayType = 'dialog' | 'settings' | 'site-map';
 // find a way to make sure we preserve *.ts file on several files
 
 export const dialogVariableStore: DialogMapStore = createNewMapStore();
-export const updateRate: number = 40 / 1000; // *at least* 40ms per letter
 
 // todo: if we go through doing yarn to typescript, move this!
 export const defaultDialogMessage: DialogDetail[] = [

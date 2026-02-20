@@ -25,7 +25,6 @@ export class IfNode implements LineBehaviorNode {
 		const currentIfMode = btreeUtils.peek(nodeArgs.initState.ifModeStack);
 		if ([IfMode.EvaluateNext, IfMode.Ignore].includes(currentIfMode)) {
 			// skip! we found a nested if
-			console.log("Skipping if node because");
 			nodeArgs.initState.ifModeStack.push(IfMode.Ignore);
 			return {
 				renderedLine: "",

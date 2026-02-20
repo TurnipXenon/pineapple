@@ -76,12 +76,14 @@ export interface LocalStoreRestriction {
 	"enable-portrait": boolean;
 	"enable-dialog-preference": boolean;
 	"overlay-type": OverlayType;
+	"text-speed": number;
 }
 
 const localStoreDefault: Readonly<LocalStoreRestriction> = {
 	"enable-portrait": true,
 	"enable-dialog-preference": true,
 	"overlay-type": 'dialog',
+	"text-speed": 80,
 };
 
 export const createLocalStore = <k extends keyof LocalStoreRestriction>(key: k) => {
