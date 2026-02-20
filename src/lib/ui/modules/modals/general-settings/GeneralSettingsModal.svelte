@@ -60,7 +60,7 @@
 	<div class="wrapper">
 		<h2>{m.settings()}</h2>
 
-		<SettingsPanel />
+		<SettingsPanel close={props.close} />
 
 		<div class="actions">
 			<button class="btn preset-filled-primary-400-600 text-surface-100" onclick={() => props.close()}
@@ -77,7 +77,6 @@
     .actions {
         display: flex;
         flex-direction: row-reverse;
-        margin-top: 1.4lh;
     }
 
     .wrapper {
@@ -85,6 +84,7 @@
         flex-direction: column;
         justify-content: start;
         text-align: start;
-        gap: 1lh;
+		overflow: auto;
+		max-height: calc(100vh - 3lh);
     }
 </style>

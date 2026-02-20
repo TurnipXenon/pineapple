@@ -7,7 +7,7 @@
 	import { onMount } from "svelte";
 	import TutorialYarn from "$pkg/yarn/Tutorial.yarn?raw";
 
-	dialogManager.parseAndSetDialogTree(TutorialYarn);
+	// dialogManager.parseAndSetDialogTree(TutorialYarn);
 
 	setIgnoreOverlayOverride({value: true});
 	onMount(() => {

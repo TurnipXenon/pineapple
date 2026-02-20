@@ -11,15 +11,20 @@ TODO: delete GeneralSettingsModal.svelte
 	import DarkIcon from "$pkg/assets/icons/icon-dark-mode.svg";
 	import LightIcon from "$pkg/assets/icons/icon-light-mode.svg";
 	import PineappleSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
+	import PinyaButton from "$pkg/ui/elements/PinyaButton/PinyaButton.svelte";
 
 	import LanguagePicker from "$pkg/ui/modules/modals/general-settings/LanguagePicker.svelte";
 	import { appState } from "$pkg/ui/templates/index";
 	import {
+		getAutoScrollPrefContext,
 		getEnableDialogPreferenceContext,
 		getEnablePortraitContext,
 		getTextSpeedContext
 	} from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { setMode, userPrefersMode } from "mode-watcher";
+	import TutorialYarn from "$pkg/yarn/Tutorial.yarn?raw";
+	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
+	import { dialogVariableStore } from "$pkg/components/dialog_manager/DialogManagerStore";
 
 	interface ToggleItem {
 		key: "light" | "dark" | "system";
@@ -32,6 +37,8 @@ TODO: delete GeneralSettingsModal.svelte
 		{ key: "dark", imageSrc: DarkIcon, label: "Dark" },
 		{ key: "system", imageSrc: ConstrastIcon, label: "System" }
 	];
+
+	let { close = undefined }: { close?: () => void } = $props();
 
 	let selectedItem: ToggleItem = $state(modes[0]);
 
@@ -48,6 +55,28 @@ TODO: delete GeneralSettingsModal.svelte
 	let enableDialogPreference = getEnableDialogPreferenceContext();
 	let enablePortraitContext = getEnablePortraitContext();
 	let textSpeedContext = getTextSpeedContext();
+	let autoScrollPrefContext = getAutoScrollPrefContext();
+
+	let tutorialLoaded = $state(false);
+	const activateTutorial = () => {
+		const _tutorialLoaded = tutorialLoaded;
+		tutorialLoaded = false;
+		const currentDialogId = dialogManager.currentMessageMeta.dialogId;
+		if (currentDialogId && !currentDialogId.includes('Tutorial')) {
+			dialogVariableStore.setItem("$tutorialReturnAddress", currentDialogId);
+		}
+		if (!_tutorialLoaded) {
+			dialogManager.extendDialogTree(TutorialYarn, "TutorialStart").then(() => {
+				close?.();
+				dialogManager.enableDialog(true);
+			});
+		} else {
+			dialogManager.setDialogChoiceById("TutorialStart");
+			close?.();
+			dialogManager.enableDialog(true);
+			
+		}
+	};
 
 	// when mode is changed inside the button, adjust the mode
 	$effect(() => {
@@ -103,7 +132,7 @@ TODO: delete GeneralSettingsModal.svelte
 	{/if}
 
 	{#if appState.allowDialog}
-		<h3>Dialog</h3>
+		<h3>Dialog or conversation</h3>
 		<div class="switch-default">
 			<PineappleSwitch name="conversation-preference" bind:checked={enableDialogPreference.value}
 			></PineappleSwitch>
@@ -118,16 +147,25 @@ TODO: delete GeneralSettingsModal.svelte
 				Show conversation portrait: {enablePortraitContext.value ? "Always on" : "Always off"}
 			</label>
 		</div>
+		<div class="switch-default">
+			<PineappleSwitch name="auto-scroll-preference" bind:checked={autoScrollPrefContext.value}
+			></PineappleSwitch>
+			<label for="auto-scroll-preference">
+				Auto scroll conversations: {autoScrollPrefContext.value ? "On" : "Off"}
+			</label>
+		</div>
 		<div class="input-slider default-flex">
-			<label for="text-speed-input">Text speed {textSpeedContext.value}%</label>
+			<label for="text-speed-input">Text speed {textSpeedContext.value}/10</label>
 			<input
 				bind:value={textSpeedContext.value}
 				id="text-speed-input"
 				type="range"
 				min="1"
-				max="100"
+				max="10"
 			/>
 		</div>
+		<PinyaButton onclick={activateTutorial}><span>Initiate conversation tutorial</span></PinyaButton
+		>
 	{/if}
 </div>
 
@@ -160,6 +198,9 @@ TODO: delete GeneralSettingsModal.svelte
 		gap: 1lh;
 		overflow-y: auto;
 		font-size: var(--text-base);
+		margin: 0.5lh 0;
+		padding-top: 0.5lh;
+		padding-bottom: 1.6lh;
 	}
 
 	#dark-mode-fieldset {

@@ -6,14 +6,27 @@ Layout and logic for DialogPanel. Some of the logics for the portraits are in Un
 
 <script lang="ts">
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
-	import { getTextSpeedContext } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
-	import { onMount } from "svelte";
+	import { getAutoScrollPrefContext, getTextSpeedContext } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
+	import { onMount, tick } from "svelte";
 
 	let currentMessage = $state("");
 	let textSpeedContext = getTextSpeedContext();
+	let autoScrollPrefContext = getAutoScrollPrefContext();
+	let dialogPanelElement: HTMLDivElement | null = null;
+	let shouldStickToBottom = true;
 
 	const onDialogClick = () => {
 		dialogManager?.skipAnimation();
+	};
+
+	const onDialogScroll = () => {
+		if (!dialogPanelElement) {
+			return;
+		}
+
+		const distanceToBottom =
+			dialogPanelElement.scrollHeight - dialogPanelElement.scrollTop - dialogPanelElement.clientHeight;
+		shouldStickToBottom = distanceToBottom <= 24;
 	};
 
 	onMount(() => {
@@ -25,7 +38,19 @@ Layout and logic for DialogPanel. Some of the logics for the portraits are in Un
 	});
 
 	$effect(() => {
-		dialogManager.setUpdateRate(100 - textSpeedContext.value);
+		dialogManager.setUpdateRate((16*10) - (textSpeedContext.value*16));
+	});
+
+	$effect(() => {
+		currentMessage;
+
+		tick().then(() => {
+			if (!dialogPanelElement || !shouldStickToBottom || !autoScrollPrefContext.value) {
+				return;
+			}
+
+			dialogPanelElement.scrollTop = dialogPanelElement.scrollHeight;
+		});
 	});
 </script>
 
@@ -33,7 +58,9 @@ Layout and logic for DialogPanel. Some of the logics for the portraits are in Un
 	tabindex="0"
 	role="button"
 	id="dialog-panel"
+	bind:this={dialogPanelElement}
 	onclick={onDialogClick}
+	onscroll={onDialogScroll}
 	onkeyup={(e) => {
 		if (e.key === "j") {
 			onDialogClick();
@@ -60,14 +87,12 @@ Layout and logic for DialogPanel. Some of the logics for the portraits are in Un
 		}
 
 		#reverse-dialog-wrapper {
-			min-height: 100%;
-			position: relative;
+			width: 100%;
 		}
 
 		#dialog-panel {
 			overflow: auto;
-			display: flex;
-			flex-direction: column-reverse;
+			display: block;
 
 			img,
 			video {

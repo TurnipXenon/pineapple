@@ -8,7 +8,7 @@ title: TutorialStart
 position: 50,31
 ---
 Portrait: AresHappy
-<p><b>Hello!</b> If you're here, I'm assuming you want to learn more how to use dialog boxes.
+<p><b>Hello!</b> If you're here, I'm assuming you want to learn more how to use <i>conversations</i>.
 This is a <i>dialog box</i>.</p>
 <p>Texts within <i>dialog boxes</i> are <i>scrollable</i> so please <i>scroll</i> if this text overflows.</p>
 <p>Below are <i>choices</i> you can <i>click</i>. Please <b>click</b> them to see what the next dialogs look like.</p>
@@ -40,8 +40,8 @@ title: TutorialChoiceA
 position: 316,535
 ---
 Portrait: AresHappy
-<p>Click anywhere in the dialog box to instantly make the text appear. Sometimes, you may want to speed up the text.</p>
-<p>This is dialog for choice A!</p>
+<p>Click anywhere in the <i>dialog box</i> to instantly make the text appear. Sometimes, you may want to speed up the text.</p>
+<p>This is <i>dialog</i> for choice A!</p>
 <<if visited("TutorialChoiceB")>>
     <choice TutorialMerge>Continue</choice>
 <<else>>
@@ -59,8 +59,8 @@ position: -191,497
 ---
 Portrait: AresYay
 <p>Welcome to Choice B!</p>
-<p>Sometimes, I'll pose links in the dialog. You'll see that external links are proceeded with this image <img src="/yarn/icon-open-in-new.svg" alt="external link icon"/>.</p>
-<p>Clicking any of these external links will create a new tab with the link in the image. You can hover on the link to see where it leads you to.</p>
+<p>Sometimes, I'll post links in the dialog. You'll see that <i>external links</i> are proceeded with this image <img src="/yarn/icon-open-in-new.svg" alt="external link icon"/>.</p>
+<p>Clicking any of these <i>external links</i> will send you to a new tab with the link. You can <b>hover</b> on the link, and watch on the <i>bottom corner left of your browser</i> to see where the <i>external link</i> will lead you to.</p>
 <p><a target="_blank" class="external-link" href="http://crouton.net">Check out this external link!</a></p>
 <<if visited("TutorialChoiceA")>>
     <choice TutorialMerge>Continue</choice>
@@ -77,7 +77,7 @@ Portrait: AresYay
 title: TutorialMerge
 ---
 Portrait: AresSurprised
-<p>Just like opportunities and external links, <choice Continue>choices</choice> can appear anywhere!</p>
+<p>Just like opportunities and <i>external links</i>, <choice Continue>choices</choice> can appear anywhere!</p>
 <p>It can appear <choice Continue>here</choice>, <choice Continue>there</choice>, and <choice Continue>everywhere!</choice></p>
 <ChoiceBreak>
 
@@ -87,7 +87,7 @@ Portrait: AresSurprised
 title: TutorialChoicesResult
 ---
 Portrait: AresDisappointed
-<p>Just like life, I've sadly given you an illusion of choice since all those choices only lead to one outcome.
+<p>Just like life, I've sadly given you an illusion of <i>choice</i> since all those <i>choices</i> only lead to one outcome.
 <i>This particular dialog.</i></p>
 <choice Continue>Anyways...</choice>
 <ChoiceBreak>
@@ -98,11 +98,14 @@ Portrait: AresDisappointed
 title: TutorialSettings
 ---
 Portrait: AresMad
-<p>Feel free to check out the settings menu by clicking the iconic gear icon on this dialog or on the top right. You can...</p>
+<p>Feel free to check out the <i>Settings</i> menu by clicking the iconic <i>gear icon</i> on this dialog or on the top right of the page. You can...</p>
 <ul>
-    <li>Keep this pesky dialog away all the time!</li>
-    <li>Make the portrait disappear of this ugly character away!</li>
+    <li>Keep this pesky <i>dialog box</i> away all the time!</li>
+    <li>Make the <i>portrait</i> of this ugly character disappear!</li>
+    <li>Make the <i>text speed</i> faster</li>
+    <li>Disable <i>auto scroll</i></li>
 </ul>
+<br>
 <choice Continue>One last thing...</choice>
 <ChoiceBreak>
 
@@ -112,8 +115,8 @@ Portrait: AresMad
 title: TutorialDialogToggle
 ---
 Portrait: AresNeutral
-<p>You can toggle (open and close) the dialog by clicking the <img src="/yarn/icon-chat.svg" alt="dialog-icon"/> icon at the top right, 
-or click the close button on this dialog.</p>
+<p>You can toggle (open or close) the dialog by clicking the <img src="/yarn/icon-chat.svg" alt="dialog-icon"/> icon at the top right, 
+or click the close button on this <i>dialog box</i>.</p>
 <p>Try it out! You won't lose progress of our conversation.</p>
 <choice Continue>And...</choice>
 <ChoiceBreak>
@@ -124,7 +127,7 @@ or click the close button on this dialog.</p>
 title: TutorialEnd
 ---
 Portrait: AresLetsGo
-<p>And that covers everything you need to know. ^^</p>
+<p>And that covers everything you need to know. <b>^^</b></p>
 <<if $tutorialReturnAddress != "">>
     <choice Return>Return |</choice>
 <<endif>>

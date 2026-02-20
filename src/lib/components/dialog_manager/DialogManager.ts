@@ -26,13 +26,13 @@ import { DialogProcessor } from "$pkg/components/dialog_manager/DialogProcessor"
 import { parseYarn } from "$pkg/scripts/pineapple_fiber/PineappleFiberParser";
 import type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
 
-const shouldDebugYarn = false;
+const shouldDebugYarn = true;
 
 export type OnSetDialogChoiceCallback = (newMessage: DialogDetail) => void;
 
 export class DialogManager implements IDialogManager {
 	dialogMessageMap: Map<string, DialogDetail> = new Map();
-	currentDialogTree: DialogDetail[] = [];
+	currentDialogTree: DialogDetail[] = defaultDialogMessage;
 	fullCurrentMessage: string = defaultDialogMessage[0].textContent;
 	currentMessageMeta: DialogDetail = defaultDialogMessage[0];
 	currentMessage = writable("");
@@ -62,6 +62,12 @@ export class DialogManager implements IDialogManager {
 
 	constructor() {
 		this.dialogProcessor = new DialogProcessor(this);
+
+		this.currentDialogTree.map((value) => {
+			if (value.dialogId) {
+				this.dialogMessageMap.set(value.dialogId!, value);
+			}
+		});
 
 		enableUniversalOverlaySvelte4.subscribe((value) => {
 			// todo: investigate why we cant put setDialogDefault inside the then clause
@@ -117,6 +123,7 @@ export class DialogManager implements IDialogManager {
 
 		this.dialogMessageMap.clear();
 		newDialogTree.map((value) => {
+			console.log(`loading`, value)
 			if (value.dialogId) {
 				this.dialogMessageMap.set(value.dialogId!, value);
 			}
@@ -194,6 +201,15 @@ export class DialogManager implements IDialogManager {
 			this._setDialogChoice();
 		}
 	};
+
+	setDialogChoiceById = (dialogId: string) => {
+		const potentialDialog = this.currentDialogTree.find(d => d.dialogId === dialogId);
+		if (potentialDialog) {
+			this.setDialogChoice(potentialDialog);
+		} else {
+			console.error(`setDialogChoiceById: dialog id not found ${dialogId}`);
+		}
+	}
 
 	_setDialogChoice = () => {
 		const newMessage = this._setDialogChoiceQueue.shift();
@@ -323,6 +339,23 @@ export class DialogManager implements IDialogManager {
 		return parseYarn(dialogYarn)
 			.then((dialogTree) => {
 				dialogManager.setDialogTree(dialogTree, startingNode);
+				return dialogTree;
+			});
+	}
+
+	async extendDialogTree(dialogYarn: string, forceNode = ""): Promise<DialogDetail[]> {
+		return parseYarn(dialogYarn)
+			.then((dialogTree) => {
+				this.currentDialogTree.push(...dialogTree);
+
+				if (forceNode) {
+					const potentialDialog = this.currentDialogTree.find(d => d.dialogId === forceNode);
+					if (!potentialDialog) {
+						console.error(`extendDialogTree: cannot find dialog ID: ${forceNode}`);
+					}
+					this.setDialogTree(this.currentDialogTree, forceNode);
+				}
+
 				return dialogTree;
 			});
 	}

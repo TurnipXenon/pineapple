@@ -2,6 +2,7 @@
 	import { enableUniversalOverlaySvelte4 } from "$pkg";
 	import { appState } from "$pkg/ui/templates/index";
 	import {
+	setAutoScrollPrefContext,
 		setEnableDialogOverlayContext,
 		setEnableDialogPreferenceContext,
 		setEnablePortraitContext,
@@ -19,6 +20,7 @@
 	setEnablePortraitContext(createLocalStore("enable-portrait"));
 	setOverlayTypeContext(createLocalStore("overlay-type"));
 	setTextSpeedContext(createLocalStore("text-speed"));
+	setAutoScrollPrefContext(createLocalStore("auto-scroll-pref"))
 
 	/**
 	 * how do we want to use this context???
