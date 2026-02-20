@@ -26,7 +26,7 @@ import { DialogProcessor } from "$pkg/components/dialog_manager/DialogProcessor"
 import { parseYarn } from "$pkg/scripts/pineapple_fiber/PineappleFiberParser";
 import type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
 
-const shouldDebugYarn = true;
+const shouldDebugYarn = false;
 
 export type OnSetDialogChoiceCallback = (newMessage: DialogDetail) => void;
 
@@ -123,7 +123,6 @@ export class DialogManager implements IDialogManager {
 
 		this.dialogMessageMap.clear();
 		newDialogTree.map((value) => {
-			console.log(`loading`, value)
 			if (value.dialogId) {
 				this.dialogMessageMap.set(value.dialogId!, value);
 			}
@@ -143,7 +142,7 @@ export class DialogManager implements IDialogManager {
 		}
 
 		if (startingNode) {
-			const potentialStartingDialog = newDialogTree.find(t => t.dialogId === startingNode) 
+			const potentialStartingDialog = newDialogTree.find(t => t.dialogId === startingNode)
 			if (potentialStartingDialog) {
 				this.setDialogChoice(potentialStartingDialog);
 				return;

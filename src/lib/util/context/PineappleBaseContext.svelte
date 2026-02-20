@@ -2,15 +2,13 @@
 	import { enableUniversalOverlaySvelte4 } from "$pkg";
 	import { appState } from "$pkg/ui/templates/index";
 	import {
-	setAutoScrollPrefContext,
+		setAutoScrollPrefContext,
 		setEnableDialogOverlayContext,
 		setEnableDialogPreferenceContext,
 		setEnablePortraitContext,
 		setIgnoreOverlayOverride,
 		setOverlayTypeContext,
-
 		setTextSpeedContext
-
 	} from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { createLocalStore } from "$pkg/util/localStore.svelte";
 	import { onMount } from "svelte";
@@ -20,7 +18,7 @@
 	setEnablePortraitContext(createLocalStore("enable-portrait"));
 	setOverlayTypeContext(createLocalStore("overlay-type"));
 	setTextSpeedContext(createLocalStore("text-speed"));
-	setAutoScrollPrefContext(createLocalStore("auto-scroll-pref"))
+	setAutoScrollPrefContext(createLocalStore("auto-scroll-pref"));
 
 	/**
 	 * how do we want to use this context???
@@ -36,7 +34,7 @@
 	 * c.setValue
 	 */
 
-	// special logic since we would need to change the extensions for all the typescript code if we dont
+		// special logic since we would need to change the extensions for all the typescript code if we dont
 	const enableDialogPrefStore = createLocalStore("enable-dialog-preference");
 	setEnableDialogPreferenceContext(enableDialogPrefStore);
 
