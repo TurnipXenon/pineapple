@@ -57,7 +57,7 @@ class ExpressionEvaluator {
 	};
 
 	evaluateFreeform = (line: string, prefix: string): string[] => {
-		if (!browser) {
+		if (!browser && !import.meta.env.VITEST) {
 			return []; // do not process when not in browser
 		}
 
@@ -225,7 +225,7 @@ class ExpressionEvaluator {
 	 * @param prefix is either "<<if" or "<<elseif"
 	 */
 	evaluate = (line: string, prefix: string): boolean => {
-		if (!browser) {
+		if (!browser && !import.meta.env.VITEST) {
 			return false; // do not process when not in browser
 		}
 

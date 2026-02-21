@@ -10,7 +10,7 @@ import { browser } from "$app/environment";
  */
 export class UnvisitCommand implements LineBehaviorNode {
 	process(nodeArgs: LineNodeArguments): LineBehaviorResult {
-		if (!nodeArgs.line.startsWith("<<unvisit") || !browser) {
+		if (!nodeArgs.line.startsWith("<<unvisit") || (!browser && !import.meta.env.VITEST)) {
 			return {
 				renderedLine: "",
 				nextState: nodeArgs.initState,

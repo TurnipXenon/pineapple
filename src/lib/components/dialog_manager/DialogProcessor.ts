@@ -51,7 +51,7 @@ export class DialogProcessor {
 	 * @param dialogDetail
 	 */
 	processDialog = (dialogDetail: DialogDetail): string => {
-		if (!browser) {
+		if (!browser && !import.meta.env.VITEST) {
 			return ""; // don't process any line in the server
 		}
 

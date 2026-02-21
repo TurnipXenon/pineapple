@@ -129,7 +129,7 @@ title: TutorialEnd
 Portrait: AresLetsGo
 <p>And that covers everything you need to know. <b>^^</b></p>
 <<if $tutorialReturnAddress != "">>
-    <choice Return>Return |</choice>
+    <choice Return>Return</choice> |
 <<endif>>
 <choice Redo>Redo tutorial</choice>
 <ChoiceBreak>

@@ -230,9 +230,11 @@ TODO: delete GeneralSettingsModal.svelte
 		}
 	}
 
-	.switch-default {
-		display: flex;
-		justify-items: center;
-		gap: 1em;
+	:global {
+		.switch-default {
+			display: flex;
+			justify-items: center;
+			gap: 1em;
+		}
 	}
 </style>

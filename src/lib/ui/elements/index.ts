@@ -15,4 +15,4 @@ export * from "./PinyaButton";
 export * from "./PinyaAnchorButton";
 export * from "./TextChip";
 export * from "./CodeBlock";
-
+export { default as PineappleSwitch } from "./PineappleSwitch.svelte";
