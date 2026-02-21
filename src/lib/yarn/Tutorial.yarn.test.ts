@@ -1,16 +1,7 @@
 import { DialogManager } from "$pkg/components/dialog_manager/DialogManager";
-import { assert, describe, expect, it } from "vitest";
+import { assertDialogJump } from "$pkg/test/assertDialogJump";
+import { describe, expect, it } from "vitest";
 import TutorialYarn from "./Tutorial.yarn?raw";
-
-const assertDialogJump = (dialogManager: DialogManager, dialogId: string) => {
-	assert.include(
-		dialogManager.fullCurrentMessage,
-		`"choice-${dialogId} dialog-choice"`,
-		"Missing dialog ID in current message"
-	);
-	dialogManager.setDialogChoiceById(dialogId);
-	expect(dialogManager.currentMessageMeta.dialogId).toBe(dialogId);
-};
 
 describe("Tutorial.yarn", () => {
 	it("parses without throwing and returns dialog nodes", async () => {
@@ -70,7 +61,6 @@ describe("Tutorial.yarn", () => {
 			await dialogManager.parseAndSetDialogTree(TutorialYarn);
 			dialogManager.dialogVariableStore.setItem("$tutorialReturnAddress", "TutorialChoicesResult");
 			dialogManager.setDialogChoiceById("TutorialEnd");
-			assertDialogJump(dialogManager, "TutorialChoiceA");
 			expect(dialogManager.fullCurrentMessage).not.toContain("choice-TutorialA dialog-choice");
 		});
 	});

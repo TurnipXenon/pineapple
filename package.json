@@ -111,6 +111,12 @@
       "svelte": "./dist/ui/templates/index.js",
       "import": "./dist/ui/templates/index.js",
       "default": "./dist/ui/templates/index.js"
+    },
+    "./test": {
+      "types": "./dist/test/index.d.ts",
+      "svelte": "./dist/test/index.js",
+      "import": "./dist/test/index.js",
+      "default": "./dist/test/index.js"
     }
   },
   "files": [
