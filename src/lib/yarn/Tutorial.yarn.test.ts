@@ -29,7 +29,6 @@ describe("Tutorial.yarn", () => {
 	it("dialog goes through the entire tutorial the first time", async () => {
 		const dialogManager = new DialogManager();
 		const dialogTree = await dialogManager.parseAndSetDialogTree(TutorialYarn);
-
 		expect(dialogManager.currentDialogTree).toBe(dialogTree);
 		expect(dialogManager.currentMessageMeta.dialogId).toBe("TutorialStart");
 
@@ -37,5 +36,42 @@ describe("Tutorial.yarn", () => {
 		assertDialogJump(dialogManager, "TutorialChoiceA");
 		assertDialogJump(dialogManager, "TutorialChoiceB");
 		assertDialogJump(dialogManager, "TutorialMerge");
+		assertDialogJump(dialogManager, "TutorialChoicesResult");
+		assertDialogJump(dialogManager, "TutorialSettings");
+		assertDialogJump(dialogManager, "TutorialDialogToggle");
+		assertDialogJump(dialogManager, "TutorialEnd");
+		assertDialogJump(dialogManager, "TutorialStart");
+		expect(dialogManager.dialogVariableStore.getItem("$tutorialReturnAddress")).toBeNull();
+	});
+
+	describe("TutorialStart2", () => {
+		it("should reach TutorialMerge", async () => {
+			const dialogManager = new DialogManager();
+			await dialogManager.parseAndSetDialogTree(TutorialYarn);
+			dialogManager.setDialogChoiceById("TutorialStart2");
+			assertDialogJump(dialogManager, "TutorialChoiceB");
+			assertDialogJump(dialogManager, "TutorialChoiceA");
+			assertDialogJump(dialogManager, "TutorialMerge");
+		});
+	});
+
+	describe("TutorialEnd", () => {
+		it("should go to tutorialReturnAddress", async () => {
+			const dialogManager = new DialogManager();
+			await dialogManager.parseAndSetDialogTree(TutorialYarn);
+			dialogManager.dialogVariableStore.setItem("$tutorialReturnAddress", "TutorialChoicesResult");
+			expect(dialogManager.dialogVariableStore.getItem("$tutorialReturnAddress")).toBe("TutorialChoicesResult");
+			dialogManager.setDialogChoiceById("TutorialEnd");
+			assertDialogJump(dialogManager, "TutorialChoicesResult");
+		});
+
+		it("should not go to random IDs", async () => {
+			const dialogManager = new DialogManager();
+			await dialogManager.parseAndSetDialogTree(TutorialYarn);
+			dialogManager.dialogVariableStore.setItem("$tutorialReturnAddress", "TutorialChoicesResult");
+			dialogManager.setDialogChoiceById("TutorialEnd");
+			assertDialogJump(dialogManager, "TutorialChoiceA");
+			expect(dialogManager.fullCurrentMessage).not.toContain("choice-TutorialA dialog-choice");
+		});
 	});
 });

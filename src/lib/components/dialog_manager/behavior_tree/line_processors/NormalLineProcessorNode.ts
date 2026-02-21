@@ -1,6 +1,5 @@
 import type { LineNodeArguments } from "$lib/components/dialog_manager/behavior_tree/line_core/LineNodeArguments";
 import type { LineBehaviorResult } from "$lib/components/dialog_manager/behavior_tree/line_core/LineBehaviorResult";
-import { browser } from "$app/environment";
 import { BehaviorStatus } from "$lib/components/dialog_manager/behavior_tree/core/BehaviorStatus";
 import type { LineBehaviorNode } from "$lib/components/dialog_manager/behavior_tree/line_core/LineBehaviorNode";
 
@@ -20,8 +19,8 @@ export class NormalLineProcessorNode implements LineBehaviorNode {
 				return token
 					.split("}") // split at the end and dont process the rest
 					.map((varToken, index) => {
-						if (index == 0 && browser && !import.meta.env.VITEST) {
-							const varValue = localStorage.getItem(`$${varToken}`);
+						if (index == 0) {
+							const varValue = nodeArgs.dialogVariableStore.getItem(`$${varToken}`);
 							if (varValue !== null) {
 								// null guard
 								return varValue;
