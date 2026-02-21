@@ -23,7 +23,7 @@ class BTreeUtils {
 			if (value) {
 				return value;
 			}
-			console.error(`Value not found in dialog variable store: ${oldToken}`);
+			console.log(`Value not found in dialog variable store: ${oldToken}`);
 			return "";
 		}
 

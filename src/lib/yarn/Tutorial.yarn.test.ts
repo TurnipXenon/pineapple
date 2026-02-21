@@ -1,5 +1,5 @@
 import { DialogManager } from "$pkg/components/dialog_manager/DialogManager";
-import { assertDialogJump } from "$pkg/test/assertDialogJump";
+import { DialogTestUtility as du } from "$pkg/test/DialogTestUtility";
 import { describe, expect, it } from "vitest";
 import TutorialYarn from "./Tutorial.yarn?raw";
 
@@ -23,15 +23,18 @@ describe("Tutorial.yarn", () => {
 		expect(dialogManager.currentDialogTree).toBe(dialogTree);
 		expect(dialogManager.currentMessageMeta.dialogId).toBe("TutorialStart");
 
-		assertDialogJump(dialogManager, "TutorialStart2");
-		assertDialogJump(dialogManager, "TutorialChoiceA");
-		assertDialogJump(dialogManager, "TutorialChoiceB");
-		assertDialogJump(dialogManager, "TutorialMerge");
-		assertDialogJump(dialogManager, "TutorialChoicesResult");
-		assertDialogJump(dialogManager, "TutorialSettings");
-		assertDialogJump(dialogManager, "TutorialDialogToggle");
-		assertDialogJump(dialogManager, "TutorialEnd");
-		assertDialogJump(dialogManager, "TutorialStart");
+		du.assertDialogJump(dialogManager, "TutorialStart2");
+		du.assertDialogJump(dialogManager, "TutorialChoiceA");
+		du.expectInvalidChoice(dialogManager, "TutorialMerge");
+		du.assertDialogJump(dialogManager, "TutorialChoiceB");
+		du.expectInvalidChoice(dialogManager, "TutorialChoiceA");
+		du.assertDialogJump(dialogManager, "TutorialMerge");
+		du.assertDialogJump(dialogManager, "TutorialChoicesResult");
+		du.assertDialogJump(dialogManager, "TutorialSettings");
+		du.assertDialogJump(dialogManager, "TutorialDialogToggle");
+		du.assertDialogJump(dialogManager, "TutorialEnd");
+		du.expectInvalidChoice(dialogManager, "");
+		du.assertDialogJump(dialogManager, "TutorialStart");
 		expect(dialogManager.dialogVariableStore.getItem("$tutorialReturnAddress")).toBeNull();
 	});
 
@@ -40,9 +43,10 @@ describe("Tutorial.yarn", () => {
 			const dialogManager = new DialogManager();
 			await dialogManager.parseAndSetDialogTree(TutorialYarn);
 			dialogManager.setDialogChoiceById("TutorialStart2");
-			assertDialogJump(dialogManager, "TutorialChoiceB");
-			assertDialogJump(dialogManager, "TutorialChoiceA");
-			assertDialogJump(dialogManager, "TutorialMerge");
+			du.assertDialogJump(dialogManager, "TutorialChoiceB");
+			du.expectInvalidChoice(dialogManager, "TutorialMerge");
+			du.assertDialogJump(dialogManager, "TutorialChoiceA");
+			du.assertDialogJump(dialogManager, "TutorialMerge");
 		});
 	});
 
@@ -53,7 +57,7 @@ describe("Tutorial.yarn", () => {
 			dialogManager.dialogVariableStore.setItem("$tutorialReturnAddress", "TutorialChoicesResult");
 			expect(dialogManager.dialogVariableStore.getItem("$tutorialReturnAddress")).toBe("TutorialChoicesResult");
 			dialogManager.setDialogChoiceById("TutorialEnd");
-			assertDialogJump(dialogManager, "TutorialChoicesResult");
+			du.assertDialogJump(dialogManager, "TutorialChoicesResult");
 		});
 
 		it("should not go to random IDs", async () => {

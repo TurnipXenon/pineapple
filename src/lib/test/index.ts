@@ -1,2 +1,2 @@
 export { DialogManager } from "$pkg/components/dialog_manager/DialogManager";
-export { assertDialogJump } from "./assertDialogJump";
+export { DialogTestUtility as du } from "./DialogTestUtility";
