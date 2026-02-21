@@ -4,6 +4,7 @@ import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 import { type Tweened } from "svelte/motion";
 import { DialogProcessor } from "$pkg/components/dialog_manager/DialogProcessor";
 import type { OnSetDialogChoiceCallback } from "$pkg/components/dialog_manager/DialogManager";
+import type { DialogMapStore } from "$pkg/types/pineapple_fiber/DialogVariableStore";
 
 export interface IDialogManager {
 	dialogMessageMap: Map<string, DialogDetail>;
@@ -24,9 +25,10 @@ export interface IDialogManager {
 	_setDialogChoiceMutex: boolean;
 	onSetDialogListeners: OnSetDialogChoiceCallback[];
 	enableDialogueOverlayCache: boolean;
+	dialogVariableStore: DialogMapStore;
 	skipAnimation: () => void;
 	enableDialog: (shouldEnable: boolean) => void;
-	setDialogTree: (newDialogTree: DialogDetail[]) => void;
+	setDialogTree: (newDialogTree: DialogDetail[], startingNode?: string) => void;
 	subscribeToSetDialogChoice: (callback: OnSetDialogChoiceCallback) => void;
 	unsubscribeToSetDialogChoice: (callback: OnSetDialogChoiceCallback) => void;
 	setDialogChoice: (newMessage: (DialogDetail | undefined)) => void;
@@ -38,5 +40,5 @@ export interface IDialogManager {
 
 	toggleDialogOverlay(): void;
 
-	parseAndSetDialogTree(dialogYarn: string): Promise<DialogDetail[]>;
+	parseAndSetDialogTree(dialogYarn: string, startingNode?: string): Promise<DialogDetail[]>;
 }

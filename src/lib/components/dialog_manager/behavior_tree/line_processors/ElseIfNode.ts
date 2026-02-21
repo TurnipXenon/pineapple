@@ -39,7 +39,7 @@ export class ElseIfNode implements LineBehaviorNode {
 			case IfMode.EvaluateNext:
 				// since all the previous evaluations were false,
 				// let's try evaluating this like the if statement
-				if (expressionEvaluator.evaluate(nodeArgs.line, "<<elseif")) {
+				if (expressionEvaluator.evaluate(nodeArgs.line, "<<elseif", nodeArgs.dialogVariableStore)) {
 					nodeArgs.initState.ifModeStack.pop();
 					nodeArgs.initState.ifModeStack.push(IfMode.Evaluated);
 				} // else: retain the EvaluateNext status

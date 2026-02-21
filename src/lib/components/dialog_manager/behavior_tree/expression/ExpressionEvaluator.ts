@@ -5,6 +5,7 @@ import { ExpressionSelectorNode } from "$lib/components/dialog_manager/behavior_
 import type { ExpressionState } from "$lib/components/dialog_manager/behavior_tree/expression/ExpressionState";
 import { btreeUtils } from "$lib/components/dialog_manager/behavior_tree/core/BTreeUtils";
 import { CommandExpressionNode } from "$lib/components/dialog_manager/behavior_tree/expression/commands/CommandExpressionNode";
+import type { DialogMapStore } from "$lib/types/pineapple_fiber/DialogVariableStore";
 
 class ExpressionEvaluator {
 	evaluatorTree = new ExpressionSelectorNode([
@@ -56,7 +57,7 @@ class ExpressionEvaluator {
 		}
 	};
 
-	evaluateFreeform = (line: string, prefix: string): string[] => {
+	evaluateFreeform = (line: string, prefix: string, dialogVariableStore: DialogMapStore): string[] => {
 		if (!browser && !import.meta.env.VITEST) {
 			return []; // do not process when not in browser
 		}
@@ -209,7 +210,8 @@ class ExpressionEvaluator {
 			// console.log("Current token", token);
 			const result = this.evaluatorTree.process({
 				initState: currentState,
-				token: token
+				token: token,
+				dialogVariableStore
 			});
 			// console.log("Token evaluated with result", result.nextState.operandStack.toString());
 			currentState = result.nextState;
@@ -223,13 +225,14 @@ class ExpressionEvaluator {
 	 * evaluates a yarn if or elseif statement
 	 * @param line is the current line being evaluated
 	 * @param prefix is either "<<if" or "<<elseif"
+	 * @param dialogVariableStore
 	 */
-	evaluate = (line: string, prefix: string): boolean => {
+	evaluate = (line: string, prefix: string, dialogVariableStore: DialogMapStore): boolean => {
 		if (!browser && !import.meta.env.VITEST) {
 			return false; // do not process when not in browser
 		}
 
-		return String(btreeUtils.peek(this.evaluateFreeform(line, prefix))) === "true";
+		return String(btreeUtils.peek(this.evaluateFreeform(line, prefix, dialogVariableStore))) === "true";
 	};
 }
 

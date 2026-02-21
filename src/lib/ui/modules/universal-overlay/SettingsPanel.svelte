@@ -24,7 +24,6 @@ TODO: delete GeneralSettingsModal.svelte
 	import { setMode, userPrefersMode } from "mode-watcher";
 	import TutorialYarn from "$pkg/yarn/Tutorial.yarn?raw";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
-	import { dialogVariableStore } from "$pkg/components/dialog_manager/DialogManagerStore";
 
 	interface ToggleItem {
 		key: "light" | "dark" | "system";
@@ -63,7 +62,7 @@ TODO: delete GeneralSettingsModal.svelte
 		tutorialLoaded = false;
 		const currentDialogId = dialogManager.currentMessageMeta.dialogId;
 		if (currentDialogId && !currentDialogId.includes('Tutorial')) {
-			dialogVariableStore.setItem("$tutorialReturnAddress", currentDialogId);
+			dialogManager.dialogVariableStore.setItem("$tutorialReturnAddress", currentDialogId);
 		}
 		if (!_tutorialLoaded) {
 			dialogManager.extendDialogTree(TutorialYarn, "TutorialStart").then(() => {

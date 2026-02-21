@@ -33,7 +33,7 @@ export class IfNode implements LineBehaviorNode {
 			};
 		}
 
-		if (expressionEvaluator.evaluate(nodeArgs.line, "<<if")) {
+		if (expressionEvaluator.evaluate(nodeArgs.line, "<<if", nodeArgs.dialogVariableStore)) {
 			nodeArgs.initState.ifModeStack.push(IfMode.Evaluated);
 		} else {
 			nodeArgs.initState.ifModeStack.push(IfMode.EvaluateNext);

@@ -65,7 +65,8 @@ export class DialogProcessor {
 				const result = this.processingTree.process({
 					initState: currentState,
 					line: line_.trim(),
-					lineIndex: index
+					lineIndex: index,
+					dialogVariableStore: this.dialogManager.dialogVariableStore
 				});
 				currentState = result.nextState;
 

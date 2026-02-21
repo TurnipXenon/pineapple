@@ -2,6 +2,7 @@
  * DialogManager is the object we want to interact with in Svelte
  */
 
+import { createNewMapStore, type DialogMapStore } from "$pkg/types/pineapple_fiber/DialogVariableStore";
 import { writable } from "svelte/store";
 import type { DialogDetail } from "$pkg/types/pineapple_fiber/DialogDetail";
 import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
@@ -19,7 +20,6 @@ import AresSurprised from "$pkg/assets/characters/ares/ares_surprised.webp";
 import AresYay from "$pkg/assets/characters/ares/ares_yay.webp";
 import {
 	defaultDialogMessage,
-	dialogVariableStore,
 	enableUniversalOverlaySvelte4,
 } from "$pkg/components/dialog_manager/DialogManagerStore";
 import { DialogProcessor } from "$pkg/components/dialog_manager/DialogProcessor";
@@ -59,8 +59,10 @@ export class DialogManager implements IDialogManager {
 	onSetDialogListeners: OnSetDialogChoiceCallback[] = [];
 	enableDialogueOverlayCache = false;
 	updateRate = 40 / 1000;
+	dialogVariableStore: DialogMapStore;
 
 	constructor() {
+		this.dialogVariableStore = createNewMapStore();
 		this.dialogProcessor = new DialogProcessor(this);
 
 		this.currentDialogTree.map((value) => {
@@ -245,11 +247,11 @@ export class DialogManager implements IDialogManager {
 		// save that we visited AND processed the node
 		if (this.currentMessageMeta.dialogId) {
 			const key = `+${this.currentMessageMeta.dialogId}`;
-			const value = Number(dialogVariableStore.getItem(key));
+			const value = Number(this.dialogVariableStore.getItem(key));
 			if (isNaN(value)) {
-				dialogVariableStore.setItem(key, "1");
+				this.dialogVariableStore.setItem(key, "1");
 			} else {
-				dialogVariableStore.setItem(key, `${value + 1}`);
+				this.dialogVariableStore.setItem(key, `${value + 1}`);
 			}
 		}
 
@@ -337,7 +339,7 @@ export class DialogManager implements IDialogManager {
 	async parseAndSetDialogTree(dialogYarn: string, startingNode = ""): Promise<DialogDetail[]> {
 		return parseYarn(dialogYarn)
 			.then((dialogTree) => {
-				dialogManager.setDialogTree(dialogTree, startingNode);
+				this.setDialogTree(dialogTree, startingNode);
 				return dialogTree;
 			});
 	}

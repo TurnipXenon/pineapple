@@ -3,8 +3,6 @@
  * or is saved in local storage
  */
 
-import type { DialogMapStore } from "$lib/types/pineapple_fiber/DialogVariableStore";
-import { createNewMapStore } from "$lib/types/pineapple_fiber/DialogVariableStore";
 import { writable } from "svelte/store";
 import type { DialogDetail } from "$lib/types/pineapple_fiber/DialogDetail";
 
@@ -32,8 +30,6 @@ export type OverlayType = 'dialog' | 'settings' | 'site-map';
 // todo: migrate all these stores to runes
 // find a way to make sure we preserve *.ts file on several files
 
-export const dialogVariableStore: DialogMapStore = createNewMapStore();
-
 // todo: if we go through doing yarn to typescript, move this!
 export const defaultDialogMessage: DialogDetail[] = [
 	{
@@ -41,4 +37,3 @@ export const defaultDialogMessage: DialogDetail[] = [
 		textContent: `<p>I don't really have anything to say. Have you drank water? Or perhaps, you've checked out <a target="_blank" class="external-link" href="http://crouton.net">one of the best webpages</a> out there?`
 	}
 ];
-

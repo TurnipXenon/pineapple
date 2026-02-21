@@ -1,6 +1,5 @@
 import { CommandLogicNode } from "$lib/components/dialog_manager/behavior_tree/expression/commands/CommandLogicNode";
 import type { ExpressionArguments } from "$lib/components/dialog_manager/behavior_tree/expression/ExpressionArguments";
-import { dialogVariableStore } from "$lib/components/dialog_manager/DialogManagerStore";
 
 /**
  * Used for command like
@@ -10,7 +9,7 @@ import { dialogVariableStore } from "$lib/components/dialog_manager/DialogManage
  */
 export class VisitedCountCommand extends CommandLogicNode {
 	doOperation = (currentOperands: string[], nodeArgs: ExpressionArguments) => {
-		const value = Number(dialogVariableStore.getItem(`+${currentOperands[0]}`));
+		const value = Number(nodeArgs.dialogVariableStore.getItem(`+${currentOperands[0]}`));
 		if (isNaN(value) || value === 0) {
 			nodeArgs.initState.operandStack.push("0");
 		} else {
