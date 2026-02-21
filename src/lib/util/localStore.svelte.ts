@@ -84,7 +84,7 @@ const localStoreDefault: Readonly<LocalStoreRestriction> = {
 	"enable-portrait": true,
 	"enable-dialog-preference": true,
 	"overlay-type": 'dialog',
-	"text-speed": 8,
+	"text-speed": 9,
 	"auto-scroll-pref": true,
 };
 
