@@ -1,7 +1,21 @@
-import type { DialogManager } from "$pkg/components/dialog_manager/DialogManager";
+import { DialogManager } from "$pkg/components/dialog_manager/DialogManager";
 import { assert, expect } from "vitest";
 
 export const DialogTestUtility = {
+	assertBasicChecks: async (yarnDialog: string) => {
+		const dialogManager = new DialogManager();
+		const parsePromise = dialogManager.parseAndSetDialogTree(yarnDialog);
+
+		await expect(parsePromise).resolves.toEqual(expect.any(Array));
+
+		const dialogTree = await parsePromise;
+		expect(dialogTree.length).toBeGreaterThan(0);
+		// detect jump with no choice
+		expect(dialogTree.find(d => d.warningList?.find(wl => wl.includes("Jump name is not used in any <choice> tag")))).toBeUndefined();
+		// detect choice with no jump
+		expect(dialogTree.find(d => d.warningList?.find(wl => wl.includes("Choice has no jump")))).toBeUndefined();
+	},
+
 	assertDialogJump: (dialogManager: DialogManager, dialogId: string) => {
 		const expectedChoiceMarkup = `"choice-${dialogId} dialog-choice"`;
 		assert.include(dialogManager.fullCurrentMessage, expectedChoiceMarkup, `Missing dialog ID in current message: ${dialogId}`);

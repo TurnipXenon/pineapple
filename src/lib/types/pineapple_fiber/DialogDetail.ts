@@ -4,4 +4,5 @@ export interface DialogDetail {
 	textContent: string;
 	dialogId?: string;
 	portraitType?: PortraitType;
+	warningList?: string[];
 }

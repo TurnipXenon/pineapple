@@ -5,14 +5,7 @@ import TutorialYarn from "./Tutorial.yarn?raw";
 
 describe("Tutorial.yarn", () => {
 	it("parses without throwing and returns dialog nodes", async () => {
-		const dialogManager = new DialogManager();
-		const parsePromise = dialogManager.parseAndSetDialogTree(TutorialYarn);
-
-		await expect(parsePromise).resolves.toEqual(expect.any(Array));
-
-		const dialogTree = await parsePromise;
-		expect(dialogTree.length).toBeGreaterThan(0);
-		expect(dialogTree.some((node) => node.dialogId === "TutorialStart")).toBe(true);
+		await du.assertBasicChecks(TutorialYarn);
 	});
 
 	// todo: verify all choices have a jump?
