@@ -179,7 +179,7 @@ export const parseYarn = async (fileContent: string): Promise<DialogDetail[]> =>
 		}
 
 		// warn if choice has no jump warning
-		if (dialogDetails.textContent.includes('<choice ')) {
+		if (dialogDetails.textContent.includes('<choice')) {
 			console.warn(`Choice has no jump: ${dialogDetails.textContent}`);
 			if (dialogDetails.warningList) {
 				dialogDetails.warningList.push(`Choice has no jump: ${dialogDetails.textContent}`)
@@ -190,6 +190,7 @@ export const parseYarn = async (fileContent: string): Promise<DialogDetail[]> =>
 
 		dialogDetailList.push(dialogDetails);
 	});
+
 
 	return dialogDetailList;
 };

@@ -356,3 +356,5 @@ Variables are stored as `$variableName` in our localStorage.
 Visited nodes are stored as an integer number like `+NodeName`
 
 Note that the variable is updated AFTER the line is processed during runtime.
+
+Note that setting variables only work before the first visible line of text. Otherwise, weird things happen. Might need to fix this as that's a bug.

@@ -1,26 +1,47 @@
 import { DialogManager } from "$pkg/components/dialog_manager/DialogManager";
-import { assert, expect } from "vitest";
+import { assert, expect, it } from "vitest";
 
 export const DialogTestUtility = {
-	assertBasicChecks: async (yarnDialog: string) => {
+	describeBasicChecks: async (yarnDialog: string, externalNodes: string[] = []) => {
 		const dialogManager = new DialogManager();
 		const parsePromise = dialogManager.parseAndSetDialogTree(yarnDialog);
 
-		await expect(parsePromise).resolves.toEqual(expect.any(Array));
+		it("should pass basic check", async () => {
+			await expect(parsePromise).resolves.toEqual(expect.any(Array));
+
+			const dialogTree = await parsePromise;
+			expect(dialogTree.length).toBeGreaterThan(0);
+		});
 
 		const dialogTree = await parsePromise;
-		expect(dialogTree.length).toBeGreaterThan(0);
-		// detect jump with no choice
-		expect(dialogTree.find(d => d.warningList?.find(wl => wl.includes("Jump name is not used in any <choice> tag")))).toBeUndefined();
-		// detect choice with no jump
-		expect(dialogTree.find(d => d.warningList?.find(wl => wl.includes("Choice has no jump")))).toBeUndefined();
+		dialogTree.forEach((dialog) => {
+			it(`should have no warnings for ${dialog.dialogId}`, () => {
+				expect(dialog.warningList, dialog.warningList?.join("\n")).toBeUndefined();
+				
+				// regex get all:
+				// (?<=This is).*?(?=sentence)
+				//<a class="choice-Seal dialog-choice"
+				const regexArray = dialog.textContent.matchAll(/(?<=<a class="choice-).*?(?= dialog-choice)/g);
+				regexArray.forEach(rg => {
+					const targetId = rg[0];
+					expect(externalNodes.includes(targetId) 
+						? true 
+						: dialogTree.find(d => d.dialogId === targetId), `targetId ${targetId} not found`
+					).not.toBeUndefined();
+				})
+			});
+		});
 	},
 
-	assertDialogJump: (dialogManager: DialogManager, dialogId: string) => {
+	assertDialogJump: (dialogManager: DialogManager, dialogId: string, expectedFutureDialogId: string = "") => {
 		const expectedChoiceMarkup = `"choice-${dialogId} dialog-choice"`;
 		assert.include(dialogManager.fullCurrentMessage, expectedChoiceMarkup, `Missing dialog ID in current message: ${dialogId}`);
 		dialogManager.setDialogChoiceById(dialogId);
-		assert.equal(dialogManager.currentMessageMeta.dialogId, dialogId, `Expected currentMessageMeta.dialogId to be ${dialogId}`);
+		assert.equal(
+			dialogManager.currentMessageMeta.dialogId, 
+			expectedFutureDialogId ? expectedFutureDialogId : dialogId, 
+			`Expected currentMessageMeta.dialogId to be ${expectedFutureDialogId ? expectedFutureDialogId : dialogId}`
+		);
 	},
 
 	expectInvalidChoice: (dialogManager: DialogManager, invalidChoice: string | string[]) => {

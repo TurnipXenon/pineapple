@@ -4,11 +4,7 @@ import { describe, expect, it } from "vitest";
 import TutorialYarn from "./Tutorial.yarn?raw";
 
 describe("Tutorial.yarn", () => {
-	it("parses without throwing and returns dialog nodes", async () => {
-		await du.assertBasicChecks(TutorialYarn);
-	});
-
-	// todo: verify all choices have a jump?
+	describe("parses without throwing and returns dialog nodes", async () => du.describeBasicChecks(TutorialYarn, ["{$tutorialReturnAddress}"]));
 
 	it("dialog goes through the entire tutorial the first time", async () => {
 		const dialogManager = new DialogManager();
