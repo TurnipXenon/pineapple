@@ -24,6 +24,7 @@ describe("Tutorial.yarn", () => {
 		expect(dialogManager.currentMessageMeta.dialogId).toBe("TutorialStart");
 
 		du.assertDialogJump(dialogManager, "TutorialStart2");
+		du.expectValidChoice(dialogManager, "TutorialChoiceB");
 		du.assertDialogJump(dialogManager, "TutorialChoiceA");
 		du.expectInvalidChoice(dialogManager, "TutorialMerge");
 		du.assertDialogJump(dialogManager, "TutorialChoiceB");
@@ -65,6 +66,7 @@ describe("Tutorial.yarn", () => {
 			await dialogManager.parseAndSetDialogTree(TutorialYarn);
 			dialogManager.dialogVariableStore.setItem("$tutorialReturnAddress", "TutorialChoicesResult");
 			dialogManager.setDialogChoiceById("TutorialEnd");
+			du.expectValidChoice(dialogManager, "TutorialStart");
 			expect(dialogManager.fullCurrentMessage).not.toContain("choice-TutorialA dialog-choice");
 		});
 	});
