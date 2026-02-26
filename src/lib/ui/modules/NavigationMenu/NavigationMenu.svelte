@@ -1,6 +1,7 @@
 <!-- TODO: Documentation: consider documentation showcase -->
 
 <script lang="ts">
+	import { page } from "$app/state";
 	import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
 	import NavigationControl from "$pkg/ui/modules/NavigationMenu/NavigationControl.svelte";
 	import {
@@ -45,10 +46,24 @@
 		pageSize = $bindable(5),
 		currentIndex = $bindable(0),
 		selectedTags = $bindable([]),
-		queryReady = $bindable(!shouldAllowControl),
+		queryReady = $bindable(false),
 		parsnipOverall = undefined,
 		parsnipBasePath = ""
 	}: Props = $props();
+
+	$effect(() => {
+		if (!shouldAllowControl) {
+			queryReady = true;
+		}
+	});
+	const hasTagQuery = $derived((() => {
+		const repeatedTags = page.url.searchParams.getAll("tags");
+		if (repeatedTags.length > 0) {
+			return true;
+		}
+		const inlineTags = page.url.searchParams.get("tags") ?? "";
+		return inlineTags.trim().length > 0;
+	})());
 
 	const fileBasedList = parsePageMeta(fileList, jsonList, imageMap, compareFn);
 	const parsnipBasedList = parsnipOverall?.files.map(pf => {
@@ -125,7 +140,7 @@
 	{/if}
 
 	<div class="navigation-component">
-		{#if !queryReady}
+		{#if hasTagQuery && !queryReady}
 			<PinyaCard widthClass="w-full" className="navigation-element">
 				<div class="blurb-text">
 					<Placeholder classes="h-8 w-2/3 mb-4" />

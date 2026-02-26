@@ -34,7 +34,7 @@
 			<section id="article-tags">
 				Tags:
 				{#each pageMeta.tags as tag, index (index)}
-					<a class="badge preset-filled" href={getTagQueryHref(tag)}>{tag}</a>
+					<a class="badge tag-link" href={getTagQueryHref(tag)}>{tag}</a>
 				{/each}
 			</section>
 		{/if}
@@ -56,5 +56,25 @@
 
     #article-tags a.badge {
         text-decoration: none;
+    }
+
+    #article-tags .tag-link {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 0.5rem;
+        padding: 0.2rem 0.55rem;
+        border: 1px solid var(--color-surface-700-600);
+        background-color: transparent;
+        color: var(--color-surface-900-100);
+        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    #article-tags .tag-link:hover,
+    #article-tags .tag-link:focus-visible {
+        background-color: transparent;
+        border-color: var(--color-primary-400-600);
+        color: var(--color-surface-900-100);
+        outline: none;
+		    filter: brightness(110%);
     }
 </style>
