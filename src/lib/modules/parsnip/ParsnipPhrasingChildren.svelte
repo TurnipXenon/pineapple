@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ParsnipImage from "$pkg/modules/parsnip/external-images/ParsnipImage.svelte";
 	import ParsnipEmbedWikilink from "$pkg/modules/parsnip/ParsnipEmbedWikilink.svelte";
 	import ParsnipWikilink from "$pkg/modules/parsnip/ParsnipWikilink.svelte";
 	import { type PhrasingContent } from "mdast";
@@ -14,12 +15,24 @@
 		<strong>
 			<Self phrasingChildren={child.children} />
 		</strong>
+	{:else if child.type === 'emphasis'}
+		<em>
+			<Self phrasingChildren={child.children} />
+		</em>
 	{:else if child.type === 'inlineCode'}
 		<code class="inline-code">{child.value}</code>
 	{:else if child.type === 'link'}
-		<a href={child.url}>
-			<Self phrasingChildren={child.children} />
-		</a>
+		{#if child.url.includes('photo-gallery')}
+			<a href={child.url}>
+				<Self phrasingChildren={child.children} />
+			</a>
+		{:else }
+			<a href={child.url}>
+				<Self phrasingChildren={child.children} />
+			</a>
+		{/if}
+	{:else if child.type === 'image'}
+		<ParsnipImage {...child} />
 	{:else if child.type === 'embedWikilink'}
 		<ParsnipEmbedWikilink wikilink={child} />
 	{:else if child.type === 'wikilink'}

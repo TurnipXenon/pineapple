@@ -180,7 +180,7 @@ export const parseYarn = async (fileContent: string): Promise<DialogDetail[]> =>
 
 		// warn if choice has no jump warning
 		if (dialogDetails.textContent.includes('<choice')) {
-			console.warn(`Choice has no jump: ${dialogDetails.textContent}`);
+			console.warn(`There is a <choice ??> in the processed dialog that was not parsed to <a ??>:\n${dialogDetails.textContent}`);
 			if (dialogDetails.warningList) {
 				dialogDetails.warningList.push(`Choice has no jump: ${dialogDetails.textContent}`)
 			} else {
