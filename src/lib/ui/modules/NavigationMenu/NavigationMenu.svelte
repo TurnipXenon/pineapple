@@ -145,7 +145,7 @@
 
 	<div class="navigation-component">
 		{#if hasTagQuery && !queryReady}
-			<PinyaCard widthClass="w-full" className="navigation-element">
+			<PinyaCard widthClass="w-full" paddingClass="" className="navigation-element">
 				<div class="blurb-text">
 					<Placeholder classes="h-8 w-2/3 mb-4" />
 					<Placeholder classes="h-4 w-1/2 mb-2" />
@@ -153,7 +153,7 @@
 					<Placeholder classes="h-4 w-5/6 mb-2" />
 				</div>
 			</PinyaCard>
-			<PinyaCard widthClass="w-full" className="navigation-element">
+			<PinyaCard widthClass="w-full" className="navigation-element" paddingClass="">
 				<div class="blurb-text">
 					<Placeholder classes="h-8 w-2/3 mb-4" />
 					<Placeholder classes="h-4 w-1/2 mb-2" />
@@ -170,6 +170,7 @@
 					<PinyaCard
 						widthClass="w-full"
 						className="navigation-element"
+						paddingClass=""
 					>
 						{#if pageMeta.imageUrl}
 							<img src={pageMeta.imageUrl}
