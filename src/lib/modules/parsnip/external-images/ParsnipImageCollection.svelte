@@ -6,6 +6,8 @@
 
 	const { url, imageList }: { url?: string, imageList?: Image[] } = $props();
 
+	const withDescription = url?.includes('with-description=true') ?? false;
+
 	let data = $state<{
 		photos: {
 			id: string,
@@ -35,7 +37,7 @@
 {:else if data}
 	<div class="parsnip-image-collection">
 		{#each data.photos as photo (photo.id)}
-			<ParsnipImage url={photo.mediaUrl} alt={photo.altText ?? ""} />
+			<ParsnipImage url={photo.mediaUrl} alt={photo.altText ?? ""} {withDescription} />
 		{/each}
 	</div>
 {:else}

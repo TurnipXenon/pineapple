@@ -3,12 +3,11 @@ import * as v from "valibot";
 
 const UrlSchema = v.pipe(v.string(), v.url());
 
-export const getPhotoMeta = query(UrlSchema, async (url) => {
-	if (!url.includes("rabiole") && !url.includes("photos")) {
-		return '';
-	}
+export const getPhotoDetails = query(UrlSchema, async (url) => {
+	if (!url.includes("rabiole") && !url.includes("photos")) return null;
 
 	const apiUrl = url
+		.replace(/[?#].*$/, '')
 		.replace(/^(https?:\/\/)(rabiole|photos)\./, '$1photo-gallery.')
 		.replace('/photos/', '/api/photos/')
 		.replace(/\.(jpeg|png)$/, '');
@@ -16,9 +15,16 @@ export const getPhotoMeta = query(UrlSchema, async (url) => {
 	try {
 		const resp = await fetch(apiUrl);
 		const data = await resp.json();
-		return data?.photo?.altText ?? '';
+		const photo = data?.photo;
+		if (!photo) return null;
+		return {
+			altText: photo.altText ?? '',
+			description: photo.description ?? '',
+			tags: (photo.tags ?? []) as string[],
+			createdAt: photo.createdAt ?? ''
+		};
 	} catch {
-		return '';
+		return null;
 	}
 });
 
