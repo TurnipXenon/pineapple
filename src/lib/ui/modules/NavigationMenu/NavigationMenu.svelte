@@ -10,6 +10,7 @@
 		type ParsePageMetaCompareFn
 	} from "$pkg/ui/modules/NavigationMenu/PageMeta";
 	import { PinyaCard } from "$pkg/ui/elements/index";
+	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
 	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
 
 	interface Props {
@@ -26,6 +27,8 @@
 		compareFn?: undefined | ParsePageMetaCompareFn;
 		pageSize?: number;
 		currentIndex?: number;
+		selectedTags?: string[];
+		queryReady?: boolean;
 		parsnipOverall?: ParsnipOverall;
 		parsnipBasePath?: string;
 	}
@@ -41,6 +44,8 @@
 		compareFn = undefined,
 		pageSize = $bindable(5),
 		currentIndex = $bindable(0),
+		selectedTags = $bindable([]),
+		queryReady = $bindable(!shouldAllowControl),
 		parsnipOverall = undefined,
 		parsnipBasePath = ""
 	}: Props = $props();
@@ -56,7 +61,8 @@
 			imageAlt: pf.previewAlt,
 			datePublished: pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
 			lastUpdated: pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined,
-			description: pf.tagline
+			description: pf.tagline,
+			priority: 0
 		};
 		return meta;
 	}) ?? [];
@@ -68,7 +74,33 @@
 		pageFlatList.sort(DefaultPageMetaSorter);
 	}
 
-	let visiblePages = $derived(pageFlatList.slice(currentIndex * pageSize, (currentIndex * pageSize) + pageSize));
+	const selectedTagsSet = $derived(new Set(selectedTags.map(tag => tag.toLocaleLowerCase())));
+	const filteredPageFlatList = $derived(
+		selectedTagsSet.size === 0
+			? pageFlatList
+			: pageFlatList.filter(pageMeta => {
+				if (!pageMeta.tags || pageMeta.tags.length === 0) {
+					return false;
+				}
+				const pageTags = new Set(pageMeta.tags.map(tag => tag.toLocaleLowerCase()));
+				for (const selectedTag of selectedTagsSet) {
+					if (!pageTags.has(selectedTag)) {
+						return false;
+					}
+				}
+				return true;
+			})
+	);
+	const maxIndex = $derived(Math.max(Math.ceil(filteredPageFlatList.length / pageSize) - 1, 0));
+	$effect(() => {
+		if (currentIndex > maxIndex) {
+			currentIndex = maxIndex;
+		}
+		if (currentIndex < 0) {
+			currentIndex = 0;
+		}
+	});
+	let visiblePages = $derived(filteredPageFlatList.slice(currentIndex * pageSize, (currentIndex * pageSize) + pageSize));
 </script>
 
 <div class="navigation-wrapper">
@@ -85,53 +117,76 @@
 	{#if allowUpperControl && shouldAllowControl}
 		<NavigationControl
 			bind:currentIndex={currentIndex}
-			contentLength={pageFlatList.length}
-			bind:pageSize={pageSize}></NavigationControl
+			contentLength={filteredPageFlatList.length}
+			bind:pageSize={pageSize}
+			bind:selectedTags={selectedTags}
+			bind:queryReady={queryReady}></NavigationControl
 		>
 	{/if}
 
 	<div class="navigation-component">
-		<!-- all the misc routes-->
-		{#each visiblePages as pageMeta (pageMeta.title)}
-			{@const fullPath = `${parentSubpath}${pageMeta.relativeLink}`}
-			<!-- thank you so much to https://www.reddit.com/r/sveltejs/comments/yoe6in/comment/jvaj1ez -->
-			<a href={localizeHref(fullPath)} class="card-anchor a-as-btn" data-sveltekit-reload>
-				<PinyaCard
-					widthClass="w-full"
-					className="navigation-element"
-				>
-					{#if pageMeta.imageUrl}
-						<img src={pageMeta.imageUrl}
-						     alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
-					{/if}
-					<section class="blurb-text">
-						<h2>{pageMeta.title}</h2>
-						<p>Published: {pageMeta.datePublished ?? "N/A"} | Last updated: {pageMeta.lastUpdated ?? "N/A"}</p>
-						<p>{pageMeta.description ?? ""}</p>
-						Tags:
-						{#if (pageMeta.tags && pageMeta.tags.length !== 0)}
-							{#each pageMeta.tags as tagValue, idx (idx)}
-								&nbsp;<span class="badge variant-filled tag-container">{tagValue}</span>
-							{/each}
-						{:else}
-							None
-						{/if}
-					</section>
-				</PinyaCard>
-			</a>
-		{/each}
-
-		{#if visiblePages.length === 0}
-			<PinyaCard>
-				<p class="default-card">Sorry, no content was found</p>
+		{#if !queryReady}
+			<PinyaCard widthClass="w-full" className="navigation-element">
+				<div class="blurb-text">
+					<Placeholder classes="h-8 w-2/3 mb-4" />
+					<Placeholder classes="h-4 w-1/2 mb-2" />
+					<Placeholder classes="h-4 w-full mb-2" />
+					<Placeholder classes="h-4 w-5/6 mb-2" />
+				</div>
 			</PinyaCard>
+			<PinyaCard widthClass="w-full" className="navigation-element">
+				<div class="blurb-text">
+					<Placeholder classes="h-8 w-2/3 mb-4" />
+					<Placeholder classes="h-4 w-1/2 mb-2" />
+					<Placeholder classes="h-4 w-full mb-2" />
+					<Placeholder classes="h-4 w-5/6 mb-2" />
+				</div>
+			</PinyaCard>
+		{:else}
+			<!-- all the misc routes-->
+			{#each visiblePages as pageMeta (pageMeta.title)}
+				{@const fullPath = `${parentSubpath}${pageMeta.relativeLink}`}
+				<!-- thank you so much to https://www.reddit.com/r/sveltejs/comments/yoe6in/comment/jvaj1ez -->
+				<a href={localizeHref(fullPath)} class="card-anchor a-as-btn" data-sveltekit-reload>
+					<PinyaCard
+						widthClass="w-full"
+						className="navigation-element"
+					>
+						{#if pageMeta.imageUrl}
+							<img src={pageMeta.imageUrl}
+							     alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
+						{/if}
+						<section class="blurb-text">
+							<h2>{pageMeta.title}</h2>
+							<p>Published: {pageMeta.datePublished ?? "N/A"} | Last updated: {pageMeta.lastUpdated ?? "N/A"}</p>
+							<p>{pageMeta.description ?? ""}</p>
+							Tags:
+							{#if (pageMeta.tags && pageMeta.tags.length !== 0)}
+								{#each pageMeta.tags as tagValue, idx (idx)}
+									&nbsp;<span class="badge variant-filled tag-container">{tagValue}</span>
+								{/each}
+							{:else}
+								None
+							{/if}
+						</section>
+					</PinyaCard>
+				</a>
+			{/each}
+
+			{#if visiblePages.length === 0}
+				<PinyaCard>
+					<p class="default-card">Sorry, no content was found</p>
+				</PinyaCard>
+			{/if}
 		{/if}
 	</div>
 
 	{#if shouldAllowControl}
 		<NavigationControl bind:currentIndex={currentIndex}
-		                   contentLength={pageFlatList.length}
-		                   bind:pageSize={pageSize}></NavigationControl>
+		                   contentLength={filteredPageFlatList.length}
+		                   bind:pageSize={pageSize}
+		                   bind:selectedTags={selectedTags}
+		                   bind:queryReady={queryReady}></NavigationControl>
 	{/if}
 
 </div>

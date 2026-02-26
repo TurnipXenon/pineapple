@@ -10,13 +10,49 @@
 		currentIndex?: number;
 		contentLength: number;
 		pageSize: number;
+		selectedTags?: string[];
+		queryReady?: boolean;
 	}
 
 	let {
 		currentIndex = $bindable(0),
 		contentLength,
-		pageSize = $bindable()
+		pageSize = $bindable(),
+		selectedTags = $bindable([]),
+		queryReady = $bindable(false)
 	}: Props = $props();
+
+	const parseTags = (searchParams: URLSearchParams): string[] => {
+		const repeated = searchParams.getAll("tags");
+		const rawValues = repeated.length > 0 ? repeated : [searchParams.get("tags") ?? ""];
+		const seen = new Set<string>();
+		return rawValues.flatMap(value => value.split(","))
+			.map(tag => tag.trim())
+			.filter(tag => {
+				if (!tag) {
+					return false;
+				}
+				const normalized = tag.toLocaleLowerCase();
+				if (seen.has(normalized)) {
+					return false;
+				}
+				seen.add(normalized);
+				return true;
+			});
+	};
+
+	const syncQuery = () => {
+		const query = new URLSearchParams(page.url.searchParams.toString());
+		query.set("index", currentIndex.toString());
+		query.set("pageSize", pageSize.toString());
+		query.delete("tags");
+		selectedTags.forEach(tag => query.append("tags", tag));
+		goto(`?${query.toString()}`, {
+			replaceState: true,
+			noScroll: true,
+			keepFocus: true
+		});
+	};
 
 	const movePage = (isNext: boolean) => {
 		if (isNext) {
@@ -24,10 +60,7 @@
 		} else {
 			currentIndex = currentIndex - 1;
 		}
-
-		const query = new URLSearchParams(page.url.searchParams.toString());
-		query.set("index", currentIndex.toString());
-		goto(`?${query.toString()}`);
+		syncQuery();
 	};
 
 	onMount(() => {
@@ -39,11 +72,9 @@
 		if (queryPageSize) {
 			pageSize = parseInt(queryPageSize) || 5;
 		}
-
-		const query = new URLSearchParams(page.url.searchParams.toString());
-		query.set("index", currentIndex.toString());
-		query.set("pageSize", pageSize.toString());
-		goto(`?${query.toString()}`);
+		selectedTags = parseTags(page.url.searchParams);
+		queryReady = true;
+		syncQuery();
 	});
 </script>
 

@@ -2,6 +2,7 @@
 
 <script lang="ts">
 	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
+	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
 
 	interface Props {
 		pageMeta: SimplePageMeta;
@@ -9,6 +10,13 @@
 	}
 
 	let { pageMeta, children }: Props = $props();
+
+	const getTagQueryHref = (tag: string): string => {
+		const query = new URLSearchParams();
+		query.set("index", "0");
+		query.append("tags", tag);
+		return `${localizeHref("/pineapple/")}?${query.toString()}`;
+	};
 </script>
 
 <article>
@@ -26,7 +34,7 @@
 			<section id="article-tags">
 				Tags:
 				{#each pageMeta.tags as tag, index (index)}
-					<span class="badge preset-filled">{tag}</span>
+					<a class="badge preset-filled" href={getTagQueryHref(tag)}>{tag}</a>
 				{/each}
 			</section>
 		{/if}
@@ -44,5 +52,9 @@
 
     .badge {
         margin-inline-end: 0.5em;
+    }
+
+    #article-tags a.badge {
+        text-decoration: none;
     }
 </style>
