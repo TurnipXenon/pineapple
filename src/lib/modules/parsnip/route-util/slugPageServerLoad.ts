@@ -39,7 +39,13 @@ export const slugPageServerLoad = async ({ params }: { params: { slug: string } 
 	parsnipEntry.ast.ast.children.forEach(child => {
 		if (child.type === "paragraph"
 			&& child.children.length === 1
-			&& child.children[0].type === "image") {
+			&& (
+				child.children[0].type === "image"
+				|| (child.children[0].type === "link" &&
+					(child.children[0].url.startsWith("https://photos.")
+						|| child.children[0].url.startsWith("https://rabiole."))
+				)
+			)) {
 			imageCollection.push(child.children[0]);
 		} else if (imageCollection.length > 0) {
 			newChildren.push({
@@ -52,13 +58,26 @@ export const slugPageServerLoad = async ({ params }: { params: { slug: string } 
 			newChildren.push(child as AstChildren);
 		}
 	});
+
+	if (imageCollection.length > 0) {
+		newChildren.push({
+			"type": "imageCollection",
+			children: imageCollection
+		});
+	}
+
 	parsnipEntry.ast.ast.children = newChildren as RootContent[];
 
+	let imageUrl = parsnipEntry.preview ? parsnipEntry.preview : undefined;
+	if (imageUrl && !imageUrl.includes("https://")) {
+		imageUrl = `${parsnipOverall.baseUrl}/${parsnipEntry.preview}`;
+	}
+	console.log(imageUrl)
 	const meta: PinyaHead = {
 		title: parsnipEntry.basename,
 		ogTitle: parsnipEntry.basename,
 		ogDescription: parsnipEntry.tagline,
-		ogImage: parsnipEntry.preview ? [`${baseUrl}/${parsnipEntry.preview}`] : undefined
+		ogImage: imageUrl ? [imageUrl] : undefined
 	};
 
 	return {
