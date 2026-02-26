@@ -21,3 +21,16 @@ export const getPhotoMeta = query(UrlSchema, async (url) => {
 		return '';
 	}
 });
+
+export const getPhotoCollectionMeta = query(UrlSchema, async (url) => {
+	if (!url.includes("photo-gallery")) {
+		return '';
+	}
+
+	try {
+		const resp = await fetch(url);
+		return await resp.json();
+	} catch {
+		return '';
+	}
+});

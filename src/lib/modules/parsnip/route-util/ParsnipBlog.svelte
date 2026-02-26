@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { setParagraphImageStateContext } from "$pkg/modules/parsnip/route-util/parsnipBlogContext.svelte";
 	import type { PageMeta } from "$pkg/ui/modules/NavigationMenu/PageMeta";
 	import BlogTemplate from "$pkg/ui/templates/blog_template/BlogTemplate.svelte";
 	import ParsnipBlockChildren from "../ParsnipBlockChildren.svelte";
@@ -16,8 +15,6 @@
 		lastUpdated: new Date(parsnipEntry.stat.mtime).toLocaleString(),
 		priority: 0
 	});
-
-	setParagraphImageStateContext({ value: "searching" });
 </script>
 
 <BlogTemplate pageMeta={pageMeta}>

@@ -1,23 +1,60 @@
 <script lang="ts">
 
-	import { getParagraphImageStateContext } from "$pkg/modules/parsnip/route-util/parsnipBlogContext.svelte";
-	import { getPhotoMeta } from "./externalImages.remote";
+	import { getPhotoCollectionMeta } from "$pkg/modules/parsnip/external-images/externalImages.remote";
+	import ParsnipImage from "$pkg/modules/parsnip/external-images/ParsnipImage.svelte";
+	import type { Image } from "mdast";
 
-	const { url }: { url: string } = $props();
-	let alt = $state("");
+	const { url, imageList }: { url?: string, imageList?: Image[] } = $props();
 
-	if (url.includes("rabiole") || url.includes("photo-gallery")) {
-		getPhotoMeta(url)
-			.then(data => {
-				if (data) {
-					alt = data;
-				}
-			});
-	}
+	let data = $state<{
+		photos: {
+			id: string,
+			mediaUrl: string,
+			altText?: string,
+			description?: string,
+			tags?: string[]
+		}[]
+	} | undefined>();
 
-	getParagraphImageStateContext().value = "image-found";
+	$effect(() => {
+		if (url) {
+			getPhotoCollectionMeta(url)
+				.then(d => data = d);
+		}
+	});
 </script>
 
 <!-- todo(turnip): determine appropriate media -->
 <!-- todo(turnip): add alt text -->
-<img src={url} {alt} />
+{#if imageList}
+	<div class="parsnip-image-collection">
+		{#each imageList as image (image.url)}
+			<ParsnipImage url={image.url} alt="" />
+		{/each}
+	</div>
+{:else if data}
+	<div class="parsnip-image-collection">
+		{#each data.photos as photo (photo.id)}
+			<ParsnipImage url={photo.mediaUrl} alt={photo.altText ?? ""} />
+		{/each}
+	</div>
+{:else}
+	<p>Loading...</p>
+{/if}
+
+<style>
+    .parsnip-image-collection {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: stretch;
+		    gap: 0.5rem 0.5lh;
+    }
+
+    :global {
+        .parsnip-image-collection > * {
+		        flex: 1 1 24rem;
+		        width: 0;
+        }
+    }
+</style>

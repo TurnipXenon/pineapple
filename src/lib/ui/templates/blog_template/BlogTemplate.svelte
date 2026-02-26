@@ -54,7 +54,7 @@
 		</BlogTemplateInner>
 	</div>
 {:else}
-	<PinyaCard {includeDataNoSnippet} widthClass="max-w-4xl">
+	<PinyaCard {includeDataNoSnippet} widthClass="blog-template">
 		<BlogTemplateInner pageMeta={pageMeta}>
 			{@render children?.()}
 		</BlogTemplateInner>
@@ -67,5 +67,11 @@
         width: 100%;
         padding-right: 2em;
         padding-left: 2em;
+    }
+
+    :global(.blog-template) {
+        max-width: 64em;
+		    width: 100%;
+        margin: auto;
     }
 </style>
