@@ -1,6 +1,7 @@
 <!-- TODO: Documentation: consider documentation showcase -->
 
 <script lang="ts">
+	import { browser } from "$app/environment";
 	import { page } from "$app/state";
 	import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
 	import NavigationControl from "$pkg/ui/modules/NavigationMenu/NavigationControl.svelte";
@@ -57,6 +58,10 @@
 		}
 	});
 	const hasTagQuery = $derived((() => {
+		if (!browser) {
+			return false;
+		}
+
 		const repeatedTags = page.url.searchParams.getAll("tags");
 		if (repeatedTags.length > 0) {
 			return true;

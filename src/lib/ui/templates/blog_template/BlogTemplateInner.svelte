@@ -1,23 +1,24 @@
 <!-- TODO: Documentation: consider documentation showcase -->
 
 <script lang="ts">
-	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
+	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { getWebBaseUrl } from "$pkg/util/env-getter";
+	import { SvelteURLSearchParams } from "svelte/reactivity";
 
 	interface Props {
 		pageMeta: SimplePageMeta;
-		children?: import('svelte').Snippet;
+		children?: import("svelte").Snippet;
 	}
 
 	let { pageMeta, children }: Props = $props();
 
-	const getTagQueryHref = (tag: string): string => {
-		const query = new URLSearchParams();
+	const getTagQueryHref = $derived((tag: string): string => {
+		const query = new SvelteURLSearchParams();
 		query.set("index", "0");
 		query.append("tags", tag);
 		return `${localizeHref(getWebBaseUrl())}?${query.toString()}`;
-	};
+	});
 </script>
 
 <article>
@@ -76,6 +77,6 @@
         border-color: var(--color-primary-400-600);
         color: var(--color-surface-900-100);
         outline: none;
-		    filter: brightness(110%);
+        filter: brightness(110%);
     }
 </style>
