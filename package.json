@@ -64,7 +64,8 @@
     "mode-watcher": "^0.5.1",
     "shiki": "^3.22.0",
     "shiki-transformer-copy-button": "0.0.3",
-    "svelte-modals": "^2.0.1"
+    "svelte-modals": "^2.0.1",
+    "valibot": "^1.2.0"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"
