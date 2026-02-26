@@ -67,12 +67,16 @@
 
 	const fileBasedList = parsePageMeta(fileList, jsonList, imageMap, compareFn);
 	const parsnipBasedList = parsnipOverall?.files.map(pf => {
+		let imageUrl = pf.preview;
+		if (imageUrl && !imageUrl.includes('https://')) {
+			imageUrl = `${parsnipOverall.baseUrl}/${pf.preview}`;
+		}
 		const meta: PageMeta = {
 			title: pf.basename,
 			nestedPages: [],
 			relativeLink: `${parsnipBasePath}${pf.slug}`,
 			tags: pf.tags,
-			imageUrl: pf.preview ? `${parsnipOverall.baseUrl}/${pf.preview}` : undefined,
+			imageUrl,
 			imageAlt: pf.previewAlt,
 			datePublished: pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
 			lastUpdated: pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined,
@@ -169,6 +173,7 @@
 					>
 						{#if pageMeta.imageUrl}
 							<img src={pageMeta.imageUrl}
+							     class="pinya-card-image"
 							     alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
 						{/if}
 						<section class="blurb-text">
@@ -178,7 +183,7 @@
 							Tags:
 							{#if (pageMeta.tags && pageMeta.tags.length !== 0)}
 								{#each pageMeta.tags as tagValue, idx (idx)}
-									&nbsp;<span class="badge variant-filled tag-container">{tagValue}</span>
+									&nbsp;<span class="badge tag-container">{tagValue}</span>
 								{/each}
 							{:else}
 								None
@@ -276,6 +281,18 @@
 
     .tag-container {
         margin: 0.25lh 0;
+        display: inline-flex;
+        align-items: center;
+        border-radius: 0.5rem;
+        padding: 0.2rem 0.55rem;
+        border: 1px solid var(--color-surface-700-600);
+        background-color: transparent;
+        color: var(--color-surface-900-100);
+        transition: border-color 0.15s ease;
+    }
+
+    :global(.navigation-element:hover) .tag-container {
+        border-color: var(--color-primary-400-600);
     }
 
     a.card-anchor {
@@ -297,5 +314,9 @@
 
     h2 {
         text-align: start;
+    }
+
+    .navigation-wrapper .pinya-card-image {
+		    border-radius: var(--radius-xl);
     }
 </style>
