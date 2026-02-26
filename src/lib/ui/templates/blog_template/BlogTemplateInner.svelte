@@ -3,6 +3,7 @@
 <script lang="ts">
 	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
+	import { getWebBaseUrl } from "$pkg/util/env-getter";
 
 	interface Props {
 		pageMeta: SimplePageMeta;
@@ -15,7 +16,7 @@
 		const query = new URLSearchParams();
 		query.set("index", "0");
 		query.append("tags", tag);
-		return `${localizeHref("/pineapple/")}?${query.toString()}`;
+		return `${localizeHref(getWebBaseUrl())}?${query.toString()}`;
 	};
 </script>
 
