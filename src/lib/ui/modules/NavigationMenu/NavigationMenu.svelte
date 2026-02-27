@@ -3,7 +3,11 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
 	import { page } from "$app/state";
+	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
 	import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
+	import { FourPartCard } from "$pkg/ui/components/index";
+	import { PinyaCard } from "$pkg/ui/elements/index";
+	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
 	import NavigationControl from "$pkg/ui/modules/NavigationMenu/NavigationControl.svelte";
 	import {
 		DefaultPageMetaSorter,
@@ -11,9 +15,6 @@
 		parsePageMeta,
 		type ParsePageMetaCompareFn
 	} from "$pkg/ui/modules/NavigationMenu/PageMeta";
-	import { PinyaCard } from "$pkg/ui/elements/index";
-	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
-	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
 
 	interface Props {
 		fileList: Record<string, unknown>;
@@ -73,7 +74,7 @@
 	const fileBasedList = parsePageMeta(fileList, jsonList, imageMap, compareFn);
 	const parsnipBasedList = parsnipOverall?.files.map(pf => {
 		let imageUrl = pf.preview;
-		if (imageUrl && !imageUrl.includes('https://')) {
+		if (imageUrl && !imageUrl.includes("https://")) {
 			imageUrl = `${parsnipOverall.baseUrl}/${pf.preview}`;
 		}
 		const meta: PageMeta = {
@@ -158,7 +159,7 @@
 					<Placeholder classes="h-4 w-5/6 mb-2" />
 				</div>
 			</PinyaCard>
-			<PinyaCard widthClass="w-full" className="navigation-element" paddingClass=""  flexClass="" >
+			<PinyaCard widthClass="w-full" className="navigation-element" paddingClass="" flexClass="">
 				<div class="blurb-text">
 					<Placeholder classes="h-8 w-2/3 mb-4" />
 					<Placeholder classes="h-4 w-1/2 mb-2" />
@@ -170,33 +171,39 @@
 			<!-- all the misc routes-->
 			{#each visiblePages as pageMeta (pageMeta.title)}
 				{@const fullPath = `${parentSubpath}${pageMeta.relativeLink}`}
+
+				<!-- https://github.com/sveltejs/svelte/issues/11115#issuecomment-2048556800 -->
+				{#snippet headerCover()}
+					<img src={pageMeta.imageUrl}
+					     class="pinya-card-image"
+					     alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
+				{/snippet}
+
 				<!-- thank you so much to https://www.reddit.com/r/sveltejs/comments/yoe6in/comment/jvaj1ez -->
 				<a href={localizeHref(fullPath)} class="card-anchor a-as-btn" data-sveltekit-reload>
-					<PinyaCard
+					<FourPartCard
 						widthClass="w-full"
 						className="navigation-element"
 						flexClass=""
 						paddingClass=""
+						headerCover={pageMeta.imageUrl ? headerCover : undefined}
 					>
-						{#if pageMeta.imageUrl}
-							<img src={pageMeta.imageUrl}
-							     class="pinya-card-image"
-							     alt={pageMeta.imageAlt ?? "placeholder alt text please replace me or report me!"} />
-						{/if}
 						<section class="blurb-text">
 							<h2>{pageMeta.title}</h2>
 							<p>Published: {pageMeta.datePublished ?? "N/A"} | Last updated: {pageMeta.lastUpdated ?? "N/A"}</p>
-							<p>{pageMeta.description ?? ""}</p>
-							Tags:
-							{#if (pageMeta.tags && pageMeta.tags.length !== 0)}
-								{#each pageMeta.tags as tagValue, idx (idx)}
-									&nbsp;<span class="badge tag-container">{tagValue}</span>
-								{/each}
-							{:else}
-								None
-							{/if}
+							<p class="blurb-description">{pageMeta.description ?? ""}</p>
+							<div>
+								Tags:
+								{#if (pageMeta.tags && pageMeta.tags.length !== 0)}
+									{#each pageMeta.tags as tagValue, idx (idx)}
+										&nbsp;<span class="badge tag-container">{tagValue}</span>
+									{/each}
+								{:else}
+									None
+								{/if}
+							</div>
 						</section>
-					</PinyaCard>
+					</FourPartCard>
 				</a>
 			{/each}
 
@@ -224,7 +231,6 @@
             max-height: 20rem;
             width: 100%;
             flex-basis: 100%;
-            border-radius: var(--theme-rounded-container) var(--theme-rounded-container) 0 0;
         }
 
         :global(.navigation-element.pinya-card) {
@@ -242,21 +248,51 @@
         }
     }
 
-    :global(.navigation-element.pinya-card) {
-        /* todo: migration */
-        /*@apply btn card card-hover bg-surface-100 dark:bg-surface-900;*/
-        container-type: inline-size;
-        display: flex;
-        text-align: start;
-        align-items: flex-start;
-        padding: 0;
+    :global {
+        .navigation-element.pinya-card:not(.pinya-four-part-card), .navigation-element .flex-wrapper {
+            /* todo: migration */
+            /*@apply btn card card-hover bg-surface-100 dark:bg-surface-900;*/
+            container-type: inline-size;
+            display: flex;
+            justify-content: stretch;
+            align-items: stretch;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+
+        .navigation-element.pinya-four-part-card {
+            .w-full {
+                width: unset;
+            }
+
+            .mb-6 {
+                margin-bottom: unset;
+            }
+
+            .flex-wrapper > .card-content {
+                flex: 99 1 32em;
+            }
+
+            .flex-wrapper > .card-header-cover {
+                flex: 1 1 12lh;
+                max-height: 12lh;
+            }
+
+            .pinya-card-image {
+                border-radius: var(--radius-xl);
+                max-height: unset;
+                max-width: unset;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
     }
 
     img {
         height: 20em;
         object-fit: cover;
         padding: var(--theme-border-base);
-        border-radius: var(--theme-rounded-container) 0 0 var(--theme-rounded-container);
     }
 
     .navigation-component {
@@ -272,10 +308,13 @@
     }
 
     .blurb-text {
-        padding: 2em;
+        padding-top: 1lh;
+        padding-bottom: 1lh;
         grow: 1;
         white-space: initial;
         min-width: 0;
+        display: flex;
+        flex-direction: column;
     }
 
     .navigation-wrapper {
@@ -323,7 +362,13 @@
         text-align: start;
     }
 
-    .navigation-wrapper .pinya-card-image {
-		    border-radius: var(--radius-xl);
+    .blurb-description {
+        flex-shrink: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3; /* Number of lines to show */
+        line-clamp: 3; /* Number of lines to show */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Optional, but good practice */
     }
 </style>

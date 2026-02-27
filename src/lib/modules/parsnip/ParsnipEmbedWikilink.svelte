@@ -17,3 +17,12 @@
 <!-- todo(turnip): determine appropriate media -->
 <!-- todo(turnip): add alt text -->
 <img src={`${getCmsBaseUrl()}/${wikilink.fileAccessor.basePath}`} alt=""/>
+
+<style>
+	img {
+			display: block;
+			width: auto;
+			margin: auto;
+			max-height: max(50vh, 24lh);
+	}
+</style>

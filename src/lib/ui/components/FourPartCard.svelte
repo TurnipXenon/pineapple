@@ -21,7 +21,7 @@
 </script>
 
 <PinyaCard {...props} class={`pinya-four-part-card ${props.class}`}>
-	<section class="mb-6">
+	<section class="mb-6 flex-wrapper">
 
 		{#if headerCover}
 			<section class="card-header-cover w-full">
