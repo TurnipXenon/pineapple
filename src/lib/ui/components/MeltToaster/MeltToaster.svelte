@@ -24,7 +24,7 @@
 				if (mutation.type === "childList") {
 					setTimeout(() => {
 						// get all toasterRoot children
-						const children = Array.from(toasterRoot.children);
+						const children = Array.from(toasterRoot.children) as HTMLElement[];
 						children.forEach((child, index) => {
 							const revNum = Math.min(Math.abs(children.length - 1 - index), 5);
 							child.style.setProperty("--toast-index", index.toString());

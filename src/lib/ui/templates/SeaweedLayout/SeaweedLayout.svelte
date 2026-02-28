@@ -10,7 +10,7 @@
 	import ChumBucket from "$pkg/ui/templates/SeaweedLayout/ChumBucket.svelte";
 	import EntryGroup from "$pkg/ui/templates/SeaweedLayout/EntryGroup.svelte";
 	import EntryOrderConfig from "$pkg/ui/templates/SeaweedLayout/EntryOrderConfig.svelte";
-	import { onDestroy, onMount } from "svelte";
+	import { onDestroy, onMount, untrack } from "svelte";
 	import { SvelteMap } from "svelte/reactivity";
 	import { fly } from "svelte/transition";
 	import { TextChip } from "../../elements/TextChip";
@@ -32,11 +32,11 @@
 		linkedinRemoteQuery
 	}: SeaweedLayoutProps = $props();
 
-	let actualLayout = $state(layout);
+	let actualLayout = $state(untrack(() => layout));
 	let isAdvanceSettingOn = $state(false);
 	let orderUrl = $state("");
 
-	let queryStates = new SvelteMap<string, boolean>(queryTerms.map(term => [term, true]));
+	let queryStates = new SvelteMap<string, boolean>(untrack(() => queryTerms.map(term => [term, true])));
 	let styleStr = $state("");
 	let queryQt = $derived.by(() => {
 		const qtArr = [...queryStates.entries()
@@ -176,12 +176,7 @@
 			filterSearchParams(page.url.searchParams);
 		}
 
-		/**
-		 * Get the computed font size of an element in pixels.
-		 * @param {HTMLElement} element The DOM element to check.
-		 * @returns {number} The font size in pixels as a number.
-		 */
-		function getElementFontSize(element) {
+		const getElementFontSize = (element: HTMLElement) => {
 			// Use window.getComputedStyle() to get all resolved CSS properties.
 			const computedStyle = window.getComputedStyle(element);
 			// Get the 'font-size' property value (which will be in 'px').

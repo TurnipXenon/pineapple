@@ -1,6 +1,8 @@
 <!-- TODO: Documentation: consider documentation showcase -->
 
 <script lang="ts">
+	import { untrack } from "svelte";
+
 	let {
 		src,
 		rng
@@ -8,11 +10,11 @@
 		src: string,
 		rng: () => number
 	} = $props();
-	let rotateRandom = rng() * 90 - 45;
+	let rotateRandom = untrack(() => rng() * 90 - 45);
 
-	const paddingLeft = 1 + rng() * 5;
-	const paddingRight = 1 + rng() * 5;
-	const paddingTop = 1 + rng() * 7;
+	const paddingLeft = untrack(() => 1 + rng() * 5);
+	const paddingRight = untrack(() => 1 + rng() * 5);
+	const paddingTop = untrack(() => 1 + rng() * 7);
 </script>
 
 <div
@@ -33,7 +35,7 @@
     }
 
     img {
-		    --randomized-image-size: min(10vw, 10vh);
+        --randomized-image-size: min(10vw, 10vh);
         width: var(--randomized-image-size);
         height: var(--randomized-image-size);
         transform: rotate(var(--rotateRandom));
