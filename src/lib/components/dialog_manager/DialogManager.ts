@@ -60,6 +60,7 @@ export class DialogManager implements IDialogManager {
 	enableDialogueOverlayCache = false;
 	updateRate = 40 / 1000;
 	dialogVariableStore: DialogMapStore;
+	_choiceListenerController: AbortController | null = null;
 
 	constructor() {
 		this.dialogVariableStore = createNewMapStore();
@@ -282,13 +283,17 @@ export class DialogManager implements IDialogManager {
 
 		// text transition loop
 		if (!this.isDoneTransition && this.currentIndex > this.fullCurrentMessage.length) {
+			this._choiceListenerController?.abort();
+			this._choiceListenerController = new AbortController();
+			const { signal } = this._choiceListenerController;
+
 			const elementList = document.getElementsByClassName("dialog-choice");
 			for (const el of elementList) {
 				el.addEventListener("click", () => {
 					// todo: make more robust; for now we're assuming first class is our choice
 					const choice = el.classList[0].split("-")[1];
 					this.setDialogChoice(this.dialogMessageMap.get(choice));
-				});
+				}, { signal });
 			}
 
 			this.isDoneTransition = true;
