@@ -37,25 +37,33 @@ export const load = async (): Promise<OverridableMetaProps> => {
 		ogImage = []
 	}: Props = $props();
 
-	if (rootUrl) {
-		pinyaHead.rootUrl = rootUrl;
-	}
-	if (title) {
-		pinyaHead.title = title;
-	}
-	if (ogTitle) {
-		pinyaHead.ogTitle = ogTitle;
-	}
-	if (ogDescription) {
-		pinyaHead.ogDescription = ogDescription;
-	}
-	if (ogImage) {
-		pinyaHead.ogImage = ogImage.map(img => {
-			if (img.startsWith('/')) {
-				return `${pinyaHead.rootUrl}${img}`
-			}
+	const updatePageMeta = () => {
+		if (rootUrl) {
+			pinyaHead.rootUrl = rootUrl;
+		}
+		if (title) {
+			pinyaHead.title = title;
+		}
+		if (ogTitle) {
+			pinyaHead.ogTitle = ogTitle;
+		}
+		if (ogDescription) {
+			pinyaHead.ogDescription = ogDescription;
+		}
+		if (ogImage) {
+			pinyaHead.ogImage = ogImage.map(img => {
+				if (img.startsWith("/")) {
+					return `${pinyaHead.rootUrl}${img}`;
+				}
 
-			return img;
-		});
-	}
+				return img;
+			});
+		}
+	};
+
+	updatePageMeta();
+
+	$effect(() => {
+		updatePageMeta();
+	});
 </script>
