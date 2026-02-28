@@ -107,10 +107,8 @@
 						return priorityDiff;
 					}
 
-					// Entries without dateFinished go to the bottom
-					if (!a.dateFinished) return 1;
-					if (!b.dateFinished) return -1;
-					return new Date(b.dateFinished).getTime() - new Date(a.dateFinished).getTime();
+					// follow original index
+					return list.findIndex(l => l.key === a.key) - list.findIndex(l => l.key === b.key);
 				});
 		}
 	}

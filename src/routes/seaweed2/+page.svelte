@@ -56,7 +56,7 @@
 	linkedinSlug="niko"
 	domain="https://turnipxenon.com"
 	entryList={projectList}
-	layout={layout}
+	{layout}
 	queryTerms={data.queryTerms}
 	showMiniSocial={shouldShowSmallSocial}
 >
