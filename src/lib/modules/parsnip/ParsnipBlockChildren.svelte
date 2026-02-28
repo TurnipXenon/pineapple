@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ParsnipImageCollection from "$pkg/modules/parsnip/external-images/ParsnipImageCollection.svelte";
 	import ParsnipHeading from "$pkg/modules/parsnip/ParsnipHeading.svelte";
 	import ParsnipList from "$pkg/modules/parsnip/ParsnipList.svelte";
 	import ParsnipParagraph from "$pkg/modules/parsnip/ParsnipParagraph.svelte";
@@ -33,6 +34,8 @@
 		<CodeBlock code={child.value} lang={child.lang ?? 'markdown'} />
 	{:else if child.type === 'list'}
 		<ParsnipList list={child} />
+	{:else if child.type === 'imageCollection'}
+		<ParsnipImageCollection url="" imageList={child.children} />
 	{:else}
 		<p>{JSON.stringify(child, undefined, 2)}</p>
 	{/if}

@@ -44,7 +44,8 @@ export class JumpCommand implements LineBehaviorNode {
 			.slice("<<jump ".length, nodeArgs.line.length - ">>".length)
 			.replace(/^\{/, "") // remove possible " at the start: https://stackoverflow.com/a/2182602
 			.replace(/}$/, ""); // remove possible " at the end: https://stackoverflow.com/a/12249011;
-		const dialogChoice = this.dialogManager.dialogMessageMap.get(btreeUtils.simplifyToken(choiceName));
+		const simplifiedChoice = btreeUtils.simplifyToken(choiceName, nodeArgs.dialogVariableStore);
+		const dialogChoice = this.dialogManager.dialogMessageMap.get(simplifiedChoice);
 		if (dialogChoice !== undefined) {
 			// force choice
 			this.dialogManager.setDialogChoice(dialogChoice);
@@ -52,7 +53,7 @@ export class JumpCommand implements LineBehaviorNode {
 			console.error(
 				`Unknown jump node at line ${
 					nodeArgs.lineIndex + 1
-				}: ${choiceName} or ${btreeUtils.simplifyToken(choiceName)}`
+				}: ${choiceName} or ${simplifiedChoice}`
 			);
 		}
 

@@ -1,3 +1,5 @@
+import type { DialogMapStore } from "$lib/types/pineapple_fiber/DialogVariableStore";
+
 class BTreeUtils {
 	/**
 	 * peek the top of a stack object with the assumption it's not an empty stack
@@ -15,13 +17,13 @@ class BTreeUtils {
 			.replace(/"$/, ""); // remove possible " at the end: https://stackoverflow.com/a/12249011
 	};
 
-	simplifyToken = (oldToken: string): string => {
+	simplifyToken = (oldToken: string, dialogVariableStore?: DialogMapStore): string => {
 		if (oldToken[0] == "$") {
-			const value = localStorage.getItem(oldToken);
+			const value = dialogVariableStore?.getItem(oldToken) ?? null;
 			if (value) {
 				return value;
 			}
-			console.error(`Value obtained in local storage false: ${oldToken}`);
+			console.log(`Value not found in dialog variable store: ${oldToken}`);
 			return "";
 		}
 

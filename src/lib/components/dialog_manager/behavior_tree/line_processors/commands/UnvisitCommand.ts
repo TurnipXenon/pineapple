@@ -2,7 +2,6 @@ import type { LineBehaviorNode } from "$lib/components/dialog_manager/behavior_t
 import type { LineNodeArguments } from "$lib/components/dialog_manager/behavior_tree/line_core/LineNodeArguments";
 import type { LineBehaviorResult } from "$lib/components/dialog_manager/behavior_tree/line_core/LineBehaviorResult";
 import { BehaviorStatus } from "$lib/components/dialog_manager/behavior_tree/core/BehaviorStatus";
-import { dialogVariableStore } from "$lib/components/dialog_manager/DialogManagerStore";
 import { browser } from "$app/environment";
 
 /**
@@ -10,7 +9,7 @@ import { browser } from "$app/environment";
  */
 export class UnvisitCommand implements LineBehaviorNode {
 	process(nodeArgs: LineNodeArguments): LineBehaviorResult {
-		if (!nodeArgs.line.startsWith("<<unvisit") || !browser) {
+		if (!nodeArgs.line.startsWith("<<unvisit") || (!browser && !import.meta.env.VITEST)) {
 			return {
 				renderedLine: "",
 				nextState: nodeArgs.initState,
@@ -23,7 +22,7 @@ export class UnvisitCommand implements LineBehaviorNode {
 			.replace(/^\{/, "") // remove possible " at the start: https://stackoverflow.com/a/2182602
 			.replace(/}$/, ""); // remove possible " at the end: https://stackoverflow.com/a/12249011;
 		const key = `+${nodeName}`;
-		dialogVariableStore.removeItem(key);
+		nodeArgs.dialogVariableStore.removeItem(key);
 
 		return {
 			nextState: nodeArgs.initState,

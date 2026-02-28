@@ -5,4 +5,4 @@
 	const { data }: PageProps = $props();
 </script>
 
-<ParsnipBlog parsnipEntry={data.parsnipEntry} />
+<ParsnipBlog {...data} />

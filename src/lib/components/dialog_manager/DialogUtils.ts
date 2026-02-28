@@ -1,8 +1,8 @@
-import { dialogVariableStore } from "$lib/components/dialog_manager/DialogManagerStore";
+import { dialogManager } from "$lib/components/dialog_manager/DialogManager";
 
 class _DialogUtils {
 	isNodeVisited = (dialogId: string): boolean => {
-		const value = Number(dialogVariableStore.getItem(`+${dialogId}`));
+		const value = Number(dialogManager.dialogVariableStore.getItem(`+${dialogId}`));
 		return !isNaN(value) && value > 0;
 	};
 }

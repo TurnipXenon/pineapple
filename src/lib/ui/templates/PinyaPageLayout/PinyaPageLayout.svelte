@@ -163,7 +163,7 @@
         }
 
         :root {
-            --default-page-container-margin: 4rem 1rem 0 1rem;
+            --default-page-container-margin: 4rem min(1rem, 1vw) 0 min(1rem, 1vw);
         }
     }
 

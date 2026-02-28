@@ -10,7 +10,9 @@ import { btreeUtils } from "$lib/components/dialog_manager/behavior_tree/core/BT
  */
 export class OperandNode implements ExpressionBehaviorNode {
 	process(nodeArgs: ExpressionArguments): ExpressionResult {
-		nodeArgs.initState.operandStack.push(btreeUtils.simplifyToken(nodeArgs.token));
+		nodeArgs.initState.operandStack.push(
+			btreeUtils.simplifyToken(nodeArgs.token, nodeArgs.dialogVariableStore)
+		);
 		return {
 			nextState: nodeArgs.initState,
 			status: BehaviorStatus.Success

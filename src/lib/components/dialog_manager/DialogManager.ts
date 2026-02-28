@@ -2,6 +2,7 @@
  * DialogManager is the object we want to interact with in Svelte
  */
 
+import { createNewMapStore, type DialogMapStore } from "$pkg/types/pineapple_fiber/DialogVariableStore";
 import { writable } from "svelte/store";
 import type { DialogDetail } from "$pkg/types/pineapple_fiber/DialogDetail";
 import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
@@ -19,9 +20,7 @@ import AresSurprised from "$pkg/assets/characters/ares/ares_surprised.webp";
 import AresYay from "$pkg/assets/characters/ares/ares_yay.webp";
 import {
 	defaultDialogMessage,
-	dialogVariableStore,
 	enableUniversalOverlaySvelte4,
-	updateRate
 } from "$pkg/components/dialog_manager/DialogManagerStore";
 import { DialogProcessor } from "$pkg/components/dialog_manager/DialogProcessor";
 import { parseYarn } from "$pkg/scripts/pineapple_fiber/PineappleFiberParser";
@@ -33,7 +32,7 @@ export type OnSetDialogChoiceCallback = (newMessage: DialogDetail) => void;
 
 export class DialogManager implements IDialogManager {
 	dialogMessageMap: Map<string, DialogDetail> = new Map();
-	currentDialogTree: DialogDetail[] = [];
+	currentDialogTree: DialogDetail[] = defaultDialogMessage;
 	fullCurrentMessage: string = defaultDialogMessage[0].textContent;
 	currentMessageMeta: DialogDetail = defaultDialogMessage[0];
 	currentMessage = writable("");
@@ -59,9 +58,18 @@ export class DialogManager implements IDialogManager {
 	_setDialogChoiceMutex = false;
 	onSetDialogListeners: OnSetDialogChoiceCallback[] = [];
 	enableDialogueOverlayCache = false;
+	updateRate = 40 / 1000;
+	dialogVariableStore: DialogMapStore;
 
 	constructor() {
+		this.dialogVariableStore = createNewMapStore();
 		this.dialogProcessor = new DialogProcessor(this);
+
+		this.currentDialogTree.map((value) => {
+			if (value.dialogId) {
+				this.dialogMessageMap.set(value.dialogId!, value);
+			}
+		});
 
 		enableUniversalOverlaySvelte4.subscribe((value) => {
 			// todo: investigate why we cant put setDialogDefault inside the then clause
@@ -79,7 +87,6 @@ export class DialogManager implements IDialogManager {
 					this.currentState = DialogState.Invisible;
 					this.currentReadableState.set(this.currentState);
 				});
-				this.setDialogTree([{ textContent: "" }]);
 			}
 		});
 	}
@@ -113,7 +120,7 @@ export class DialogManager implements IDialogManager {
 	 * of node name conflicts
 	 * @param newDialogTree
 	 */
-	setDialogTree = (newDialogTree: DialogDetail[]) => {
+	setDialogTree = (newDialogTree: DialogDetail[], startingNode = "") => {
 		this.currentDialogTree = newDialogTree;
 
 		this.dialogMessageMap.clear();
@@ -136,7 +143,21 @@ export class DialogManager implements IDialogManager {
 			this.portraitMap.set(PortraitType.AresYay.toString(), AresYay);
 		}
 
-		this.setDialogChoice(newDialogTree[0]);
+		if (startingNode) {
+			const potentialStartingDialog = newDialogTree.find(t => t.dialogId === startingNode)
+			if (potentialStartingDialog) {
+				this.setDialogChoice(potentialStartingDialog);
+				return;
+			} else {
+				console.error("setDialogTree: Starting node not found")
+			}
+		}
+
+		if (newDialogTree[0].dialogId?.includes("Setup")) {
+			this.setDialogChoice(newDialogTree[1])
+		} else {
+			this.setDialogChoice(newDialogTree[0]);
+		}
 	};
 
 	/**
@@ -182,6 +203,15 @@ export class DialogManager implements IDialogManager {
 		}
 	};
 
+	setDialogChoiceById = (dialogId: string) => {
+		const potentialDialog = this.currentDialogTree.find(d => d.dialogId === dialogId);
+		if (potentialDialog) {
+			this.setDialogChoice(potentialDialog);
+		} else {
+			console.error(`setDialogChoiceById: dialog id not found ${dialogId}`);
+		}
+	}
+
 	_setDialogChoice = () => {
 		const newMessage = this._setDialogChoiceQueue.shift();
 		if (newMessage === undefined) {
@@ -217,11 +247,11 @@ export class DialogManager implements IDialogManager {
 		// save that we visited AND processed the node
 		if (this.currentMessageMeta.dialogId) {
 			const key = `+${this.currentMessageMeta.dialogId}`;
-			const value = Number(dialogVariableStore.getItem(key));
+			const value = Number(this.dialogVariableStore.getItem(key));
 			if (isNaN(value)) {
-				dialogVariableStore.setItem(key, "1");
+				this.dialogVariableStore.setItem(key, "1");
 			} else {
-				dialogVariableStore.setItem(key, `${value + 1}`);
+				this.dialogVariableStore.setItem(key, `${value + 1}`);
 			}
 		}
 
@@ -267,7 +297,7 @@ export class DialogManager implements IDialogManager {
 		// guard: skip if done or if not yet time to update
 		if (
 			this.currentIndex > this.fullCurrentMessage.length ||
-			this.previousTimestamp + updateRate > timestamp
+			this.previousTimestamp + this.updateRate > timestamp
 		) {
 			window.requestAnimationFrame(this.update);
 			return;
@@ -306,13 +336,33 @@ export class DialogManager implements IDialogManager {
 		enableUniversalOverlaySvelte4.set(!this.enableDialogueOverlayCache);
 	};
 
-	async parseAndSetDialogTree(dialogYarn: string): Promise<DialogDetail[]> {
+	async parseAndSetDialogTree(dialogYarn: string, startingNode = ""): Promise<DialogDetail[]> {
 		return parseYarn(dialogYarn)
 			.then((dialogTree) => {
-				console.log(dialogTree);
-				this.setDialogTree(dialogTree);
+				this.setDialogTree(dialogTree, startingNode);
 				return dialogTree;
 			});
+	}
+
+	async extendDialogTree(dialogYarn: string, forceNode = ""): Promise<DialogDetail[]> {
+		return parseYarn(dialogYarn)
+			.then((dialogTree) => {
+				this.currentDialogTree.push(...dialogTree);
+
+				if (forceNode) {
+					const potentialDialog = this.currentDialogTree.find(d => d.dialogId === forceNode);
+					if (!potentialDialog) {
+						console.error(`extendDialogTree: cannot find dialog ID: ${forceNode}`);
+					}
+					this.setDialogTree(this.currentDialogTree, forceNode);
+				}
+
+				return dialogTree;
+			});
+	}
+
+	setUpdateRate(newRate: number) {
+		this.updateRate = newRate;
 	}
 }
 

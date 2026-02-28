@@ -11,7 +11,7 @@
 	}: TextLinkProps = $props();
 </script>
 
-<a {...props}>
+<a {...props} class="pinya-text-link ${props.class}">
 	{@render children?.()}
 </a>
 

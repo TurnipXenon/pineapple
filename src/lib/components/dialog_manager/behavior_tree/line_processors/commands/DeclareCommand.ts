@@ -19,7 +19,7 @@ export class DeclareCommand implements LineBehaviorNode {
 		// determine if we need to set?
 		const setValuePair = nodeArgs.line.split("=");
 		const key = setValuePair[0].slice("<<declare ".length).trim(); // remove "<<declare "
-		if (localStorage.getItem(key) !== null) {
+		if (nodeArgs.dialogVariableStore.getItem(key) !== null) {
 			return {
 				renderedLine: "",
 				nextState: nodeArgs.initState,
@@ -36,7 +36,8 @@ export class DeclareCommand implements LineBehaviorNode {
 		const result = this.setVariableNode.process({
 			initState: nodeArgs.initState,
 			line: `<<set ${key} = ${value}>>`, // faking the line lol
-			lineIndex: nodeArgs.lineIndex
+			lineIndex: nodeArgs.lineIndex,
+			dialogVariableStore: nodeArgs.dialogVariableStore
 		});
 
 		return {

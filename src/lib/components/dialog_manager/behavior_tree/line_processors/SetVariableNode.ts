@@ -2,7 +2,6 @@ import type { LineNodeArguments } from "$lib/components/dialog_manager/behavior_
 import type { LineBehaviorResult } from "$lib/components/dialog_manager/behavior_tree/line_core/LineBehaviorResult";
 import { BehaviorStatus } from "$lib/components/dialog_manager/behavior_tree/core/BehaviorStatus";
 import { btreeUtils } from "$lib/components/dialog_manager/behavior_tree/core/BTreeUtils";
-import { dialogVariableStore } from "$lib/components/dialog_manager/DialogManagerStore";
 import type { LineBehaviorNode } from "$lib/components/dialog_manager/behavior_tree/line_core/LineBehaviorNode";
 import { expressionEvaluator } from "$lib/components/dialog_manager/behavior_tree/expression/ExpressionEvaluator";
 
@@ -25,8 +24,8 @@ export class SetVariableNode implements LineBehaviorNode {
 		const key = setValuePair[0].slice("<<set ".length).trim();
 		setValuePair.shift();
 		const preValue = setValuePair.join("=").trim();
-		const value = expressionEvaluator.evaluateFreeform(preValue, "");
-		dialogVariableStore.setItem(key, btreeUtils.peek(value));
+		const value = expressionEvaluator.evaluateFreeform(preValue, "", nodeArgs.dialogVariableStore);
+		nodeArgs.dialogVariableStore.setItem(key, btreeUtils.peek(value));
 
 		return {
 			nextState: nodeArgs.initState,

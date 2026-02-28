@@ -145,6 +145,14 @@ export const parseYarn = async (fileContent: string): Promise<DialogDetail[]> =>
 			// handle choice start tags to a href
 			choiceList.forEach((choiceDetail) => {
 				const keyword = `<choice ${choiceDetail.name}>`;
+				if (!dialogDetails.textContent.includes(keyword)) {
+					console.warn(`Jump name is not used in any <choice> tag: (name: ${choiceDetail.name}); jump: ${choiceDetail.jumpNode}`);
+					if (dialogDetails.warningList) {
+						dialogDetails.warningList.push(`Jump name is not used in any <choice> tag: (name: ${choiceDetail.name}); jump: ${choiceDetail.jumpNode}`)
+					} else {
+						dialogDetails.warningList = [`Jump name is not used in any <choice> tag: (name: ${choiceDetail.name}); jump: ${choiceDetail.jumpNode}`];
+					}
+				}
 				while (dialogDetails.textContent.includes(keyword)) {
 					dialogDetails.textContent = dialogDetails.textContent.replace(
 						keyword,
@@ -170,8 +178,19 @@ export const parseYarn = async (fileContent: string): Promise<DialogDetail[]> =>
 			dialogDetails.textContent = unprocessedContent;
 		}
 
+		// warn if choice has no jump warning
+		if (dialogDetails.textContent.includes('<choice')) {
+			console.warn(`There is a <choice ??> in the processed dialog that was not parsed to <a ??>:\n${dialogDetails.textContent}`);
+			if (dialogDetails.warningList) {
+				dialogDetails.warningList.push(`Choice has no jump: ${dialogDetails.textContent}`)
+			} else {
+				dialogDetails.warningList = [`Choice has no jump: ${dialogDetails.textContent}`];
+			}
+		}
+
 		dialogDetailList.push(dialogDetails);
 	});
+
 
 	return dialogDetailList;
 };

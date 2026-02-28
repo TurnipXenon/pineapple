@@ -11,6 +11,8 @@ export const [getEnableDialogOverlayContext, setEnableDialogOverlayContext] = cr
 
 export const [getOverlayTypeContext, setOverlayTypeContext] = createContext<LocalStore<OverlayType>>();
 export const [getIgnoreOverlayOverride, setIgnoreOverlayOverride] = createContext<{ value: boolean }>();
+export const [getTextSpeedContext, setTextSpeedContext] = createContext<LocalStore<number>>();
+export const [getAutoScrollPrefContext, setAutoScrollPrefContext] = createContext<LocalStore<boolean>>();
 export const [getSiteLayout, setSiteLayout] = createContext<PageMeta[]>();
 
 /**

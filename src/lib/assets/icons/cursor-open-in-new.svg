@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px">
+    <!--    <rect x="0" y="-960" width="960" height="960" rx="160" fill="#B8A272" fill-opacity="0.85"/>-->
+    <polygon points="90,-870 90,-670 270,-830" fill="#000000"/>
+    <path fill="#fff"
+          transform="translate(520,-440) scale(0.9) translate(-480,480)"
+          d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"
+          style="stroke-width:40; stroke: #000; paint-order: stroke"/>
+</svg>

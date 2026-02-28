@@ -46,3 +46,21 @@ export const getQueryTerms = (modules: Record<string, unknown>): string[] => {
 	}
 	return [...queryTerms].sort();
 }
+
+export const renderStar = (rating: number) => {
+	let stars = "";
+	for (let i = 1; i <= 10; i++) {
+		if (rating >= i) {
+			stars += "★";
+		} else if (Math.abs(i - rating) < 1) {
+			stars += "O";
+		} else {
+			stars += "☆";
+		}
+
+		if (i === 5) {
+			stars += `| ${rating}/10 |`;
+		}
+	}
+	return stars;
+}
