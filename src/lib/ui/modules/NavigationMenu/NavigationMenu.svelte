@@ -11,10 +11,13 @@
 	import NavigationControl from "$pkg/ui/modules/NavigationMenu/NavigationControl.svelte";
 	import {
 		DefaultPageMetaSorter,
+		type FoodReviewJson,
 		type PageMeta,
 		parsePageMeta,
 		type ParsePageMetaCompareFn
 	} from "$pkg/ui/modules/NavigationMenu/PageMeta";
+	import { renderStar } from "$pkg/util/util";
+	import { SvelteMap } from "svelte/reactivity";
 
 	interface Props {
 		fileList: Record<string, unknown>;
@@ -126,6 +129,33 @@
 		}
 	});
 	let visiblePages = $derived(filteredPageFlatList.slice(currentIndex * pageSize, (currentIndex * pageSize) + pageSize));
+
+	let ratingCache = new SvelteMap<string, string>();
+
+	$effect(() => {
+		if (!browser || !parsnipOverall) {
+			return;
+		}
+
+		visiblePages.forEach(vp => {
+			if (vp.tags.includes("food-review") && !ratingCache.has(vp.relativeLink)) {
+				ratingCache.set(vp.relativeLink, "");
+				const parsnipMetadata = parsnipOverall.files.find(f => f.basename == vp.title);
+
+				if (parsnipMetadata) {
+					fetch(`${parsnipOverall.baseUrl}/${parsnipMetadata.path}`.replaceAll(".ast.", ".ld."))
+						.then(data => data.json())
+						.then((data: FoodReviewJson) => {
+							ratingCache.set(vp.relativeLink, `${renderStar(data.reviewRating.ratingValue)}`);
+						}).catch(err => {
+						console.warn(err);
+					}).finally(() => {
+						console.log(`Rating fetched for ${vp.relativeLink}: ${ratingCache.get(vp.relativeLink)}`);
+					});
+				}
+			}
+		});
+	});
 </script>
 
 <div class="navigation-wrapper">
@@ -191,6 +221,10 @@
 						<section class="blurb-text">
 							<h2>{pageMeta.title}</h2>
 							<p>Published: {pageMeta.datePublished ?? "N/A"} | Last updated: {pageMeta.lastUpdated ?? "N/A"}</p>
+
+							{#if pageMeta.tags.includes('food-review')}
+								<p>{ratingCache.get(pageMeta.relativeLink)}</p>
+							{/if}
 							<p class="blurb-description">{pageMeta.description ?? ""}</p>
 							<div>
 								Tags:

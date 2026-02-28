@@ -4,6 +4,7 @@
 	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
 	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { getWebBaseUrl } from "$pkg/util/env-getter";
+	import { renderStar } from "$pkg/util/util";
 	import { SvelteURLSearchParams } from "svelte/reactivity";
 
 	interface Props {
@@ -21,24 +22,7 @@
 	});
 
 	// todo: improve graphics lol
-	let ratingsRenderer = $derived.by(() => {
-		let stars = "";
-		let rating = pageMeta.foodReviewJson?.reviewRating.ratingValue ?? 1;
-		for (let i = 1; i <= 10; i++) {
-			if (rating >= i) {
-				stars += "★";
-			} else if (Math.abs(i - rating) < 1) {
-				stars += "O";
-			} else {
-				stars += "☆";
-			}
-
-			if (i === 5) {
-				stars += `| ${rating}/10 |`;
-			}
-		}
-		return stars;
-	});
+	let ratingsRenderer = $derived(renderStar(pageMeta.foodReviewJson?.reviewRating.ratingValue ?? 1));
 </script>
 
 <article>
@@ -95,7 +79,7 @@
         width: 100%;
         flex-basis: 100%;
 
-		    line-height: 1.3lh;
+        line-height: 1.3lh;
     }
 
     #article-tags a.badge {
