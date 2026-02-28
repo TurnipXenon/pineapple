@@ -102,8 +102,17 @@ export default defineConfig({
 \tresolve: { // [!code ++]
 \t\talias: { // [!code ++]
 \t\t\t$pinyaBase: path.resolve(__dirname, "./node_modules/@turnipxenon/pineapple") // [!code ++]
+\t\t\t$pkg: path.resolve(__dirname, "./node_modules/@turnipxenon/pineapple/dist") // [!code ++]
 \t\t} // [!code ++]
-\t} // [!code ++]
+\t}, // [!code ++]
+\toptimizeDeps: { // [!code ++]
+\t\texclude: ["@turnipxenon/pineapple"], // [!code ++]
+\t\tesbuildOptions: { // [!code ++]
+\t\t\tloader: { // [!code ++]
+\t\t\t\t".yarn": "text" // [!code ++]
+\t\t\t} // [!code ++]
+\t\t} // [!code ++]
+\t}, // [!code ++]
 });`}
 					lang="ts"
 					classes=""

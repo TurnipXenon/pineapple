@@ -64,7 +64,7 @@ export interface PageMeta {
 	 * all pages with the same priority will be sorted based on date, description, title, then relative link
 	 */
 	priority: number;
-	foodReviewJson: FoodReviewJson;
+	foodReviewJson?: FoodReviewJson;
 }
 
 export interface SimplePageMeta {

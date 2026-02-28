@@ -68,7 +68,8 @@
     "valibot": "^1.2.0"
   },
   "peerDependencies": {
-    "svelte": "^5.0.0"
+    "svelte": "^5.0.0",
+    "svelte-modals": "^2.0.1"
   },
   "exports": {
     ".": {
