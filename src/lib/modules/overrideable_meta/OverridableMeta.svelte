@@ -63,7 +63,5 @@ export const load = async (): Promise<OverridableMetaProps> => {
 
 	updatePageMeta();
 
-	$effect(() => {
-		updatePageMeta();
-	});
+	$effect(updatePageMeta);
 </script>

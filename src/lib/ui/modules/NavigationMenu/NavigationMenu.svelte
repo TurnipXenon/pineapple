@@ -74,7 +74,7 @@
 		return inlineTags.trim().length > 0;
 	})());
 
-	const fileBasedList = parsePageMeta(fileList, jsonList, imageMap, compareFn);
+	const fileBasedList = $derived(parsePageMeta(fileList, jsonList, imageMap, compareFn));
 	const parsnipBasedList = parsnipOverall?.files.map(pf => {
 		let imageUrl = pf.preview;
 		if (imageUrl && !imageUrl.includes("https://")) {
