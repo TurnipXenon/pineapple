@@ -2,7 +2,7 @@
 
 <script lang="ts">
 	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
-	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
+	import { LdSchemaUtil, type SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { getWebBaseUrl } from "$pkg/util/env-getter";
 	import { renderStar } from "$pkg/util/util";
 	import { SvelteURLSearchParams } from "svelte/reactivity";
@@ -22,7 +22,10 @@
 	});
 
 	// todo: improve graphics lol
-	let ratingsRenderer = $derived(renderStar(pageMeta.foodReviewJson?.reviewRating.ratingValue ?? 1));
+	let ratingsRenderer = $derived(pageMeta.foodReviewJson
+		? renderStar(LdSchemaUtil.getReviewRating(pageMeta.foodReviewJson))
+		: 0
+	);
 </script>
 
 <article>
@@ -42,11 +45,11 @@
 					Ratings: {ratingsRenderer}
 				</p>
 			{/if}
-			{#if pageMeta.foodReviewJson?.itemReviewed.url}
+			{#if pageMeta.foodReviewJson && LdSchemaUtil.getUrl(pageMeta.foodReviewJson)}
 				<p>
-					<a href={pageMeta.foodReviewJson.itemReviewed.url}
+					<a href={LdSchemaUtil.getUrl(pageMeta.foodReviewJson)}
 					   rel="external"
-					   target="_blank">{pageMeta.foodReviewJson?.itemReviewed.url}</a>
+					   target="_blank">{LdSchemaUtil.getUrl(pageMeta.foodReviewJson)}</a>
 				</p>
 			{/if}
 			{#if pageMeta.tags.length > 0}

@@ -5,14 +5,19 @@
 Loading svelte-check in workspace: c:\Users\Pumpkin\Projects\Web\pineapple
 Getting Svelte diagnostics...
 
-c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\elements\pinya-combobox\PinyaCombobox.svelte[39m:32:3
-[31mError[39m: Type '(t: T | SvelteSet<T> | undefined) => void' is not assignable to type 'OnMultipleChange<string, boolean>'.
-  Types of parameters 't' and 'value' are incompatible.
-    Type 'string | SvelteSet<string> | undefined' is not assignable to type 'T | SvelteSet<T> | undefined'.
-      Type 'string' is not assignable to type 'T | SvelteSet<T> | undefined'. (ts)
-[36m		// todo: investigate later why typescript says it's the wrong type?
-		[35monValueChange[36m: (t: T | SvelteSet<T> | undefined) => {
-			if (t instanceof SvelteSet) {[39m
+c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\components\project-date-badge\ProjectDateBadge.svelte[39m:152:5
+[33mWarn[39m: Unused CSS selector "a.commit-count"
+https://svelte.dev/e/css_unused_selector (svelte)
+[36m
+    [35ma.commit-count[36m {
+        text-decoration: none;[39m
+
+c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\components\project-date-badge\ProjectDateBadge.svelte[39m:156:5
+[33mWarn[39m: Unused CSS selector "a.commit-count:hover"
+https://svelte.dev/e/css_unused_selector (svelte)
+[36m
+    [35ma.commit-count:hover[36m {
+        text-decoration: underline;[39m
 
 c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\components\MeltToaster\MeltToaster.svelte[39m:30:14
 [31mError[39m: Property 'style' does not exist on type 'Element'. (ts)
@@ -79,6 +84,22 @@ https://svelte.dev/e/state_referenced_locally (svelte)
 	const paddingTop = 1 + [35mrng[36m() * 7;
 </script>[39m
 
+c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\elements\pinya-combobox\PinyaCombobox.svelte[39m:32:3
+[31mError[39m: Type '(t: T | SvelteSet<T> | undefined) => void' is not assignable to type 'OnMultipleChange<string, boolean>'.
+  Types of parameters 't' and 'value' are incompatible.
+    Type 'string | SvelteSet<string> | undefined' is not assignable to type 'T | SvelteSet<T> | undefined'.
+      Type 'string' is not assignable to type 'T | SvelteSet<T> | undefined'. (ts)
+[36m		// todo: investigate later why typescript says it's the wrong type?
+		[35monValueChange[36m: (t: T | SvelteSet<T> | undefined) => {
+			if (t instanceof SvelteSet) {[39m
+
+c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\modules\modals\general-settings\GeneralSettingsModal.svelte[39m:74:20
+[33mWarn[39m: Unused CSS selector ".apply-current-surface"
+https://svelte.dev/e/css_unused_selector (svelte)
+[36m
+<style lang="scss">[35m[36m
+    @use "$styles/surface-colors" as *;[39m
+
 c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\components\NestedNavigation.svelte[39m:79:5
 [33mWarn[39m: Quoted attributes on components and custom elements will be stringified in a future version of Svelte. If this isn't what you want, remove the quotes
 https://svelte.dev/e/attribute_quoted (svelte)
@@ -99,47 +120,6 @@ c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\components\NestedNavigat
 		    [35m.pinya-nested-navigation[36m {[39m
 
 c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\modules\modals\general-settings\NavigationModal.svelte[39m:75:20
-[33mWarn[39m: Unused CSS selector ".apply-current-surface"
-https://svelte.dev/e/css_unused_selector (svelte)
-[36m
-<style lang="scss">[35m[36m
-    @use "$styles/surface-colors" as *;[39m
-
-c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\templates\SeaweedLayout\EntryGroup.svelte[39m:24:52
-[33mWarn[39m: This reference only captures the initial value of `entryList`. Did you mean to reference it inside a derived instead?
-https://svelte.dev/e/state_referenced_locally (svelte)
-[36m	// State — resolvedEntryList allows date overrides after fetching from GitHub
-	let resolvedEntryList = $state<SnippetMeta[]>([...[35mentryList[36m]);
-	let selectedTags = $state<string[]>([]);[39m
-
-c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\templates\SeaweedLayout\ProjectGroupConfig.svelte[39m:98:23
-[33mWarn[39m: This reference only captures the initial value of `allEntries`. Did you mean to reference it inside a closure instead?
-https://svelte.dev/e/state_referenced_locally (svelte)
-[36m
-	const comboboxData = [35mallEntries[36m.map(entry => {
-		return {[39m
-
-c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\templates\SeaweedLayout\SeaweedLayout.svelte[39m:35:28
-[33mWarn[39m: This reference only captures the initial value of `layout`. Did you mean to reference it inside a closure instead?
-https://svelte.dev/e/state_referenced_locally (svelte)
-[36m
-	let actualLayout = $state([35mlayout[36m);
-	let isAdvanceSettingOn = $state(false);[39m
-
-c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\templates\SeaweedLayout\SeaweedLayout.svelte[39m:39:51
-[33mWarn[39m: This reference only captures the initial value of `queryTerms`. Did you mean to reference it inside a closure instead?
-https://svelte.dev/e/state_referenced_locally (svelte)
-[36m
-	let queryStates = new SvelteMap<string, boolean>([35mqueryTerms[36m.map(term => [term, true]));
-	let styleStr = $state("");[39m
-
-c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\templates\SeaweedLayout\SeaweedLayout.svelte[39m:184:31
-[31mError[39m: Parameter 'element' implicitly has an 'any' type. (ts)
-[36m		 */
-		function getElementFontSize([35melement[36m) {
-			// Use window.getComputedStyle() to get all resolved CSS properties.[39m
-
-c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\modules\modals\general-settings\GeneralSettingsModal.svelte[39m:74:20
 [33mWarn[39m: Unused CSS selector ".apply-current-surface"
 https://svelte.dev/e/css_unused_selector (svelte)
 [36m
@@ -181,11 +161,45 @@ https://svelte.dev/e/css_unused_selector (svelte)
 <style lang="scss">[35m[36m
     @use "$styles/surface-colors" as *;[39m
 
+c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\templates\SeaweedLayout\EntryGroup.svelte[39m:24:52
+[33mWarn[39m: This reference only captures the initial value of `entryList`. Did you mean to reference it inside a derived instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m	// State — resolvedEntryList allows date overrides after fetching from GitHub
+	let resolvedEntryList = $state<SnippetMeta[]>([...[35mentryList[36m]);
+	let selectedTags = $state<string[]>([]);[39m
+
+c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\templates\SeaweedLayout\ProjectGroupConfig.svelte[39m:98:23
+[33mWarn[39m: This reference only captures the initial value of `allEntries`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m
+	const comboboxData = [35mallEntries[36m.map(entry => {
+		return {[39m
+
+c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\templates\SeaweedLayout\SeaweedLayout.svelte[39m:35:28
+[33mWarn[39m: This reference only captures the initial value of `layout`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m
+	let actualLayout = $state([35mlayout[36m);
+	let isAdvanceSettingOn = $state(false);[39m
+
+c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\templates\SeaweedLayout\SeaweedLayout.svelte[39m:39:51
+[33mWarn[39m: This reference only captures the initial value of `queryTerms`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m
+	let queryStates = new SvelteMap<string, boolean>([35mqueryTerms[36m.map(term => [term, true]));
+	let styleStr = $state("");[39m
+
+c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\templates\SeaweedLayout\SeaweedLayout.svelte[39m:184:31
+[31mError[39m: Parameter 'element' implicitly has an 'any' type. (ts)
+[36m		 */
+		function getElementFontSize([35melement[36m) {
+			// Use window.getComputedStyle() to get all resolved CSS properties.[39m
+
 c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\modules\parsnip\route-util\slugPageServerLoad.ts[39m:49:25
 [31mError[39m: Argument of type 'Image | Link' is not assignable to parameter of type 'Image'.
   Type 'Link' is not assignable to type 'Image'.
     Types of property 'type' are incompatible.
-      Type '"link"' is not assignable to type '"image"'.
+      Type '"link"' is not assignable to type '"image"'. 
 [36m			)) {
 			imageCollection.push([35mchild.children[0][36m);
 		} else if (imageCollection.length > 0) {[39m
@@ -261,7 +275,7 @@ c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\modules\parsnip\ParsnipBloc
 	{:else}[39m
 
 c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\server-temp\prisma.ts[39m:1:10
-[31mError[39m: Module '"@prisma/client"' has no exported member 'PrismaClient'.
+[31mError[39m: Module '"@prisma/client"' has no exported member 'PrismaClient'. 
 [36mimport { [35mPrismaClient[36m } from "@prisma/client";[39m
 
 c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\lib\ui\modules\experience\ExampleJob2.svelte[39m:71:2
@@ -289,5 +303,5 @@ c:\Users\Pumpkin\Projects\Web\pineapple\[32msrc\routes\(pineapple)\documentatio
 		label="Select Language"[39m
 
 ====================================
-[31msvelte-check found 17 errors and 33 warnings in 25 files
+[31msvelte-check found 17 errors and 28 warnings in 21 files
 [39m ELIFECYCLE  Command failed with exit code 1.

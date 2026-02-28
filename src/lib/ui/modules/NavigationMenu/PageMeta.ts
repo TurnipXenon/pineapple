@@ -1,15 +1,6 @@
 import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
+import type { FoodReviewJson } from "$pkg/ui/modules/index";
 import type { RawGlob } from "$pkg/util/util";
-
-export interface FoodReviewJson {
-	datePublished: string;
-	reviewRating: {
-		ratingValue: number;
-	};
-	itemReviewed: {
-		url: string
-	};
-}
 
 export interface PageMeta {
 	datePublished?: string;
@@ -164,7 +155,7 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 	});
 
 	for (const path in fileList) {
-		if (path.includes('[...')) {
+		if (path.includes("[...")) {
 			continue;
 		}
 

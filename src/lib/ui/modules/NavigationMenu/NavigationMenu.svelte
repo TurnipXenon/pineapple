@@ -8,10 +8,10 @@
 	import { FourPartCard } from "$pkg/ui/components/index";
 	import { PinyaCard } from "$pkg/ui/elements/index";
 	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
+	import { type FoodReviewJson, LdSchemaUtil } from "$pkg/ui/modules/index";
 	import NavigationControl from "$pkg/ui/modules/NavigationMenu/NavigationControl.svelte";
 	import {
 		DefaultPageMetaSorter,
-		type FoodReviewJson,
 		type PageMeta,
 		parsePageMeta,
 		type ParsePageMetaCompareFn
@@ -151,7 +151,7 @@
 					fetch(`${parsnipOverall.baseUrl}/${parsnipMetadata.path}`.replaceAll(".ast.", ".ld."))
 						.then(data => data.json())
 						.then((data: FoodReviewJson) => {
-							ratingCache.set(vp.relativeLink, `${renderStar(data.reviewRating.ratingValue)}`);
+							ratingCache.set(vp.relativeLink, `${renderStar(LdSchemaUtil.getReviewRating(data))}`);
 						}).catch(err => {
 						console.warn(err);
 					}).finally(() => {
