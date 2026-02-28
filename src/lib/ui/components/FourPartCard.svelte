@@ -53,13 +53,21 @@
             padding: 0;
 
             .card-header-cover > img {
-                border-top-right-radius: var(--radius-xl);
-                border-top-left-radius: var(--radius-xl);
+                border-radius: calc(var(--radius-xl) - 2px);
             }
+
+		        word-wrap: break-word;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+            hyphens: auto;
         }
 
 		    html.dark .pinya-four-part-card {
 				    border: 0;
+            .card-header-cover > img {
+                border-radius: var(--radius-xl);
+            }
 		    }
     }
 </style>

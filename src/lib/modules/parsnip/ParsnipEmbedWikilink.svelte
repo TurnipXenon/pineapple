@@ -22,7 +22,8 @@
 	img {
 			display: block;
 			width: auto;
-			margin: auto;
-			max-height: max(50vh, 24lh);
+      max-height: min(50vh, 24lh);
+      margin: auto;
+      object-fit: contain;
 	}
 </style>

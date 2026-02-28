@@ -72,13 +72,25 @@ export const slugPageServerLoad = async ({ params }: { params: { slug: string } 
 	if (imageUrl && !imageUrl.includes("https://")) {
 		imageUrl = `${parsnipOverall.baseUrl}/${parsnipEntry.preview}`;
 	}
-	console.log(imageUrl)
+
 	const meta: PinyaHead = {
 		title: parsnipEntry.basename,
 		ogTitle: parsnipEntry.basename,
 		ogDescription: parsnipEntry.tagline,
 		ogImage: imageUrl ? [imageUrl] : undefined
 	};
+
+	// process review metadata
+	if (parsnipEntry.tags?.includes('food-review')) {
+		// parsnipEntry.foodReviewJson =
+		try {
+			const foodReviewResp = await fetch(`${baseUrl}/${entryMeta.path.replace('.ast.', '.ld.')}`);
+			parsnipEntry.foodReviewJson = await foodReviewResp.json();
+			parsnipEntry.datePublished = parsnipEntry.foodReviewJson.datePublished;
+		} catch (err) {
+			console.error(`Failed to fetch review data for ${entryMeta.path}: ${err}`);
+		}
+	}
 
 	return {
 		parsnipEntry,

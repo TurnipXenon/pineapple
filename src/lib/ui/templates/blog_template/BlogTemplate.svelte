@@ -30,7 +30,7 @@
 
 	let initialDialogState = false;
 
-	setIgnoreOverlayOverride(true);
+	setIgnoreOverlayOverride({ value: true });
 
 	onMount(() => {
 		initialDialogState = $enableUniversalOverlaySvelte4;
@@ -49,13 +49,13 @@
 
 {#if shouldFillWholePage}
 	<div class="whole-page">
-		<BlogTemplateInner pageMeta={pageMeta}>
+		<BlogTemplateInner {pageMeta}>
 			{@render children?.()}
 		</BlogTemplateInner>
 	</div>
 {:else}
 	<PinyaCard {includeDataNoSnippet} widthClass="blog-template">
-		<BlogTemplateInner pageMeta={pageMeta}>
+		<BlogTemplateInner {pageMeta}>
 			{@render children?.()}
 		</BlogTemplateInner>
 	</PinyaCard>

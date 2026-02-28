@@ -56,8 +56,11 @@
     img {
         aspect-ratio: auto;
         display: block;
-        width: 100%;
+        width: unset;
         border-radius: var(--radius-sm);
+        max-height: min(50vh, 24lh);
+        margin: auto;
+		    object-fit: contain;
     }
 
     .parsnip-image-described {

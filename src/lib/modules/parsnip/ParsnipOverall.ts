@@ -23,6 +23,8 @@ export interface ParsnipEntrySummary extends SimplifiedEntry {
 	basename: string;
 	name: string;
 	tags: string[];
+	datePublished?: string
+	lastUpdated?: string
 	stat: {
 		/**
 		 * unix time

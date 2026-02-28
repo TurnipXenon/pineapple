@@ -13,10 +13,18 @@
 		title: parsnipEntry.basename,
 		datePublished: new Date(parsnipEntry.stat.ctime).toLocaleString(),
 		lastUpdated: new Date(parsnipEntry.stat.mtime).toLocaleString(),
-		priority: 0
+		priority: 0,
+		foodReviewJson: parsnipEntry.foodReviewJson,
 	});
+
 </script>
 
-<BlogTemplate pageMeta={pageMeta}>
+<svelte:head>
+	{#if parsnipEntry.foodReviewJson}
+		{@html `<script type="application/ld+json">${JSON.stringify(parsnipEntry.foodReviewJson)}</script>`}
+	{/if}
+</svelte:head>
+
+<BlogTemplate {pageMeta}>
 	<ParsnipBlockChildren blockChildren={parsnipEntry.ast.ast.children} />
 </BlogTemplate>

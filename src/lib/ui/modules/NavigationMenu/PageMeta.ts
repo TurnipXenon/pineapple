@@ -1,6 +1,16 @@
 import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
 import type { RawGlob } from "$pkg/util/util";
 
+export interface FoodReviewJson {
+	datePublished: string;
+	reviewRating: {
+		ratingValue: number;
+	};
+	itemReviewed: {
+		url: string
+	};
+}
+
 export interface PageMeta {
 	datePublished?: string;
 	description?: string;
@@ -54,6 +64,7 @@ export interface PageMeta {
 	 * all pages with the same priority will be sorted based on date, description, title, then relative link
 	 */
 	priority: number;
+	foodReviewJson: FoodReviewJson;
 }
 
 export interface SimplePageMeta {
@@ -97,6 +108,7 @@ export interface SimplePageMeta {
 	 * title defaults to the directory name if it's an empty string.
 	 */
 	title: string;
+	foodReviewJson?: FoodReviewJson;
 }
 
 /**

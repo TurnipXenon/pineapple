@@ -84,8 +84,8 @@
 			tags: pf.tags,
 			imageUrl,
 			imageAlt: pf.previewAlt,
-			datePublished: pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
-			lastUpdated: pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined,
+			datePublished: pf.datePublished ?? pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
+			lastUpdated: pf.lastUpdated ?? pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined,
 			description: pf.tagline,
 			priority: 0
 		};
