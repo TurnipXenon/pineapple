@@ -47,10 +47,10 @@
 	} as const;
 
 	let shouldShowExtra = $state(false);
-	const style = `
+	const style = $derived(`
 		--preferred-justify-content: ${isSlot ? "flex-start" : "center"};
 		--preferred-overall-margin-bottom: ${isSlot ? "0" : "0.75lh"};
-	`;
+	`);
 
 	onMount(() => {
 		shouldShowExtra = window.screen.availWidth >= 440;

@@ -70,6 +70,7 @@ Layout and logic for DialogPanel. Some of the logics for the portraits are in Un
 	<!-- Made for 140 characters, like the original tweets -->
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	<div id="reverse-dialog-wrapper">
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html currentMessage}
 	</div>
 </div>

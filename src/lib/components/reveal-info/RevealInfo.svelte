@@ -3,6 +3,7 @@
 	import VisibilityIcon from "$pkg/assets/icons/icon-visibility.svg";
 	import { ButtonVariant, PinyaButton, type PinyaButtonProps } from "$pkg/ui/elements/index";
 	import type { Snippet } from "svelte";
+	import { untrack } from "svelte";
 	import ImageIcon from "../../ui/elements/ImageIcon.svelte";
 	import { type RevealInfoRecord } from "./RevealInfoCollection";
 
@@ -21,7 +22,7 @@
 
 	type State = "ready" | "loading" | "error" | "done";
 
-	let revealValue = $state(infoRecord.placeholder);
+	let revealValue = $state(untrack(() => infoRecord.placeholder));
 	let _state = $state<State>("ready");
 	let uid = $props.id();
 

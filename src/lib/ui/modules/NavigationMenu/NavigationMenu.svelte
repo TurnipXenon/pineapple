@@ -17,6 +17,7 @@
 		type ParsePageMetaCompareFn
 	} from "$pkg/ui/modules/NavigationMenu/PageMeta";
 	import { renderStar } from "$pkg/util/util";
+	import { untrack } from "svelte";
 	import { SvelteMap } from "svelte/reactivity";
 
 	interface Props {
@@ -74,33 +75,37 @@
 		return inlineTags.trim().length > 0;
 	})());
 
-	const fileBasedList = $derived(parsePageMeta(fileList, jsonList, imageMap, compareFn));
-	const parsnipBasedList = parsnipOverall?.files.map(pf => {
-		let imageUrl = pf.preview;
-		if (imageUrl && !imageUrl.includes("https://")) {
-			imageUrl = `${parsnipOverall.baseUrl}/${pf.preview}`;
-		}
-		const meta: PageMeta = {
-			title: pf.basename,
-			nestedPages: [],
-			relativeLink: `${parsnipBasePath}${pf.slug}`,
-			tags: pf.tags,
-			imageUrl,
-			imageAlt: pf.previewAlt,
-			datePublished: pf.datePublished ?? pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
-			lastUpdated: pf.lastUpdated ?? pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined,
-			description: pf.tagline,
-			priority: 0
-		};
-		return meta;
-	}) ?? [];
-	const pageFlatList = fileBasedList.concat(parsnipBasedList);
+	const pageFlatList = untrack(() => {
+		const fileBasedList = parsePageMeta(fileList, jsonList, imageMap, compareFn);
+		const parsnipBasedList = parsnipOverall?.files.map(pf => {
+			let imageUrl = pf.preview;
+			if (imageUrl && !imageUrl.includes("https://")) {
+				imageUrl = `${parsnipOverall.baseUrl}/${pf.preview}`;
+			}
+			const meta: PageMeta = {
+				title: pf.basename,
+				nestedPages: [],
+				relativeLink: `${parsnipBasePath}${pf.slug}`,
+				tags: pf.tags,
+				imageUrl,
+				imageAlt: pf.previewAlt,
+				datePublished: pf.datePublished ?? pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
+				lastUpdated: pf.lastUpdated ?? pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined,
+				description: pf.tagline,
+				priority: 0
+			};
+			return meta;
+		}) ?? [];
+		const list = fileBasedList.concat(parsnipBasedList);
 
-	if (compareFn) {
-		pageFlatList.sort(compareFn);
-	} else {
-		pageFlatList.sort(DefaultPageMetaSorter);
-	}
+		if (compareFn) {
+			list.sort(compareFn);
+		} else {
+			list.sort(DefaultPageMetaSorter);
+		}
+
+		return list;
+	});
 
 	const selectedTagsSet = $derived(new Set(selectedTags.map(tag => tag.toLocaleLowerCase())));
 	const filteredPageFlatList = $derived(
@@ -344,7 +349,6 @@
     .blurb-text {
         padding-top: 1lh;
         padding-bottom: 1lh;
-        grow: 1;
         white-space: initial;
         min-width: 0;
         display: flex;

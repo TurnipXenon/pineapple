@@ -2,7 +2,7 @@ export interface CodeBlockProps {
 	/** Code string to render inside the block. */
 	code?: string;
 	/** Highlighting language key. */
-	lang?: 'console' | 'html' | 'css' | 'js' | 'ts' | 'markdown' | 'xml' | 'svelte';
+	lang?: 'console' | 'html' | 'css' | 'js' | 'ts' | 'markdown' | 'xml' | 'svelte' | 'json';
 	// Base Style Props
 	/** Base wrapper classes. */
 	base?: string;
