@@ -56,7 +56,6 @@
     img {
         aspect-ratio: auto;
         display: block;
-        width: unset;
         border-radius: var(--radius-sm);
         max-height: min(50vh, 24lh);
         margin: auto;
