@@ -25,5 +25,6 @@
       max-height: min(50vh, 24lh);
       margin: auto;
       object-fit: contain;
+      border-radius: var(--radius-sm);
 	}
 </style>
