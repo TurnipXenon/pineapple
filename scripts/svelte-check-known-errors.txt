@@ -1,0 +1,302 @@
+Loading svelte-check in workspace: c:/Users/Pumpkin/Projects/Web/pineapple
+Getting Svelte diagnostics...
+
+src/lib/ui/components/project-date-badge/ProjectDateBadge.svelte:152:5
+Warn: Unused CSS selector "a.commit-count"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+    a.commit-count {
+        text-decoration: none;
+
+src/lib/ui/components/project-date-badge/ProjectDateBadge.svelte:156:5
+Warn: Unused CSS selector "a.commit-count:hover"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+    a.commit-count:hover {
+        text-decoration: underline;
+
+src/lib/ui/components/MeltToaster/MeltToaster.svelte:30:14
+Error: Property 'style' does not exist on type 'Element'. (ts)
+							const revNum = Math.min(Math.abs(children.length - 1 - index), 5);
+							child.style.setProperty("--toast-index", index.toString());
+							child.style.setProperty("--toast-gap", `${Math.max(2 - (revNum * 0.2), 1)}lh`);
+
+src/lib/ui/components/MeltToaster/MeltToaster.svelte:31:14
+Error: Property 'style' does not exist on type 'Element'. (ts)
+							child.style.setProperty("--toast-index", index.toString());
+							child.style.setProperty("--toast-gap", `${Math.max(2 - (revNum * 0.2), 1)}lh`);
+							child.style.setProperty("--toast-scale", `${Math.max(1 - (revNum * 0.02), 0.9)}`);
+
+src/lib/ui/components/MeltToaster/MeltToaster.svelte:32:14
+Error: Property 'style' does not exist on type 'Element'. (ts)
+							child.style.setProperty("--toast-gap", `${Math.max(2 - (revNum * 0.2), 1)}lh`);
+							child.style.setProperty("--toast-scale", `${Math.max(1 - (revNum * 0.02), 0.9)}`);
+							child.style.setProperty("--toast-shadow-px", `${Math.max(8 - (revNum), 3)}px`);
+
+src/lib/ui/components/MeltToaster/MeltToaster.svelte:33:14
+Error: Property 'style' does not exist on type 'Element'. (ts)
+							child.style.setProperty("--toast-scale", `${Math.max(1 - (revNum * 0.02), 0.9)}`);
+							child.style.setProperty("--toast-shadow-px", `${Math.max(8 - (revNum), 3)}px`);
+						});
+
+src/lib/ui/templates/pinya-base/PinyaBase.svelte:120:20
+Warn: Unused CSS selector ".apply-current-surface"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/templates/pinya-base/PinyaBase.svelte:120:20
+Warn: Unused CSS selector "body"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/components/randomized-background/RandomizedImage.svelte:11:21
+Warn: This reference only captures the initial value of `rng`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+	} = $props();
+	let rotateRandom = rng() * 90 - 45;
+
+src/lib/ui/components/randomized-background/RandomizedImage.svelte:13:26
+Warn: This reference only captures the initial value of `rng`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+
+	const paddingLeft = 1 + rng() * 5;
+	const paddingRight = 1 + rng() * 5;
+
+src/lib/ui/components/randomized-background/RandomizedImage.svelte:14:27
+Warn: This reference only captures the initial value of `rng`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+	const paddingLeft = 1 + rng() * 5;
+	const paddingRight = 1 + rng() * 5;
+	const paddingTop = 1 + rng() * 7;
+
+src/lib/ui/components/randomized-background/RandomizedImage.svelte:15:25
+Warn: This reference only captures the initial value of `rng`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+	const paddingRight = 1 + rng() * 5;
+	const paddingTop = 1 + rng() * 7;
+</script>
+
+src/lib/ui/elements/pinya-combobox/PinyaCombobox.svelte:32:3
+Error: Type '(t: T | SvelteSet<T> | undefined) => void' is not assignable to type 'OnMultipleChange<string, boolean>'.
+  Types of parameters 't' and 'value' are incompatible.
+    Type 'string | SvelteSet<string> | undefined' is not assignable to type 'T | SvelteSet<T> | undefined'.
+      Type 'string' is not assignable to type 'T | SvelteSet<T> | undefined'. (ts)
+		// todo: investigate later why typescript says it's the wrong type?
+		onValueChange: (t: T | SvelteSet<T> | undefined) => {
+			if (t instanceof SvelteSet) {
+
+src/lib/ui/modules/modals/general-settings/GeneralSettingsModal.svelte:74:20
+Warn: Unused CSS selector ".apply-current-surface"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/components/NestedNavigation.svelte:79:5
+Warn: Quoted attributes on components and custom elements will be stringified in a future version of Svelte. If this isn't what you want, remove the quotes
+https://svelte.dev/e/attribute_quoted (svelte)
+			<PinyaAccordionItem
+				class="{currentPath === site.relativeLink ? 'highlighted' : ''}"
+				hasNoChild={site.nestedPages.length === 0}
+
+src/lib/ui/components/NestedNavigation.svelte:105:20
+Warn: Unused CSS selector ".apply-current-surface"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+		@use "$styles/surface-colors" as *;
+
+src/lib/ui/components/NestedNavigation.svelte:130:7
+Warn: Do not use empty rulesets (scss)
+
+		    .pinya-nested-navigation {
+
+src/lib/ui/modules/modals/general-settings/NavigationModal.svelte:75:20
+Warn: Unused CSS selector ".apply-current-surface"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/modules/universal-overlay/UniversalOverlay.svelte:111:20
+Warn: Unused CSS selector ".apply-current-surface"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/modules/universal-overlay/UniversalOverlay.svelte:111:20
+Warn: Unused CSS selector "#fab-container"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/modules/universal-overlay/UniversalOverlay.svelte:111:20
+Warn: Unused CSS selector "#fab-container:dir(ltr)"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/modules/universal-overlay/UniversalOverlay.svelte:111:20
+Warn: Unused CSS selector "#fab-container:dir(rtl)"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/modules/universal-overlay/UniversalOverlay.svelte:111:20
+Warn: Unused CSS selector ".turnip-icon"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/templates/SeaweedLayout/EntryGroup.svelte:24:52
+Warn: This reference only captures the initial value of `entryList`. Did you mean to reference it inside a derived instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+	// State — resolvedEntryList allows date overrides after fetching from GitHub
+	let resolvedEntryList = $state<SnippetMeta[]>([...entryList]);
+	let selectedTags = $state<string[]>([]);
+
+src/lib/ui/templates/SeaweedLayout/ProjectGroupConfig.svelte:98:23
+Warn: This reference only captures the initial value of `allEntries`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+
+	const comboboxData = allEntries.map(entry => {
+		return {
+
+src/lib/ui/templates/SeaweedLayout/SeaweedLayout.svelte:35:28
+Warn: This reference only captures the initial value of `layout`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+
+	let actualLayout = $state(layout);
+	let isAdvanceSettingOn = $state(false);
+
+src/lib/ui/templates/SeaweedLayout/SeaweedLayout.svelte:39:51
+Warn: This reference only captures the initial value of `queryTerms`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+
+	let queryStates = new SvelteMap<string, boolean>(queryTerms.map(term => [term, true]));
+	let styleStr = $state("");
+
+src/lib/ui/templates/SeaweedLayout/SeaweedLayout.svelte:184:31
+Error: Parameter 'element' implicitly has an 'any' type. (ts)
+		 */
+		function getElementFontSize(element) {
+			// Use window.getComputedStyle() to get all resolved CSS properties.
+
+src/lib/modules/parsnip/route-util/slugPageServerLoad.ts:49:25
+Error: Argument of type 'Image | Link' is not assignable to parameter of type 'Image'.
+  Type 'Link' is not assignable to type 'Image'.
+    Types of property 'type' are incompatible.
+      Type '"link"' is not assignable to type '"image"'. 
+			)) {
+			imageCollection.push(child.children[0]);
+		} else if (imageCollection.length > 0) {
+
+src/lib/modules/parsnip/external-images/ParsnipImage.svelte:6:20
+Warn: This reference only captures the initial value of `alt`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+	const { url, alt = "", withDescription = false }: { url: string, alt: string, withDescription?: boolean } = $props();
+	let _alt = $state(alt);
+
+src/lib/modules/parsnip/external-images/ParsnipImage.svelte:8:26
+Warn: This reference only captures the initial value of `withDescription`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+
+	const showDescription = withDescription || url.includes("with-description=true");
+
+src/lib/modules/parsnip/external-images/ParsnipImage.svelte:8:45
+Warn: This reference only captures the initial value of `url`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+
+	const showDescription = withDescription || url.includes("with-description=true");
+
+src/lib/modules/parsnip/external-images/ParsnipImage.svelte:10:22
+Warn: This reference only captures the initial value of `url`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+
+	const galleryBase = url
+		.replace(/[?#].*$/, "")
+
+src/lib/modules/parsnip/external-images/ParsnipImageCollection.svelte:9:26
+Warn: This reference only captures the initial value of `url`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+
+	const withDescription = url?.includes('with-description=true') ?? false;
+
+src/lib/modules/parsnip/ParsnipPhrasingChildren.svelte:34:15
+Error: Type '{ type: "image"; data?: ImageData | undefined; alt?: string | null | undefined; position?: Position | undefined; url: string; title?: string | null | undefined; }' is not assignable to type '$$ComponentProps'.
+  Types of property 'alt' are incompatible.
+    Type 'string | null | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'. (ts)
+	{:else if child.type === 'image'}
+		<ParsnipImage {...child} />
+	{:else if child.type === 'embedWikilink'}
+
+src/lib/modules/parsnip/ParsnipPhrasingChildren.svelte:35:12
+Error: This comparison appears to be unintentional because the types '"html" | "break" | "delete" | "footnoteReference" | "imageReference" | "linkReference"' and '"embedWikilink"' have no overlap. (ts)
+		<ParsnipImage {...child} />
+	{:else if child.type === 'embedWikilink'}
+		<ParsnipEmbedWikilink wikilink={child} />
+
+src/lib/modules/parsnip/ParsnipPhrasingChildren.svelte:37:12
+Error: This comparison appears to be unintentional because the types '"html" | "break" | "delete" | "footnoteReference" | "imageReference" | "linkReference"' and '"wikilink"' have no overlap. (ts)
+		<ParsnipEmbedWikilink wikilink={child} />
+	{:else if child.type === 'wikilink'}
+		<ParsnipWikilink wikilink={child} />
+
+src/lib/modules/parsnip/ParsnipBlockChildren.svelte:34:33
+Error: Type 'string' is not assignable to type '"html" | "console" | "css" | "js" | "ts" | "markdown" | "xml" | "svelte" | "json" | undefined'. (ts)
+	{:else if child.type === 'code'}
+		<CodeBlock code={child.value} lang={child.lang ?? 'markdown'} />
+	{:else if child.type === 'list'}
+
+src/lib/modules/parsnip/ParsnipBlockChildren.svelte:37:12
+Error: This comparison appears to be unintentional because the types '"html" | "break" | "definition" | "delete" | "emphasis" | "footnoteDefinition" | "footnoteReference" | "image" | "imageReference" | "inlineCode" | "link" | "linkReference" | ... 5 more ... | "text"' and '"imageCollection"' have no overlap. (ts)
+		<ParsnipList list={child} />
+	{:else if child.type === 'imageCollection'}
+		<ParsnipImageCollection url="" imageList={child.children} />
+
+src/lib/modules/parsnip/ParsnipBlockChildren.svelte:38:51
+Error: Property 'children' does not exist on type 'never'. (ts)
+	{:else if child.type === 'imageCollection'}
+		<ParsnipImageCollection url="" imageList={child.children} />
+	{:else}
+
+src/lib/server-temp/prisma.ts:1:10
+Error: Module '"@prisma/client"' has no exported member 'PrismaClient'. 
+import { PrismaClient } from "@prisma/client";
+
+src/lib/ui/modules/experience/ExampleJob2.svelte:71:2
+Warn: Unused CSS selector ".ongoing-badge"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+	.ongoing-badge {
+		margin-top: 0.5rem;
+
+src/routes/(pineapple)/documentation/components/pinya-accordion/+page.svelte:81:12
+Error: Type '{}' is not assignable to type 'string'. (ts)
+<h2>Props</h2>
+<CodeBlock code={propsCode} lang="ts" classes="max-w-2xl" />
+
+src/routes/(pineapple)/documentation/components/pinya-accordion/+page.svelte:84:12
+Error: Type '{}' is not assignable to type 'string'. (ts)
+<h2>Item props</h2>
+<CodeBlock code={itemPropsCode} lang="ts" classes="max-w-2xl" />
+
+src/routes/(pineapple)/documentation/elements/combobox/ComboboxSample.svelte:45:8
+Error: Type 'string[]' is not assignable to type '("en" | "fr" | "tl")[]'.
+  Type 'string' is not assignable to type '"en" | "fr" | "tl"'. (ts)
+		data={comboboxData}
+		bind:value={selectedCountry}
+		label="Select Language"
+
+====================================
+svelte-check found 17 errors and 28 warnings in 21 files
