@@ -3,7 +3,7 @@ import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
 import type { PinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 import { getCmsBaseUrl } from "$pkg/util/env-getter";
 import { error } from "@sveltejs/kit";
-import type { Image, RootContent, RootContentMap } from "mdast";
+import type { Image, Link, RootContent, RootContentMap } from "mdast";
 
 export const slugPageServerLoad = async ({ params }: { params: { slug: string } }) => {
 	const baseUrl = getCmsBaseUrl();
@@ -33,9 +33,9 @@ export const slugPageServerLoad = async ({ params }: { params: { slug: string } 
 	const parsnipEntry = await entryResponse.json() as ParsnipEntry;
 
 	// process parsnipEntry.ast.ast.children so that paragraphs with sole images are combined into one
-	type AstChildren = (RootContentMap[keyof RootContentMap] | { type: "imageCollection", children: Image[] });
+	type AstChildren = (RootContentMap[keyof RootContentMap] | { type: "imageCollection", children: (Image | Link)[] });
 	const newChildren: AstChildren[] = [];
-	let imageCollection: Image[] = [];
+	let imageCollection: (Image | Link)[] = [];
 	parsnipEntry.ast.ast.children.forEach(child => {
 		if (child.type === "paragraph"
 			&& child.children.length === 1
@@ -81,10 +81,10 @@ export const slugPageServerLoad = async ({ params }: { params: { slug: string } 
 	};
 
 	// process review metadata
-	if (parsnipEntry.tags?.includes('food-review')) {
+	if (parsnipEntry.tags?.includes("food-review")) {
 		// parsnipEntry.foodReviewJson =
 		try {
-			const foodReviewResp = await fetch(`${baseUrl}/${entryMeta.path.replace('.ast.', '.ld.')}`);
+			const foodReviewResp = await fetch(`${baseUrl}/${entryMeta.path.replace(".ast.", ".ld.")}`);
 			parsnipEntry.foodReviewJson = await foodReviewResp.json();
 			parsnipEntry.datePublished = parsnipEntry.foodReviewJson.datePublished;
 		} catch (err) {
