@@ -1,9 +1,9 @@
 <!-- TODO: Documentation: consider documentation showcase -->
 
 <script lang="ts">
+	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
 	import { type PageMeta } from "$pkg/ui/modules/NavigationMenu/index";
 	import { onMount } from "svelte";
-	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
 
 	let hasTriedGettingChumBucket = $state(false);
 	let pageMetaList: PageMeta[] = $state([]);
@@ -33,13 +33,22 @@
 			{#each pageMetaList as pageMeta (pageMeta.title)}
 				<div class="chum-bucket-item">
 					{#if pageMeta.imageUrl}
-						<img src={`https://turnipxenon.com${pageMeta.imageUrl}`}
+						<img src={
+							pageMeta.imageUrl.includes('https://')
+							? pageMeta.imageUrl
+							: `https://turnipxenon.com${pageMeta.imageUrl}`}
 						     class="chum-bucket-image"
 						     alt={pageMeta.imageAlt}>
 					{/if}
 					<div>
 						<h3 class="text-start">
-							<a href={`https://turnipxenon.com/${pageMeta.relativeLink}`}>{pageMeta.title}</a>
+							<a
+								rel="external"
+								target="_blank"
+								href={
+							pageMeta.relativeLink.includes('https://')
+							? pageMeta.relativeLink
+							: `https://turnipxenon.com/${pageMeta.relativeLink}`}>{pageMeta.title}</a>
 						</h3>
 						<p>Published: {pageMeta.datePublished}
 							{#if pageMeta.lastUpdated}
@@ -74,7 +83,7 @@
     }
 
     .chum-bucket {
-		    margin-top: 2lh;
+        margin-top: 2lh;
         padding: 1.5lh 1em;
         width: 100%;
         max-width: var(--container-3xl);

@@ -3,13 +3,13 @@
 <script lang="ts">
 	import "./blog-template.css";
 	import { browser } from "$app/environment";
+	import { enableUniversalOverlaySvelte4 } from "$pkg/components/dialog_manager/DialogManagerStore";
+	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
+	import BlogTemplateInner from "$pkg/ui/templates/blog_template/BlogTemplateInner.svelte";
+	import { appState } from "$pkg/ui/templates/PinyaPageLayout/pinyaPageLayoutRunes.svelte.js";
 	import { setIgnoreOverlayOverride } from "$pkg/util/context/pineappleBaseContextDefinitions.svelte";
 	import { onDestroy, onMount, type Snippet } from "svelte";
-	import BlogTemplateInner from "$pkg/ui/templates/blog_template/BlogTemplateInner.svelte";
-	import type { SimplePageMeta } from "$pkg/ui/modules/NavigationMenu/index";
-	import { enableUniversalOverlaySvelte4 } from "$pkg/components/dialog_manager/DialogManagerStore";
 	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
-	import { appState } from "$pkg/ui/templates/PinyaPageLayout/pinyaPageLayoutRunes.svelte.js";
 
 	// grab page meta from the adjacent meta.json
 	interface Props {
@@ -44,7 +44,9 @@
 		}
 	});
 
-	appState.bgOpacity = shouldFillWholePage ? 0.2 : 1;
+	$effect(() => {
+		appState.bgOpacity = shouldFillWholePage ? 0.2 : 1;
+	});
 </script>
 
 {#if shouldFillWholePage}
@@ -71,7 +73,7 @@
 
     :global(.blog-template) {
         max-width: 64em;
-		    width: 100%;
+        width: 100%;
         margin: auto;
     }
 </style>

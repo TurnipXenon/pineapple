@@ -1,16 +1,17 @@
 <script lang="ts">
 
+	import { untrack } from "svelte";
 	import { getPhotoDetails } from "./externalImages.remote";
 
 	const { url, alt = "", withDescription = false }: { url: string, alt: string, withDescription?: boolean } = $props();
-	let _alt = $state(alt);
+	let _alt = $state(untrack(() => alt));
 
-	const showDescription = withDescription || url.includes("with-description=true");
+	const showDescription = untrack(() => withDescription || url.includes("with-description=true"));
 
-	const galleryBase = url
+	const galleryBase = untrack(() => url
 		.replace(/[?#].*$/, "")
 		.replace(/^(https?:\/\/)(rabiole|photos)\./, "$1photo-gallery.")
-		.replace(/\/(api\/)?photos\/.*$/, "");
+		.replace(/\/(api\/)?photos\/.*$/, ""));
 
 	let details = $state<{ altText: string, description: string, tags: string[], createdAt: string } | null>(null);
 
@@ -56,7 +57,6 @@
     img {
         aspect-ratio: auto;
         display: block;
-        width: unset;
         border-radius: var(--radius-sm);
         max-height: min(50vh, 24lh);
         margin: auto;

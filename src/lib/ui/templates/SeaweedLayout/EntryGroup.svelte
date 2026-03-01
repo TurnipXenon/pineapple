@@ -7,7 +7,7 @@
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
 	import { SectionType } from "$pkg/ui/templates/SeaweedLayout/props";
 	import { getCommitDate } from "$pkg/util/getCommitDate";
-	import { onMount } from "svelte";
+	import { onMount, untrack } from "svelte";
 
 	let {
 		title,
@@ -21,7 +21,7 @@
 	}: ProjectGroup = $props();
 
 	// State — resolvedEntryList allows date overrides after fetching from GitHub
-	let resolvedEntryList = $state<SnippetMeta[]>([...entryList]);
+	let resolvedEntryList = $state<SnippetMeta[]>(untrack(() => [...entryList]));
 	let selectedTags = $state<string[]>([]);
 	let sortBy = $state<string[]>(["default"]);
 	let isExpanded = $state(false);
@@ -107,10 +107,8 @@
 						return priorityDiff;
 					}
 
-					// Entries without dateFinished go to the bottom
-					if (!a.dateFinished) return 1;
-					if (!b.dateFinished) return -1;
-					return new Date(b.dateFinished).getTime() - new Date(a.dateFinished).getTime();
+					// follow original index
+					return list.findIndex(l => l.key === a.key) - list.findIndex(l => l.key === b.key);
 				});
 		}
 	}

@@ -28,16 +28,15 @@
 
 			return undefined;
 		})(),
-		// todo: investigate later why typescript says it's the wrong type?
-		onValueChange: (t: T | SvelteSet<T> | undefined) => {
+		onValueChange: (t) => {
 			if (t instanceof SvelteSet) {
 				if (t.size > 0) {
-					value = [...t];
+					value = [...t] as T[];
 				} else {
 					value = [];
 				}
 			} else if (t) {
-				value = [t];
+				value = [t as T];
 			} else {
 				value = [];
 			}

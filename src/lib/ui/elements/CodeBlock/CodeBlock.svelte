@@ -32,7 +32,6 @@
 </script>
 
 <script lang="ts">
-	import { onMount } from "svelte";
 	import type { CodeBlockProps } from "./CodeBlockProps";
 
 	let {
@@ -67,6 +66,7 @@
 	class="pinya-code-block {base} {rounded} {shadow} {classes} {preBase} {prePadding} {preClasses}"
 >
 	<!-- Output Shiki's Generated HTML -->
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html generatedHtml}
 </div>
 

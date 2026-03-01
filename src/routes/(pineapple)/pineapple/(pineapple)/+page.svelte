@@ -15,7 +15,7 @@
 
 	let { data }: PageProps = $props();
 
-	setIgnoreOverlayOverride(true);
+	setIgnoreOverlayOverride({ value: true });
 	enableUniversalOverlaySvelte4.set(false);
 
 	let parsed = false;

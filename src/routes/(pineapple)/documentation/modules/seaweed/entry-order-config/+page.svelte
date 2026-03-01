@@ -1,5 +1,5 @@
 <script>
-	import { CodeBlock, TextLink } from "$pkg/ui/elements/index.ts";
+	import { CodeBlock, TextLink } from "$pkg/ui/elements";
 </script>
 
 <h1>Entry Order Config</h1>

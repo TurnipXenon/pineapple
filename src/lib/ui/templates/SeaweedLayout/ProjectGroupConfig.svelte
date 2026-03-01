@@ -8,6 +8,7 @@
 	import { PinyaCard } from "$pkg/ui/elements/PinyaCard";
 	import type { ProjectGroup, SnippetMeta } from "$pkg/ui/templates/SeaweedLayout";
 	import { addToast } from "$pkg/ui/components/MeltToaster/MeltToaster.svelte";
+	import { untrack } from "svelte";
 
 	interface Props {
 		layout: ProjectGroup[];
@@ -95,12 +96,12 @@
 		};
 	};
 
-	const comboboxData = allEntries.map(entry => {
+	const comboboxData = untrack(() => allEntries.map(entry => {
 		return {
 			label: entry.key,
 			value: entry.key
 		};
-	});
+	}));
 
 	let comboboxValue = $state([comboboxData[0].value]);
 

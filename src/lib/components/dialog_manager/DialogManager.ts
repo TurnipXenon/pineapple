@@ -2,29 +2,26 @@
  * DialogManager is the object we want to interact with in Svelte
  */
 
-import { createNewMapStore, type DialogMapStore } from "$pkg/types/pineapple_fiber/DialogVariableStore";
-import { writable } from "svelte/store";
-import type { DialogDetail } from "$pkg/types/pineapple_fiber/DialogDetail";
-import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
-import { tweened } from "svelte/motion";
-import { backOut, linear } from "svelte/easing";
-import { PortraitType } from "$pkg/types/pineapple_fiber/PortraitType";
-import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 import AresBlushing from "$pkg/assets/characters/ares/ares_blushing.webp";
 import AresDisappointed from "$pkg/assets/characters/ares/ares_disappointed.webp";
+import AresHappy from "$pkg/assets/characters/ares/ares_happy.webp";
 import AresLetsGo from "$pkg/assets/characters/ares/ares_lets_go.webp";
 import AresMad from "$pkg/assets/characters/ares/ares_mad.webp";
 import AresNeutral from "$pkg/assets/characters/ares/ares_neutral.webp";
 import AresSlightlyMad from "$pkg/assets/characters/ares/ares_slightly_mad.webp";
 import AresSurprised from "$pkg/assets/characters/ares/ares_surprised.webp";
 import AresYay from "$pkg/assets/characters/ares/ares_yay.webp";
-import {
-	defaultDialogMessage,
-	enableUniversalOverlaySvelte4,
-} from "$pkg/components/dialog_manager/DialogManagerStore";
+import { defaultDialogMessage, enableUniversalOverlaySvelte4 } from "$pkg/components/dialog_manager/DialogManagerStore";
 import { DialogProcessor } from "$pkg/components/dialog_manager/DialogProcessor";
-import { parseYarn } from "$pkg/scripts/pineapple_fiber/PineappleFiberParser";
 import type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
+import { parseYarn } from "$pkg/scripts/pineapple_fiber/PineappleFiberParser";
+import type { DialogDetail } from "$pkg/types/pineapple_fiber/DialogDetail";
+import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
+import { createNewMapStore, type DialogMapStore } from "$pkg/types/pineapple_fiber/DialogVariableStore";
+import { PortraitType } from "$pkg/types/pineapple_fiber/PortraitType";
+import { backOut, linear } from "svelte/easing";
+import { tweened } from "svelte/motion";
+import { writable } from "svelte/store";
 
 const shouldDebugYarn = false;
 
@@ -39,6 +36,7 @@ export class DialogManager implements IDialogManager {
 	currentIndex = 0;
 	previousTimestamp = 0;
 	isDoneTransition = false;
+	isDoneTransitionWritable = writable(false);
 	currentPortrait = writable("");
 	portraitMap: Map<string, string> = new Map();
 	currentState = DialogState.Visible;
@@ -60,6 +58,7 @@ export class DialogManager implements IDialogManager {
 	enableDialogueOverlayCache = false;
 	updateRate = 40 / 1000;
 	dialogVariableStore: DialogMapStore;
+	_choiceListenerController: AbortController | null = null;
 
 	constructor() {
 		this.dialogVariableStore = createNewMapStore();
@@ -144,17 +143,17 @@ export class DialogManager implements IDialogManager {
 		}
 
 		if (startingNode) {
-			const potentialStartingDialog = newDialogTree.find(t => t.dialogId === startingNode)
+			const potentialStartingDialog = newDialogTree.find(t => t.dialogId === startingNode);
 			if (potentialStartingDialog) {
 				this.setDialogChoice(potentialStartingDialog);
 				return;
 			} else {
-				console.error("setDialogTree: Starting node not found")
+				console.error("setDialogTree: Starting node not found");
 			}
 		}
 
 		if (newDialogTree[0].dialogId?.includes("Setup")) {
-			this.setDialogChoice(newDialogTree[1])
+			this.setDialogChoice(newDialogTree[1]);
 		} else {
 			this.setDialogChoice(newDialogTree[0]);
 		}
@@ -210,7 +209,7 @@ export class DialogManager implements IDialogManager {
 		} else {
 			console.error(`setDialogChoiceById: dialog id not found ${dialogId}`);
 		}
-	}
+	};
 
 	_setDialogChoice = () => {
 		const newMessage = this._setDialogChoiceQueue.shift();
@@ -227,7 +226,7 @@ export class DialogManager implements IDialogManager {
 		// set the portrait
 		let portraitValue = AresHappy;
 		if (this.currentMessageMeta.portraitType) {
-			portraitValue = this.portraitMap.get(this.currentMessageMeta.portraitType ?? AresHappy) ?? '';
+			portraitValue = this.portraitMap.get(this.currentMessageMeta.portraitType ?? AresHappy) ?? "";
 		}
 		if (portraitValue) {
 			this.currentPortrait.update(() => portraitValue);
@@ -239,6 +238,7 @@ export class DialogManager implements IDialogManager {
 		this.currentIndex = 0;
 		this.skipNextActiveTime = this.previousTimestamp + 1000; // guard
 		this.isDoneTransition = false; // must be after the guard
+		this.isDoneTransitionWritable.set(false);
 
 		if (shouldDebugYarn) {
 			console.info(`Currently processing node: ${this.currentMessageMeta.dialogId}`);
@@ -282,16 +282,21 @@ export class DialogManager implements IDialogManager {
 
 		// text transition loop
 		if (!this.isDoneTransition && this.currentIndex > this.fullCurrentMessage.length) {
+			this._choiceListenerController?.abort();
+			this._choiceListenerController = new AbortController();
+			const { signal } = this._choiceListenerController;
+
 			const elementList = document.getElementsByClassName("dialog-choice");
 			for (const el of elementList) {
 				el.addEventListener("click", () => {
 					// todo: make more robust; for now we're assuming first class is our choice
 					const choice = el.classList[0].split("-")[1];
 					this.setDialogChoice(this.dialogMessageMap.get(choice));
-				});
+				}, { signal });
 			}
 
 			this.isDoneTransition = true;
+			this.isDoneTransitionWritable.set(true);
 		}
 
 		// guard: skip if done or if not yet time to update

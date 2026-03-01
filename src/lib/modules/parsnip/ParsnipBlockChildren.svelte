@@ -4,12 +4,27 @@
 	import ParsnipList from "$pkg/modules/parsnip/ParsnipList.svelte";
 	import ParsnipParagraph from "$pkg/modules/parsnip/ParsnipParagraph.svelte";
 	import ParsnipPhrasingChildren from "$pkg/modules/parsnip/ParsnipPhrasingChildren.svelte";
+	import type { CodeBlockLang } from "$pkg/ui/elements/CodeBlock/CodeBlockProps";
 	import { CodeBlock } from "$pkg/ui/elements/index";
 	import type { Content } from "mdast";
 	import Self from "./ParsnipBlockChildren.svelte";
 
 	const { blockChildren, shouldUnwrapParagraph = false }
 		: { blockChildren: Content[], shouldUnwrapParagraph?: boolean } = $props();
+
+	const KNOWN_BLOCK_TYPES = new Set(['paragraph', 'heading', 'thematicBreak', 'blockquote', 'yaml', 'code', 'list', 'imageCollection']);
+
+	$effect(() => {
+		for (const child of blockChildren) {
+			if (!KNOWN_BLOCK_TYPES.has(child.type)) {
+				console.warn('[Parsnip] Unknown block child type:', child.type, child);
+			}
+		}
+	});
+
+	function parseLang(lang: string | null | undefined): CodeBlockLang {
+		return (lang ?? 'markdown') as CodeBlockLang;
+	}
 </script>
 
 {#each blockChildren as child (child)}
@@ -31,12 +46,10 @@
 	{:else if child.type === 'yaml'}
 		<!-- do nothing -->
 	{:else if child.type === 'code'}
-		<CodeBlock code={child.value} lang={child.lang ?? 'markdown'} />
+		<CodeBlock code={child.value} lang={parseLang(child.lang)} />
 	{:else if child.type === 'list'}
 		<ParsnipList list={child} />
 	{:else if child.type === 'imageCollection'}
 		<ParsnipImageCollection url="" imageList={child.children} />
-	{:else}
-		<p>{JSON.stringify(child, undefined, 2)}</p>
 	{/if}
 {/each}

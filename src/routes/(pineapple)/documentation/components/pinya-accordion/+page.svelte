@@ -3,14 +3,14 @@
 	import { CodeBlock, TextLink } from "$pkg/ui/elements/index";
 	import PinyaSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
 
-	const propSources = import.meta.glob("/src/lib/ui/components/accordion/PinyaAccordionProps.ts", {
+	const propSources = import.meta.glob<string>("/src/lib/ui/components/accordion/PinyaAccordionProps.ts", {
 		query: "?raw",
 		import: "default",
 		eager: true
 	});
 	const propsCode = propSources["/src/lib/ui/components/accordion/PinyaAccordionProps.ts"] ?? "";
 
-	const itemPropSources = import.meta.glob("/src/lib/ui/components/accordion/PinyaAccordionItemProps.ts", {
+	const itemPropSources = import.meta.glob<string>("/src/lib/ui/components/accordion/PinyaAccordionItemProps.ts", {
 		query: "?raw",
 		import: "default",
 		eager: true

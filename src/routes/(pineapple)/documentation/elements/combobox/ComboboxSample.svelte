@@ -14,7 +14,7 @@
 		{ label: "Tagalog", value: "tl" }
 	];
 
-	let selectedCountry = $state<string[]>(["fr"]);
+	let selectedCountry = $state<ComboxData["value"][]>(["fr"]);
 
 	const onValueChange = (e: ComboxData["value"][] | undefined) => {
 		if (!e || e.length === 0) return;

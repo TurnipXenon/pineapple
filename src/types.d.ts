@@ -5,3 +5,5 @@ declare namespace env {
 }
 
 declare module 'shiki-transformer-copy-button';
+declare module 'shiki/langs/typescript.mjs';
+declare module 'shiki/langs/xml.mjs';

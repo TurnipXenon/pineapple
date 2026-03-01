@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { CodeBlock, TextLink } from "$pkg/ui/elements/index";
+	const scriptOpen = '<script lang="ts">';
+	const scriptClose = '</' + 'script>';
 </script>
 
 <h1>Migration guide</h1>
@@ -102,8 +104,17 @@ export default defineConfig({
 \tresolve: { // [!code ++]
 \t\talias: { // [!code ++]
 \t\t\t$pinyaBase: path.resolve(__dirname, "./node_modules/@turnipxenon/pineapple") // [!code ++]
+\t\t\t$pkg: path.resolve(__dirname, "./node_modules/@turnipxenon/pineapple/dist") // [!code ++]
 \t\t} // [!code ++]
-\t} // [!code ++]
+\t}, // [!code ++]
+\toptimizeDeps: { // [!code ++]
+\t\texclude: ["@turnipxenon/pineapple"], // [!code ++]
+\t\tesbuildOptions: { // [!code ++]
+\t\t\tloader: { // [!code ++]
+\t\t\t\t".yarn": "text" // [!code ++]
+\t\t\t} // [!code ++]
+\t\t} // [!code ++]
+\t}, // [!code ++]
 });`}
 					lang="ts"
 					classes=""
@@ -112,7 +123,7 @@ export default defineConfig({
 		</ul>
 	</li>
 	<li>Update primary <code>src/routes/+layout.svelte</code>
-		<CodeBlock code={`<script lang="ts">
+		<CodeBlock code={`${scriptOpen}
 \timport { appState, PinyaBase, PinyaPageLayout } from "@turnipxenon/pineapple/templates";
 \timport { getParsnipDataRemote } from "$pinyaBase/dist/remoteIndex.remote.js";
 \t//more code here...
@@ -122,7 +133,7 @@ export default defineConfig({
 
 \tconst fileList = import.meta.glob("./**/+page.svelte", { query: "?raw" }); // [!code ++]
 \tconst jsonList = import.meta.glob("./**/meta.json", { query: "?raw", eager: true }); // [!code ++]
-</script>
+${scriptClose}
 
 <svelte:head>
 \t<meta content="@reinhardluvr69" name="twitter:site" />

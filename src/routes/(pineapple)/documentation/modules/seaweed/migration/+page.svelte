@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { CodeBlock, TextLink } from "$pkg/ui/elements";
+	const scriptOpen = '<script lang="ts">';
+	const scriptModuleOpen = '<script module lang="ts">';
+	const scriptClose = '</' + 'script>';
 </script>
 
 <h1>Seaweed 3 Migration Guide</h1>
@@ -38,7 +41,7 @@
   type SnippetMeta,
   SectionType  // [!code ++]
 } from "$pkg/ui/templates/SeaweedLayout/index";`}
-	lang="typescript"
+	lang="ts"
 	classes="max-w-3xl"
 />
 
@@ -48,7 +51,7 @@
 <p><strong>Example:</strong> <code>src/lib/ui/modules/experience/ExampleJob1.svelte</code></p>
 
 <CodeBlock
-	code={`<script module lang="ts">
+	code={`${scriptModuleOpen}
   import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout/ProjectComponentProps";
   import { default as FourPartCard } from "$pkg/ui/components/FourPartCard.svelte";
   import { TextChip } from "$pkg/ui/elements/TextChip";
@@ -58,7 +61,7 @@
   const dateFinished = "2024-12-31";  // Omit for ongoing jobs
   const tags = ["typescript", "svelte", "web"];
   export { component, key, dateStarted, dateFinished, tags };
-</script>
+${scriptClose}
 
 {#snippet component(props: ProjectComponentProps)}
   <FourPartCard>
@@ -93,7 +96,7 @@ const dateStarted = "2024-01-01";
 // No dateFinished export - indicates ongoing position
 const tags = ["rust", "systems", "performance", "ongoing"];
 export { component, key, dateStarted, tags };  // [!code ++]`}
-	lang="typescript"
+	lang="ts"
 	classes="max-w-3xl"
 />
 
@@ -108,7 +111,7 @@ const experienceList: SnippetMeta[] = [
   ExampleJob2,  // Ongoing job first (most recent)
   ExampleJob1   // Completed job
 ];`}
-	lang="typescript"
+	lang="ts"
 	classes="max-w-3xl"
 />
 
@@ -138,7 +141,7 @@ const experienceList: SnippetMeta[] = [
     projectComponentProps: { isPineapple: true }
   }
 ];`}
-	lang="typescript"
+	lang="ts"
 	classes="max-w-3xl"
 />
 
@@ -177,7 +180,7 @@ const experienceList: SnippetMeta[] = [
 <p>Reference: Old pattern with hardcoded Experience in side section</p>
 
 <CodeBlock
-	code={`<script lang="ts">
+	code={`${scriptOpen}
   import { PinyaCard } from "$pkg/ui/elements";
   import { SeaweedLayout, type SnippetMeta } from "$pkg/ui/templates/SeaweedLayout/index";
 
@@ -191,9 +194,9 @@ const experienceList: SnippetMeta[] = [
     { key: "games", title: "Games", entryList: gameList },
     { key: "projects", title: "Projects", entryList: projectList }
   ];
-</script>
+${scriptClose}
 
-<SeaweedLayout {...props} layout={layout}>
+<SeaweedLayout {...props} {layout}>
   {#snippet sideSection(socialSection: Snippet)}
     <PinyaCard>
       <h2>About</h2>
@@ -222,7 +225,7 @@ const experienceList: SnippetMeta[] = [
 <p>Reference: <code>src/routes/seaweed2/+page.svelte:1</code></p>
 
 <CodeBlock
-	code={`<script lang="ts">
+	code={`${scriptOpen}
   import { PinyaCard } from "$pkg/ui/elements";
   import {
     type ProjectGroup,
@@ -267,9 +270,9 @@ const experienceList: SnippetMeta[] = [
       projectComponentProps: { isPineapple: true } // [!code ++]
     } // [!code ++]
   ]; // [!code ++]
-</script>
+${scriptClose}
 
-<SeaweedLayout {...props} layout={layout}>
+<SeaweedLayout {...props} {layout}>
   {#snippet sideSection(socialSection: Snippet)}
     <PinyaCard>
       <h2>About</h2>
@@ -329,7 +332,7 @@ const experienceList: SnippetMeta[] = [
   dateFinished?: Date | string;    // End date (omit for ongoing)
   tags?: string[];                 // Tags for filtering
 }`}
-	lang="typescript"
+	lang="ts"
 	classes="max-w-3xl"
 />
 
@@ -369,7 +372,7 @@ export interface ProjectGroup {
   showSort?: boolean;        // Show sort dropdown
   showMoreLimit?: number;    // Number of items before "show more" (0 = no limit)
 }`}
-	lang="typescript"
+	lang="ts"
 	classes="max-w-3xl"
 />
 

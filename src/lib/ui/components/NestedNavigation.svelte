@@ -76,7 +76,7 @@
 		{#each layout as site (site.relativeLink)}
 			<!-- todo: add highlighted class when relativeLink === page.url -->
 			<PinyaAccordionItem
-				class="{currentPath === site.relativeLink ? 'highlighted' : ''}"
+				class={currentPath === site.relativeLink ? 'highlighted' : ''}
 				hasNoChild={site.nestedPages.length === 0}
 				pinyaValue={site.relativeLink}>
 				{#snippet control()}
@@ -126,10 +126,6 @@
             padding: 1em;
             gap: 0.5lh
         }
-
-		    .pinya-nested-navigation {
-
-		    }
     }
 
 </style>

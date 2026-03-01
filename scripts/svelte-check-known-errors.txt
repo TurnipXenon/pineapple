@@ -1,0 +1,133 @@
+Loading svelte-check in workspace: c:/Users/Pumpkin/Projects/Web/pineapple
+Getting Svelte diagnostics...
+
+src/lib/ui/components/project-date-badge/ProjectDateBadge.svelte:152:5
+Warn: Unused CSS selector "a.commit-count"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+    a.commit-count {
+        text-decoration: none;
+
+src/lib/ui/components/project-date-badge/ProjectDateBadge.svelte:156:5
+Warn: Unused CSS selector "a.commit-count:hover"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+    a.commit-count:hover {
+        text-decoration: underline;
+
+src/lib/ui/templates/pinya-base/PinyaBase.svelte:120:20
+Warn: Unused CSS selector ".apply-current-surface"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/templates/pinya-base/PinyaBase.svelte:120:20
+Warn: Unused CSS selector "body"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/modules/modals/general-settings/GeneralSettingsModal.svelte:74:20
+Warn: Unused CSS selector ".apply-current-surface"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/components/NestedNavigation.svelte:105:20
+Warn: Unused CSS selector ".apply-current-surface"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+		@use "$styles/surface-colors" as *;
+
+src/lib/ui/modules/modals/general-settings/NavigationModal.svelte:75:20
+Warn: Unused CSS selector ".apply-current-surface"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/modules/universal-overlay/UniversalOverlay.svelte:111:20
+Warn: Unused CSS selector ".apply-current-surface"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/modules/universal-overlay/UniversalOverlay.svelte:111:20
+Warn: Unused CSS selector "#fab-container"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/modules/universal-overlay/UniversalOverlay.svelte:111:20
+Warn: Unused CSS selector "#fab-container:dir(ltr)"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/modules/universal-overlay/UniversalOverlay.svelte:111:20
+Warn: Unused CSS selector "#fab-container:dir(rtl)"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/ui/modules/universal-overlay/UniversalOverlay.svelte:111:20
+Warn: Unused CSS selector ".turnip-icon"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+<style lang="scss">
+    @use "$styles/surface-colors" as *;
+
+src/lib/modules/parsnip/ParsnipPhrasingChildren.svelte:34:15
+Error: Type '{ type: "image"; data?: ImageData | undefined; alt?: string | null | undefined; position?: Position | undefined; url: string; title?: string | null | undefined; }' is not assignable to type '$$ComponentProps'.
+  Types of property 'alt' are incompatible.
+    Type 'string | null | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'. (ts)
+	{:else if child.type === 'image'}
+		<ParsnipImage {...child} />
+	{:else if child.type === 'embedWikilink'}
+
+src/lib/modules/parsnip/ParsnipPhrasingChildren.svelte:35:12
+Error: This comparison appears to be unintentional because the types '"html" | "break" | "delete" | "footnoteReference" | "imageReference" | "linkReference"' and '"embedWikilink"' have no overlap. (ts)
+		<ParsnipImage {...child} />
+	{:else if child.type === 'embedWikilink'}
+		<ParsnipEmbedWikilink wikilink={child} />
+
+src/lib/modules/parsnip/ParsnipPhrasingChildren.svelte:37:12
+Error: This comparison appears to be unintentional because the types '"html" | "break" | "delete" | "footnoteReference" | "imageReference" | "linkReference"' and '"wikilink"' have no overlap. (ts)
+		<ParsnipEmbedWikilink wikilink={child} />
+	{:else if child.type === 'wikilink'}
+		<ParsnipWikilink wikilink={child} />
+
+src/lib/modules/parsnip/ParsnipBlockChildren.svelte:52:12
+Error: This comparison appears to be unintentional because the types '"html" | "break" | "definition" | "delete" | "emphasis" | "footnoteDefinition" | "footnoteReference" | "image" | "imageReference" | "inlineCode" | "link" | "linkReference" | ... 5 more ... | "text"' and '"imageCollection"' have no overlap. (ts)
+		<ParsnipList list={child} />
+	{:else if child.type === 'imageCollection'}
+		<ParsnipImageCollection url="" imageList={child.children} />
+
+src/lib/modules/parsnip/ParsnipBlockChildren.svelte:53:51
+Error: Property 'children' does not exist on type 'never'. (ts)
+	{:else if child.type === 'imageCollection'}
+		<ParsnipImageCollection url="" imageList={child.children} />
+	{/if}
+
+src/lib/server-temp/prisma.ts:1:10
+Error: Module '"@prisma/client"' has no exported member 'PrismaClient'. 
+import { PrismaClient } from "@prisma/client";
+
+src/lib/ui/modules/experience/ExampleJob2.svelte:71:2
+Warn: Unused CSS selector ".ongoing-badge"
+https://svelte.dev/e/css_unused_selector (svelte)
+
+	.ongoing-badge {
+		margin-top: 0.5rem;
+
+====================================
+svelte-check found 6 errors and 13 warnings in 10 files

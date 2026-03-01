@@ -3,10 +3,11 @@
 	import { getPhotoCollectionMeta } from "$pkg/modules/parsnip/external-images/externalImages.remote";
 	import ParsnipImage from "$pkg/modules/parsnip/external-images/ParsnipImage.svelte";
 	import type { Image } from "mdast";
+	import { untrack } from "svelte";
 
 	const { url, imageList }: { url?: string, imageList?: Image[] } = $props();
 
-	const withDescription = url?.includes('with-description=true') ?? false;
+	const withDescription = untrack(() => url?.includes('with-description=true') ?? false);
 
 	let data = $state<{
 		photos: {
