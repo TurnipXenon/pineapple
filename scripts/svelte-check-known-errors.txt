@@ -85,21 +85,6 @@ https://svelte.dev/e/css_unused_selector (svelte)
 <style lang="scss">
     @use "$styles/surface-colors" as *;
 
-src/lib/modules/parsnip/route-util/slugPageServerLoad.ts:49:25
-Error: Argument of type 'Image | Link' is not assignable to parameter of type 'Image'.
-  Type 'Link' is not assignable to type 'Image'.
-    Types of property 'type' are incompatible.
-      Type '"link"' is not assignable to type '"image"'. 
-			)) {
-			imageCollection.push(child.children[0]);
-		} else if (imageCollection.length > 0) {
-
-src/lib/modules/parsnip/external-images/ParsnipImageCollection.svelte:9:26
-Warn: This reference only captures the initial value of `url`. Did you mean to reference it inside a closure instead?
-https://svelte.dev/e/state_referenced_locally (svelte)
-
-	const withDescription = url?.includes('with-description=true') ?? false;
-
 src/lib/modules/parsnip/ParsnipPhrasingChildren.svelte:34:15
 Error: Type '{ type: "image"; data?: ImageData | undefined; alt?: string | null | undefined; position?: Position | undefined; url: string; title?: string | null | undefined; }' is not assignable to type '$$ComponentProps'.
   Types of property 'alt' are incompatible.
@@ -145,4 +130,4 @@ https://svelte.dev/e/css_unused_selector (svelte)
 		margin-top: 0.5rem;
 
 ====================================
-svelte-check found 7 errors and 14 warnings in 12 files
+svelte-check found 6 errors and 13 warnings in 10 files
