@@ -30,6 +30,9 @@
 				<Self phrasingChildren={child.children} />
 			</a>
 		{/if}
+	{:else if child.type === 'html'}
+		<!--	todo: special logic here -->
+		<!--	for now, let's leave it empty	-->
 	{:else if child.type === 'image'}
 		<ParsnipImage {...child} />
 	{:else if child.type === 'embedWikilink'}
