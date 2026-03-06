@@ -37,16 +37,27 @@
 		{/snippet}
 
 
-		<p>This is a course project made by a team of six for <a
-			href="https://sites.google.com/ualberta.ca/cmput250/">CMPUT 250</a>, and it won <a
-			href="https://webdocs.cs.ualberta.ca/~nathanst/certificate/">Game of the year.</a>
+		<p>This is a course project made by a team of six for
+			<a
+				href="https://sites.google.com/ualberta.ca/cmput250/"
+				rel="external"
+				target="_blank"
+			>CMPUT 250</a>, and it won
+			<a
+				href="https://webdocs.cs.ualberta.ca/~nathanst/certificate/"
+				rel="external"
+			>Game of the year.</a>
 		</p>
 
 		<p>
-			Hep Cat is a <span class="qt-rhythm">rhythm</span> game made in <a
-			href="https://www.rpgmakerweb.com/products/programs/rpg-maker-mv" target="_blank"
-			class='qt-rpgmaker'>
-			RPG Maker MV</a> with the help of additional custom-made <span class='qt-js'>Javascript</span>
+			Hep Cat is a <span class="qt-rhythm">rhythm</span> game made in
+			<a
+				href="https://www.rpgmakerweb.com/products/programs/rpg-maker-mv"
+				target="_blank"
+				rel="external"
+				class='qt-rpgmaker'
+			>RPG Maker MV</a>
+			with the help of additional custom-made <span class='qt-js'>Javascript</span>
 			plugins. I
 			wrote the rhythm game plugin's framework. For this plugin to work, I
 			had to write a <span class='qt-python'>Python</span> script that parses osu! files

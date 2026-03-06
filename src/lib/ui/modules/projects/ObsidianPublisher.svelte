@@ -40,7 +40,7 @@
 			It generates AST of the Markdown files, which it then publishes to a git repo.
 			The plugin follows it up with a Cloudflare rebuild of the website, which would read the contents of the repo.
 			A module in the website called
-			<TextLink href="https://github.com/TurnipXenon/pineapple/pull/152">Parsnip</TextLink>
+			<TextLink href="https://github.com/TurnipXenon/pineapple/pull/152" rel="external">Parsnip</TextLink>
 			generates custom pages based on these AST files.
 		</p>
 
@@ -65,7 +65,7 @@
 				title="https://www.turnipxenon.com/blogs"
 				onclick={() => window.open("https://www.turnipxenon.com/blogs")}>
 				<ImageIcon src={LinkIcon} aria-hidden />
-				<span>turnipxenon.com/blogs</span>
+				<span class="external-link">turnipxenon.com/blogs</span>
 			</PinyaButton>
 		</section>
 
