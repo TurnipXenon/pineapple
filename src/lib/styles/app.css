@@ -48,7 +48,7 @@ a.external-link {
     cursor: url("$pkg/assets/icons/cursor-open-in-new.svg"), auto;
 }
 
-.external-link:after, a[rel="external"]:after {
+.external-link:after, a[rel*="external"]:after {
     content: '';
     display: inline-block;
     width: 0.8em;

@@ -68,7 +68,7 @@
 					<span class="ongoing-badge">ongoing</span>
 				{/if}
 				{#if commitCount != null && gitRepoLink}
-					<TextLink href={gitRepoLink} target="_blank" rel="noopener noreferrer" class="commit-count">
+					<TextLink href={gitRepoLink} target="_blank" rel="external noopener noreferrer" class="commit-count">
 						{commitCount} commit{commitCount !== 1 ? "s" : ""}
 					</TextLink>
 				{:else if commitCount != null}

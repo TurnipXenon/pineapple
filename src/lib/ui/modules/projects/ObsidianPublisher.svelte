@@ -65,7 +65,7 @@
 				title="https://www.turnipxenon.com/blogs"
 				onclick={() => window.open("https://www.turnipxenon.com/blogs")}>
 				<ImageIcon src={LinkIcon} aria-hidden />
-				<span class="external-link">turnipxenon.com/blogs</span>
+				<span>turnipxenon.com/blogs</span>
 			</PinyaButton>
 		</section>
 
