@@ -5,6 +5,7 @@
 	import ParsnipWikilink from "$pkg/modules/parsnip/ParsnipWikilink.svelte";
 	import { type PhrasingContent } from "mdast";
 	import Self from "./ParsnipPhrasingChildren.svelte";
+	import { page } from "$app/state";
 
 	const { phrasingChildren }: { phrasingChildren: PhrasingContent[] } = $props();
 </script>
@@ -26,7 +27,7 @@
 		{#if child.url.includes('photo-gallery')}
 			<ParsnipImageCollection url={child.url} />
 		{:else }
-			<a href={child.url}>
+			<a href={child.url} rel={child.url.startsWith('https://') && !child.url.startsWith(page.url.origin) ? 'external' : undefined}>
 				<Self phrasingChildren={child.children} />
 			</a>
 		{/if}
