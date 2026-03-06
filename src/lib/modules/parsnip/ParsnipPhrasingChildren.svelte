@@ -27,7 +27,11 @@
 		{#if child.url.includes('photo-gallery')}
 			<ParsnipImageCollection url={child.url} />
 		{:else }
-			<a href={child.url} rel={child.url.startsWith('https://') && !child.url.startsWith(page.url.origin) ? 'external' : undefined}>
+			{@const isExternal = child.url.startsWith('https://') && !child.url.startsWith(page.url.origin)}
+			<a href={child.url}
+			   target="_blank"
+			   rel={isExternal ? 'external' : undefined}
+			>
 				<Self phrasingChildren={child.children} />
 			</a>
 		{/if}
