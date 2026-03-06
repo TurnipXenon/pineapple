@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { CodeBlock, TextLink } from "$pkg/ui/elements/index";
+	import { CodeBlock } from "$pkg/ui/elements/index";
+	import PinyaComboboxPropsTxt from "$pkg/ui/elements/pinya-combobox/PinyaComboboxProps?raw";
 	import ComboboxSample from "./ComboboxSample.svelte";
 	import ComboboxSampleTxt from "./ComboboxSample.svelte?raw";
-	import PinyaComboboxPropsTxt from "$pkg/ui/elements/pinya-combobox/PinyaComboboxProps?raw";
 </script>
 
 <h1>Combobox</h1>
