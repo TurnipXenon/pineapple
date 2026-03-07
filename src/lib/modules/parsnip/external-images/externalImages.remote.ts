@@ -3,14 +3,16 @@ import * as v from "valibot";
 
 const UrlSchema = v.pipe(v.string(), v.url());
 
-export const getPhotoDetails = query(UrlSchema, async (url) => {
-	if (!url.includes("rabiole") && !url.includes("photos")) return null;
+// todo: test this one itself
+// todo: test with a fake parsed obsidian
+const _getPhotoDetails = async (url: string) => {
+	if (!url.includes("rabiole") && !url.includes("photos") && !url.includes("photo-gallery")) return null;
 
 	const apiUrl = url
-		.replace(/[?#].*$/, '')
-		.replace(/^(https?:\/\/)(rabiole|photos)\./, '$1photo-gallery.')
-		.replace('/photos/', '/api/photos/')
-		.replace(/\.(jpeg|png)$/, '');
+		.replace(/[?#].*$/, "")
+		.replace(/^(https?:\/\/)(rabiole|photos)\./, "$1photo-gallery.")
+		.replace("/photos/", "/api/photos/")
+		.replace(/\.(jpeg|png|jpg)$/, "");
 
 	try {
 		const resp = await fetch(apiUrl);
@@ -18,25 +20,30 @@ export const getPhotoDetails = query(UrlSchema, async (url) => {
 		const photo = data?.photo;
 		if (!photo) return null;
 		return {
-			altText: photo.altText ?? '',
-			description: photo.description ?? '',
+			altText: photo.altText ?? "",
+			description: photo.description ?? "",
 			tags: (photo.tags ?? []) as string[],
-			createdAt: photo.createdAt ?? ''
+			createdAt: photo.createdAt ?? ""
 		};
 	} catch {
 		return null;
 	}
-});
+};
+
+export const getPhotoDetails = query(UrlSchema, _getPhotoDetails);
 
 export const getPhotoCollectionMeta = query(UrlSchema, async (url) => {
 	if (!url.includes("photo-gallery")) {
-		return '';
+		return "";
 	}
 
+	const apiUrl = url
+		.replace("/photos/", "/api/photos/");
+
 	try {
-		const resp = await fetch(url);
+		const resp = await fetch(apiUrl);
 		return await resp.json();
 	} catch {
-		return '';
+		return "";
 	}
 });
