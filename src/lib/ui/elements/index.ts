@@ -3,6 +3,7 @@ export * from "./ColorScheme";
 export * from "./GeneralUIProps";
 export * from "./OnBackground";
 export * from "./PinyaButtonCommon";
+export * from "./pinya-combobox"
 
 // components
 export { default as ImageIcon } from "./ImageIcon.svelte";

@@ -81,8 +81,7 @@
 				buttonVariant={ButtonVariant.SmallIcon}
 				title="https://pineapple.turnipxenon.com/documentation"
 				onclick={() => window.open("https://pineapple.turnipxenon.com/documentation")}>
-				<ImageIcon src={LinkIcon} aria-hidden />
-				<span>pineapple.turnipxenon.com</span>
+				<span class="external-link">pineapple.turnipxenon.com</span>
 			</PinyaButton>
 		</section>
 

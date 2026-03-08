@@ -42,8 +42,12 @@
 		<p>
 			Pengi is a text-based adventure made in <span class='qt-unity'>Unity</span> (<span class='qt-cs'>C#</span>). I
 			acted as the sole
-			programmer for the team. Most of the work revolves around UI and creating <a
-			href="https://yarnspinner.dev/" target="_blank">YarnSpinner</a> commands for writers
+			programmer for the team. Most of the work revolves around UI and creating
+			<a
+				href="https://yarnspinner.dev/"
+				rel="external"
+				target="_blank"
+			>YarnSpinner</a> commands for writers
 			to use to create expressive stage directions in the script.
 		</p>
 

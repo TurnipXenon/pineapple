@@ -20,7 +20,7 @@
 			return;
 		}
 
-		if (url.includes("rabiole") || url.includes("photo-gallery")) {
+		if (url.includes("rabiole") || url.includes("photo-gallery") || url.includes("photos")) {
 			getPhotoDetails(url).then(data => {
 				if (data) {
 					details = data;
@@ -42,7 +42,7 @@
 				{#if details.tags.length}
 					<ul class="tags">
 						{#each details.tags as tag}
-							<li><a href="{galleryBase}/photos?tags={tag}" target="_blank">{tag}</a></li>
+							<li><a href="{galleryBase}/photos?tags={tag}" target="_blank" rel="external">{tag}</a></li>
 						{/each}
 					</ul>
 				{/if}
@@ -60,7 +60,7 @@
         border-radius: var(--radius-sm);
         max-height: min(50vh, 24lh);
         margin: auto;
-		    object-fit: contain;
+        object-fit: contain;
     }
 
     .parsnip-image-described {
@@ -76,6 +76,11 @@
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
+
+        a::after {
+            top: -0.125lh;
+            left: 0.2em;
+        }
     }
 
     .parsnip-image-meta p {

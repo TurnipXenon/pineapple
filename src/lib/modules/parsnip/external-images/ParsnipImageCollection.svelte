@@ -7,7 +7,7 @@
 
 	const { url, imageList }: { url?: string, imageList?: Image[] } = $props();
 
-	const withDescription = untrack(() => url?.includes('with-description=true') ?? false);
+	const withDescription = untrack(() => url?.includes("with-description=true") ?? false);
 
 	let data = $state<{
 		photos: {
@@ -51,13 +51,13 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: stretch;
-		    gap: 0.5rem 0.5lh;
+        gap: 0.5rem 0.5lh;
     }
 
     :global {
         .parsnip-image-collection > * {
-		        flex: 1 1 24rem;
-		        width: 0;
+            flex: 1 1 24rem;
+            width: 0;
         }
     }
 </style>

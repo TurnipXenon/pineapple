@@ -66,6 +66,7 @@
 			</PinyaAccordionItem>
 		</PinyaAccordion>
 		<PinyaAnchorButton href="/test">Go to /test (anchor test)</PinyaAnchorButton>
+		<PinyaAnchorButton href="/test"><span class="external-link">Go to /test (external test)</span></PinyaAnchorButton>
 	</PinyaCard>
 
 	<PinyaCard widthClass="max-w-2xl" flexClass="flex flex-col gap-4">

@@ -24,8 +24,8 @@
 <div class="chum-bucket">
 	<h2 class="text-start">More about me...</h2>
 	<p>Check out the latest things I've been rambling about at
-		<a href="https://turnipxenon.com" target="_blank">turnipxenon.com</a> or at
-		<a href="https://turnipxenon.com/blogs/coding-chagrin" target="_blank">turnipxenon.com/blogs/coding-chagrin.</a>
+		<a href="https://turnipxenon.com" target="_blank" rel="external">turnipxenon.com</a> or at
+		<a href="https://turnipxenon.com/blogs/coding-chagrin" target="_blank" rel="external">turnipxenon.com/blogs/coding-chagrin.</a>
 	</p>
 
 	<div class="chum-bucket-grid">

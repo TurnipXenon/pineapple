@@ -37,7 +37,23 @@ export const slugPageServerLoad = async ({ params }: { params: { slug: string } 
 	const newChildren: AstChildren[] = [];
 	let imageCollection: (Image | Link)[] = [];
 	parsnipEntry.ast.ast.children.forEach(child => {
-		if (child.type === "paragraph"
+		if (
+			child.type === "paragraph"
+			&& child.children.length === 3
+			&& child.children[0].type === "html"
+			&& child.children[0].value.includes("data-obsidian-type")
+		) {
+			// multiple rating special logic
+			// if we see a span with data-obsidian-type....
+
+			// todo: maybe in the future...
+			// const obsidianType = child.children[0].value.split("\"")[0];
+			// if (obsidianType === 'rating') {
+			//
+			// }
+
+			newChildren.push(child as AstChildren);
+		} else if (child.type === "paragraph"
 			&& child.children.length === 1
 			&& (
 				child.children[0].type === "image"
