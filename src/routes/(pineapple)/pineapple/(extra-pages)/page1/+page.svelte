@@ -4,7 +4,7 @@
 	import BlogTemplate from "$pkg/ui/templates/blog_template/BlogTemplate.svelte";
 </script>
 
-<BlogTemplate pageMeta={pageMeta}>
+<BlogTemplate {pageMeta}>
 	<p>{$page.url}</p>
 	<p>Testing paragraph</p>
 	<p>Another one</p>

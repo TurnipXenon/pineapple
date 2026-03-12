@@ -4,7 +4,8 @@ import { describe, expect, it } from "vitest";
 import TutorialYarn from "./Tutorial.yarn?raw";
 
 describe("Tutorial.yarn", () => {
-	describe("parses without throwing and returns dialog nodes", async () => du.describeBasicChecks(TutorialYarn, ["{$tutorialReturnAddress}"]));
+	describe("parses without throwing and returns dialog nodes", async () =>
+		du.describeBasicChecks(TutorialYarn, ["{$tutorialReturnAddress}"]));
 
 	it("dialog goes through the entire tutorial the first time", async () => {
 		const dialogManager = new DialogManager();
@@ -45,7 +46,9 @@ describe("Tutorial.yarn", () => {
 			const dialogManager = new DialogManager();
 			await dialogManager.parseAndSetDialogTree(TutorialYarn);
 			dialogManager.dialogVariableStore.setItem("$tutorialReturnAddress", "TutorialChoicesResult");
-			expect(dialogManager.dialogVariableStore.getItem("$tutorialReturnAddress")).toBe("TutorialChoicesResult");
+			expect(dialogManager.dialogVariableStore.getItem("$tutorialReturnAddress")).toBe(
+				"TutorialChoicesResult"
+			);
 			dialogManager.setDialogChoiceById("TutorialEnd");
 			du.assertDialogJump(dialogManager, "TutorialChoicesResult");
 		});

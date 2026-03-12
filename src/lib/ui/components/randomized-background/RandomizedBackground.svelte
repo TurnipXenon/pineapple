@@ -3,28 +3,37 @@
 <!-- TODO: add suspend? load images first before showing them up slowly? -->
 
 <script lang="ts">
-	import { fade } from 'svelte/transition';
+	import { fade } from "svelte/transition";
 
-	import BgTiledAres from '$pkg/assets/bg_tiled/bg_tiled_ares.png';
-	import BgTiledCorn from '$pkg/assets/bg_tiled/bg_tiled_corn.png';
-	import BgTiledPineapple from '$pkg/assets/bg_tiled/bg_tiled_pineapple.png';
-	import BgTiledReinhard from '$pkg/assets/bg_tiled/bg_tiled_reinhard.png';
-	import BgTiledTomato from '$pkg/assets/bg_tiled/bg_tiled_tomato.png';
-	import BgTiledTurnip from '$pkg/assets/bg_tiled/bg_tiled_turnip.png';
-	import RandomizedImage from '$pkg/ui/components/randomized-background/RandomizedImage.svelte';
-	import { generatedDailySeed, mulberry32Generator } from '$pkg/util/util';
+	import BgTiledAres from "$pkg/assets/bg_tiled/bg_tiled_ares.png";
+	import BgTiledCorn from "$pkg/assets/bg_tiled/bg_tiled_corn.png";
+	import BgTiledPineapple from "$pkg/assets/bg_tiled/bg_tiled_pineapple.png";
+	import BgTiledReinhard from "$pkg/assets/bg_tiled/bg_tiled_reinhard.png";
+	import BgTiledTomato from "$pkg/assets/bg_tiled/bg_tiled_tomato.png";
+	import BgTiledTurnip from "$pkg/assets/bg_tiled/bg_tiled_turnip.png";
+	import RandomizedImage from "$pkg/ui/components/randomized-background/RandomizedImage.svelte";
+	import { generatedDailySeed, mulberry32Generator } from "$pkg/util/util";
 	import { appState } from "$pkg/ui/templates/PinyaPageLayout/pinyaPageLayoutRunes.svelte.js";
 
-	let { enabled }: {
-		enabled: boolean
+	let {
+		enabled
+	}: {
+		enabled: boolean;
 	} = $props();
 
-	const imageList = [BgTiledAres, BgTiledCorn, BgTiledPineapple, BgTiledReinhard, BgTiledTomato, BgTiledTurnip];
+	const imageList = [
+		BgTiledAres,
+		BgTiledCorn,
+		BgTiledPineapple,
+		BgTiledReinhard,
+		BgTiledTomato,
+		BgTiledTurnip
+	];
 
 	const seed = generatedDailySeed();
 	const rng = mulberry32Generator(seed);
 
-	const shuffle = <T>(array: T[]): T[] => {
+	const shuffle = <T,>(array: T[]): T[] => {
 		// from: community wiki @ https://stackoverflow.com/a/2450976/17836168
 		let currentIndex = array.length,
 			randomIndex;
@@ -70,12 +79,7 @@
 
 <!--todo: add a letterbox beyond 1960px + 16 rem-->
 {#if enabled && generatedImageList.length > 0}
-	<div
-		class="default-background"
-		aria-hidden="true"
-		style={bgStyle}
-		transition:fade
-	>
+	<div class="default-background" aria-hidden="true" style={bgStyle} transition:fade>
 		{#each generatedImageList as imageItem, idx (idx)}
 			<RandomizedImage src={imageItem} {rng} />
 		{/each}
@@ -83,17 +87,17 @@
 {/if}
 
 <style>
-    .default-background {
-        position: fixed;
-        display: flex;
-        top: -8rem;
-        left: 50%;
-        transform: translate(-50%, 0);
-        width: calc(100vw + 16rem);
-        max-width: 1960px;
-        height: calc(100vh + 16rem);
-        flex-wrap: wrap;
-        overflow: hidden;
-        z-index: -10;
-    }
+	.default-background {
+		position: fixed;
+		display: flex;
+		top: -8rem;
+		left: 50%;
+		transform: translate(-50%, 0);
+		width: calc(100vw + 16rem);
+		max-width: 1960px;
+		height: calc(100vh + 16rem);
+		flex-wrap: wrap;
+		overflow: hidden;
+		z-index: -10;
+	}
 </style>

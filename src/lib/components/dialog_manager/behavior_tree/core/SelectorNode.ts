@@ -6,9 +6,10 @@ import type { BaseBehaviorResult } from "$lib/components/dialog_manager/behavior
  * Selector is a composite behavior node where it tries to process everything until it
  * finds a non-failing node
  */
-export abstract class SelectorNode<Argument, Result extends BaseBehaviorResult>
-	implements BehaviorNode<Argument, Result>
-{
+export abstract class SelectorNode<
+	Argument,
+	Result extends BaseBehaviorResult
+> implements BehaviorNode<Argument, Result> {
 	nodeList: BehaviorNode<Argument, Result>[];
 	abstract defaultResult: () => Result;
 

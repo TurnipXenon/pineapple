@@ -12,23 +12,25 @@
 	import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout/ProjectComponentProps";
 
 	const key = "ObsidianPublisher";
-	const startCommit = "https://github.com/TurnipXenon/obsidian-blog-publisher/commit/d8eaecacc3703a57c16b400d3bea6428b0dbfaee"; // fill in GitHub commit URL to auto-resolve dateStarted
+	const startCommit =
+		"https://github.com/TurnipXenon/obsidian-blog-publisher/commit/d8eaecacc3703a57c16b400d3bea6428b0dbfaee"; // fill in GitHub commit URL to auto-resolve dateStarted
 	const gitRepoLink = "https://github.com/TurnipXenon/obsidian-blog-publisher";
 	const tags = ["plugin", "typescript", "obsidian"];
 	export { component, key, startCommit, gitRepoLink, tags };
 </script>
+
 <script>
 	import { TextLink } from "$pkg/ui/elements/index";
 </script>
 
 {#snippet component(props: ProjectComponentProps)}
 	<FourPartCard>
-
 		{#snippet headerCover()}
 			<img
 				class="game-video-cover"
 				alt="Screenshot showing the blog on the left and the source Obsidian page on the right with a UI on top prompting the user which selection or webpage to push"
-				src="https://github.com/TurnipXenon/obsidian-blog-publisher/raw/main/docs/showcase.png" />
+				src="https://github.com/TurnipXenon/obsidian-blog-publisher/raw/main/docs/showcase.png"
+			/>
 		{/snippet}
 
 		{#snippet header()}
@@ -36,11 +38,13 @@
 		{/snippet}
 
 		<p>
-			An Obsidian plugin that publishes my blog to a selected website.
-			It generates AST of the Markdown files, which it then publishes to a git repo.
-			The plugin follows it up with a Cloudflare rebuild of the website, which would read the contents of the repo.
-			A module in the website called
-			<TextLink href="https://github.com/TurnipXenon/pineapple/pull/152" rel="external">Parsnip</TextLink>
+			An Obsidian plugin that publishes my blog to a selected website. It generates AST of the
+			Markdown files, which it then publishes to a git repo. The plugin follows it up with a
+			Cloudflare rebuild of the website, which would read the contents of the repo. A module in the
+			website called
+			<TextLink href="https://github.com/TurnipXenon/pineapple/pull/152" rel="external"
+				>Parsnip</TextLink
+			>
 			generates custom pages based on these AST files.
 		</p>
 
@@ -56,18 +60,19 @@
 			<PinyaButton
 				buttonVariant={ButtonVariant.Image}
 				title="https://github.com/TurnipXenon/obsidian-blog-publisher"
-				onclick={() => window.open("https://github.com/TurnipXenon/obsidian-blog-publisher")}>
+				onclick={() => window.open("https://github.com/TurnipXenon/obsidian-blog-publisher")}
+			>
 				<ImageIcon src={GithubIcon} class="long-btn-image" alt="github icon" />
 			</PinyaButton>
 			<PinyaButton
 				data-nosnippet
 				buttonVariant={ButtonVariant.SmallIcon}
 				title="https://www.turnipxenon.com/blogs"
-				onclick={() => window.open("https://www.turnipxenon.com/blogs")}>
+				onclick={() => window.open("https://www.turnipxenon.com/blogs")}
+			>
 				<ImageIcon src={LinkIcon} aria-hidden />
 				<span>turnipxenon.com/blogs</span>
 			</PinyaButton>
 		</section>
-
 	</FourPartCard>
 {/snippet}

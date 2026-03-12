@@ -1,4 +1,4 @@
-import type { Snippet } from 'svelte';
+import type { Snippet } from "svelte";
 
 interface AppStore {
 	title: string;
@@ -13,7 +13,7 @@ interface AppStore {
 }
 
 export const appState = $state<AppStore>({
-	title: '',
+	title: "",
 	isLanguagePickerAvailable: true,
-	bgOpacity: 1,
+	bgOpacity: 1
 });

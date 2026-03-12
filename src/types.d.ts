@@ -4,6 +4,6 @@ declare namespace env {
 	export const VITE_WEB_BASE_URL: string;
 }
 
-declare module 'shiki-transformer-copy-button';
-declare module 'shiki/langs/typescript.mjs';
-declare module 'shiki/langs/xml.mjs';
+declare module "shiki-transformer-copy-button";
+declare module "shiki/langs/typescript.mjs";
+declare module "shiki/langs/xml.mjs";

@@ -21,7 +21,7 @@
 	const onValueChange = (e: ComboxData["value"][] | undefined) => {
 		if (!e || e.length === 0) return;
 
-		const data = comboboxData.filter(v => e.includes(v.value));
+		const data = comboboxData.filter((v) => e.includes(v.value));
 		if (data && data.length > 0) {
 			const pathname = deLocalizeHref(location.href);
 			location.href = localizeHref(pathname, { locale: data[0].value });

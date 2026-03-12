@@ -18,7 +18,7 @@ export const slugPageServerLoad = async ({ params }: { params: { slug: string } 
 		baseUrl
 	} as ParsnipOverall;
 
-	const entryMeta = parsnipOverall.files.find(f => f.slug === params.slug);
+	const entryMeta = parsnipOverall.files.find((f) => f.slug === params.slug);
 
 	if (!entryMeta) {
 		error(400, "Not found");
@@ -30,18 +30,20 @@ export const slugPageServerLoad = async ({ params }: { params: { slug: string } 
 		error(400, "Not found");
 	}
 
-	const parsnipEntry = await entryResponse.json() as ParsnipEntry;
+	const parsnipEntry = (await entryResponse.json()) as ParsnipEntry;
 
 	// process parsnipEntry.ast.ast.children so that paragraphs with sole images are combined into one
-	type AstChildren = (RootContentMap[keyof RootContentMap] | { type: "imageCollection", children: (Image | Link)[] });
+	type AstChildren =
+		| RootContentMap[keyof RootContentMap]
+		| { type: "imageCollection"; children: (Image | Link)[] };
 	const newChildren: AstChildren[] = [];
 	let imageCollection: (Image | Link)[] = [];
-	parsnipEntry.ast.ast.children.forEach(child => {
+	parsnipEntry.ast.ast.children.forEach((child) => {
 		if (
-			child.type === "paragraph"
-			&& child.children.length === 3
-			&& child.children[0].type === "html"
-			&& child.children[0].value.includes("data-obsidian-type")
+			child.type === "paragraph" &&
+			child.children.length === 3 &&
+			child.children[0].type === "html" &&
+			child.children[0].value.includes("data-obsidian-type")
 		) {
 			// multiple rating special logic
 			// if we see a span with data-obsidian-type....
@@ -53,19 +55,18 @@ export const slugPageServerLoad = async ({ params }: { params: { slug: string } 
 			// }
 
 			newChildren.push(child as AstChildren);
-		} else if (child.type === "paragraph"
-			&& child.children.length === 1
-			&& (
-				child.children[0].type === "image"
-				|| (child.children[0].type === "link" &&
-					(child.children[0].url.startsWith("https://photos.")
-						|| child.children[0].url.startsWith("https://rabiole."))
-				)
-			)) {
+		} else if (
+			child.type === "paragraph" &&
+			child.children.length === 1 &&
+			(child.children[0].type === "image" ||
+				(child.children[0].type === "link" &&
+					(child.children[0].url.startsWith("https://photos.") ||
+						child.children[0].url.startsWith("https://rabiole."))))
+		) {
 			imageCollection.push(child.children[0]);
 		} else if (imageCollection.length > 0) {
 			newChildren.push({
-				"type": "imageCollection",
+				type: "imageCollection",
 				children: imageCollection
 			});
 			imageCollection = [];
@@ -77,7 +78,7 @@ export const slugPageServerLoad = async ({ params }: { params: { slug: string } 
 
 	if (imageCollection.length > 0) {
 		newChildren.push({
-			"type": "imageCollection",
+			type: "imageCollection",
 			children: imageCollection
 		});
 	}

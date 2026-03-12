@@ -8,10 +8,7 @@
 		children?: Snippet;
 	}
 
-	let {
-		isVisible = $bindable(true),
-		children
-	}: Props = $props();
+	let { isVisible = $bindable(true), children }: Props = $props();
 
 	let stickyElem: HTMLElement | undefined = $state();
 

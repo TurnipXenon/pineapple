@@ -14,24 +14,30 @@
 
 	const key = "This Webpage";
 	const priority = 70;
-	const startCommit = "https://github.com/TurnipXenon/pineapple/commit/b16aa69b9f5ad224871e80c09aa4cca067dc2a52"; // fill in GitHub commit URL to auto-resolve dateStarted
+	const startCommit =
+		"https://github.com/TurnipXenon/pineapple/commit/b16aa69b9f5ad224871e80c09aa4cca067dc2a52"; // fill in GitHub commit URL to auto-resolve dateStarted
 	const gitRepoLink = "https://github.com/TurnipXenon/pineapple";
-	const tags = ["svelte", "typescript", "web", "tailwind", "postgres", "prisma", "ongoing", "database"];
+	const tags = [
+		"svelte",
+		"typescript",
+		"web",
+		"tailwind",
+		"postgres",
+		"prisma",
+		"ongoing",
+		"database"
+	];
 	export { component, key, startCommit, gitRepoLink, tags, priority };
 </script>
 
 {#snippet component(props: ProjectComponentProps)}
 	<FourPartCard>
-
 		{#snippet headerCover()}
 			{#if !props.isPineapple}
-				<video
-					playsinline autoplay muted loop preload="none"
-					class="game-video-cover"
-				>
-					<source src={ThisWebsiteFootage} type="video/mp4">
-					video unavailable. original video contains clips of this website being resized and light-dark mode being
-					toggled.
+				<video playsinline autoplay muted loop preload="none" class="game-video-cover">
+					<source src={ThisWebsiteFootage} type="video/mp4" />
+					video unavailable. original video contains clips of this website being resized and light-dark
+					mode being toggled.
 				</video>
 			{/if}
 		{/snippet}
@@ -41,13 +47,16 @@
 		{/snippet}
 
 		<p>
-			The webpage is made with two parts. The webpage that has the content for everything here, I've lovingly called
-			Seaweed. I kept seaweed as a private package. On the other hand, the base package which I want to use for all
-			spin offs of my websites is called Pineapple and have kept that codebase public.
+			The webpage is made with two parts. The webpage that has the content for everything here, I've
+			lovingly called Seaweed. I kept seaweed as a private package. On the other hand, the base
+			package which I want to use for all spin offs of my websites is called Pineapple and have kept
+			that codebase public.
 		</p>
-		<p>The webpage can dynamically emphasize terms, rearrange the layout, use different terms, and save all these
-			configurations as a shortened link. Additionally fetches the latest blog entries from turnipxenon.com via REST
-			calls.</p>
+		<p>
+			The webpage can dynamically emphasize terms, rearrange the layout, use different terms, and
+			save all these configurations as a shortened link. Additionally fetches the latest blog
+			entries from turnipxenon.com via REST calls.
+		</p>
 
 		<div class="text-chip-container">
 			<TextChip queryClass="qt-svelte">Svelte 5</TextChip>
@@ -73,17 +82,18 @@
 			<PinyaButton
 				buttonVariant={ButtonVariant.Image}
 				title="https://github.com/TurnipXenon/pineapple"
-				onclick={() => window.open("https://github.com/TurnipXenon/pineapple")}>
+				onclick={() => window.open("https://github.com/TurnipXenon/pineapple")}
+			>
 				<ImageIcon src={GithubIcon} class="long-btn-image" alt="github icon" />
 			</PinyaButton>
 			<PinyaButton
 				data-nosnippet
 				buttonVariant={ButtonVariant.SmallIcon}
 				title="https://pineapple.turnipxenon.com/documentation"
-				onclick={() => window.open("https://pineapple.turnipxenon.com/documentation")}>
+				onclick={() => window.open("https://pineapple.turnipxenon.com/documentation")}
+			>
 				<span class="external-link">pineapple.turnipxenon.com</span>
 			</PinyaButton>
 		</section>
-
 	</FourPartCard>
 {/snippet}

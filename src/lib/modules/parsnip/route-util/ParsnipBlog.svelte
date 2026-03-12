@@ -14,9 +14,8 @@
 		datePublished: new Date(parsnipEntry.stat.ctime).toLocaleString(),
 		lastUpdated: new Date(parsnipEntry.stat.mtime).toLocaleString(),
 		priority: 0,
-		foodReviewJson: parsnipEntry.foodReviewJson,
+		foodReviewJson: parsnipEntry.foodReviewJson
 	});
-
 </script>
 
 <svelte:head>

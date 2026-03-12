@@ -15,75 +15,85 @@
 	import { onMount, type Snippet } from "svelte";
 	import { Modals } from "svelte-modals";
 
-	let { children, fileList = {}, jsonList = {}, parsnipBasePath = "/pineapple", getParsnipDataRemote }
-		: {
-		children: Snippet,
-		fileList?: Record<string, () => Promise<unknown>>,
-		jsonList?: Record<string, unknown>,
-		getParsnipDataRemote?: RemoteQueryFunction<void, {
-			parsnipOverall: ParsnipOverall
-		} | {
-			parsnipOverall?: undefined
-		}>,
-		parsnipBasePath?: string
+	let {
+		children,
+		fileList = {},
+		jsonList = {},
+		parsnipBasePath = "/pineapple",
+		getParsnipDataRemote
+	}: {
+		children: Snippet;
+		fileList?: Record<string, () => Promise<unknown>>;
+		jsonList?: Record<string, unknown>;
+		getParsnipDataRemote?: RemoteQueryFunction<
+			void,
+			| {
+					parsnipOverall: ParsnipOverall;
+			  }
+			| {
+					parsnipOverall?: undefined;
+			  }
+		>;
+		parsnipBasePath?: string;
 	} = $props();
 
 	// https://github.com/sveltejs/kit/issues/1540#issuecomment-2029016082
-	const meta: PinyaHead = ({
+	const meta: PinyaHead = {
 		rootUrl: "http://localhost:5173",
 		title: "Pineapple",
 		ogTitle: "Pineapple",
 		ogDescription: "Pineapple is my personal UI component library",
 		ogImage: [WebThumbnailImage],
 		...(page.data?.meta ?? []) // override
-	});
+	};
 
 	const ogUrl = $derived(meta?.ogUrl ?? `${meta?.rootUrl}${page.url.pathname}`);
 
-	const imageList = $derived.by(() => meta?.ogImage?.map(img => {
-		if (img.startsWith("/")) {
-			return `${meta?.rootUrl}${img}`;
-		}
+	const imageList = $derived.by(
+		() =>
+			meta?.ogImage?.map((img) => {
+				if (img.startsWith("/")) {
+					return `${meta?.rootUrl}${img}`;
+				}
 
-		return img;
-	}) ?? []);
-
+				return img;
+			}) ?? []
+	);
 
 	let fileBasedList = $state<PageMeta[]>([]);
 	setSiteLayout(fileBasedList);
 
 	onMount(() => {
-		getParsnipDataRemote?.().then(data => {
-			fileBasedList.push(...parsePageMetaNested({
-				fileList,
-				jsonList,
-				imageMap: new Map<string, string>(),
-				parsnipOverall: data.parsnipOverall,
-				parsnipBasePath
-			}));
+		getParsnipDataRemote?.().then((data) => {
+			fileBasedList.push(
+				...parsePageMetaNested({
+					fileList,
+					jsonList,
+					imageMap: new Map<string, string>(),
+					parsnipOverall: data.parsnipOverall,
+					parsnipBasePath
+				})
+			);
 		});
 
 		if (!getParsnipDataRemote) {
-			fileBasedList.push(...parsePageMetaNested({
-				fileList,
-				jsonList,
-				imageMap: new Map<string, string>(),
-				parsnipBasePath
-			}));
+			fileBasedList.push(
+				...parsePageMetaNested({
+					fileList,
+					jsonList,
+					imageMap: new Map<string, string>(),
+					parsnipBasePath
+				})
+			);
 		}
 	});
 </script>
 
 <PineappleBaseContext>
-
 	<Modals>
 		<!-- shown when any modal is opened -->
 		{#snippet backdrop({ close })}
-			<div
-				aria-hidden="true"
-				class="backdrop"
-				onclick={() => close()}
-			></div>
+			<div aria-hidden="true" class="backdrop" onclick={() => close()}></div>
 		{/snippet}
 	</Modals>
 	<ModeWatcher defaultTheme="turnip" />
@@ -104,13 +114,13 @@
 	<meta charset="utf-8" />
 	<title>{meta?.title ?? page.url.hostname}</title>
 	<meta property="og:url" content={ogUrl} />
-	<meta property="og:site_name" content={meta?.ogTitle ?? 'Home'} />
-	<meta property="og:title" content={meta?.ogTitle ?? 'Home'} />
-	<meta property="twitter:title" content={meta?.ogTitle ?? 'Home'} />
-	<meta property="description" content={meta?.ogDescription ?? ''} />
-	<meta property="og:description" content={meta?.ogDescription ?? ''} />
-	<meta property="twitter:description" content={meta?.ogDescription ?? ''} />
-	<meta property="twitter:card" content="summary">
+	<meta property="og:site_name" content={meta?.ogTitle ?? "Home"} />
+	<meta property="og:title" content={meta?.ogTitle ?? "Home"} />
+	<meta property="twitter:title" content={meta?.ogTitle ?? "Home"} />
+	<meta property="description" content={meta?.ogDescription ?? ""} />
+	<meta property="og:description" content={meta?.ogDescription ?? ""} />
+	<meta property="twitter:description" content={meta?.ogDescription ?? ""} />
+	<meta property="twitter:card" content="summary" />
 	{#each imageList as imgUrl, idx (`${idx}_${imgUrl}`)}
 		<meta property="og:image" content={imgUrl} />
 		<meta property="twitter:image" content={imgUrl} />
@@ -118,20 +128,20 @@
 </svelte:head>
 
 <style lang="scss">
-    @use "$styles/surface-colors" as *;
+	@use "$styles/surface-colors" as *;
 
-    body {
-        @extend %surface-body;
-    }
+	body {
+		@extend %surface-body;
+	}
 
-    .backdrop {
-        position: fixed;
-        z-index: 19;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        background: rgba(0, 0, 0, 0.50);
-        backdrop-filter: blur(4px);
-    }
+	.backdrop {
+		position: fixed;
+		z-index: 19;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		background: rgba(0, 0, 0, 0.5);
+		backdrop-filter: blur(4px);
+	}
 </style>

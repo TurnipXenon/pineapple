@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-cloudflare';
+import adapter from "@sveltejs/adapter-cloudflare";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import path from "path";
 
@@ -18,7 +18,7 @@ const config = {
 		},
 		alias: {
 			$pkg: path.resolve("./src/lib"),
-			$styles: path.resolve("./src/lib/styles"),
+			$styles: path.resolve("./src/lib/styles")
 		}
 	},
 
@@ -26,7 +26,7 @@ const config = {
 		experimental: {
 			async: true
 		}
-	},
+	}
 };
 
 export default config;

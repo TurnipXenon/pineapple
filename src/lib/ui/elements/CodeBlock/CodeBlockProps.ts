@@ -1,5 +1,14 @@
 /** Highlighting language keys supported by CodeBlock (must match langs loaded in CodeBlock.svelte). */
-export type CodeBlockLang = 'console' | 'html' | 'css' | 'js' | 'ts' | 'markdown' | 'xml' | 'svelte' | 'json';
+export type CodeBlockLang =
+	| "console"
+	| "html"
+	| "css"
+	| "js"
+	| "ts"
+	| "markdown"
+	| "xml"
+	| "svelte"
+	| "json";
 
 export interface CodeBlockProps {
 	/** Code string to render inside the block. */

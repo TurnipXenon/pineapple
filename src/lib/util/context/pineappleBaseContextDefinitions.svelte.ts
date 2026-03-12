@@ -2,17 +2,25 @@ import { enableUniversalOverlaySvelte4, type OverlayType, type PageMeta } from "
 import { type LocalStore } from "$pkg/util/localStore.svelte";
 import { createContext } from "svelte";
 
-export const [getEnablePortraitContext, setEnablePortraitContext] = createContext<LocalStore<boolean>>();
-export const [getEnableDialogPreferenceContext, setEnableDialogPreferenceContext] = createContext<LocalStore<boolean>>();
+export const [getEnablePortraitContext, setEnablePortraitContext] =
+	createContext<LocalStore<boolean>>();
+export const [getEnableDialogPreferenceContext, setEnableDialogPreferenceContext] =
+	createContext<LocalStore<boolean>>();
 
 // note to self: proper two way binding is seen with the variables below
 // see https://svelte.dev/docs/svelte/context#Using-context-with-state
-export const [getEnableDialogOverlayContext, setEnableDialogOverlayContext] = createContext<{value: boolean}>();
+export const [getEnableDialogOverlayContext, setEnableDialogOverlayContext] = createContext<{
+	value: boolean;
+}>();
 
-export const [getOverlayTypeContext, setOverlayTypeContext] = createContext<LocalStore<OverlayType>>();
-export const [getIgnoreOverlayOverride, setIgnoreOverlayOverride] = createContext<{ value: boolean }>();
+export const [getOverlayTypeContext, setOverlayTypeContext] =
+	createContext<LocalStore<OverlayType>>();
+export const [getIgnoreOverlayOverride, setIgnoreOverlayOverride] = createContext<{
+	value: boolean;
+}>();
 export const [getTextSpeedContext, setTextSpeedContext] = createContext<LocalStore<number>>();
-export const [getAutoScrollPrefContext, setAutoScrollPrefContext] = createContext<LocalStore<boolean>>();
+export const [getAutoScrollPrefContext, setAutoScrollPrefContext] =
+	createContext<LocalStore<boolean>>();
 export const [getSiteLayout, setSiteLayout] = createContext<PageMeta[]>();
 
 /**
@@ -26,4 +34,4 @@ export const forceSetDialog = (value: boolean) => {
 	const ignoreOverride = getIgnoreOverlayOverride();
 	ignoreOverride.value = false;
 	enableUniversalOverlaySvelte4.set(value);
-}
+};

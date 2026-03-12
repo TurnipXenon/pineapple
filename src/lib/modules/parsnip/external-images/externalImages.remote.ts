@@ -6,7 +6,8 @@ const UrlSchema = v.pipe(v.string(), v.url());
 // todo: test this one itself
 // todo: test with a fake parsed obsidian
 const _getPhotoDetails = async (url: string) => {
-	if (!url.includes("rabiole") && !url.includes("photos") && !url.includes("photo-gallery")) return null;
+	if (!url.includes("rabiole") && !url.includes("photos") && !url.includes("photo-gallery"))
+		return null;
 
 	const apiUrl = url
 		.replace(/[?#].*$/, "")
@@ -37,8 +38,7 @@ export const getPhotoCollectionMeta = query(UrlSchema, async (url) => {
 		return "";
 	}
 
-	const apiUrl = url
-		.replace("/photos/", "/api/photos/");
+	const apiUrl = url.replace("/photos/", "/api/photos/");
 
 	try {
 		const resp = await fetch(apiUrl);

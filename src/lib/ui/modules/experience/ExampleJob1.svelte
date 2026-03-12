@@ -16,7 +16,6 @@
 </script>
 
 <script lang="ts">
-
 </script>
 
 {#snippet component(props: ProjectComponentProps)}
@@ -47,33 +46,32 @@
 {/snippet}
 
 <style>
-    :global {
-        .company-logo-placeholder {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            min-height: 150px;
-            background: linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500));
-            color: white;
-            font-size: 2rem;
-            font-weight: bold;
-            border-top-right-radius: var(--radius-xl);
-            border-top-left-radius: var(--radius-xl);
-        }
+	:global {
+		.company-logo-placeholder {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: 100%;
+			min-height: 150px;
+			background: linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500));
+			color: white;
+			font-size: 2rem;
+			font-weight: bold;
+			border-top-right-radius: var(--radius-xl);
+			border-top-left-radius: var(--radius-xl);
+		}
+	}
 
-    }
+	.date-range {
+		font-size: 0.875rem;
+		color: var(--color-text-secondary);
+		margin-bottom: 0.5rem;
+	}
 
-    .date-range {
-        font-size: 0.875rem;
-        color: var(--color-text-secondary);
-        margin-bottom: 0.5rem;
-    }
-
-    h4 {
-        margin-top: 0.25rem;
-        margin-bottom: 0.5rem;
-        color: var(--color-text-secondary);
-    }
+	h4 {
+		margin-top: 0.25rem;
+		margin-bottom: 0.5rem;
+		color: var(--color-text-secondary);
+	}
 </style>

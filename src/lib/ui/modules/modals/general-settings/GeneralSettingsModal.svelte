@@ -13,11 +13,10 @@
 
 	let props: ModalProps = $props();
 
-
 	interface ToggleItem {
-		key: "light" | "dark" | "system"
-		imageSrc: string,
-		label: string,
+		key: "light" | "dark" | "system";
+		imageSrc: string;
+		label: string;
 	}
 
 	const modes: ToggleItem[] = [
@@ -32,7 +31,7 @@
 	// do not use runes here because we only want explicit changes outside
 	// our control here!
 	userPrefersMode.subscribe((value) => {
-		const si = modes.find(m => m.key === value);
+		const si = modes.find((m) => m.key === value);
 		if (selectedItem !== si && si) {
 			selectedItem = si;
 		}
@@ -63,8 +62,11 @@
 		<SettingsPanel close={props.close} />
 
 		<div class="actions">
-			<button class="btn preset-filled-primary-400-600 text-surface-100" onclick={() => props.close()}
-			        title="Close modal">
+			<button
+				class="btn preset-filled-primary-400-600 text-surface-100"
+				onclick={() => props.close()}
+				title="Close modal"
+			>
 				Close
 			</button>
 		</div>
@@ -72,19 +74,19 @@
 </ModalBase>
 
 <style lang="scss">
-    @use "$styles/surface-colors" as *;
+	@use "$styles/surface-colors" as *;
 
-    .actions {
-        display: flex;
-        flex-direction: row-reverse;
-    }
+	.actions {
+		display: flex;
+		flex-direction: row-reverse;
+	}
 
-    .wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        text-align: start;
-        overflow: auto;
-        max-height: calc(100vh - 3lh);
-    }
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		text-align: start;
+		overflow: auto;
+		max-height: calc(100vh - 3lh);
+	}
 </style>

@@ -16,46 +16,45 @@
 		...props
 	}: PinyaButtonProps = $props();
 
-	let tailwindClass = $derived(createButtonClass({ colorScheme, paddingClass, buttonVariant, colorClass, classes }));
+	let tailwindClass = $derived(
+		createButtonClass({ colorScheme, paddingClass, buttonVariant, colorClass, classes })
+	);
 </script>
 
-<button
-	{...props}
-	class={`pinya-button ${props.class ?? ''} ${tailwindClass}`}
->
+<button {...props} class={`pinya-button ${props.class ?? ""} ${tailwindClass}`}>
 	{@render children()}
 </button>
 
 <style lang="scss">
-    @use "$styles/surface-colors.scss" as *;
+	@use "$styles/surface-colors.scss" as *;
 
-    :global {
-        .btn {
-            @extend %surface-primary-button;
+	:global {
+		.btn {
+			@extend %surface-primary-button;
 
-            padding-block: var(--spacing-1);
+			padding-block: var(--spacing-1);
 
-            &.image-button {
-                padding: var(--spacing-2) var(--spacing-3);
-            }
+			&.image-button {
+				padding: var(--spacing-2) var(--spacing-3);
+			}
 
-            &:hover {
-                filter: brightness(110%);
-            }
+			&:hover {
+				filter: brightness(110%);
+			}
 
-            &.secondary {
-                @extend %surface-secondary-button;
-            }
+			&.secondary {
+				@extend %surface-secondary-button;
+			}
 
-            &.warning {
-                color: var(--color-secondary-0-950);
-                background-color: var(--color-warning-700-400);
-            }
+			&.warning {
+				color: var(--color-secondary-0-950);
+				background-color: var(--color-warning-700-400);
+			}
 
-            &.surface {
-                background-color: var(--color-surface-700-600);
-                color: var(--color-surface-50-950);
-            }
-        }
-    }
+			&.surface {
+				background-color: var(--color-surface-700-600);
+				color: var(--color-surface-50-950);
+			}
+		}
+	}
 </style>

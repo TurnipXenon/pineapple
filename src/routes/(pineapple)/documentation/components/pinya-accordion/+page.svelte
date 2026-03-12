@@ -3,19 +3,26 @@
 	import { CodeBlock, TextLink } from "$pkg/ui/elements/index";
 	import PinyaSwitch from "$pkg/ui/elements/PineappleSwitch.svelte";
 
-	const propSources = import.meta.glob<string>("/src/lib/ui/components/accordion/PinyaAccordionProps.ts", {
-		query: "?raw",
-		import: "default",
-		eager: true
-	});
+	const propSources = import.meta.glob<string>(
+		"/src/lib/ui/components/accordion/PinyaAccordionProps.ts",
+		{
+			query: "?raw",
+			import: "default",
+			eager: true
+		}
+	);
 	const propsCode = propSources["/src/lib/ui/components/accordion/PinyaAccordionProps.ts"] ?? "";
 
-	const itemPropSources = import.meta.glob<string>("/src/lib/ui/components/accordion/PinyaAccordionItemProps.ts", {
-		query: "?raw",
-		import: "default",
-		eager: true
-	});
-	const itemPropsCode = itemPropSources["/src/lib/ui/components/accordion/PinyaAccordionItemProps.ts"] ?? "";
+	const itemPropSources = import.meta.glob<string>(
+		"/src/lib/ui/components/accordion/PinyaAccordionItemProps.ts",
+		{
+			query: "?raw",
+			import: "default",
+			eager: true
+		}
+	);
+	const itemPropsCode =
+		itemPropSources["/src/lib/ui/components/accordion/PinyaAccordionItemProps.ts"] ?? "";
 
 	let openItems = $state(["intro"]);
 	let allowMultiple = $state(true);
@@ -54,7 +61,7 @@
 		</label>
 	</div>
 
-	<PinyaAccordion bind:openItems={openItems} multiple={allowMultiple} class="max-w-2xl">
+	<PinyaAccordion bind:openItems multiple={allowMultiple} class="max-w-2xl">
 		<PinyaAccordionItem pinyaValue="intro">
 			{#snippet control()}Intro{/snippet}
 			{#snippet panel()}Accordion content goes here.{/snippet}
@@ -90,9 +97,19 @@
 	<li>When <code>multiple</code> is false, only the first open id is used.</li>
 </ul>
 
-<p>Source code:
-	<TextLink target="_blank" href="https://github.com/TurnipXenon/pineapple/blob/main/src/lib/ui/components/accordion/PinyaAccordion.svelte">https://github.com/TurnipXenon/pineapple/blob/main/src/lib/ui/components/accordion/PinyaAccordion.svelte</TextLink>
+<p>
+	Source code:
+	<TextLink
+		target="_blank"
+		href="https://github.com/TurnipXenon/pineapple/blob/main/src/lib/ui/components/accordion/PinyaAccordion.svelte"
+		>https://github.com/TurnipXenon/pineapple/blob/main/src/lib/ui/components/accordion/PinyaAccordion.svelte</TextLink
+	>
 </p>
-<p>Example code:
-	<TextLink target="_blank" href="https://github.com/TurnipXenon/pineapple/blob/main/src/routes/(pineapple)/components/+page.svelte">https://github.com/TurnipXenon/pineapple/blob/main/src/routes/(pineapple)/components/+page.svelte</TextLink>
+<p>
+	Example code:
+	<TextLink
+		target="_blank"
+		href="https://github.com/TurnipXenon/pineapple/blob/main/src/routes/(pineapple)/components/+page.svelte"
+		>https://github.com/TurnipXenon/pineapple/blob/main/src/routes/(pineapple)/components/+page.svelte</TextLink
+	>
 </p>

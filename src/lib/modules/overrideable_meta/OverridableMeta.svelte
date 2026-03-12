@@ -51,7 +51,7 @@ export const load = async (): Promise<OverridableMetaProps> => {
 			pinyaHead.ogDescription = ogDescription;
 		}
 		if (ogImage) {
-			pinyaHead.ogImage = ogImage.map(img => {
+			pinyaHead.ogImage = ogImage.map((img) => {
 				if (img.startsWith("/")) {
 					return `${pinyaHead.rootUrl}${img}`;
 				}

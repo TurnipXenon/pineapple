@@ -12,11 +12,10 @@
 
 	let props: ModalProps = $props();
 
-
 	interface ToggleItem {
-		key: "light" | "dark" | "system"
-		imageSrc: string,
-		label: string,
+		key: "light" | "dark" | "system";
+		imageSrc: string;
+		label: string;
 	}
 
 	const modes: ToggleItem[] = [
@@ -31,7 +30,7 @@
 	// do not use runes here because we only want explicit changes outside
 	// our control here!
 	userPrefersMode.subscribe((value) => {
-		const si = modes.find(m => m.key === value);
+		const si = modes.find((m) => m.key === value);
 		if (selectedItem !== si && si) {
 			selectedItem = si;
 		}
@@ -61,60 +60,63 @@
 	<h2>Navigation</h2>
 
 	<div class="wrapper nested-navigation">
-		<NestedNavigation layout={siteLayout} depth={0} close={props.close} openBehavior="open-active"></NestedNavigation>
+		<NestedNavigation layout={siteLayout} depth={0} close={props.close} openBehavior="open-active"
+		></NestedNavigation>
 	</div>
 
 	<div class="actions">
-		<button class="btn preset-filled-primary-400-600 text-surface-100" onclick={() => props.close()}
-		        title="Close modal">
+		<button
+			class="btn preset-filled-primary-400-600 text-surface-100"
+			onclick={() => props.close()}
+			title="Close modal"
+		>
 			Close
 		</button>
 	</div>
 </ModalBase>
 
 <style lang="scss">
-    @use "$styles/surface-colors" as *;
+	@use "$styles/surface-colors" as *;
 
-    .actions {
-        display: flex;
-        flex-direction: row-reverse;
-    }
+	.actions {
+		display: flex;
+		flex-direction: row-reverse;
+	}
 
-    :global {
-        .navigation-modal {
-            min-width: min(24lh, 100vw);
-            max-height: min(24lh, 100vh);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            gap: 0.1lh;
-            padding: 0;
+	:global {
+		.navigation-modal {
+			min-width: min(24lh, 100vw);
+			max-height: min(24lh, 100vh);
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			gap: 0.1lh;
+			padding: 0;
 
-            & > * {
-                padding: 0.5lh 1rem;
-            }
-        }
+			& > * {
+				padding: 0.5lh 1rem;
+			}
+		}
 
-        .nested-navigation {
-            overflow: auto;
-            padding: 0;
+		.nested-navigation {
+			overflow: auto;
+			padding: 0;
 
-            & > * {
-                margin: 1lh 1rem;
-            }
+			& > * {
+				margin: 1lh 1rem;
+			}
 
-            .wrapper {
-                padding-inline-start: 1rem;
-            }
-        }
-    }
+			.wrapper {
+				padding-inline-start: 1rem;
+			}
+		}
+	}
 
-
-    .wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        text-align: start;
-        gap: 0.4lh;
-    }
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		text-align: start;
+		gap: 0.4lh;
+	}
 </style>

@@ -1,14 +1,16 @@
 <script lang="ts">
-	import { ConfirmationModal } from '$pkg/ui/templates/index.js';
-	import type { ModalProps } from 'svelte-modals';
+	import { ConfirmationModal } from "$pkg/ui/templates/index.js";
+	import type { ModalProps } from "svelte-modals";
 
 	let props: ModalProps = $props();
 </script>
 
 <ConfirmationModal
 	confirm={{
-		onclick: () => { alert('success!'); },
-		text: 'simple success alert'
+		onclick: () => {
+			alert("success!");
+		},
+		text: "simple success alert"
 	}}
 	{...props}
 >

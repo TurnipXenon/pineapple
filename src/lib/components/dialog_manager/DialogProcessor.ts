@@ -22,7 +22,7 @@ import { ForceVisitCommand } from "./behavior_tree/line_processors/commands/Forc
  */
 export class DialogProcessor {
 	private readonly dialogManager: IDialogManager;
-	private processingTree: LineSelectorNode ;
+	private processingTree: LineSelectorNode;
 
 	constructor(dialogManager: IDialogManager) {
 		this.dialogManager = dialogManager;
@@ -46,7 +46,6 @@ export class DialogProcessor {
 			new NormalLineProcessorNode()
 		]);
 	}
-
 
 	/**
 	 * process the dialog line by line and return a presentable string

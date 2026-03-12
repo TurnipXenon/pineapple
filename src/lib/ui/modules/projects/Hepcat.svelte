@@ -23,8 +23,16 @@
 {#snippet component(props: ProjectComponentProps)}
 	<FourPartCard>
 		{#snippet headerCover()}
-			<video playsinline autoplay muted loop preload="none" id="hepcat-video" class="game-video-cover">
-				<source src={HeaderHepCat} type="video/mp4">
+			<video
+				playsinline
+				autoplay
+				muted
+				loop
+				preload="none"
+				id="hepcat-video"
+				class="game-video-cover"
+			>
+				<source src={HeaderHepCat} type="video/mp4" />
 			</video>
 		{/snippet}
 
@@ -36,17 +44,14 @@
 			</blockquote>
 		{/snippet}
 
-
-		<p>This is a course project made by a team of six for
-			<a
-				href="https://sites.google.com/ualberta.ca/cmput250/"
-				rel="external"
-				target="_blank"
-			>CMPUT 250</a>, and it won
-			<a
-				href="https://webdocs.cs.ualberta.ca/~nathanst/certificate/"
-				rel="external"
-			>Game of the year.</a>
+		<p>
+			This is a course project made by a team of six for
+			<a href="https://sites.google.com/ualberta.ca/cmput250/" rel="external" target="_blank"
+				>CMPUT 250</a
+			>, and it won
+			<a href="https://webdocs.cs.ualberta.ca/~nathanst/certificate/" rel="external"
+				>Game of the year.</a
+			>
 		</p>
 
 		<p>
@@ -55,14 +60,11 @@
 				href="https://www.rpgmakerweb.com/products/programs/rpg-maker-mv"
 				target="_blank"
 				rel="external"
-				class='qt-rpgmaker'
-			>RPG Maker MV</a>
-			with the help of additional custom-made <span class='qt-js'>Javascript</span>
-			plugins. I
-			wrote the rhythm game plugin's framework. For this plugin to work, I
-			had to write a <span class='qt-python'>Python</span> script that parses osu! files
-			into readable JSON
-			files.
+				class="qt-rpgmaker">RPG Maker MV</a
+			>
+			with the help of additional custom-made <span class="qt-js">Javascript</span>
+			plugins. I wrote the rhythm game plugin's framework. For this plugin to work, I had to write a
+			<span class="qt-python">Python</span> script that parses osu! files into readable JSON files.
 		</p>
 
 		<ProjectDateBadge
@@ -77,24 +79,24 @@
 			<PinyaButton
 				buttonVariant={ButtonVariant.Image}
 				title="https://bitbucket.org/egginchicken/hep-cat/src/master/"
-				onclick={()=> window.open("https://bitbucket.org/egginchicken/hep-cat/src/master/")}>
+				onclick={() => window.open("https://bitbucket.org/egginchicken/hep-cat/src/master/")}
+			>
 				<ImageIcon alt="bitbucket icon" src={BitbucketIcon} />
 			</PinyaButton>
 			<PinyaButton
 				buttonVariant={ButtonVariant.Image}
 				title="https://just-a-phantom.itch.io/hep-cat"
-				onclick={()=> window.open("https://just-a-phantom.itch.io/hep-cat")}>
+				onclick={() => window.open("https://just-a-phantom.itch.io/hep-cat")}
+			>
 				<ImageIcon alt="itch.io icon" src={ItchLogoHotLink}></ImageIcon>
 			</PinyaButton>
 		</section>
-
 	</FourPartCard>
 {/snippet}
 
-
 <style>
-    #hepcat-video {
-        object-position: top;
-        max-height: 64rem;
-    }
+	#hepcat-video {
+		object-position: top;
+		max-height: 64rem;
+	}
 </style>

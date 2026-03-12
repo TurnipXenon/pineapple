@@ -146,11 +146,17 @@ export const parseYarn = async (fileContent: string): Promise<DialogDetail[]> =>
 			choiceList.forEach((choiceDetail) => {
 				const keyword = `<choice ${choiceDetail.name}>`;
 				if (!dialogDetails.textContent.includes(keyword)) {
-					console.warn(`Jump name is not used in any <choice> tag: (name: ${choiceDetail.name}); jump: ${choiceDetail.jumpNode}`);
+					console.warn(
+						`Jump name is not used in any <choice> tag: (name: ${choiceDetail.name}); jump: ${choiceDetail.jumpNode}`
+					);
 					if (dialogDetails.warningList) {
-						dialogDetails.warningList.push(`Jump name is not used in any <choice> tag: (name: ${choiceDetail.name}); jump: ${choiceDetail.jumpNode}`)
+						dialogDetails.warningList.push(
+							`Jump name is not used in any <choice> tag: (name: ${choiceDetail.name}); jump: ${choiceDetail.jumpNode}`
+						);
 					} else {
-						dialogDetails.warningList = [`Jump name is not used in any <choice> tag: (name: ${choiceDetail.name}); jump: ${choiceDetail.jumpNode}`];
+						dialogDetails.warningList = [
+							`Jump name is not used in any <choice> tag: (name: ${choiceDetail.name}); jump: ${choiceDetail.jumpNode}`
+						];
 					}
 				}
 				while (dialogDetails.textContent.includes(keyword)) {
@@ -165,7 +171,7 @@ export const parseYarn = async (fileContent: string): Promise<DialogDetail[]> =>
 			while (dialogDetails.textContent.includes(externalKeyword)) {
 				dialogDetails.textContent = dialogDetails.textContent.replace(
 					externalKeyword,
-					"<a target=\"_blank\" class=\"external-link\" href="
+					'<a target="_blank" class="external-link" href='
 				); // make all external tags with a custom cursor
 			}
 
@@ -179,10 +185,12 @@ export const parseYarn = async (fileContent: string): Promise<DialogDetail[]> =>
 		}
 
 		// warn if choice has no jump warning
-		if (dialogDetails.textContent.includes('<choice')) {
-			console.warn(`There is a <choice ??> in the processed dialog that was not parsed to <a ??>:\n${dialogDetails.textContent}`);
+		if (dialogDetails.textContent.includes("<choice")) {
+			console.warn(
+				`There is a <choice ??> in the processed dialog that was not parsed to <a ??>:\n${dialogDetails.textContent}`
+			);
 			if (dialogDetails.warningList) {
-				dialogDetails.warningList.push(`Choice has no jump: ${dialogDetails.textContent}`)
+				dialogDetails.warningList.push(`Choice has no jump: ${dialogDetails.textContent}`);
 			} else {
 				dialogDetails.warningList = [`Choice has no jump: ${dialogDetails.textContent}`];
 			}
@@ -190,7 +198,6 @@ export const parseYarn = async (fileContent: string): Promise<DialogDetail[]> =>
 
 		dialogDetailList.push(dialogDetails);
 	});
-
 
 	return dialogDetailList;
 };

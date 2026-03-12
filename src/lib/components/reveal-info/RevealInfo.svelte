@@ -14,11 +14,11 @@
 		bodySnippet = undefined,
 		...props
 	}: {
-		infoRecord: RevealInfoRecord,
-		onclickBuilder?: ((revealInfo: string) => (() => void)),
-		titleBuilder?: ((revealInfo: string) => string),
+		infoRecord: RevealInfoRecord;
+		onclickBuilder?: (revealInfo: string) => () => void;
+		titleBuilder?: (revealInfo: string) => string;
 		bodySnippet?: Snippet<[string]>;
-	} & Omit<PinyaButtonProps, | "onclick" | "title" | "children"> = $props();
+	} & Omit<PinyaButtonProps, "onclick" | "title" | "children"> = $props();
 
 	type State = "ready" | "loading" | "error" | "done";
 
@@ -31,7 +31,8 @@
 			_state = "loading";
 			(infoRecord.query.type === "string"
 				? infoRecord.query.run(infoRecord.query.key ?? "")
-				: infoRecord.query.run())
+				: infoRecord.query.run()
+			)
 				.then((data) => {
 					revealValue = data;
 					_state = "done";
@@ -40,7 +41,6 @@
 					} else {
 						revealInfoState.setInfoState(uid, revealValue);
 					}
-
 				})
 				.catch(() => {
 					revealValue = "Cannot retrieve data.";
@@ -50,23 +50,24 @@
 	};
 </script>
 
-{#if (_state !== 'done')}
+{#if _state !== "done"}
 	<PinyaButton
 		buttonVariant={ButtonVariant.SmallIcon}
 		{...props}
-		disabled={_state !== 'ready'}
+		disabled={_state !== "ready"}
 		title={revealValue}
-		onclick={onRevealClicked}>
+		onclick={onRevealClicked}
+	>
 		{#if bodySnippet}
 			{@render bodySnippet?.(revealValue)}
-		{:else }
+		{:else}
 			<ImageIcon src={VisibilityIcon} aria-hidden />
 			<span>
 				{revealValue}
 			</span>
 		{/if}
 	</PinyaButton>
-{:else if (_state === 'done' && onclickBuilder)}
+{:else if _state === "done" && onclickBuilder}
 	<PinyaButton
 		{...props}
 		title={titleBuilder ? titleBuilder(revealValue) : revealValue}
@@ -74,14 +75,12 @@
 	>
 		{#if bodySnippet}
 			{@render bodySnippet?.(revealValue)}
-		{:else }
+		{:else}
 			{revealValue}
 		{/if}
 	</PinyaButton>
-{:else }
-	{#if bodySnippet}
-		{@render bodySnippet?.(revealValue)}
-	{:else }
-		{revealValue}
-	{/if}
+{:else if bodySnippet}
+	{@render bodySnippet?.(revealValue)}
+{:else}
+	{revealValue}
 {/if}

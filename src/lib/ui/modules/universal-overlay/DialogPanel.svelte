@@ -29,7 +29,9 @@ Layout and logic for DialogPanel. Some of the logics for the portraits are in Un
 		}
 
 		const distanceToBottom =
-			dialogPanelElement.scrollHeight - dialogPanelElement.scrollTop - dialogPanelElement.clientHeight;
+			dialogPanelElement.scrollHeight -
+			dialogPanelElement.scrollTop -
+			dialogPanelElement.clientHeight;
 		shouldStickToBottom = distanceToBottom <= 24;
 	};
 
@@ -38,7 +40,7 @@ Layout and logic for DialogPanel. Some of the logics for the portraits are in Un
 			currentMessage = value;
 		});
 
-		dialogManager.isDoneTransitionWritable.subscribe(value => {
+		dialogManager.isDoneTransitionWritable.subscribe((value) => {
 			divRole = value ? undefined : "button";
 		});
 
@@ -46,7 +48,7 @@ Layout and logic for DialogPanel. Some of the logics for the portraits are in Un
 	});
 
 	$effect(() => {
-		dialogManager.setUpdateRate((16 * 10) - (textSpeedContext.value * 16));
+		dialogManager.setUpdateRate(16 * 10 - textSpeedContext.value * 16);
 	});
 
 	$effect(() => {
@@ -94,39 +96,39 @@ Layout and logic for DialogPanel. Some of the logics for the portraits are in Un
 </div>
 
 <style>
-    :global {
-        :root {
-            --color-dialog-bold: #6b8499;
-            --color-dialog-italic: #a55332;
-        }
+	:global {
+		:root {
+			--color-dialog-bold: #6b8499;
+			--color-dialog-italic: #a55332;
+		}
 
-        html.dark {
-            --color-dialog-bold: #85a1b6;
-            --color-dialog-italic: #f7b67c;
-        }
+		html.dark {
+			--color-dialog-bold: #85a1b6;
+			--color-dialog-italic: #f7b67c;
+		}
 
-        #reverse-dialog-wrapper {
-            width: 100%;
-        }
+		#reverse-dialog-wrapper {
+			width: 100%;
+		}
 
-        #dialog-panel {
-            overflow: auto;
-            display: block;
+		#dialog-panel {
+			overflow: auto;
+			display: block;
 
-            img,
-            video {
-                max-height: 3lh;
-                display: inline;
-            }
+			img,
+			video {
+				max-height: 3lh;
+				display: inline;
+			}
 
-            b {
-                font-weight: bolder;
-                color: var(--color-dialog-bold);
-            }
+			b {
+				font-weight: bolder;
+				color: var(--color-dialog-bold);
+			}
 
-            i {
-                color: var(--color-dialog-italic);
-            }
-        }
-    }
+			i {
+				color: var(--color-dialog-italic);
+			}
+		}
+	}
 </style>

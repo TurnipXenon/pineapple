@@ -29,9 +29,10 @@
 
 		<p>
 			Currently working on high-performance systems using
-			<span class="qt-rust">Rust</span>.
-			Leading development of critical infrastructure components and mentoring junior developers to preach our love of
-			<span class="qt-rust">Rust</span>. Did I forget to mention <span class="qt-rust">RUST</span>?!?!
+			<span class="qt-rust">Rust</span>. Leading development of critical infrastructure components
+			and mentoring junior developers to preach our love of
+			<span class="qt-rust">Rust</span>. Did I forget to mention
+			<span class="qt-rust">RUST</span>?!?!
 		</p>
 
 		<div class="text-chip-container">
