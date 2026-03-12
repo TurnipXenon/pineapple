@@ -28,8 +28,8 @@
 
 	onMount(async () => {
 		const refs = entryList
-			.filter(e => e.startCommit || e.endCommit || e.gitRepoLink)
-			.map(e => ({
+			.filter((e) => e.startCommit || e.endCommit || e.gitRepoLink)
+			.map((e) => ({
 				key: e.key,
 				startCommit: e.startCommit,
 				endCommit: e.endCommit,
@@ -40,7 +40,7 @@
 
 		try {
 			const dates = await getCommitDate(refs);
-			resolvedEntryList = entryList.map(e => {
+			resolvedEntryList = entryList.map((e) => {
 				const d = dates[e.key];
 				if (!d) return e;
 				return {
@@ -56,12 +56,12 @@
 	});
 
 	// Derived values
-	const allTags = $derived([...new Set(resolvedEntryList.flatMap(e => e.tags ?? []))]);
+	const allTags = $derived([...new Set(resolvedEntryList.flatMap((e) => e.tags ?? []))]);
 
 	const filteredList = $derived(
 		selectedTags.length === 0
 			? resolvedEntryList
-			: resolvedEntryList.filter(e => e.tags?.some(t => selectedTags.includes(t)))
+			: resolvedEntryList.filter((e) => e.tags?.some((t) => selectedTags.includes(t)))
 	);
 
 	function sortEntries(list: SnippetMeta[], sort: string): SnippetMeta[] {
@@ -108,7 +108,7 @@
 					}
 
 					// follow original index
-					return list.findIndex(l => l.key === a.key) - list.findIndex(l => l.key === b.key);
+					return list.findIndex((l) => l.key === a.key) - list.findIndex((l) => l.key === b.key);
 				});
 		}
 	}
@@ -126,9 +126,7 @@
 	const sortedList = $derived(sortEntries(filteredList, sortBy.length > 0 ? sortBy[0] : "default"));
 
 	const visibleList = $derived(
-		showMoreLimit > 0 && !isExpanded
-			? sortedList.slice(0, showMoreLimit)
-			: sortedList
+		showMoreLimit > 0 && !isExpanded ? sortedList.slice(0, showMoreLimit) : sortedList
 	);
 
 	const hasMore = $derived(showMoreLimit > 0 && sortedList.length > showMoreLimit);
@@ -143,7 +141,7 @@
 					<TagFilter bind:selectedTags {allTags} />
 				{/if}
 				{#if showSort}
-					<SortDropdown bind:sortBy={sortBy} {sectionType} />
+					<SortDropdown bind:sortBy {sectionType} />
 				{/if}
 			</div>
 		</div>
@@ -156,106 +154,112 @@
 	{:else}
 		<div class="normal-project-container">
 			{#each visibleList as ui (ui.key)}
-				{@render ui.component(projectComponentProps ? {
-					...projectComponentProps,
-					snippetMeta: ui
-				} : { snippetMeta: ui })}
+				{@render ui.component(
+					projectComponentProps
+						? {
+								...projectComponentProps,
+								snippetMeta: ui
+							}
+						: { snippetMeta: ui }
+				)}
 			{/each}
 		</div>
 
 		{#if hasMore}
-			<button class="show-more-btn" onclick={() => isExpanded = !isExpanded}>
-				{isExpanded ? "Show less" : `Click to see ${sortedList.length - visibleList.length} more...`}
+			<button class="show-more-btn" onclick={() => (isExpanded = !isExpanded)}>
+				{isExpanded
+					? "Show less"
+					: `Click to see ${sortedList.length - visibleList.length} more...`}
 			</button>
 		{/if}
 	{/if}
 </div>
 
 <style>
-    .header-content {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-    }
+	.header-content {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		width: 100%;
+	}
 
-    @media (min-width: 768px) {
-        .header-content {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-        }
-    }
+	@media (min-width: 768px) {
+		.header-content {
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+		}
+	}
 
-    .header-controls {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
+	.header-controls {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
 
-    @media (min-width: 768px) {
-        .header-controls {
-            flex-direction: row;
-            gap: 1rem;
-        }
-    }
+	@media (min-width: 768px) {
+		.header-controls {
+			flex-direction: row;
+			gap: 1rem;
+		}
+	}
 
-    .normal-project-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        margin: auto;
-        /* 3 containers + 2 gaps + extra rem */
-        max-width: calc((28rem * 3) + 5rem);
-        justify-content: center;
-        margin-bottom: 2rem;
-        align-items: start;
-    }
+	.normal-project-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem;
+		margin: auto;
+		/* 3 containers + 2 gaps + extra rem */
+		max-width: calc((28rem * 3) + 5rem);
+		justify-content: center;
+		margin-bottom: 2rem;
+		align-items: start;
+	}
 
-    :global {
-        .upper-section-style .normal-project-container > .pinya-four-part-card {
-            max-width: revert;
-            flex-grow: revert;
-            flex-basis: revert;
-        }
+	:global {
+		.upper-section-style .normal-project-container > .pinya-four-part-card {
+			max-width: revert;
+			flex-grow: revert;
+			flex-basis: revert;
+		}
 
-        .normal-project-container > .pinya-four-part-card {
-            max-width: 30em;
-            flex-grow: 1;
-            flex-basis: 25em;
-        }
-    }
+		.normal-project-container > .pinya-four-part-card {
+			max-width: 30em;
+			flex-grow: 1;
+			flex-basis: 25em;
+		}
+	}
 
-    .show-more-btn {
-        margin-bottom: 1.5lh;
-        padding: 0.5rem 1rem;
-        border-radius: var(--radius-lg);
-        border: 2px solid var(--color-primary-500);
-        background: transparent;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
+	.show-more-btn {
+		margin-bottom: 1.5lh;
+		padding: 0.5rem 1rem;
+		border-radius: var(--radius-lg);
+		border: 2px solid var(--color-primary-500);
+		background: transparent;
+		cursor: pointer;
+		transition: background-color 0.2s;
+	}
 
-    .show-more-btn:hover {
-        background: var(--color-primary-100);
-    }
+	.show-more-btn:hover {
+		background: var(--color-primary-100);
+	}
 
-    .no-results {
-        padding: 2rem;
-        text-align: center;
-        color: var(--color-text-secondary);
-    }
+	.no-results {
+		padding: 2rem;
+		text-align: center;
+		color: var(--color-text-secondary);
+	}
 
-    :global {
-        .group-header.pinya-card {
-            margin-bottom: calc(var(--spacing) * 8);
-            max-width: unset;
-            width: 100%;
-        }
-    }
+	:global {
+		.group-header.pinya-card {
+			margin-bottom: calc(var(--spacing) * 8);
+			max-width: unset;
+			width: 100%;
+		}
+	}
 
-    .entry-group-wrapper {
-        max-width: calc((28rem * 3) + 5rem);
-        width: 100%;
-    }
+	.entry-group-wrapper {
+		max-width: calc((28rem * 3) + 5rem);
+		width: 100%;
+	}
 </style>

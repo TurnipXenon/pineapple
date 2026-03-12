@@ -61,7 +61,7 @@ TODO: delete GeneralSettingsModal.svelte
 		const _tutorialLoaded = tutorialLoaded;
 		tutorialLoaded = false;
 		const currentDialogId = dialogManager.currentMessageMeta.dialogId;
-		if (currentDialogId && !currentDialogId.includes('Tutorial')) {
+		if (currentDialogId && !currentDialogId.includes("Tutorial")) {
 			dialogManager.dialogVariableStore.setItem("$tutorialReturnAddress", currentDialogId);
 		}
 		if (!_tutorialLoaded) {
@@ -73,7 +73,6 @@ TODO: delete GeneralSettingsModal.svelte
 			dialogManager.setDialogChoiceById("TutorialStart");
 			close?.();
 			dialogManager.enableDialog(true);
-			
 		}
 	};
 

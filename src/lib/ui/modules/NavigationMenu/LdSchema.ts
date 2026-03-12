@@ -7,7 +7,7 @@ export interface LdReview {
 		ratingValue: number;
 	};
 	itemReviewed: {
-		url?: string
+		url?: string;
 	};
 }
 
@@ -26,7 +26,8 @@ export const LdSchemaUtil = {
 	getReviewRating: (review: FoodReviewJson): number => {
 		if (review["@type"] === "Review") {
 			return review.reviewRating.ratingValue;
-		} else { // Brand
+		} else {
+			// Brand
 			return review.aggregateRating.ratingValue;
 		}
 	},
@@ -34,7 +35,8 @@ export const LdSchemaUtil = {
 	getUrl: (review: FoodReviewJson): string | undefined => {
 		if (review["@type"] === "Review") {
 			return review.itemReviewed.url;
-		} else { // Brand
+		} else {
+			// Brand
 			return review.url;
 		}
 	}

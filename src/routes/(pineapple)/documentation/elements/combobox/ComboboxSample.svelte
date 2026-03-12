@@ -20,7 +20,7 @@
 		if (!e || e.length === 0) return;
 
 		console.log("chosen", e);
-		const data = comboboxData.filter(v => e.includes(v.value));
+		const data = comboboxData.filter((v) => e.includes(v.value));
 		if (data) {
 			alert(`You chose ${JSON.stringify(data)}`);
 		}
@@ -31,9 +31,10 @@
 </script>
 
 <div class="default-flex">
-	<div>Chosen values:
+	<div>
+		Chosen values:
 		{#each selectedCountry as country, idx (country)}
-			{#if (idx > 0)}
+			{#if idx > 0}
 				,
 			{/if}
 			{country}
@@ -64,10 +65,10 @@
 </div>
 
 <style>
-    .switch-wrapper {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.51em;
-    }
+	.switch-wrapper {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 0.51em;
+	}
 </style>

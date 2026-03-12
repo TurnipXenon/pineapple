@@ -11,40 +11,38 @@
 </script>
 
 {#each phrasingChildren as child (child)}
-	{#if child.type === 'text'}
+	{#if child.type === "text"}
 		{child.value}
-	{:else if child.type === 'strong'}
+	{:else if child.type === "strong"}
 		<strong>
 			<Self phrasingChildren={child.children} />
 		</strong>
-	{:else if child.type === 'emphasis'}
+	{:else if child.type === "emphasis"}
 		<em>
 			<Self phrasingChildren={child.children} />
 		</em>
-	{:else if child.type === 'inlineCode'}
+	{:else if child.type === "inlineCode"}
 		<code class="inline-code">{child.value}</code>
-	{:else if child.type === 'link'}
-		{#if child.url.includes('photo-gallery')}
+	{:else if child.type === "link"}
+		{#if child.url.includes("photo-gallery")}
 			<ParsnipImageCollection url={child.url} />
-		{:else }
-			{@const isExternal = child.url.startsWith('https://') && !child.url.startsWith(page.url.origin)}
-			<a href={child.url}
-			   target="_blank"
-			   rel={isExternal ? 'external' : undefined}
-			>
+		{:else}
+			{@const isExternal =
+				child.url.startsWith("https://") && !child.url.startsWith(page.url.origin)}
+			<a href={child.url} target="_blank" rel={isExternal ? "external" : undefined}>
 				<Self phrasingChildren={child.children} />
 			</a>
 		{/if}
-	{:else if child.type === 'html'}
+	{:else if child.type === "html"}
 		<!--	todo: special logic here -->
 		<!--	for now, let's leave it empty	-->
-	{:else if child.type === 'image'}
+	{:else if child.type === "image"}
 		<ParsnipImage {...child} />
-	{:else if child.type === 'embedWikilink'}
+	{:else if child.type === "embedWikilink"}
 		<ParsnipEmbedWikilink wikilink={child} />
-	{:else if child.type === 'wikilink'}
+	{:else if child.type === "wikilink"}
 		<ParsnipWikilink wikilink={child} />
-	{:else }
+	{:else}
 		{JSON.stringify(child, undefined, 2)}
 	{/if}
 {/each}

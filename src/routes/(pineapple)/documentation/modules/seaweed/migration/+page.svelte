@@ -2,14 +2,17 @@
 	import { CodeBlock, TextLink } from "$pkg/ui/elements";
 	const scriptOpen = '<script lang="ts">';
 	const scriptModuleOpen = '<script module lang="ts">';
-	const scriptClose = '</' + 'script>';
+	const scriptClose = "</" + "script>";
 </script>
 
 <h1>Seaweed 3 Migration Guide</h1>
 
 <h2>Overview</h2>
 
-<p>Seaweed 3 fundamentally restructures how Experience content is handled in the Seaweed template system. This update aims to:</p>
+<p>
+	Seaweed 3 fundamentally restructures how Experience content is handled in the Seaweed template
+	system. This update aims to:
+</p>
 <ul>
 	<li>Emphasize professional experience more prominently</li>
 	<li>Consolidate Projects and Games into a unified section with enhanced filtering</li>
@@ -17,17 +20,31 @@
 	<li>Make Experience content flexible and configurable like Projects</li>
 </ul>
 
-<p>For the complete specification, see <TextLink href="https://github.com/TurnipXenon/pineapple/blob/main/docs/plans/seaweed-3-spec.md">docs/plans/seaweed-3-spec.md</TextLink></p>
+<p>
+	For the complete specification, see <TextLink
+		href="https://github.com/TurnipXenon/pineapple/blob/main/docs/plans/seaweed-3-spec.md"
+		>docs/plans/seaweed-3-spec.md</TextLink
+	>
+</p>
 
 <h2>Breaking Changes</h2>
 
 <h3>1. Experience Content Location</h3>
-<p><strong>Old pattern (Seaweed 2):</strong> Experience content was hardcoded in the <code>sideSection</code> snippet alongside About and Social sections.</p>
-<p><strong>New pattern (Seaweed 3):</strong> Experience content must be defined in <code>entryList</code> and added to the <code>layout</code> array with <code>SectionType.Experience</code>.</p>
+<p>
+	<strong>Old pattern (Seaweed 2):</strong> Experience content was hardcoded in the
+	<code>sideSection</code> snippet alongside About and Social sections.
+</p>
+<p>
+	<strong>New pattern (Seaweed 3):</strong> Experience content must be defined in
+	<code>entryList</code>
+	and added to the <code>layout</code> array with <code>SectionType.Experience</code>.
+</p>
 
 <h3>2. Side Section Structure</h3>
 <p><strong>Old structure:</strong> Contained About + Experience + Social buttons</p>
-<p><strong>New structure:</strong> Contains only About + Social buttons (Experience moved to main layout)</p>
+<p>
+	<strong>New structure:</strong> Contains only About + Social buttons (Experience moved to main layout)
+</p>
 
 <h2>Migration Steps</h2>
 
@@ -46,7 +63,11 @@
 />
 
 <h3>Step 2: Create Experience Modules</h3>
-<p>Create Svelte components for your job experiences with metadata exports. Use the <code>module</code> script context to export metadata fields.</p>
+<p>
+	Create Svelte components for your job experiences with metadata exports. Use the <code
+		>module</code
+	> script context to export metadata fields.
+</p>
 
 <p><strong>Example:</strong> <code>src/lib/ui/modules/experience/ExampleJob1.svelte</code></p>
 
@@ -88,7 +109,10 @@ ${scriptClose}
 	classes="max-w-3xl"
 />
 
-<p><strong>For ongoing jobs:</strong> Simply omit the <code>dateFinished</code> export and include an "ongoing" tag:</p>
+<p>
+	<strong>For ongoing jobs:</strong> Simply omit the <code>dateFinished</code> export and include an "ongoing"
+	tag:
+</p>
 
 <CodeBlock
 	code={`const key = "Senior Developer at Current Company";
@@ -116,7 +140,10 @@ const experienceList: SnippetMeta[] = [
 />
 
 <h3>Step 4: Add Experience Section to Layout</h3>
-<p>Add the Experience section to your <code>layout</code> array with the new <code>SectionType.Experience</code>:</p>
+<p>
+	Add the Experience section to your <code>layout</code> array with the new
+	<code>SectionType.Experience</code>:
+</p>
 
 <CodeBlock
 	code={`const layout: ProjectGroup[] = [
@@ -146,7 +173,10 @@ const experienceList: SnippetMeta[] = [
 />
 
 <h3>Step 5: Update sideSection Snippet</h3>
-<p>Remove hardcoded Experience content from your <code>sideSection</code> snippet, keeping only About and Social sections:</p>
+<p>
+	Remove hardcoded Experience content from your <code>sideSection</code> snippet, keeping only About and
+	Social sections:
+</p>
 
 <CodeBlock
 	code={`{#snippet sideSection(socialSection: Snippet)}
@@ -295,10 +325,15 @@ ${scriptClose}
 <p>Seaweed 3 introduces several enhancements for both Experience and Projects sections:</p>
 
 <h3>1. Tag Filtering</h3>
-<p>Multi-select tag filter using clickable chips with OR logic. Shows entries matching ANY selected tag.</p>
+<p>
+	Multi-select tag filter using clickable chips with OR logic. Shows entries matching ANY selected
+	tag.
+</p>
 <ul>
 	<li>Enabled via <code>showFilter: true</code> in <code>ProjectGroup</code></li>
-	<li>Tags defined in module metadata: <code>const tags = ["typescript", "svelte", "web"];</code></li>
+	<li>
+		Tags defined in module metadata: <code>const tags = ["typescript", "svelte", "web"];</code>
+	</li>
 	<li>Includes "Clear all" button when tags are selected</li>
 </ul>
 
@@ -336,20 +371,39 @@ ${scriptClose}
 	classes="max-w-3xl"
 />
 
-<p>For more implementation details, see <TextLink href="https://github.com/TurnipXenon/pineapple/blob/main/ai-docs/sessions/seaweed-3-implementation.md">ai-docs/sessions/seaweed-3-implementation.md</TextLink></p>
+<p>
+	For more implementation details, see <TextLink
+		href="https://github.com/TurnipXenon/pineapple/blob/main/ai-docs/sessions/seaweed-3-implementation.md"
+		>ai-docs/sessions/seaweed-3-implementation.md</TextLink
+	>
+</p>
 
 <h2>Backward Compatibility</h2>
 
 <p>Seaweed 3 maintains backward compatibility with existing code:</p>
 
 <ul>
-	<li><strong>All new fields are optional</strong> - Projects without metadata continue to work normally</li>
-	<li><strong>Old patterns still work</strong> - <code>children</code> and <code>sideSection</code> snippets remain functional</li>
-	<li><strong>Gradual migration possible</strong> - You can add an Experience section to your layout while temporarily keeping the old hardcoded Experience in <code>sideSection</code></li>
-	<li><strong>No changes to existing projects</strong> - Projects defined without <code>dateStarted</code>, <code>dateFinished</code>, or <code>tags</code> will render as before</li>
+	<li>
+		<strong>All new fields are optional</strong> - Projects without metadata continue to work normally
+	</li>
+	<li>
+		<strong>Old patterns still work</strong> - <code>children</code> and <code>sideSection</code> snippets
+		remain functional
+	</li>
+	<li>
+		<strong>Gradual migration possible</strong> - You can add an Experience section to your layout
+		while temporarily keeping the old hardcoded Experience in <code>sideSection</code>
+	</li>
+	<li>
+		<strong>No changes to existing projects</strong> - Projects defined without
+		<code>dateStarted</code>, <code>dateFinished</code>, or <code>tags</code> will render as before
+	</li>
 </ul>
 
-<p><strong>Migration tip:</strong> Start by creating your Experience modules and adding them to the layout. Once verified, remove the hardcoded Experience from your <code>sideSection</code>.</p>
+<p>
+	<strong>Migration tip:</strong> Start by creating your Experience modules and adding them to the
+	layout. Once verified, remove the hardcoded Experience from your <code>sideSection</code>.
+</p>
 
 <h2>Type Definitions</h2>
 
@@ -382,8 +436,19 @@ export interface ProjectGroup {
 
 <ul>
 	<li><strong>Complete example page:</strong> <code>src/routes/seaweed2/+page.svelte</code></li>
-	<li><strong>Experience module (completed job):</strong> <code>src/lib/ui/modules/experience/ExampleJob1.svelte</code></li>
-	<li><strong>Experience module (ongoing job):</strong> <code>src/lib/ui/modules/experience/ExampleJob2.svelte</code></li>
-	<li><strong>Type definitions:</strong> <code>src/lib/ui/templates/SeaweedLayout/props.ts</code></li>
-	<li><strong>Layout template:</strong> <code>src/lib/ui/templates/SeaweedLayout/SeaweedLayout.svelte</code></li>
+	<li>
+		<strong>Experience module (completed job):</strong>
+		<code>src/lib/ui/modules/experience/ExampleJob1.svelte</code>
+	</li>
+	<li>
+		<strong>Experience module (ongoing job):</strong>
+		<code>src/lib/ui/modules/experience/ExampleJob2.svelte</code>
+	</li>
+	<li>
+		<strong>Type definitions:</strong> <code>src/lib/ui/templates/SeaweedLayout/props.ts</code>
+	</li>
+	<li>
+		<strong>Layout template:</strong>
+		<code>src/lib/ui/templates/SeaweedLayout/SeaweedLayout.svelte</code>
+	</li>
 </ul>

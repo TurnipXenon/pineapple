@@ -31,7 +31,7 @@ export interface IDialogManager {
 	setDialogTree: (newDialogTree: DialogDetail[], startingNode?: string) => void;
 	subscribeToSetDialogChoice: (callback: OnSetDialogChoiceCallback) => void;
 	unsubscribeToSetDialogChoice: (callback: OnSetDialogChoiceCallback) => void;
-	setDialogChoice: (newMessage: (DialogDetail | undefined)) => void;
+	setDialogChoice: (newMessage: DialogDetail | undefined) => void;
 	_setDialogChoice: () => void;
 	setDialogToDefault: () => void;
 	update: (timestamp: number) => void;

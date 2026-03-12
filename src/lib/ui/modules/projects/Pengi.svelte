@@ -13,8 +13,10 @@
 
 	const key = "Pengi";
 	const priority = 80;
-	const startCommit = "https://github.com/GreenTea-M/ProjectPengi/commit/401cbf7448374109f1a330bba11db87326034801"; // fill in GitHub commit URL to auto-resolve dateStarted
-	const endCommit = "https://github.com/GreenTea-M/ProjectPengi/commit/0175ec669a3c935a798fdb3c85fb37506d4b5557"; // fill in GitHub commit URL to auto-resolve dateFinished
+	const startCommit =
+		"https://github.com/GreenTea-M/ProjectPengi/commit/401cbf7448374109f1a330bba11db87326034801"; // fill in GitHub commit URL to auto-resolve dateStarted
+	const endCommit =
+		"https://github.com/GreenTea-M/ProjectPengi/commit/0175ec669a3c935a798fdb3c85fb37506d4b5557"; // fill in GitHub commit URL to auto-resolve dateFinished
 	const gitRepoLink = "https://github.com/GreenTea-M/ProjectPengi";
 	const tags = ["unity", "csharp", "game", "narrative", "yarnspinner"];
 	export { component, key, startCommit, endCommit, gitRepoLink, tags, priority };
@@ -23,10 +25,17 @@
 {#snippet component(props: ProjectComponentProps)}
 	<FourPartCard>
 		{#snippet headerCover()}
-			<video class="rounded-t-xl max-h-64 not-prose object-cover w-full" playsinline autoplay muted loop preload="none">
-				video unavailable. original video contains pengi gameplay showing the dynamic dialog
-				layout and character animation.
-				<source src={HeaderPengi} type="video/mp4">
+			<video
+				class="rounded-t-xl max-h-64 not-prose object-cover w-full"
+				playsinline
+				autoplay
+				muted
+				loop
+				preload="none"
+			>
+				video unavailable. original video contains pengi gameplay showing the dynamic dialog layout
+				and character animation.
+				<source src={HeaderPengi} type="video/mp4" />
 			</video>
 		{/snippet}
 
@@ -34,20 +43,16 @@
 			<h3>Pengi</h3>
 
 			<blockquote>
-				Well well, quite the dreamer, aren’t you? Might be hard to get in... costs a lot of
-				money...
+				Well well, quite the dreamer, aren’t you? Might be hard to get in... costs a lot of money...
 			</blockquote>
 		{/snippet}
 
 		<p>
-			Pengi is a text-based adventure made in <span class='qt-unity'>Unity</span> (<span class='qt-cs'>C#</span>). I
-			acted as the sole
-			programmer for the team. Most of the work revolves around UI and creating
-			<a
-				href="https://yarnspinner.dev/"
-				rel="external"
-				target="_blank"
-			>YarnSpinner</a> commands for writers
+			Pengi is a text-based adventure made in <span class="qt-unity">Unity</span> (<span
+				class="qt-cs">C#</span
+			>). I acted as the sole programmer for the team. Most of the work revolves around UI and
+			creating
+			<a href="https://yarnspinner.dev/" rel="external" target="_blank">YarnSpinner</a> commands for writers
 			to use to create expressive stage directions in the script.
 		</p>
 
@@ -77,6 +82,5 @@
 				<ImageIcon alt="" aria-hidden="true" src={ItchLogoHotLink} />
 			</PinyaButton>
 		</section>
-
 	</FourPartCard>
 {/snippet}

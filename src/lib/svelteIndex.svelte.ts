@@ -7,10 +7,4 @@ import * as Pengi from "./ui/modules/projects/Pengi.svelte";
 import * as Soulwork from "./ui/modules/projects/Soulwork.svelte";
 import * as ThisWebpage from "./ui/modules/projects/ThisWebpage.svelte";
 
-export const projectList: SnippetMeta[] = [
-	ThisWebpage,
-	Hepcat,
-	Pengi,
-	Soulwork,
-	ObsidianPublisher
-];
+export const projectList: SnippetMeta[] = [ThisWebpage, Hepcat, Pengi, Soulwork, ObsidianPublisher];

@@ -1,5 +1,9 @@
 import type { RequestHandler } from "./$types";
-import { type CreateUrlResponse, CreateUrlResult, jsonToCreateUrlRequest } from "$pkg/types/api/CreateUrl";
+import {
+	type CreateUrlResponse,
+	CreateUrlResult,
+	jsonToCreateUrlRequest
+} from "$pkg/types/api/CreateUrl";
 
 export const POST: RequestHandler = async ({ request }) => {
 	const response: CreateUrlResponse = {

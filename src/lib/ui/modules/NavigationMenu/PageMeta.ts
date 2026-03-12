@@ -110,7 +110,7 @@ export interface SimplePageMeta {
 export const findPageMetaParent = (parentList: PageMeta[], child: PageMeta): boolean => {
 	let isChild = false;
 
-	parentList.every(parent => {
+	parentList.every((parent) => {
 		if (child.relativeLink.startsWith(`${parent.relativeLink}/`)) {
 			const isNestedChild = findPageMetaParent(parent.nestedPages, child);
 			if (!isNestedChild) {
@@ -126,23 +126,25 @@ export const findPageMetaParent = (parentList: PageMeta[], child: PageMeta): boo
 	return isChild;
 };
 
-export type ParsePageMetaCompareFn = ((a: PageMeta, b: PageMeta) => number);
+export type ParsePageMetaCompareFn = (a: PageMeta, b: PageMeta) => number;
 
-export const parsePageMeta = (fileList: Record<string, unknown>,
-															jsonList: Record<string, unknown>,
-															imageMap: Map<string, string>,
-															compareFn?: ParsePageMetaCompareFn): PageMeta[] => {
+export const parsePageMeta = (
+	fileList: Record<string, unknown>,
+	jsonList: Record<string, unknown>,
+	imageMap: Map<string, string>,
+	compareFn?: ParsePageMetaCompareFn
+): PageMeta[] => {
 	const pageFlatList: PageMeta[] = [];
 	// save for the future
 	// let pageGroupedList: PageMeta[] = [];
 	const jsonMap = new Map<string, { [k: string]: unknown }>();
-	Object.keys(jsonList).forEach(path => {
+	Object.keys(jsonList).forEach((path) => {
 		const pathEnd = path.split("../").pop() as string;
 		const pathParts = pathEnd.split("/");
 		pathParts.pop();
 
 		// get url path
-		const subPath = pathParts.filter(s => {
+		const subPath = pathParts.filter((s) => {
 			return s !== "." && s.indexOf("(") !== 0;
 		});
 
@@ -151,7 +153,6 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 		} catch (e) {
 			console.error(`Error parsing json at: ${path}: ${e}`);
 		}
-
 	});
 
 	for (const path in fileList) {
@@ -167,10 +168,9 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 		const title = pathParts[pathParts.length - 1].replaceAll("-", " ");
 
 		// get url path
-		const subPath = pathParts.filter(s => {
+		const subPath = pathParts.filter((s) => {
 			return s !== "." && s.indexOf("(") !== 0;
 		});
-
 
 		// todo: consider
 		// subPath.unshift("/misc");
@@ -183,20 +183,19 @@ export const parsePageMeta = (fileList: Record<string, unknown>,
 			// todo: transform the data in server.ts?
 		};
 
-
 		const metadata = jsonMap.get(meta.relativeLink);
 		if (metadata) {
-			meta.title = metadata["title"] as string ?? meta.title;
-			meta.tags = metadata["tags"] as string[] ?? [];
+			meta.title = (metadata["title"] as string) ?? meta.title;
+			meta.tags = (metadata["tags"] as string[]) ?? [];
 			meta.description = metadata["description"] as string;
 			meta.datePublished = metadata["datePublished"] as string;
 			meta.lastUpdated = metadata["lastUpdated"] as string;
 			meta.shouldGroup = metadata["shouldGroup"] as boolean;
 			meta.shouldHide = metadata["shouldHide"] as boolean;
-			meta.priority = metadata["priority"] as number ?? 0;
+			meta.priority = (metadata["priority"] as number) ?? 0;
 
 			meta.imageID = metadata["imageID"] as string;
-			meta.imageUrl = imageMap.get(meta.imageID) ?? metadata["imageUrl"] as string;
+			meta.imageUrl = imageMap.get(meta.imageID) ?? (metadata["imageUrl"] as string);
 
 			if (meta.imageUrl) {
 				meta.imageAlt = metadata["imageAlt"] as string;
@@ -241,27 +240,32 @@ export const parsePageMetaNested = (args: {
 	parsnipOverall?: ParsnipOverall | undefined;
 	parsnipBasePath?: string;
 }): PageMeta[] => {
-	const parsnipBasedList = args.parsnipOverall?.files.map(pf => {
-		const meta: PageMeta = {
-			title: pf.basename,
-			nestedPages: [],
-			relativeLink: `${args.parsnipBasePath}${pf.slug}`,
-			tags: pf.tags,
-			imageUrl: pf.preview ? `${args.parsnipOverall?.baseUrl}/${pf.preview}` : undefined,
-			imageAlt: pf.previewAlt,
-			datePublished: pf.stat.ctime ? new Date(pf.stat.ctime).toISOString().split("T")[0] : undefined,
-			lastUpdated: pf.stat.mtime ? new Date(pf.stat.mtime).toISOString().split("T")[0] : undefined,
-			description: pf.tagline,
-			priority: 0
-		};
-		return meta;
-	}) ?? [];
+	const parsnipBasedList =
+		args.parsnipOverall?.files.map((pf) => {
+			const meta: PageMeta = {
+				title: pf.basename,
+				nestedPages: [],
+				relativeLink: `${args.parsnipBasePath}${pf.slug}`,
+				tags: pf.tags,
+				imageUrl: pf.preview ? `${args.parsnipOverall?.baseUrl}/${pf.preview}` : undefined,
+				imageAlt: pf.previewAlt,
+				datePublished: pf.stat.ctime
+					? new Date(pf.stat.ctime).toISOString().split("T")[0]
+					: undefined,
+				lastUpdated: pf.stat.mtime
+					? new Date(pf.stat.mtime).toISOString().split("T")[0]
+					: undefined,
+				description: pf.tagline,
+				priority: 0
+			};
+			return meta;
+		}) ?? [];
 	const pageFlatList = parsePageMeta(args.fileList, args.jsonList, args.imageMap, args.compareFn);
 	pageFlatList.push(...parsnipBasedList);
-	const pageMap = new Map(pageFlatList.map(page => [page.relativeLink, page]));
+	const pageMap = new Map(pageFlatList.map((page) => [page.relativeLink, page]));
 	const nestedChildLinks = new Set<string>();
 
-	pageFlatList.forEach(page => {
+	pageFlatList.forEach((page) => {
 		if (!page.relativeLink) {
 			if (page.title === ".") {
 				page.title = "Home";
@@ -274,7 +278,9 @@ export const parsePageMetaNested = (args: {
 			const parentLink = parts.slice(0, i).join("/");
 			const parent = pageMap.get(parentLink);
 			if (parent && page.relativeLink.startsWith(`${parent.relativeLink}/`)) {
-				const alreadyNested = parent.nestedPages.some(nested => nested.relativeLink === page.relativeLink);
+				const alreadyNested = parent.nestedPages.some(
+					(nested) => nested.relativeLink === page.relativeLink
+				);
 				if (!alreadyNested) {
 					parent.nestedPages.push(page);
 				}
@@ -285,7 +291,7 @@ export const parsePageMetaNested = (args: {
 	});
 
 	// dont include links that have parents in the base page list
-	return pageFlatList.filter(page => !nestedChildLinks.has(page.relativeLink));
+	return pageFlatList.filter((page) => !nestedChildLinks.has(page.relativeLink));
 };
 
 const AWins = -1;

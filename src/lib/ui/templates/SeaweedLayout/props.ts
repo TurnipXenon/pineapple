@@ -1,7 +1,7 @@
 import type { RevealInfoRecord } from "$pkg/components/reveal-info/RevealInfoCollection";
 import type { Snippet } from "svelte";
 import type { ProjectComponentProps } from "$pkg/ui/templates/SeaweedLayout";
-import { createContext } from 'svelte';
+import { createContext } from "svelte";
 import type { SvelteSet } from "svelte/reactivity";
 
 type ComponentSnippet = Snippet<[ProjectComponentProps]>;
@@ -12,17 +12,17 @@ export enum SectionType {
 }
 
 export interface SnippetMeta {
-	key: string,
-	component: ComponentSnippet,
+	key: string;
+	component: ComponentSnippet;
 	// Metadata fields for filtering and sorting
 	dateStarted?: Date | string;
 	dateFinished?: Date | string;
-	tags?: string[];  // Use "ongoing" tag for ongoing projects/jobs
-	startCommit?: string;    // GitHub commit URL for auto-resolving dateStarted
-	endCommit?: string;      // GitHub commit URL for auto-resolving dateFinished
-	gitRepoLink?: string;    // GitHub repo URL — if set without endCommit, uses latest commit on main
-	commitCount?: number;    // Number of commits between startCommit and endCommit (auto-resolved)
-	priority?: number;			 // the higher the number, the higher it appears in default sort
+	tags?: string[]; // Use "ongoing" tag for ongoing projects/jobs
+	startCommit?: string; // GitHub commit URL for auto-resolving dateStarted
+	endCommit?: string; // GitHub commit URL for auto-resolving dateFinished
+	gitRepoLink?: string; // GitHub repo URL — if set without endCommit, uses latest commit on main
+	commitCount?: number; // Number of commits between startCommit and endCommit (auto-resolved)
+	priority?: number; // the higher the number, the higher it appears in default sort
 }
 
 export interface ProjectGroup {
@@ -32,9 +32,9 @@ export interface ProjectGroup {
 	projectComponentProps?: ProjectComponentProps;
 	// New fields for Seaweed 3
 	sectionType?: SectionType;
-	showFilter?: boolean;      // Show tag filter
-	showSort?: boolean;        // Show sort dropdown
-	showMoreLimit?: number;    // Number of items before "show more" (0 = no limit)
+	showFilter?: boolean; // Show tag filter
+	showSort?: boolean; // Show sort dropdown
+	showMoreLimit?: number; // Number of items before "show more" (0 = no limit)
 }
 
 export interface SeaweedLayoutProps {
@@ -42,16 +42,16 @@ export interface SeaweedLayoutProps {
 	email: string;
 	linkedinSlug: string;
 	domain: string;
-	sideSection?: Snippet<[Snippet]>;  // Optional for backward compatibility
-	children?: Snippet;  // Optional for backward compatibility
+	sideSection?: Snippet<[Snippet]>; // Optional for backward compatibility
+	children?: Snippet; // Optional for backward compatibility
 	// todo: #migration
 	entryList: SnippetMeta[];
 	layout: ProjectGroup[];
 	queryTerms: string[];
 	showMiniSocial?: boolean;
 	serverParams?: string;
-	emailRemoteQuery?: RevealInfoRecord,
-	linkedinRemoteQuery?: RevealInfoRecord,
+	emailRemoteQuery?: RevealInfoRecord;
+	linkedinRemoteQuery?: RevealInfoRecord;
 }
 
 /* A list of terms to be prepended with qt- later */

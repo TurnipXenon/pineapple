@@ -9,18 +9,18 @@
 
 	let {
 		isCircle = false,
-		classes = '',
+		classes = "",
 		...props
 	}: {
 		isCircle?: boolean;
 		classes?: string;
-	} & HTMLAttributes<HTMLDivElement>= $props();
+	} & HTMLAttributes<HTMLDivElement> = $props();
 </script>
 
 <div
 	{...props}
 	class="
-	{isCircle ?'placeholder-circle' : 'placeholder'}
+	{isCircle ? 'placeholder-circle' : 'placeholder'}
 	animate-pulse bg-surface-600 dark:bg-surface-800
 	{classes}
 "

@@ -64,16 +64,16 @@
 {/if}
 
 <style>
-    .whole-page {
-        height: 100vh;
-        width: 100%;
-        padding-right: 2em;
-        padding-left: 2em;
-    }
+	.whole-page {
+		height: 100vh;
+		width: 100%;
+		padding-right: 2em;
+		padding-left: 2em;
+	}
 
-    :global(.blog-template) {
-        max-width: 64em;
-        width: 100%;
-        margin: auto;
-    }
+	:global(.blog-template) {
+		max-width: 64em;
+		width: 100%;
+		margin: auto;
+	}
 </style>

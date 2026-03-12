@@ -49,17 +49,16 @@
 	}: CodeBlockProps = $props();
 
 	// Shiki convert to HTML
-	const generatedHtml = $derived(shiki.codeToHtml(code, {
-		lang,
-		themes: {
-			light: "catppuccin-latte",
-			dark: "catppuccin-frappe"
-		},
-		transformers: [
-			transformerNotationDiff(),
-			addCopyButton({ toggle: 2000 })
-		]
-	}));
+	const generatedHtml = $derived(
+		shiki.codeToHtml(code, {
+			lang,
+			themes: {
+				light: "catppuccin-latte",
+				dark: "catppuccin-frappe"
+			},
+			transformers: [transformerNotationDiff(), addCopyButton({ toggle: 2000 })]
+		})
+	);
 </script>
 
 <div
@@ -71,158 +70,157 @@
 </div>
 
 <style>
-    :global {
-        .pinya-code-block {
-            margin-bottom: 1rlh;
-        }
+	:global {
+		.pinya-code-block {
+			margin-bottom: 1rlh;
+		}
 
-        /*https://shiki.style/guide/dual-themes*/
+		/*https://shiki.style/guide/dual-themes*/
 
-        html.dark .shiki,
-        html.dark .shiki > span {
-            color: var(--shiki-dark);
-            background-color: var(--shiki-dark-bg);
-            /* Optional, if you also want font styles */
-            font-style: var(--shiki-dark-font-style);
-            font-weight: var(--shiki-dark-font-weight);
-            text-decoration: var(--shiki-dark-text-decoration);
-        }
+		html.dark .shiki,
+		html.dark .shiki > span {
+			color: var(--shiki-dark);
+			background-color: var(--shiki-dark-bg);
+			/* Optional, if you also want font styles */
+			font-style: var(--shiki-dark-font-style);
+			font-weight: var(--shiki-dark-font-weight);
+			text-decoration: var(--shiki-dark-text-decoration);
+		}
 
+		html.dark .shiki {
+			color: var(--shiki-dark) !important;
+			background-color: var(--shiki-dark-bg) !important;
+			font-style: var(--shiki-dark-font-style) !important;
+			font-weight: var(--shiki-dark-font-weight) !important;
+			-webkit-text-decoration: var(--shiki-dark-text-decoration) !important;
+			text-decoration: var(--shiki-dark-text-decoration) !important;
 
-        html.dark .shiki {
-            color: var(--shiki-dark) !important;
-            background-color: var(--shiki-dark-bg) !important;
-            font-style: var(--shiki-dark-font-style) !important;
-            font-weight: var(--shiki-dark-font-weight) !important;
-            -webkit-text-decoration: var(--shiki-dark-text-decoration) !important;
-            text-decoration: var(--shiki-dark-text-decoration) !important;
+			span[style*="color:#4C4F69"] {
+				color: oklch(0.835 0.043 279.325) !important;
+			}
+		}
 
-		        span[style*="color:#4C4F69"] {
-                color: oklch(0.835 0.043 279.325) !important;
-            }
-        }
+		html.dark .shiki.has-diff span.diff.add {
+			background-color: rgba(0, 255, 0, 0.05);
+		}
 
-		    html.dark .shiki.has-diff span.diff.add {
-            background-color: rgba(0, 255, 0, 0.05);
-		    }
+		.inline-code {
+			background-color: aliceblue;
+			padding: 0.2rem;
+			border-radius: 0.2rem;
+		}
 
-        .inline-code {
-            background-color: aliceblue;
-            padding: 0.2rem;
-            border-radius: 0.2rem;
-        }
+		.shiki {
+			span {
+				white-space: pre-wrap;
+				word-wrap: break-word;
+			}
 
-        .shiki {
-            span {
-                white-space: pre-wrap;
-                word-wrap: break-word;
-            }
+			&.has-diff {
+				padding-inline-start: 0;
+				padding-inline-end: 0;
 
-            &.has-diff {
-                padding-inline-start: 0;
-                padding-inline-end: 0;
+				code {
+					display: block;
 
-                code {
-                    display: block;
+					& > span {
+						display: block;
+						padding-inline-start: 2em;
+						padding-inline-end: 1em;
+						margin-block-end: -1lh;
 
-                    & > span {
-                        display: block;
-                        padding-inline-start: 2em;
-                        padding-inline-end: 1em;
-                        margin-block-end: -1lh;
+						&:last-child {
+							margin-block-end: 0;
+						}
+					}
+				}
 
-                        &:last-child {
-                            margin-block-end: 0;
-                        }
-                    }
-                }
+				span.diff.remove {
+					background-color: rgba(255, 0, 0, 0.15);
 
-                span.diff.remove {
-                    background-color: rgba(255, 0, 0, 0.15);
+					&::before {
+						display: block;
+						position: absolute;
+						content: "-";
+						margin-inline-start: calc((var(--spacing) * -4) - 2em);
+						padding-inline-start: 1.75em;
+						font-weight: bold;
+						pointer-events: none;
+					}
+				}
 
-                    &::before {
-                        display: block;
-                        position: absolute;
-                        content: "-";
-                        margin-inline-start: calc((var(--spacing) * -4) - 2em);
-                        padding-inline-start: 1.75em;
-                        font-weight: bold;
-                        pointer-events: none;
-                    }
-                }
+				span.diff.add {
+					background-color: rgba(0, 255, 0, 0.15);
 
-                span.diff.add {
-                    background-color: rgba(0, 255, 0, 0.15);
+					&::before {
+						display: block;
+						position: absolute;
+						content: "+";
+						margin-inline-start: calc((var(--spacing) * -4) - 2em);
+						padding-inline-start: 1.75em;
+						font-weight: bold;
+						pointer-events: none;
+					}
+				}
+			}
+		}
 
-                    &::before {
-                        display: block;
-                        position: absolute;
-                        content: "+";
-                        margin-inline-start: calc((var(--spacing) * -4) - 2em);
-                        padding-inline-start: 1.75em;
-                        font-weight: bold;
-                        pointer-events: none;
-                    }
-                }
-            }
-        }
+		/* region shiki copy button */
 
-        /* region shiki copy button */
+		pre:has(code) {
+			position: relative;
+		}
 
-        pre:has(code) {
-            position: relative;
-        }
+		pre button.copy {
+			position: absolute;
+			right: 16px;
+			top: 16px;
+			height: 28px;
+			width: 28px;
+			padding: 0;
+			display: flex;
 
-        pre button.copy {
-            position: absolute;
-            right: 16px;
-            top: 16px;
-            height: 28px;
-            width: 28px;
-            padding: 0;
-            display: flex;
+			& span {
+				width: 100%;
+				aspect-ratio: 1 / 1;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+			}
 
-            & span {
-                width: 100%;
-                aspect-ratio: 1 / 1;
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: cover;
-            }
+			& .ready {
+				background-image: url("$pkg/assets/icons/icon-copy-light-contrast.svg");
+				/*todo*/
+				/*@variant dark {*/
+				/*    background-image: url("$pkg/assets/icons/icon-copy-dark-contrast.svg");*/
+				/*}*/
+			}
 
-            & .ready {
-                background-image: url("$pkg/assets/icons/icon-copy-light-contrast.svg");
-                /*todo*/
-                /*@variant dark {*/
-                /*    background-image: url("$pkg/assets/icons/icon-copy-dark-contrast.svg");*/
-                /*}*/
-            }
+			& .success {
+				display: none;
+				background-image: url("$pkg/assets/icons/icon-check-light-contrast.svg");
 
-            & .success {
-                display: none;
-                background-image: url("$pkg/assets/icons/icon-check-light-contrast.svg");
+				/*todo: migration*/
+				/*@variant dark {*/
+				/*    background-image: url("$pkg/assets/icons/icon-check-dark-contrast.svg");*/
+				/*}*/
+			}
 
-                /*todo: migration*/
-                /*@variant dark {*/
-                /*    background-image: url("$pkg/assets/icons/icon-check-dark-contrast.svg");*/
-                /*}*/
-            }
+			&.copied {
+				& .success {
+					display: block;
+				}
 
-            &.copied {
-                & .success {
-                    display: block;
-                }
+				& .ready {
+					display: none;
+				}
+			}
+		}
 
-                & .ready {
-                    display: none;
-                }
-            }
-        }
+		/* endregion shiki copy button */
 
-        /* endregion shiki copy button */
-
-        h2 + .pinya-code-block {
-            margin-top: 0.5rlh;
-        }
-    }
+		h2 + .pinya-code-block {
+			margin-top: 0.5rlh;
+		}
+	}
 </style>

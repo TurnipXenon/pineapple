@@ -4,5 +4,5 @@
 </script>
 
 <PinyaCard>
-		<h1  class="default-card">{$page.url}</h1>
+	<h1 class="default-card">{$page.url}</h1>
 </PinyaCard>

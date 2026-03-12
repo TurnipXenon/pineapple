@@ -126,9 +126,18 @@ async function resolveCommitDates(
 			if (startParsed) {
 				if (ref.endCommit) {
 					const endParsed = parseGithubCommitUrl(ref.endCommit);
-					if (endParsed && endParsed.owner === startParsed.owner && endParsed.repo === startParsed.repo) {
+					if (
+						endParsed &&
+						endParsed.owner === startParsed.owner &&
+						endParsed.repo === startParsed.repo
+					) {
 						promises.push(
-							fetchCommitCount(startParsed.owner, startParsed.repo, startParsed.sha, endParsed.sha).then((c) => {
+							fetchCommitCount(
+								startParsed.owner,
+								startParsed.repo,
+								startParsed.sha,
+								endParsed.sha
+							).then((c) => {
 								if (c != null) dates.commitCount = c;
 							})
 						);
@@ -136,9 +145,11 @@ async function resolveCommitDates(
 				} else if (ref.gitRepoLink) {
 					// Compare start commit to HEAD of main
 					promises.push(
-						fetchCommitCount(startParsed.owner, startParsed.repo, startParsed.sha, "main").then((c) => {
-							if (c != null) dates.commitCount = c;
-						})
+						fetchCommitCount(startParsed.owner, startParsed.repo, startParsed.sha, "main").then(
+							(c) => {
+								if (c != null) dates.commitCount = c;
+							}
+						)
 					);
 				}
 			}

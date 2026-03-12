@@ -19,7 +19,7 @@
 	let { data }: PageProps = $props();
 
 	const experienceList: SnippetMeta[] = [
-		ExampleJob2,  // Ongoing job first
+		ExampleJob2, // Ongoing job first
 		ExampleJob1
 	];
 
@@ -31,17 +31,17 @@
 			sectionType: SectionType.Experience,
 			showFilter: true,
 			showSort: false,
-			showMoreLimit: 2,  // Show 2 jobs, rest behind "show more"
+			showMoreLimit: 2, // Show 2 jobs, rest behind "show more"
 			projectComponentProps: { isPineapple: true }
 		},
 		{
 			key: "projects",
 			title: "Projects",
-			entryList: projectList,  // Merged games + projects
+			entryList: projectList, // Merged games + projects
 			sectionType: SectionType.Projects,
 			showFilter: true,
 			showSort: true,
-			showMoreLimit: 3,  // Show first 6 projects, rest behind "show more"
+			showMoreLimit: 3, // Show first 6 projects, rest behind "show more"
 			projectComponentProps: { isPineapple: true }
 		}
 	];
@@ -65,7 +65,9 @@
 			<PinyaCard class="about-section" flexClass="">
 				<div class="about-text">
 					<h2>About</h2>
-					<p>Hi I'm Turnip! Put stuff here! Say more impressive things, like a summary of some sort.</p>
+					<p>
+						Hi I'm Turnip! Put stuff here! Say more impressive things, like a summary of some sort.
+					</p>
 					<p>More stuff here!!</p>
 					<p>Study here maybe</p>
 					<p>Quirky thing maybe</p>
@@ -83,41 +85,41 @@
 
 <!-- todo: we need to port this styling to seaweed, or at least mirror it -->
 <style>
-    :global {
-        .about-section {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-		        flex-wrap: wrap;
-		        gap: 1lh;
+	:global {
+		.about-section {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			gap: 1lh;
 
-            &.pinya-card {
-                width: unset;
-                max-width: unset;
-            }
+			&.pinya-card {
+				width: unset;
+				max-width: unset;
+			}
 
-            .about-text {
-		            flex-basis: 26em;
-            }
+			.about-text {
+				flex-basis: 26em;
+			}
 
-            .about-social-section > .socials {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-        }
+			.about-social-section > .socials {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+			}
+		}
 
-        .is-mobile .about-section .about-social-section > .socials {
-            flex-direction: column;
-        }
+		.is-mobile .about-section .about-social-section > .socials {
+			flex-direction: column;
+		}
 
-        .is-mobile.is-very-narrow .about-section .about-social-section > .socials {
-            flex-direction: row;
-        }
-    }
+		.is-mobile.is-very-narrow .about-section .about-social-section > .socials {
+			flex-direction: row;
+		}
+	}
 
-    :global(.social-section-card) {
-        padding-top: calc(var(--spacing) * 6);
-        padding-bottom: calc(var(--spacing) * 6);
-    }
+	:global(.social-section-card) {
+		padding-top: calc(var(--spacing) * 6);
+		padding-bottom: calc(var(--spacing) * 6);
+	}
 </style>

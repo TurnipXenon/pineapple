@@ -1,9 +1,7 @@
 import { type GeneralUIProps } from "$pkg/ui/elements/GeneralUIProps";
 import { ButtonVariant } from "$pkg/ui/elements/PinyaButtonCommon/ButtonVariant";
 
-export type PinyaButtonCommonProps =
-	& GeneralUIProps
-	& {
+export type PinyaButtonCommonProps = GeneralUIProps & {
 	/** @deprecated */
 	paddingClass?: string;
 	buttonVariant?: ButtonVariant;
@@ -11,4 +9,4 @@ export type PinyaButtonCommonProps =
 	colorClass?: string;
 	/** @deprecated */
 	classes?: string;
-}
+};

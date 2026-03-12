@@ -36,12 +36,16 @@
 	let isAdvanceSettingOn = $state(false);
 	let orderUrl = $state("");
 
-	let queryStates = new SvelteMap<string, boolean>(untrack(() => queryTerms.map(term => [term, true])));
+	let queryStates = new SvelteMap<string, boolean>(
+		untrack(() => queryTerms.map((term) => [term, true]))
+	);
 	let styleStr = $state("");
 	let queryQt = $derived.by(() => {
-		const qtArr = [...queryStates.entries()
-			.filter(([, state]) => state)
-			.map(([term]) => term)
+		const qtArr = [
+			...queryStates
+				.entries()
+				.filter(([, state]) => state)
+				.map(([term]) => term)
 		];
 
 		if (qtArr.length === queryStates.size) {
@@ -60,7 +64,8 @@
 	$effect(() => {
 		const chipList: string[] = [];
 		const termList: string[] = [];
-		queryStates.entries()
+		queryStates
+			.entries()
 			.filter(([, state]) => state)
 			.forEach(([term]) => {
 				const qtTerm = `.qt-${term}`;
@@ -95,9 +100,7 @@
 	});
 
 	let advancedQuery = $derived.by(() => {
-		const query = [orderUrl, queryQt]
-			.filter(q => q)
-			.join("&");
+		const query = [orderUrl, queryQt].filter((q) => q).join("&");
 		if (query) {
 			return `${query}`;
 		}
@@ -106,7 +109,6 @@
 	});
 
 	let advancedUrl = $derived.by(() => `${domain}/?${advancedQuery}`);
-
 
 	/** qt values and what they mean:
 	 *  undefined: set all qt terms to font-weight: bold
@@ -132,8 +134,8 @@
 						key: `${pair[0]}-${idx}`
 					};
 
-					pair[1].split("|").forEach(key => {
-						const component = entryList.find(e => e.key === key);
+					pair[1].split("|").forEach((key) => {
+						const component = entryList.find((e) => e.key === key);
 						if (component) {
 							group.entryList.push(component);
 						}
@@ -150,8 +152,7 @@
 		// region Bold terms
 		const qtValue = searchParams.get("qt")?.trim();
 		if (qtValue !== undefined) {
-			queryStates.keys()
-				.forEach(key => queryStates.set(key, false));
+			queryStates.keys().forEach((key) => queryStates.set(key, false));
 
 			if (qtValue !== "clear") {
 				qtValue.split(",").forEach((term) => {
@@ -183,12 +184,12 @@
 			const fontSizeInPx = computedStyle.getPropertyValue("font-size");
 			// Parse the pixel value string (e.g., "16px") to a floating-point number.
 			return parseFloat(fontSizeInPx);
-		}
+		};
 
 		// code has to be below filterSearchParams!
 		if (browser && document.body) {
 			// Create a new ResizeObserver instance
-			resizeObserver = new ResizeObserver(entries => {
+			resizeObserver = new ResizeObserver((entries) => {
 				for (const entry of entries) {
 					// Log the new dimensions or perform other actions
 					const { width } = entry.contentRect; // or entry.borderBoxSize
@@ -218,22 +219,14 @@
 	{@html styleStr}
 </svelte:head>
 
-
 {#snippet socialSection()}
 	<SocialSection {emailRemoteQuery} {linkedinRemoteQuery} />
 {/snippet}
 <PinyaPageLayout appBardEndStyle="classic">
 	{#snippet appBarLead()}
 		{#if showMiniSocial}
-			<div
-				class="flex flex-row"
-				transition:fly={{x:-10}}
-			>
-				<SocialSection
-					isSmallVersion={true}
-					{emailRemoteQuery}
-					{linkedinRemoteQuery}
-				/>
+			<div class="flex flex-row" transition:fly={{ x: -10 }}>
+				<SocialSection isSmallVersion={true} {emailRemoteQuery} {linkedinRemoteQuery} />
 			</div>
 		{/if}
 	{/snippet}
@@ -267,9 +260,7 @@
 	<!--todo: render list #migration-->
 	{#each actualLayout as group, idx (group.title)}
 		{#if idx !== 0}
-			<EntryGroup
-				{...group}
-			/>
+			<EntryGroup {...group} />
 		{/if}
 	{/each}
 
@@ -281,24 +272,26 @@
 				<h1>Advanced settings</h1>
 				<p>This one is for those curious how I customize this page.</p>
 
-				<PineappleSwitch name="advanced-setting-slider"
-				                 bind:checked={isAdvanceSettingOn}>
-				</PineappleSwitch>
+				<PineappleSwitch
+					name="advanced-setting-slider"
+					bind:checked={isAdvanceSettingOn}
+				></PineappleSwitch>
 				Advanced settings: {isAdvanceSettingOn ? "On" : "Off"}
 
-				{#if (isAdvanceSettingOn)}
-
+				{#if isAdvanceSettingOn}
 					<h3 class="mt-6">Query terms to bold</h3>
 					<div class="query-term-grid max-w-2xl">
 						{#each queryStates as [term, shouldBold] (term)}
 							<button
 								class="bg-transparent hover:brightness-110"
-								onclick={() => { queryStates.set(term, !shouldBold); }}
+								onclick={() => {
+									queryStates.set(term, !shouldBold);
+								}}
 							>
-								<TextChip queryClass={shouldBold ? 'highlight-chip' : ''}>
+								<TextChip queryClass={shouldBold ? "highlight-chip" : ""}>
 									<!-- todo: change shouldBold -->
 									<span style={`font-weight: ${shouldBold ? "bold" : "normal"}`}>
-										{#if (shouldBold)}✓{/if}
+										{#if shouldBold}✓{/if}
 										{term}
 									</span>
 								</TextChip>
@@ -306,13 +299,10 @@
 						{/each}
 					</div>
 
-					<EntryOrderConfig
-						bind:layout={actualLayout}
-						bind:orderUrl={orderUrl}
-						allEntries={entryList}
+					<EntryOrderConfig bind:layout={actualLayout} bind:orderUrl allEntries={entryList}
 					></EntryOrderConfig>
 
-					<br>
+					<br />
 					<p>Copy the url below and open a new page with it</p>
 					<CodeBlock code={advancedUrl} lang="markdown" classes="max-w-2xl" />
 					<CreateUrlForm queryParams={advancedQuery}></CreateUrlForm>
@@ -323,111 +313,112 @@
 </PinyaPageLayout>
 
 <style>
-    :global(html) {
-        --color-bg-footer: var(--color-surface-200);
-        --color-footer-border: var(--color-primary-500);
-    }
+	:global(html) {
+		--color-bg-footer: var(--color-surface-200);
+		--color-footer-border: var(--color-primary-500);
+	}
 
-    :global(html.dark) {
-        --color-bg-footer: var(--color-surface-900);
-        --color-footer-border: var(--color-primary-950);
-    }
+	:global(html.dark) {
+		--color-bg-footer: var(--color-surface-900);
+		--color-footer-border: var(--color-primary-950);
+	}
 
-    .footer {
-        width: 100vw;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 3lh;
-        background-color: var(--color-bg-footer);
-        border-top: 2px solid var(--color-footer-border);
-    }
+	.footer {
+		width: 100vw;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-top: 3lh;
+		background-color: var(--color-bg-footer);
+		border-top: 2px solid var(--color-footer-border);
+	}
 
-    :global {
-        #upper-section {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
+	:global {
+		#upper-section {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 2rem;
+			justify-content: center;
 
-            &.is-mobile {
-                justify-content: stretch;
+			&.is-mobile {
+				justify-content: stretch;
 
-                .upper-section-start, .entry-group-wrapper {
-                    width: 100%;
-                    max-width: 64em;
-                    margin: auto;
-                    flex: unset;
-                }
+				.upper-section-start,
+				.entry-group-wrapper {
+					width: 100%;
+					max-width: 64em;
+					margin: auto;
+					flex: unset;
+				}
 
-                .normal-project-container {
-                    justify-content: stretch;
+				.normal-project-container {
+					justify-content: stretch;
 
-                    > .pinya-card {
-                        max-width: calc(60em);
-                    }
-                }
-            }
+					> .pinya-card {
+						max-width: calc(60em);
+					}
+				}
+			}
 
-            .upper-section-start {
-                flex-basis: 26em;
-            }
+			.upper-section-start {
+				flex-basis: 26em;
+			}
 
-            .entry-group-wrapper {
-                width: unset;
-                max-width: 64em;
-                flex: 1;
+			.entry-group-wrapper {
+				width: unset;
+				max-width: 64em;
+				flex: 1;
 
-                .group-header {
-                    max-width: 64em;
-                }
+				.group-header {
+					max-width: 64em;
+				}
 
-                .normal-project-container {
-                    justify-content: stretch;
-                    flex-direction: column;
+				.normal-project-container {
+					justify-content: stretch;
+					flex-direction: column;
 
-                    > .pinya-card {
-                        max-width: 64em;
-                    }
+					> .pinya-card {
+						max-width: 64em;
+					}
 
-                    > .pinya-four-part-card > section {
-                        .card-header-cover {
-                            flex: 1 1 12em;
+					> .pinya-four-part-card > section {
+						.card-header-cover {
+							flex: 1 1 12em;
 
-                            & > * {
-                                border-radius: var(--radius-xl);
-                                border-bottom-left-radius: var(--radius-xl);
-                                border-top-left-radius: var(--radius-xl);
-                            }
-                        }
+							& > * {
+								border-radius: var(--radius-xl);
+								border-bottom-left-radius: var(--radius-xl);
+								border-top-left-radius: var(--radius-xl);
+							}
+						}
 
-                        .card-content {
-                            padding-bottom: 1lh;
-                            flex: 9999 1 26em;
-                        }
+						.card-content {
+							padding-bottom: 1lh;
+							flex: 9999 1 26em;
+						}
 
-                        display: flex;
-                        flex-direction: row;
-                        flex-wrap: wrap;
-                        justify-content: stretch;
-                        align-items: stretch;
-                        margin: 0;
-                    }
-                }
-            }
-        }
-    }
+						display: flex;
+						flex-direction: row;
+						flex-wrap: wrap;
+						justify-content: stretch;
+						align-items: stretch;
+						margin: 0;
+					}
+				}
+			}
+		}
+	}
 
-    .query-term-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.25em;
-        margin-top: 1lh;
-    }
+	.query-term-grid {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25em;
+		margin-top: 1lh;
+	}
 
-    .advanced-setting {
-        margin-left: 1em;
-        margin-right: 1em;
-    }
+	.advanced-setting {
+		margin-left: 1em;
+		margin-right: 1em;
+	}
 </style>

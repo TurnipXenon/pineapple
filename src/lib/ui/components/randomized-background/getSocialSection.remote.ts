@@ -5,5 +5,5 @@ export const getSocialSectionRemote: RevealInfoRemoteQuery = {
 	type: "void",
 	run: query(async () => {
 		return "";
-	}),
+	})
 };

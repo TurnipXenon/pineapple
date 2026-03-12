@@ -7,12 +7,12 @@ export interface GenericComboboxItem<T extends string> {
 
 export interface ValueChangeDetails<T extends string> {
 	value: T | undefined;
-	items: GenericComboboxItem<T>[]
+	items: GenericComboboxItem<T>[];
 }
 
 export type PinyaComboboxProps<T extends string> = {
 	/* list of options */
-	data: GenericComboboxItem<T>[]
+	data: GenericComboboxItem<T>[];
 	/* selected option value */
 	value?: T[];
 	label?: string;

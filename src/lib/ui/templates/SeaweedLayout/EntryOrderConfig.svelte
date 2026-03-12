@@ -10,16 +10,14 @@
 		allEntries: SnippetMeta[];
 	}
 
-	let {
-		layout = $bindable(),
-		orderUrl = $bindable(),
-		allEntries
-	}: Props = $props();
+	let { layout = $bindable(), orderUrl = $bindable(), allEntries }: Props = $props();
 </script>
 
-<br>
+<br />
 <h3>Site ordering</h3>
-<blockquote>Sorry! This part of the website is still WIP, but here it is anyway. As long as it functions</blockquote>
+<blockquote>
+	Sorry! This part of the website is still WIP, but here it is anyway. As long as it functions
+</blockquote>
 
 <!-- formatting: group1:entry1|entry2,group2:entry3
  : <= separates the group header, the entries, and the class
@@ -28,20 +26,14 @@
  -->
 <div class="advanced-setting-list">
 	{#each layout as group, groupIndex (group.key)}
-		<ProjectGroupConfig
-			bind:layout={layout}
-			bind:orderUrl={orderUrl}
-			{allEntries}
-			{group}
-			{groupIndex}
-		/>
+		<ProjectGroupConfig bind:layout bind:orderUrl {allEntries} {group} {groupIndex} />
 	{/each}
 </div>
 
 <style>
-    .advanced-setting-list {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+	.advanced-setting-list {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
 </style>

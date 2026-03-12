@@ -11,13 +11,19 @@ import AresNeutral from "$pkg/assets/characters/ares/ares_neutral.webp";
 import AresSlightlyMad from "$pkg/assets/characters/ares/ares_slightly_mad.webp";
 import AresSurprised from "$pkg/assets/characters/ares/ares_surprised.webp";
 import AresYay from "$pkg/assets/characters/ares/ares_yay.webp";
-import { defaultDialogMessage, enableUniversalOverlaySvelte4 } from "$pkg/components/dialog_manager/DialogManagerStore";
+import {
+	defaultDialogMessage,
+	enableUniversalOverlaySvelte4
+} from "$pkg/components/dialog_manager/DialogManagerStore";
 import { DialogProcessor } from "$pkg/components/dialog_manager/DialogProcessor";
 import type { IDialogManager } from "$pkg/components/dialog_manager/IDialogManager";
 import { parseYarn } from "$pkg/scripts/pineapple_fiber/PineappleFiberParser";
 import type { DialogDetail } from "$pkg/types/pineapple_fiber/DialogDetail";
 import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
-import { createNewMapStore, type DialogMapStore } from "$pkg/types/pineapple_fiber/DialogVariableStore";
+import {
+	createNewMapStore,
+	type DialogMapStore
+} from "$pkg/types/pineapple_fiber/DialogVariableStore";
 import { PortraitType } from "$pkg/types/pineapple_fiber/PortraitType";
 import { backOut, linear } from "svelte/easing";
 import { tweened } from "svelte/motion";
@@ -143,7 +149,7 @@ export class DialogManager implements IDialogManager {
 		}
 
 		if (startingNode) {
-			const potentialStartingDialog = newDialogTree.find(t => t.dialogId === startingNode);
+			const potentialStartingDialog = newDialogTree.find((t) => t.dialogId === startingNode);
 			if (potentialStartingDialog) {
 				this.setDialogChoice(potentialStartingDialog);
 				return;
@@ -203,7 +209,7 @@ export class DialogManager implements IDialogManager {
 	};
 
 	setDialogChoiceById = (dialogId: string) => {
-		const potentialDialog = this.currentDialogTree.find(d => d.dialogId === dialogId);
+		const potentialDialog = this.currentDialogTree.find((d) => d.dialogId === dialogId);
 		if (potentialDialog) {
 			this.setDialogChoice(potentialDialog);
 		} else {
@@ -288,11 +294,15 @@ export class DialogManager implements IDialogManager {
 
 			const elementList = document.getElementsByClassName("dialog-choice");
 			for (const el of elementList) {
-				el.addEventListener("click", () => {
-					// todo: make more robust; for now we're assuming first class is our choice
-					const choice = el.classList[0].split("-")[1];
-					this.setDialogChoice(this.dialogMessageMap.get(choice));
-				}, { signal });
+				el.addEventListener(
+					"click",
+					() => {
+						// todo: make more robust; for now we're assuming first class is our choice
+						const choice = el.classList[0].split("-")[1];
+						this.setDialogChoice(this.dialogMessageMap.get(choice));
+					},
+					{ signal }
+				);
 			}
 
 			this.isDoneTransition = true;
@@ -318,7 +328,7 @@ export class DialogManager implements IDialogManager {
 		while (
 			this.fullCurrentMessage[this.currentIndex] == "<" &&
 			this.currentIndex + 1 < this.fullCurrentMessage.length
-			) {
+		) {
 			// find valid character, trap with closing
 			this.currentIndex = this.fullCurrentMessage.indexOf(">", this.currentIndex) + 1;
 			// normalize
@@ -339,31 +349,29 @@ export class DialogManager implements IDialogManager {
 
 	toggleDialogOverlay() {
 		enableUniversalOverlaySvelte4.set(!this.enableDialogueOverlayCache);
-	};
+	}
 
 	async parseAndSetDialogTree(dialogYarn: string, startingNode = ""): Promise<DialogDetail[]> {
-		return parseYarn(dialogYarn)
-			.then((dialogTree) => {
-				this.setDialogTree(dialogTree, startingNode);
-				return dialogTree;
-			});
+		return parseYarn(dialogYarn).then((dialogTree) => {
+			this.setDialogTree(dialogTree, startingNode);
+			return dialogTree;
+		});
 	}
 
 	async extendDialogTree(dialogYarn: string, forceNode = ""): Promise<DialogDetail[]> {
-		return parseYarn(dialogYarn)
-			.then((dialogTree) => {
-				this.currentDialogTree.push(...dialogTree);
+		return parseYarn(dialogYarn).then((dialogTree) => {
+			this.currentDialogTree.push(...dialogTree);
 
-				if (forceNode) {
-					const potentialDialog = this.currentDialogTree.find(d => d.dialogId === forceNode);
-					if (!potentialDialog) {
-						console.error(`extendDialogTree: cannot find dialog ID: ${forceNode}`);
-					}
-					this.setDialogTree(this.currentDialogTree, forceNode);
+			if (forceNode) {
+				const potentialDialog = this.currentDialogTree.find((d) => d.dialogId === forceNode);
+				if (!potentialDialog) {
+					console.error(`extendDialogTree: cannot find dialog ID: ${forceNode}`);
 				}
+				this.setDialogTree(this.currentDialogTree, forceNode);
+			}
 
-				return dialogTree;
-			});
+			return dialogTree;
+		});
 	}
 
 	setUpdateRate(newRate: number) {

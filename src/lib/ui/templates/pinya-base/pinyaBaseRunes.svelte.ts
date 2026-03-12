@@ -10,7 +10,7 @@ export interface PinyaHead {
 }
 
 export interface PinyaHeadMetaWrap {
-	meta: PinyaHead
+	meta: PinyaHead;
 }
 
 const defaultData: PinyaHead = {
@@ -21,6 +21,4 @@ const defaultData: PinyaHead = {
 	ogImage: [WebThumbnailImage]
 };
 
-export const pinyaHead = $state<PinyaHead>(
-	{ ...defaultData }
-);
+export const pinyaHead = $state<PinyaHead>({ ...defaultData });

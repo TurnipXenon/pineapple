@@ -3,120 +3,123 @@
 @import "./turnip-theme.css";
 
 html {
-    --dialog-start-pad: clamp(0em, 5vw, 2em);
-    --dialog-box-width: 54em;
-    --dialog-box-height: clamp(15em, 50vw, 18em);
-    --fab-margin: 1rem;
+	--dialog-start-pad: clamp(0em, 5vw, 2em);
+	--dialog-box-width: 54em;
+	--dialog-box-height: clamp(15em, 50vw, 18em);
+	--fab-margin: 1rem;
 
-
-    /* spacing calcs */
-    --spacing-1: calc(var(--spacing) * 1);
-    --spacing-2: calc(var(--spacing) * 2);
-    --spacing-3: calc(var(--spacing) * 3);
-    --spacing-4: calc(var(--spacing) * 4);
+	/* spacing calcs */
+	--spacing-1: calc(var(--spacing) * 1);
+	--spacing-2: calc(var(--spacing) * 2);
+	--spacing-3: calc(var(--spacing) * 3);
+	--spacing-4: calc(var(--spacing) * 4);
 }
 
 .footer-space {
-    width: 100%;
-    height: calc(var(--dialog-box-height) + 4em);
+	width: 100%;
+	height: calc(var(--dialog-box-height) + 4em);
 }
 
-.main-dialog-box-container a, .main-dialog-box-container b, .main-dialog-box-container i {
-    font-size: inherit;
+.main-dialog-box-container a,
+.main-dialog-box-container b,
+.main-dialog-box-container i {
+	font-size: inherit;
 }
 
 a.dialog-choice {
-    cursor: url("$pkg/assets/icons/cursor-chat.svg"), auto;
+	cursor: url("$pkg/assets/icons/cursor-chat.svg"), auto;
 
-
-    &:before {
-        content: '';
-        display: inline-block;
-        width: 1.1em;
-        height: 1.1em;
-        mask: url("$pkg/assets/icons/icon-chat.svg") no-repeat center;
-        mask-size: contain;
-        background-color: currentColor;
-        vertical-align: middle;
-        position: relative;
-        top: -0.05lh;
-        margin-right: 0.2em;
-    }
+	&:before {
+		content: "";
+		display: inline-block;
+		width: 1.1em;
+		height: 1.1em;
+		mask: url("$pkg/assets/icons/icon-chat.svg") no-repeat center;
+		mask-size: contain;
+		background-color: currentColor;
+		vertical-align: middle;
+		position: relative;
+		top: -0.05lh;
+		margin-right: 0.2em;
+	}
 }
 
 a.external-link {
-    cursor: url("$pkg/assets/icons/cursor-open-in-new.svg"), auto;
+	cursor: url("$pkg/assets/icons/cursor-open-in-new.svg"), auto;
 }
 
-.external-link:after, a[rel*="external"]:after {
-    content: '';
-    display: inline-block;
-    width: 0.8em;
-    height: 0.8em;
-    mask: url("$pkg/assets/icons/icon-open-in-new.svg") no-repeat center;
-    mask-size: contain;
-    background-color: currentColor;
-    vertical-align: middle;
-    position: relative;
-    top: -0.1lh;
+.external-link:after,
+a[rel*="external"]:after {
+	content: "";
+	display: inline-block;
+	width: 0.8em;
+	height: 0.8em;
+	mask: url("$pkg/assets/icons/icon-open-in-new.svg") no-repeat center;
+	mask-size: contain;
+	background-color: currentColor;
+	vertical-align: middle;
+	position: relative;
+	top: -0.1lh;
 }
 
 span.external-link:after {
-    left: 0.2em;
-    top: -0.05lh;
+	left: 0.2em;
+	top: -0.05lh;
 }
 
 #toast-progress {
-    position: relative;
-    top: 5px;
-    left: 6px;
-    width: calc(100% - 12px);
-    border-radius: 8px;
-    background: transparent;
-    height: 10px;
+	position: relative;
+	top: 5px;
+	left: 6px;
+	width: calc(100% - 12px);
+	border-radius: 8px;
+	background: transparent;
+	height: 10px;
 }
 
 #toast-progress::-moz-progress-bar {
-    background: rgba(var(--color-secondary-500));
+	background: rgba(var(--color-secondary-500));
 }
-
 
 @layer base {
-    .game-link-section {
-        margin-top: calc(var(--spacing) * 6);
-        display: flex;
-        gap: calc(var(--spacing) * 2);
-        justify-content: center;
-    }
+	.game-link-section {
+		margin-top: calc(var(--spacing) * 6);
+		display: flex;
+		gap: calc(var(--spacing) * 2);
+		justify-content: center;
+	}
 
-    .game-video-cover {
-        border-top-left-radius: var(--radius-lg);
-        border-top-right-radius: var(--radius-lg);
-        max-height: calc(var(--spacing) * 64);
-        object-fit: cover;
-        width: 100%;
-    }
+	.game-video-cover {
+		border-top-left-radius: var(--radius-lg);
+		border-top-right-radius: var(--radius-lg);
+		max-height: calc(var(--spacing) * 64);
+		object-fit: cover;
+		width: 100%;
+	}
 
-    .text-chip-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
+	.text-chip-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
 
-    .text-chip {
-        background-color: var(--color-secondary-50-950) /* light-dark(var(--color-secondary-50), var(--color-secondary-950)) */;
-        color: var(--color-secondary-950-50) /* light-dark(var(--color-secondary-950), var(--color-secondary-50)) */;
-    }
+	.text-chip {
+		background-color: var(--color-secondary-50-950)
+			/* light-dark(var(--color-secondary-50), var(--color-secondary-950)) */;
+		color: var(--color-secondary-950-50)
+			/* light-dark(var(--color-secondary-950), var(--color-secondary-50)) */;
+	}
 }
 
-ul + h2, ol + h2 {
-    margin-top: 1rlh;
+ul + h2,
+ol + h2 {
+	margin-top: 1rlh;
 }
 
 .default-flex {
-    display: flex;
-    gap: 0.5lh;
-    flex-direction: column;
+	display: flex;
+	gap: 0.5lh;
+	flex-direction: column;
 }
 
 /* endregion general styles */

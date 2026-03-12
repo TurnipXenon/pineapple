@@ -22,9 +22,8 @@
 	});
 
 	// todo: improve graphics lol
-	let ratingsRenderer = $derived(pageMeta.foodReviewJson
-		? renderStar(LdSchemaUtil.getReviewRating(pageMeta.foodReviewJson))
-		: 0
+	let ratingsRenderer = $derived(
+		pageMeta.foodReviewJson ? renderStar(LdSchemaUtil.getReviewRating(pageMeta.foodReviewJson)) : 0
 	);
 </script>
 
@@ -47,9 +46,9 @@
 			{/if}
 			{#if pageMeta.foodReviewJson && LdSchemaUtil.getUrl(pageMeta.foodReviewJson)}
 				<p>
-					<a href={LdSchemaUtil.getUrl(pageMeta.foodReviewJson)}
-					   rel="external"
-					   target="_blank">{LdSchemaUtil.getUrl(pageMeta.foodReviewJson)}</a>
+					<a href={LdSchemaUtil.getUrl(pageMeta.foodReviewJson)} rel="external" target="_blank"
+						>{LdSchemaUtil.getUrl(pageMeta.foodReviewJson)}</a
+					>
 				</p>
 			{/if}
 			{#if pageMeta.tags.length > 0}
@@ -69,54 +68,57 @@
 </article>
 
 <style>
-    hgroup {
-        margin-bottom: 1lh;
-    }
+	hgroup {
+		margin-bottom: 1lh;
+	}
 
-    .badge {
-        margin-inline-end: 0.5em;
-    }
+	.badge {
+		margin-inline-end: 0.5em;
+	}
 
-    #article-tags {
-        flex-grow: 1;
-        width: 100%;
-        flex-basis: 100%;
+	#article-tags {
+		flex-grow: 1;
+		width: 100%;
+		flex-basis: 100%;
 
-        line-height: 1.3lh;
-    }
+		line-height: 1.3lh;
+	}
 
-    #article-tags a.badge {
-        text-decoration: none;
-    }
+	#article-tags a.badge {
+		text-decoration: none;
+	}
 
-    #article-tags .tag-link {
-        display: inline-flex;
-        align-items: center;
-        border-radius: 0.5rem;
-        padding: 0.2rem 0.55rem;
-        border: 1px solid var(--color-surface-700-600);
-        background-color: transparent;
-        color: var(--color-surface-900-100);
-        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-    }
+	#article-tags .tag-link {
+		display: inline-flex;
+		align-items: center;
+		border-radius: 0.5rem;
+		padding: 0.2rem 0.55rem;
+		border: 1px solid var(--color-surface-700-600);
+		background-color: transparent;
+		color: var(--color-surface-900-100);
+		transition:
+			background-color 0.15s ease,
+			color 0.15s ease,
+			border-color 0.15s ease;
+	}
 
-    #article-tags .tag-link:hover,
-    #article-tags .tag-link:focus-visible {
-        background-color: transparent;
-        border-color: var(--color-primary-400-600);
-        color: var(--color-surface-900-100);
-        outline: none;
-        filter: brightness(110%);
-    }
+	#article-tags .tag-link:hover,
+	#article-tags .tag-link:focus-visible {
+		background-color: transparent;
+		border-color: var(--color-primary-400-600);
+		color: var(--color-surface-900-100);
+		outline: none;
+		filter: brightness(110%);
+	}
 
-    #hgroup-wrapper {
-        margin-top: 0.5lh;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+	#hgroup-wrapper {
+		margin-top: 0.5lh;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
 
-        & > *:not(.w-full) {
-            flex-basis: max(16em, 40%);
-        }
-    }
+		& > *:not(.w-full) {
+			flex-basis: max(16em, 40%);
+		}
+	}
 </style>

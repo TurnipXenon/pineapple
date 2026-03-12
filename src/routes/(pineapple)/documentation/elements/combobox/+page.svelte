@@ -26,4 +26,3 @@
 
 <h2>Props</h2>
 <CodeBlock code={PinyaComboboxPropsTxt} lang="ts"></CodeBlock>
-

@@ -22,7 +22,10 @@
 	let { children }: Props = $props();
 
 	appState.allowDialog = true;
-	pinyaHead.rootUrl = import.meta.env.PROD ?? process.env.PROD ? "https://pineapple-gamma-blush.vercel.app" : "http://localhost:5173";
+	pinyaHead.rootUrl =
+		(import.meta.env.PROD ?? process.env.PROD)
+			? "https://pineapple-gamma-blush.vercel.app"
+			: "http://localhost:5173";
 
 	const fileList = import.meta.glob("./**/+page.svelte", { query: "?raw" });
 	const jsonList = import.meta.glob("./**/meta.json", { query: "?raw", eager: true });

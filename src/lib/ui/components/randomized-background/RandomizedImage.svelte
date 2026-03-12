@@ -7,8 +7,8 @@
 		src,
 		rng
 	}: {
-		src: string,
-		rng: () => number
+		src: string;
+		rng: () => number;
 	} = $props();
 	let rotateRandom = untrack(() => rng() * 90 - 45);
 
@@ -20,28 +20,32 @@
 <div
 	style="--paddingTop: {paddingTop}rem;
         --paddingLeft: {paddingLeft}rem;
-        --paddingRight: {paddingRight}rem;">
-	<img {src} class="randomized-image"
-	     aria-hidden="true"
-	     style="--rotateRandom:{rotateRandom}deg;"
-	     alt="" />
+        --paddingRight: {paddingRight}rem;"
+>
+	<img
+		{src}
+		class="randomized-image"
+		aria-hidden="true"
+		style="--rotateRandom:{rotateRandom}deg;"
+		alt=""
+	/>
 </div>
 
 <style>
-    div {
-        padding-top: var(--paddingTop);
-        padding-left: var(--paddingLeft);
-        padding-right: var(--paddingRight);
-    }
+	div {
+		padding-top: var(--paddingTop);
+		padding-left: var(--paddingLeft);
+		padding-right: var(--paddingRight);
+	}
 
-    img {
-        --randomized-image-size: min(10vw, 10vh);
-        width: var(--randomized-image-size);
-        height: var(--randomized-image-size);
-        transform: rotate(var(--rotateRandom));
-    }
+	img {
+		--randomized-image-size: min(10vw, 10vh);
+		width: var(--randomized-image-size);
+		height: var(--randomized-image-size);
+		transform: rotate(var(--rotateRandom));
+	}
 
-    .randomized-image {
-        filter: var(--filter-randomized-image);
-    }
+	.randomized-image {
+		filter: var(--filter-randomized-image);
+	}
 </style>

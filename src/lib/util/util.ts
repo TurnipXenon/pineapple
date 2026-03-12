@@ -7,7 +7,7 @@ export const generatedDailySeed = (): number => {
 // psuedo misc with seed
 // from https://stackoverflow.com/a/47593316
 export const mulberry32Generator = (a: number): (() => number) => {
-	return function() {
+	return function () {
 		let t = (a += 0x6d2b79f5);
 		t = Math.imul(t ^ (t >>> 15), t | 1);
 		t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
@@ -16,9 +16,9 @@ export const mulberry32Generator = (a: number): (() => number) => {
 };
 
 export const createGoToFunction = (path: string): (() => void) => {
-	return (() => {
+	return () => {
 		location.href = path;
-	});
+	};
 };
 
 export interface ExternalLinkWarningArgs {
@@ -26,11 +26,11 @@ export interface ExternalLinkWarningArgs {
 }
 
 export const createExternalLinkWarningFunction = (args: ExternalLinkWarningArgs): (() => void) => {
-	return (() => {
+	return () => {
 		// todo: https://github.com/TurnipXenon/pineapple/issues/99
 		//  add the warning here for future functions
 		location.href = args.href;
-	});
+	};
 };
 
 export interface RawGlob {
@@ -42,10 +42,10 @@ export const getQueryTerms = (modules: Record<string, unknown>): string[] => {
 	const queryTerms = new Set<string>();
 	for (const path in modules) {
 		const modStr = modules[path] as string;
-		[...modStr.matchAll(re).map(i => i[1])].forEach(term => queryTerms.add(term));
+		[...modStr.matchAll(re).map((i) => i[1])].forEach((term) => queryTerms.add(term));
 	}
 	return [...queryTerms].sort();
-}
+};
 
 export const renderStar = (rating: number) => {
 	let stars = "";
@@ -63,4 +63,4 @@ export const renderStar = (rating: number) => {
 		}
 	}
 	return stars;
-}
+};

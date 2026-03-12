@@ -31,7 +31,9 @@
 	});
 
 	let documentationLayout = $derived.by(() => {
-		const siteList = getSiteLayout().filter(layout => layout.relativeLink.includes("documentation"));
+		const siteList = getSiteLayout().filter((layout) =>
+			layout.relativeLink.includes("documentation")
+		);
 		if (siteList.length > 0) {
 			return [siteList[0]];
 		}
@@ -43,15 +45,13 @@
 		if (browser) {
 			appState.allowDialog = true;
 		}
-	})
+	});
 </script>
+
 <div id="documentation-layout-wrapper">
 	<div class="documentation-header">
-		<NestedNavigation
-			layout={documentationLayout}
-			depth={0}
-			close={() => {}}
-			{openBehavior}></NestedNavigation>
+		<NestedNavigation layout={documentationLayout} depth={0} close={() => {}} {openBehavior}
+		></NestedNavigation>
 	</div>
 	<PinyaCard id="documentation-body">
 		{@render children()}
@@ -59,67 +59,65 @@
 </div>
 
 <style>
-    :global {
-        :root {
-            /* calc(20em + (66em * 0.5) + 5rem) = 58em */
-            /* 5 em is for gap + margins */
-            --documentation-break-point: calc(20em + (66em * 0.5) + 5rem);
-        }
+	:global {
+		:root {
+			/* calc(20em + (66em * 0.5) + 5rem) = 58em */
+			/* 5 em is for gap + margins */
+			--documentation-break-point: calc(20em + (66em * 0.5) + 5rem);
+		}
 
-        .documentation-layout {
-            --default-page-container-margin: 0;
-        }
+		.documentation-layout {
+			--default-page-container-margin: 0;
+		}
 
-        .documentation-header {
-            width: 20em;
-            margin: 1lh 1rem;
+		.documentation-header {
+			width: 20em;
+			margin: 1lh 1rem;
 
-            & > .pinya-nested-navigation {
-                width: 100%;
-            }
+			& > .pinya-nested-navigation {
+				width: 100%;
+			}
 
-            @media (max-width: 58em) {
-                position: sticky;
-                top: 2.5lh;
-                min-width: unset;
-                max-width: unset;
-                margin: 0 1rem;
-                height: 1lh;
-                width: unset;
-		            z-index: 10;
-            }
-        }
+			@media (max-width: 58em) {
+				position: sticky;
+				top: 2.5lh;
+				min-width: unset;
+				max-width: unset;
+				margin: 0 1rem;
+				height: 1lh;
+				width: unset;
+				z-index: 10;
+			}
+		}
 
-        #documentation-body {
-            margin: 1lh 1rem;
-            min-width: calc(66em * 0.5);
-            max-width: 66em;
-		        align-self: flex-start;
+		#documentation-body {
+			margin: 1lh 1rem;
+			min-width: calc(66em * 0.5);
+			max-width: 66em;
+			align-self: flex-start;
 
-            @media (max-width: 58em) {
-                min-width: unset;
-                max-width: unset;
-                margin: 0 1rem;
-                margin-top: 1lh;
-                width: unset;
-		            align-self: unset;
-            }
-        }
-    }
+			@media (max-width: 58em) {
+				min-width: unset;
+				max-width: unset;
+				margin: 0 1rem;
+				margin-top: 1lh;
+				width: unset;
+				align-self: unset;
+			}
+		}
+	}
 
-
-    #documentation-layout-wrapper {
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-        justify-content: center;
-        width: 100%;
-        margin: auto;
-        @media (max-width: 58em) {
-            flex-direction: column;
-            align-items: stretch;
-            margin: 0 1rem;
-        }
-    }
-
+	#documentation-layout-wrapper {
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+		justify-content: center;
+		width: 100%;
+		margin: auto;
+		@media (max-width: 58em) {
+			flex-direction: column;
+			align-items: stretch;
+			margin: 0 1rem;
+		}
+	}
 </style>

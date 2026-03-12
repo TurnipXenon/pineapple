@@ -135,18 +135,29 @@ export async function getCommitDate(
 			if (startParsed) {
 				if (ref.endCommit) {
 					const endParsed = parseGithubCommitUrl(ref.endCommit);
-					if (endParsed && endParsed.owner === startParsed.owner && endParsed.repo === startParsed.repo) {
+					if (
+						endParsed &&
+						endParsed.owner === startParsed.owner &&
+						endParsed.repo === startParsed.repo
+					) {
 						promises.push(
-							fetchCommitCount(startParsed.owner, startParsed.repo, startParsed.sha, endParsed.sha).then((c) => {
+							fetchCommitCount(
+								startParsed.owner,
+								startParsed.repo,
+								startParsed.sha,
+								endParsed.sha
+							).then((c) => {
 								if (c != null) dates.commitCount = c;
 							})
 						);
 					}
 				} else if (ref.gitRepoLink) {
 					promises.push(
-						fetchCommitCount(startParsed.owner, startParsed.repo, startParsed.sha, "main").then((c) => {
-							if (c != null) dates.commitCount = c;
-						})
+						fetchCommitCount(startParsed.owner, startParsed.repo, startParsed.sha, "main").then(
+							(c) => {
+								if (c != null) dates.commitCount = c;
+							}
+						)
 					);
 				}
 			}

@@ -26,9 +26,10 @@
 		const repeated = searchParams.getAll("tags");
 		const rawValues = repeated.length > 0 ? repeated : [searchParams.get("tags") ?? ""];
 		const seen = new Set<string>();
-		return rawValues.flatMap(value => value.split(","))
-			.map(tag => tag.trim())
-			.filter(tag => {
+		return rawValues
+			.flatMap((value) => value.split(","))
+			.map((tag) => tag.trim())
+			.filter((tag) => {
 				if (!tag) {
 					return false;
 				}
@@ -46,7 +47,7 @@
 		query.set("index", currentIndex.toString());
 		query.set("pageSize", pageSize.toString());
 		query.delete("tags");
-		selectedTags.forEach(tag => query.append("tags", tag));
+		selectedTags.forEach((tag) => query.append("tags", tag));
 		goto(`?${query.toString()}`, {
 			replaceState: true,
 			noScroll: true,
@@ -82,8 +83,10 @@
 	<PinyaButton
 		classes="w-12 h-12"
 		disabled={currentIndex <= 0}
-		onclick={() => {movePage(false)}}
-	>&lt;
+		onclick={() => {
+			movePage(false);
+		}}
+		>&lt;
 	</PinyaButton>
 	<div>
 		<PinyaCard widthClass="" paddingClass="pt-2 pb-2 pl-8 pr-8">
@@ -93,15 +96,17 @@
 	<PinyaButton
 		classes="w-12 h-12"
 		disabled={(currentIndex + 1) * pageSize >= contentLength}
-		onclick={() => {movePage(true)}}
-	>&gt;
+		onclick={() => {
+			movePage(true);
+		}}
+		>&gt;
 	</PinyaButton>
 </div>
 
 <style>
-    .navigation-control-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+	.navigation-control-container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
 </style>

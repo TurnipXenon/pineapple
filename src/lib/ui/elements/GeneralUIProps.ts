@@ -1,5 +1,5 @@
-import type { ColorScheme } from './ColorScheme';
-import type { OnBackground } from './OnBackground';
+import type { ColorScheme } from "./ColorScheme";
+import type { OnBackground } from "./OnBackground";
 
 export interface GeneralUIProps {
 	/**

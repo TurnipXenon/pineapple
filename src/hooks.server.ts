@@ -1,11 +1,11 @@
-import type { Handle } from '@sveltejs/kit';
-import { paraglideMiddleware } from '$pkg/external/paraglide/server';
+import type { Handle } from "@sveltejs/kit";
+import { paraglideMiddleware } from "$pkg/external/paraglide/server";
 
 // creating a handle to use the paraglide middleware
 const paraglideHandle: Handle = ({ event, resolve }) =>
 	paraglideMiddleware(event.request, ({ locale }) => {
 		return resolve(event, {
-			transformPageChunk: ({ html }) => html.replace('%lang%', locale)
+			transformPageChunk: ({ html }) => html.replace("%lang%", locale)
 		});
 	});
 

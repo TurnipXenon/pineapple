@@ -8,15 +8,15 @@ export const menuPageServerLoad = async () => {
 			parsnipOverall: {
 				files: [],
 				tags: [],
-				baseUrl,
+				baseUrl
 			}
-		}
+		};
 	}
 
 	const fullUrl = `${baseUrl}/main.meta.json`;
 	const post = await fetch(fullUrl)
-		.then(res => res)
-		.catch(err => {
+		.then((res) => res)
+		.catch((err) => {
 			console.warn(err);
 			console.warn(`Cannot reach cms base url at ${fullUrl}. Attempting to obtain local cache...`);
 			return {
@@ -24,7 +24,7 @@ export const menuPageServerLoad = async () => {
 				json: () => ({
 					files: [],
 					tags: [],
-					baseUrl,
+					baseUrl
 				})
 			};
 		});

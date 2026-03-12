@@ -34,7 +34,7 @@
 	 * c.setValue
 	 */
 
-		// special logic since we would need to change the extensions for all the typescript code if we dont
+	// special logic since we would need to change the extensions for all the typescript code if we dont
 	const enableDialogPrefStore = createLocalStore("enable-dialog-preference");
 	setEnableDialogPreferenceContext(enableDialogPrefStore);
 

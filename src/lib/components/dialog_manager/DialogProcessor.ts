@@ -15,13 +15,14 @@ import { JumpCommand } from "$lib/components/dialog_manager/behavior_tree/line_p
 import { IgnoreJumpNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/IgnoreJumpNode";
 import { UnvisitCommand } from "$lib/components/dialog_manager/behavior_tree/line_processors/commands/UnvisitCommand";
 import type { IDialogManager } from "$pkg";
+import { ForceVisitCommand } from "./behavior_tree/line_processors/commands/ForceVisitCommand";
 
 /**
  * DialogProcessor processes dialogs
  */
 export class DialogProcessor {
 	private readonly dialogManager: IDialogManager;
-	private processingTree: LineSelectorNode ;
+	private processingTree: LineSelectorNode;
 
 	constructor(dialogManager: IDialogManager) {
 		this.dialogManager = dialogManager;
@@ -40,11 +41,11 @@ export class DialogProcessor {
 			new DeclareCommand(),
 			new JumpCommand(this.dialogManager),
 			new UnvisitCommand(),
+			new ForceVisitCommand(),
 			/*endregion commands*/
 			new NormalLineProcessorNode()
 		]);
 	}
-
 
 	/**
 	 * process the dialog line by line and return a presentable string

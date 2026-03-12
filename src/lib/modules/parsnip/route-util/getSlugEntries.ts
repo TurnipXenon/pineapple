@@ -17,7 +17,7 @@ export const getSlugEntries = async () => {
 		baseUrl
 	} as ParsnipOverall;
 
-	return parsnipOverall.files.map(f => ({
+	return parsnipOverall.files.map((f) => ({
 		slug: f.slug
 	}));
 };

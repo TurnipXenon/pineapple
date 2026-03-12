@@ -17,7 +17,7 @@
 	<ol>
 		{@render childList(list)}
 	</ol>
-{:else }
+{:else}
 	<ul>
 		{@render childList(list)}
 	</ul>

@@ -11,17 +11,16 @@
 	let {
 		layout,
 		depth,
-		close = () => {
-		},
+		close = () => {},
 		openBehavior,
 		...props
 	}: {
-		layout: PageMeta[],
-		depth: number,
-		close?: () => void,
-		openBehavior?: "open-all" | "open-active" | "close-all"
+		layout: PageMeta[];
+		depth: number;
+		close?: () => void;
+		openBehavior?: "open-all" | "open-active" | "close-all";
 		// we have to omit id since id is auto assigned by melt
-	} & Omit<HTMLAttributes<HTMLDivElement>, 'id'> = $props();
+	} & Omit<HTMLAttributes<HTMLDivElement>, "id"> = $props();
 
 	let openItems = $state<string[]>([]);
 
@@ -36,18 +35,17 @@
 				break;
 
 			case "open-all":
-				openItems = layout.map(site => site.relativeLink);
+				openItems = layout.map((site) => site.relativeLink);
 				break;
 
-			case "open-active":
-				// find the biggest match
-				// for example if our current link is documentation/test/test2
-				// if the relativeLink are documentation-test, documentation, doc
-				// we return [documentation]
+			case "open-active": // find the biggest match
+			// for example if our current link is documentation/test/test2
+			// if the relativeLink are documentation-test, documentation, doc
+			// we return [documentation]
 			{
 				let bestMatch: string | null = null;
 
-				layout.forEach(site => {
+				layout.forEach((site) => {
 					const link = site.relativeLink;
 					if (!link) {
 						return;
@@ -72,13 +70,14 @@
 </script>
 
 {#if layout.length > 0}
-	<PinyaAccordion bind:openItems={openItems} {...props} class="pinya-nested-navigation {props.class ?? ''}">
+	<PinyaAccordion bind:openItems {...props} class="pinya-nested-navigation {props.class ?? ''}">
 		{#each layout as site (site.relativeLink)}
 			<!-- todo: add highlighted class when relativeLink === page.url -->
 			<PinyaAccordionItem
-				class={currentPath === site.relativeLink ? 'highlighted' : ''}
+				class={currentPath === site.relativeLink ? "highlighted" : ""}
 				hasNoChild={site.nestedPages.length === 0}
-				pinyaValue={site.relativeLink}>
+				pinyaValue={site.relativeLink}
+			>
 				{#snippet control()}
 					<TextLink href={localizeHref(site.relativeLink)} onclick={() => close()}>
 						{site.title}
@@ -94,8 +93,12 @@
 			</PinyaAccordionItem>
 		{/each}
 	</PinyaAccordion>
-{:else }
-	<PinyaCard {...props} class={`nested-navigation-placeholder ${props.class ?? ''}`} colorClass="bg-primary-100 dark:bg-tertiary-900">
+{:else}
+	<PinyaCard
+		{...props}
+		class={`nested-navigation-placeholder ${props.class ?? ""}`}
+		colorClass="bg-primary-100 dark:bg-tertiary-900"
+	>
 		{#each { length: 10 } as _, idx (idx)}
 			<Placeholder class="mb-2 placeholder" />
 		{/each}
@@ -103,29 +106,29 @@
 {/if}
 
 <style lang="scss">
-		@use "$styles/surface-colors" as *;
+	@use "$styles/surface-colors" as *;
 
-    .wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        text-align: start;
-        gap: 0.4lh;
-    }
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		text-align: start;
+		gap: 0.4lh;
+	}
 
-    :global {
-        .pinya-accordion-item.highlighted > .accordion-heading {
-            & > .like-button, & > button {
-		            @extend %surface-secondary-button;
-                font-weight: bolder;
-            }
-        }
+	:global {
+		.pinya-accordion-item.highlighted > .accordion-heading {
+			& > .like-button,
+			& > button {
+				@extend %surface-secondary-button;
+				font-weight: bolder;
+			}
+		}
 
-        .nested-navigation-placeholder.pinya-card {
-            width: 10em;
-            padding: 1em;
-            gap: 0.5lh
-        }
-    }
-
+		.nested-navigation-placeholder.pinya-card {
+			width: 10em;
+			padding: 1em;
+			gap: 0.5lh;
+		}
+	}
 </style>

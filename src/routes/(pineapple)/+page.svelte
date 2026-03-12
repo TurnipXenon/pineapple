@@ -19,22 +19,32 @@
 		<div class="turnip-menu">
 			<PinyaButton
 				classes="text-wrap"
-				onclick={() => {location.href = localizeHref('pineapple');}}
+				onclick={() => {
+					location.href = localizeHref("pineapple");
+				}}
 			>
 				Pineapple playground
 			</PinyaButton>
 			<PinyaButton
 				classes="text-wrap"
-				onclick={() => {location.href = localizeHref('seaweed2');}}
+				onclick={() => {
+					location.href = localizeHref("seaweed2");
+				}}
 			>
-				<div class="text-wrap">
-					Seaweed playground
-				</div>
+				<div class="text-wrap">Seaweed playground</div>
 			</PinyaButton>
-			<PinyaButton onclick={() => {location.href = localizeHref('components');}}>
+			<PinyaButton
+				onclick={() => {
+					location.href = localizeHref("components");
+				}}
+			>
 				Components testing
 			</PinyaButton>
-			<PinyaButton onclick={() => {location.href = localizeHref('documentation/guides/getting-started');}}>
+			<PinyaButton
+				onclick={() => {
+					location.href = localizeHref("documentation/guides/getting-started");
+				}}
+			>
 				Library documentation
 			</PinyaButton>
 		</div>
@@ -42,17 +52,17 @@
 </PinyaCard>
 
 <style>
-    .turnip-menu {
-        padding: 2em;
-        display: flex;
-        gap: 2em;
-        flex-direction: column;
-    }
+	.turnip-menu {
+		padding: 2em;
+		display: flex;
+		gap: 2em;
+		flex-direction: column;
+	}
 
-    main {
-        display: flex;
-        flex-direction: column;
-        text-align: start;
-        gap: 0.5lh;
-    }
+	main {
+		display: flex;
+		flex-direction: column;
+		text-align: start;
+		gap: 0.5lh;
+	}
 </style>

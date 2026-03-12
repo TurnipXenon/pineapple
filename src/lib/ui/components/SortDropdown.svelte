@@ -4,14 +4,12 @@
 	import { SectionType } from "$pkg/ui/templates/SeaweedLayout/props";
 
 	interface SortDropdownProps {
-		sortBy: string[];              // Current sort value (bindable)
-		sectionType: SectionType;    // Determines available sort options
+		sortBy: string[]; // Current sort value (bindable)
+		sectionType: SectionType; // Determines available sort options
 	}
 
-	let {
-		sortBy = $bindable(["default"]),
-		sectionType = SectionType.Projects
-	}: SortDropdownProps = $props();
+	let { sortBy = $bindable(["default"]), sectionType = SectionType.Projects }: SortDropdownProps =
+		$props();
 
 	const projectSortOptions: GenericComboboxItem<string>[] = [
 		{ label: "Default order", value: "default" },
@@ -28,9 +26,7 @@
 	];
 
 	const sortOptions = $derived(
-		sectionType === SectionType.Experience
-			? experienceSortOptions
-			: projectSortOptions
+		sectionType === SectionType.Experience ? experienceSortOptions : projectSortOptions
 	);
 </script>
 
@@ -44,7 +40,7 @@
 </div>
 
 <style>
-    .sort-dropdown {
-        min-width: 200px;
-    }
+	.sort-dropdown {
+		min-width: 200px;
+	}
 </style>

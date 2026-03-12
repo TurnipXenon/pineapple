@@ -57,7 +57,11 @@ class ExpressionEvaluator {
 		}
 	};
 
-	evaluateFreeform = (line: string, prefix: string, dialogVariableStore: DialogMapStore): string[] => {
+	evaluateFreeform = (
+		line: string,
+		prefix: string,
+		dialogVariableStore: DialogMapStore
+	): string[] => {
 		if (!browser && !import.meta.env.VITEST) {
 			return []; // do not process when not in browser
 		}
@@ -232,7 +236,9 @@ class ExpressionEvaluator {
 			return false; // do not process when not in browser
 		}
 
-		return String(btreeUtils.peek(this.evaluateFreeform(line, prefix, dialogVariableStore))) === "true";
+		return (
+			String(btreeUtils.peek(this.evaluateFreeform(line, prefix, dialogVariableStore))) === "true"
+		);
 	};
 }
 

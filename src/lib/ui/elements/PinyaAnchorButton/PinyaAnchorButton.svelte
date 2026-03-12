@@ -20,12 +20,11 @@
 		...props
 	}: PinyaAnchorButtonProps = $props();
 
-	let tailwindClass = $derived(createButtonClass({ colorScheme, paddingClass, buttonVariant, colorClass, classes }));
+	let tailwindClass = $derived(
+		createButtonClass({ colorScheme, paddingClass, buttonVariant, colorClass, classes })
+	);
 </script>
 
-<a
-	{...props}
-	class={`a-as-btn ${tailwindClass}`}
->
+<a {...props} class={`a-as-btn ${tailwindClass}`}>
 	{@render children()}
 </a>

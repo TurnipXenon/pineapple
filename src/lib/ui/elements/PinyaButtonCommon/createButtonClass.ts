@@ -3,13 +3,7 @@ import type { PinyaButtonCommonProps } from "./PinyaButtonCommonProps";
 import { ButtonVariant } from "./ButtonVariant";
 
 export const createButtonClass = (props: PinyaButtonCommonProps) => {
-	let {
-		colorScheme,
-		paddingClass,
-		buttonVariant,
-		colorClass,
-		classes
-	} = props;
+	let { colorScheme, paddingClass, buttonVariant, colorClass, classes } = props;
 
 	colorScheme ??= ColorScheme.Primary;
 	buttonVariant ??= ButtonVariant.Default;
@@ -17,7 +11,7 @@ export const createButtonClass = (props: PinyaButtonCommonProps) => {
 	classes ??= "";
 
 	return `btn rounded-2xl text-xl font-bold 
-	${buttonVariant === ButtonVariant.SmallIcon ? 'small-icon-button' : ''}
+	${buttonVariant === ButtonVariant.SmallIcon ? "small-icon-button" : ""}
 	${colorScheme.toString()}
 	${paddingClass} ${classes}`;
 };

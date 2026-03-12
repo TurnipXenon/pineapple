@@ -13,8 +13,6 @@
 	appState.isLanguagePickerAvailable = false;
 </script>
 
-
 <PinyaBase>
 	{@render children?.()}
 </PinyaBase>
-

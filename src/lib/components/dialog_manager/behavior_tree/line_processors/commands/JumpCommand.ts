@@ -51,9 +51,7 @@ export class JumpCommand implements LineBehaviorNode {
 			this.dialogManager.setDialogChoice(dialogChoice);
 		} else {
 			console.error(
-				`Unknown jump node at line ${
-					nodeArgs.lineIndex + 1
-				}: ${choiceName} or ${simplifiedChoice}`
+				`Unknown jump node at line ${nodeArgs.lineIndex + 1}: ${choiceName} or ${simplifiedChoice}`
 			);
 		}
 
