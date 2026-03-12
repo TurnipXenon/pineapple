@@ -15,3 +15,6 @@ yarn.lock
 # Do not include markdown
 *.md
 *.yarn
+
+# Auto-generated files
+src/lib/external/
