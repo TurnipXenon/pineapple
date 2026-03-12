@@ -15,6 +15,7 @@ import { JumpCommand } from "$lib/components/dialog_manager/behavior_tree/line_p
 import { IgnoreJumpNode } from "$lib/components/dialog_manager/behavior_tree/line_processors/IgnoreJumpNode";
 import { UnvisitCommand } from "$lib/components/dialog_manager/behavior_tree/line_processors/commands/UnvisitCommand";
 import type { IDialogManager } from "$pkg";
+import { ForceVisitCommand } from "./behavior_tree/line_processors/commands/ForceVisitCommand";
 
 /**
  * DialogProcessor processes dialogs
@@ -40,6 +41,7 @@ export class DialogProcessor {
 			new DeclareCommand(),
 			new JumpCommand(this.dialogManager),
 			new UnvisitCommand(),
+			new ForceVisitCommand(),
 			/*endregion commands*/
 			new NormalLineProcessorNode()
 		]);

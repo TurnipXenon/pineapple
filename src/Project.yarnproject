@@ -1,0 +1,19 @@
+{
+    "fileVersion": 3,
+    "projectFileVersion": 3,
+    "sourceFiles": [
+        "**/*.yarn"
+    ],
+    "excludeFiles": [
+        "**/*.test.yarn"
+    ],
+    "baseLanguage": "en",
+    "localisation": {},
+    "compilerOptions": {
+        "playgroundOptions": {
+            "projectName": "pineapple",
+            "authorName": "Turnipxenon",
+            "startNode": "TutorialStart"
+        }
+    }
+}

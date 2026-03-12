@@ -1,6 +1,6 @@
 import { parseYarn } from "$pkg/scripts/pineapple_fiber/PineappleFiberParser";
 import { describe, expect, it } from "vitest";
-import TutorialBrokenYarn from "./TutorialBroken.yarn?raw";
+import TutorialBrokenYarn from "./TutorialBroken.test.yarn?raw";
 
 describe("parseYarn", () => {
 	it("should return warnings", async () => {

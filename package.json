@@ -11,7 +11,7 @@
     "check-baseline": "bash scripts/check-baseline.sh",
     "check-snapshot": "bash scripts/update-check-snapshot.sh",
     "lint": "eslint .",
-    "format": "prettier --plugin-search-dir . --write .",
+    "format": "prettier --write .",
     "generate": "npx vite-node src/routes/blogs/blog_list_data_generator.ts && npx vite-node src/routes/toyay/toya_files_generator.ts && npm run generate-yarn",
     "generate-yarn": "npx vite-node src/lib/scripts/pineapple_fiber/PineappleWeaver.ts",
     "custom-check": "npx vite-node src/lib/scripts/util/ManualCheckRun.ts",
