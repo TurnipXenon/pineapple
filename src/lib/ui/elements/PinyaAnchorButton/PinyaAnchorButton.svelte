@@ -25,6 +25,6 @@
 	);
 </script>
 
-<a {...props} class={`a-as-btn ${tailwindClass}`}>
+<a {...props} class={`a-as-btn ${tailwindClass} ${props.class}`}>
 	{@render children()}
 </a>
