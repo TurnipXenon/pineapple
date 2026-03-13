@@ -27,14 +27,14 @@ html {
 }
 
 a.dialog-choice {
-	cursor: url("$pkg/assets/icons/cursor-chat.svg"), auto;
+	cursor: url("$icons/cursor-chat.svg"), auto;
 
 	&:before {
 		content: "";
 		display: inline-block;
 		width: 1.1em;
 		height: 1.1em;
-		mask: url("$pkg/assets/icons/icon-chat.svg") no-repeat center;
+		mask: url("$icons/icon-chat.svg") no-repeat center;
 		mask-size: contain;
 		background-color: currentColor;
 		vertical-align: middle;
@@ -49,12 +49,12 @@ a.external-link {
 }
 
 .external-link:after,
-a[rel*="external"]:after {
+a[rel*="external"]:not(.a-as-btn):after {
 	content: "";
 	display: inline-block;
 	width: 0.8em;
 	height: 0.8em;
-	mask: url("$pkg/assets/icons/icon-open-in-new.svg") no-repeat center;
+	mask: url("$icons/icon-open-in-new.svg") no-repeat center;
 	mask-size: contain;
 	background-color: currentColor;
 	vertical-align: middle;
