@@ -1,4 +1,5 @@
-import _TutorialYarn from "$pkg/yarn/Tutorial.yarn?raw";
+// using $pkg or $lib will break pnpm build downstream
+import _TutorialYarn from "../../yarn/Tutorial.yarn?raw";
 
 export { default as PinyaBase } from "./pinya-base/PinyaBase.svelte";
 
