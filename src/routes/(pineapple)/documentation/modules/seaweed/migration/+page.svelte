@@ -20,13 +20,6 @@
 	<li>Make Experience content flexible and configurable like Projects</li>
 </ul>
 
-<p>
-	For the complete specification, see <TextLink
-		href="https://github.com/TurnipXenon/pineapple/blob/main/docs/plans/seaweed-3-spec.md"
-		>docs/plans/seaweed-3-spec.md</TextLink
-	>
-</p>
-
 <h2>Breaking Changes</h2>
 
 <h3>1. Experience Content Location</h3>
