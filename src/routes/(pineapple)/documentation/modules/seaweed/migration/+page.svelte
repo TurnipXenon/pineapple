@@ -371,13 +371,6 @@ ${scriptClose}
 	classes="max-w-3xl"
 />
 
-<p>
-	For more implementation details, see <TextLink
-		href="https://github.com/TurnipXenon/pineapple/blob/main/ai-docs/sessions/seaweed-3-implementation.md"
-		>ai-docs/sessions/seaweed-3-implementation.md</TextLink
-	>
-</p>
-
 <h2>Backward Compatibility</h2>
 
 <p>Seaweed 3 maintains backward compatibility with existing code:</p>
