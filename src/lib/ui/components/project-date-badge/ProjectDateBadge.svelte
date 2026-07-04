@@ -16,7 +16,7 @@
 		return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 	}
 
-	function getDurationText(start: Date | string, end?: Date | string): string {
+	function getDurationText(start: Date | string, end: Date | string | undefined): string {
 		const startDate = start instanceof Date ? start : new Date(start);
 		const endDate = end ? (end instanceof Date ? end : new Date(end)) : new Date();
 
