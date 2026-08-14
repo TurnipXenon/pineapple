@@ -19,7 +19,8 @@ pnpm exec paraglide-js compile --project ./project.inlang --outdir ./src/lib/ext
 pnpm exec svelte-kit sync
 
 echo "Running svelte-check..."
-OUTPUT=$(NO_COLOR=1 pnpm exec svelte-check --tsconfig ./tsconfig.json 2>&1 || true)
+# --output human is pinned explicitly: see the matching note in check-baseline.sh.
+OUTPUT=$(NO_COLOR=1 pnpm exec svelte-check --tsconfig ./tsconfig.json --output human 2>&1 || true)
 
 # Normalize paths for cross-platform consistency:
 #   - backslash → forward slash (Windows)
