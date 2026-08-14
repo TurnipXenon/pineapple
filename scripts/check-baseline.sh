@@ -28,7 +28,10 @@ pnpm exec paraglide-js compile --project ./project.inlang --outdir ./src/lib/ext
 # svelte-kit sync is required before svelte-check
 pnpm exec svelte-kit sync
 
-OUTPUT=$(NO_COLOR=1 pnpm exec svelte-check --tsconfig ./tsconfig.json 2>&1 || true)
+# --output human is pinned explicitly: svelte-check's default format is not
+# stable across versions (4.7.x emits machine format when stdout is not a TTY),
+# and the error-count grep below depends on the human summary line.
+OUTPUT=$(NO_COLOR=1 pnpm exec svelte-check --tsconfig ./tsconfig.json --output human 2>&1 || true)
 
 # Normalize paths for cross-platform consistency:
 #   - backslash → forward slash (Windows)

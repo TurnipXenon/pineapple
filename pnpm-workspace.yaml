@@ -1,4 +1,9 @@
 patchedDependencies:
   mode-watcher: patches/mode-watcher.patch
+overrides:
+  # @sveltejs/kit pins cookie@^0.6.0, which excludes the 0.7.0 fix for
+  # GHSA-pxg6-pf52-xh8x (out-of-bounds characters accepted in name/path/domain).
+  # Drop this once SvelteKit widens its range.
+  cookie@<0.7.0: ^0.7.0
 packages:
   - "dist/*"
