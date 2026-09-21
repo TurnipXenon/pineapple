@@ -5,7 +5,16 @@ overrides:
   # GHSA-pxg6-pf52-xh8x (out-of-bounds characters accepted in name/path/domain).
   # Drop this once SvelteKit widens its range.
   cookie@<0.7.0: ^0.7.0
-  # fast-uri fix
+  # Floor guard for the fast-uri host-confusion / SSRF advisories (CVE-2026-76172
+  # and friends). ajv already allows ^3.0.1, so a fresh resolve lands on a patched
+  # 3.x on its own -- this only stops an old one being reintroduced.
   fast-uri@<3.1.6: ^3.1.6
 packages:
   - "dist/*"
+allowBuilds:
+  "@parcel/watcher": true
+  "@prisma/client": true
+  "@prisma/engines": true
+  esbuild: true
+  prisma: true
+  workerd: true
