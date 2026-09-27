@@ -14,6 +14,11 @@
 	},
 	"observability": {
 		"enabled": true
+	},
+	// Workers Cache sits in front of the Worker; parsnip routes opt in via cache headers
+	// https://developers.cloudflare.com/workers/cache/
+	"cache": {
+		"enabled": true
 	}
 	/**
 	 * Smart Placement
