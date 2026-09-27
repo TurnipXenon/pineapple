@@ -45,7 +45,7 @@ a.dialog-choice {
 }
 
 a.external-link {
-	cursor: url("$pkg/assets/icons/cursor-open-in-new.svg"), auto;
+	cursor: url("$icons/cursor-open-in-new.svg"), auto;
 }
 
 .external-link:after,
