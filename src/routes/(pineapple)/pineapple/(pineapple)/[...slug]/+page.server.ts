@@ -1,7 +1,9 @@
-import { getSlugEntries } from "$pkg/modules/parsnip/route-util/getSlugEntries";
+import { parsnipCacheHeaders } from "$pkg/modules/parsnip/route-util/parsnipCache";
 import { slugPageServerLoad } from "$pkg/modules/parsnip/route-util/slugPageServerLoad";
-import type { EntryGenerator, PageServerLoad } from "./$types";
+import type { PageServerLoad } from "./$types";
 
-export const entries: EntryGenerator = getSlugEntries;
-export const prerender = true;
-export const load: PageServerLoad = slugPageServerLoad;
+export const load: PageServerLoad = async (event) => {
+	const data = await slugPageServerLoad(event);
+	event.setHeaders(parsnipCacheHeaders());
+	return data;
+};
