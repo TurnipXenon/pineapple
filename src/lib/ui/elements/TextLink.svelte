@@ -8,7 +8,7 @@
 	let { children, ...props }: TextLinkProps = $props();
 </script>
 
-<a {...props} class="pinya-text-link ${props.class}">
+<a {...props} class="pinya-text-link {props.class}">
 	{@render children?.()}
 </a>
 
