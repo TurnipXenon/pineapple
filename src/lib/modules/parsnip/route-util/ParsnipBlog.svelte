@@ -11,8 +11,10 @@
 		relativeLink: "",
 		tags: parsnipEntry.tags,
 		title: parsnipEntry.basename,
-		datePublished: new Date(parsnipEntry.stat.ctime).toLocaleString(),
-		lastUpdated: new Date(parsnipEntry.stat.mtime).toLocaleString(),
+		datePublished:
+			parsnipEntry.datePublished ?? new Date(parsnipEntry.stat.ctime).toISOString().split("T")[0],
+		lastUpdated:
+			parsnipEntry.lastUpdated ?? new Date(parsnipEntry.stat.mtime).toISOString().split("T")[0],
 		priority: 0,
 		foodReviewJson: parsnipEntry.foodReviewJson
 	});
