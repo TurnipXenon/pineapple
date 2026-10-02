@@ -1,30 +1,10 @@
 <script lang="ts">
 	import { getCmsBaseUrl } from "$pkg/util/env-getter";
+	import { getParsnipImageData, type ParsnipEmbedWikilink } from "./imageMetadata";
+	import ParsnipImageMedia from "./ParsnipImageMedia.svelte";
 
-	interface EmbedWikilink {
-		type: "embedWikilink";
-		value: string;
-		fileAccessor: {
-			target: string;
-			isEmbed: false;
-			basePath: string;
-		};
-	}
-
-	const { wikilink }: { wikilink: EmbedWikilink } = $props();
+	const { wikilink }: { wikilink: ParsnipEmbedWikilink } = $props();
+	const image = $derived(getParsnipImageData(wikilink, getCmsBaseUrl()));
 </script>
 
-<!-- todo(turnip): determine appropriate media -->
-<!-- todo(turnip): add alt text -->
-<img src={`${getCmsBaseUrl()}/${wikilink.fileAccessor.basePath}`} alt="" />
-
-<style>
-	img {
-		display: block;
-		width: auto;
-		max-height: min(50vh, 24lh);
-		margin: auto;
-		object-fit: contain;
-		border-radius: var(--radius-sm);
-	}
-</style>
+<ParsnipImageMedia url={image.src} alt={image.alt} imageMetadata={image.metadata} />

@@ -36,7 +36,7 @@
 	{:else if child.type === "html"}
 		<!--	todo: special logic here -->
 		<!--	for now, let's leave it empty	-->
-	{:else if child.type === "image"}
+	{:else if child.type === "image" || (child.type === "imageReference" && child.fileAccessor?.basePath)}
 		<ParsnipImage {...child} />
 	{:else if child.type === "embedWikilink"}
 		<ParsnipEmbedWikilink wikilink={child} />
