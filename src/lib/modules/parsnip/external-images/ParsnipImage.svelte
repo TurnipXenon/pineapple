@@ -1,18 +1,29 @@
 <script lang="ts">
-	import { untrack } from "svelte";
+	import { getCmsBaseUrl } from "$pkg/util/env-getter";
+	import ParsnipImageMedia from "../ParsnipImageMedia.svelte";
+	import {
+		getParsnipImageData,
+		shouldFetchPhotoDetails,
+		type ParsnipImageProps
+	} from "../imageMetadata";
 	import { getPhotoDetails } from "./externalImages.remote";
 
 	const {
 		url,
 		alt = "",
+		title,
+		fileAccessor,
+		imageMetadata,
 		withDescription = false
-	}: { url: string; alt: string; withDescription?: boolean } = $props();
-	let _alt = $state(untrack(() => alt));
-
-	const showDescription = untrack(() => withDescription || url.includes("with-description=true"));
-
-	const galleryBase = untrack(() =>
-		url
+	}: ParsnipImageProps = $props();
+	const image = $derived(
+		getParsnipImageData({ url, alt, title, fileAccessor, imageMetadata }, getCmsBaseUrl())
+	);
+	const showDescription = $derived(
+		!image.isLocal && (withDescription || (url?.includes("with-description=true") ?? false))
+	);
+	const galleryBase = $derived(
+		image.src
 			.replace(/[?#].*$/, "")
 			.replace(/^(https?:\/\/)(rabiole|photos)\./, "$1photo-gallery.")
 			.replace(/\/(api\/)?photos\/.*$/, "")
@@ -26,25 +37,32 @@
 	} | null>(null);
 
 	$effect(() => {
-		if (_alt && !showDescription) {
+		const current = image;
+		const description = showDescription;
+		details = null;
+		if (!shouldFetchPhotoDetails(current.src, current.alt, description, current.isLocal)) {
 			return;
 		}
-
-		if (url.includes("rabiole") || url.includes("photo-gallery") || url.includes("photos")) {
-			getPhotoDetails(url).then((data) => {
-				if (data) {
-					details = data;
-					_alt = data.altText;
-				}
-			});
-		}
+		let active = true;
+		getPhotoDetails(current.src).then((data) => {
+			if (active && data) {
+				details = data;
+			}
+		});
+		return () => {
+			active = false;
+		};
 	});
 </script>
 
-<!-- todo(turnip): determine appropriate media -->
 {#if showDescription}
 	<div class="parsnip-image-described">
-		<img src={url} alt={details?.altText ?? _alt} />
+		<ParsnipImageMedia
+			url={image.src}
+			alt={details?.altText ?? image.alt}
+			title={image.title}
+			imageMetadata={image.metadata}
+		/>
 		{#if details}
 			<div class="parsnip-image-meta">
 				{#if details.description}<p>{details.description}</p>{/if}
@@ -53,9 +71,11 @@
 					</p>{/if}
 				{#if details.tags.length}
 					<ul class="tags">
-						{#each details.tags as tag}
+						{#each details.tags as tag, index (index)}
 							<li>
-								<a href="{galleryBase}/photos?tags={tag}" target="_blank" rel="external">{tag}</a>
+								<a href={galleryBase + "/photos?tags=" + tag} target="_blank" rel="external"
+									>{tag}</a
+								>
 							</li>
 						{/each}
 					</ul>
@@ -64,19 +84,15 @@
 		{/if}
 	</div>
 {:else}
-	<img src={url} alt={_alt} />
+	<ParsnipImageMedia
+		url={image.src}
+		alt={details?.altText ?? image.alt}
+		title={image.title}
+		imageMetadata={image.metadata}
+	/>
 {/if}
 
 <style>
-	img {
-		aspect-ratio: auto;
-		display: block;
-		border-radius: var(--radius-sm);
-		max-height: min(50vh, 24lh);
-		margin: auto;
-		object-fit: contain;
-	}
-
 	.parsnip-image-described {
 		border: 1px solid currentColor;
 		border-radius: var(--radius-sm);

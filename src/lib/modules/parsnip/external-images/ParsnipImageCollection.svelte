@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { getPhotoCollectionMeta } from "$pkg/modules/parsnip/external-images/externalImages.remote";
 	import ParsnipImage from "$pkg/modules/parsnip/external-images/ParsnipImage.svelte";
-	import type { Image } from "mdast";
 	import { untrack } from "svelte";
+	import type { ParsnipImageCollection } from "../imageMetadata";
 
-	const { url, imageList }: { url?: string; imageList?: Image[] } = $props();
-
+	const { url, imageList }: { url?: string; imageList?: ParsnipImageCollection["children"] } =
+		$props();
 	const withDescription = untrack(() => url?.includes("with-description=true") ?? false);
 
 	let data = $state<
@@ -28,18 +28,20 @@
 	});
 </script>
 
-<!-- todo(turnip): determine appropriate media -->
-<!-- todo(turnip): add alt text -->
 {#if imageList}
 	<div class="parsnip-image-collection">
-		{#each imageList as image (image.url)}
-			<ParsnipImage url={image.url} alt="" />
+		{#each imageList as image (image)}
+			<div class="parsnip-image-collection-item">
+				<ParsnipImage {...image} />
+			</div>
 		{/each}
 	</div>
 {:else if data}
 	<div class="parsnip-image-collection">
 		{#each data.photos as photo (photo.id)}
-			<ParsnipImage url={photo.mediaUrl} alt={photo.altText ?? ""} {withDescription} />
+			<div class="parsnip-image-collection-item">
+				<ParsnipImage url={photo.mediaUrl} alt={photo.altText ?? ""} {withDescription} />
+			</div>
 		{/each}
 	</div>
 {:else}
@@ -55,10 +57,9 @@
 		gap: 0.5rem 0.5lh;
 	}
 
-	:global {
-		.parsnip-image-collection > * {
-			flex: 1 1 24rem;
-			width: 0;
-		}
+	.parsnip-image-collection-item {
+		flex: 1 1 24rem;
+		min-width: 0;
+		max-width: 100%;
 	}
 </style>
