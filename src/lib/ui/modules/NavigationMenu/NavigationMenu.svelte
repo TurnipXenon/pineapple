@@ -8,7 +8,7 @@
 	import { FourPartCard } from "$pkg/ui/components/index";
 	import { PinyaCard } from "$pkg/ui/elements/index";
 	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
-	import { type FoodReviewJson, LdSchemaUtil } from "$pkg/ui/modules/index";
+	import { getFoodReviewRatingRemote } from "$pkg/modules/parsnip/route-util/foodReviewRating.remote";
 	import NavigationControl from "$pkg/ui/modules/NavigationMenu/NavigationControl.svelte";
 	import {
 		DefaultPageMetaSorter,
@@ -157,18 +157,15 @@
 				const parsnipMetadata = parsnipOverall.files.find((f) => f.basename == vp.title);
 
 				if (parsnipMetadata) {
-					fetch(`${parsnipOverall.baseUrl}/${parsnipMetadata.path}`.replaceAll(".ast.", ".ld."))
-						.then((data) => data.json())
-						.then((data: FoodReviewJson) => {
-							ratingCache.set(vp.relativeLink, `${renderStar(LdSchemaUtil.getReviewRating(data))}`);
+					// fetched on the server: the CMS sends no CORS headers
+					getFoodReviewRatingRemote(parsnipMetadata.slug)
+						.then((rating) => {
+							if (rating !== null) {
+								ratingCache.set(vp.relativeLink, `${renderStar(rating)}`);
+							}
 						})
 						.catch((err) => {
 							console.warn(err);
-						})
-						.finally(() => {
-							console.log(
-								`Rating fetched for ${vp.relativeLink}: ${ratingCache.get(vp.relativeLink)}`
-							);
 						});
 				}
 			}
