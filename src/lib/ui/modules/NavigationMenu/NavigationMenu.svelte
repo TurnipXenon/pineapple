@@ -5,6 +5,7 @@
 	import { page } from "$app/state";
 	import { localizeHref } from "$pkg/external/paraglide/runtime.js";
 	import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
+	import { resolvePreviewUrl } from "$pkg/modules/parsnip/resolvePreviewUrl";
 	import { FourPartCard } from "$pkg/ui/components/index";
 	import { PinyaCard } from "$pkg/ui/elements/index";
 	import Placeholder from "$pkg/ui/elements/Placeholder.svelte";
@@ -81,10 +82,7 @@
 		const fileBasedList = parsePageMeta(fileList, jsonList, imageMap, compareFn);
 		const parsnipBasedList =
 			parsnipOverall?.files.map((pf) => {
-				let imageUrl = pf.preview;
-				if (imageUrl && !imageUrl.includes("https://")) {
-					imageUrl = `${parsnipOverall.baseUrl}/${pf.preview}`;
-				}
+				const imageUrl = resolvePreviewUrl(pf.preview, parsnipOverall.baseUrl);
 				const meta: PageMeta = {
 					title: pf.basename,
 					nestedPages: [],
