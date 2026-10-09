@@ -365,15 +365,12 @@ export class DialogManager implements IDialogManager {
 		}
 	) {
 		return parseYarn(dialogYarn, param).then((dialogTree) => {
-			this.setDialogTree(dialogTree, param.startingNode ?? "");
-
-			// very important to happen after setDialogTree since
-			// we have dumb logic checking portraitMap.size == 0
-			// and possibly other side effects
 			param.extraCharacters?.forEach((item) => {
 				this.portraitMap.set(item.name, item.image);
 				this.portraitModifications.set(item.image, item);
 			})
+
+			this.setDialogTree(dialogTree, param.startingNode ?? "");
 			return dialogTree;
 		});
 	}
