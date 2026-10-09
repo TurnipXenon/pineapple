@@ -7,7 +7,6 @@ Portrait: AresNeutral
 Hope we can be friends!<br>ヾ(≧ ▽ ≦)ゝ</p>
 <choice Chocolate>I like chocolates too!</choice>
 | <choice Seal>I like seals!</choice>
-| <choice UnlockTurnipPortrait>Unlock Turnip Portrait</choice>
 | <choice TestTurnipPortrait>Test Turnip Portrait</choice>
 <ChoiceBreak>
 

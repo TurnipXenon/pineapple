@@ -5,6 +5,7 @@ import { type Tweened } from "svelte/motion";
 import { DialogProcessor } from "$pkg/components/dialog_manager/DialogProcessor";
 import type { OnSetDialogChoiceCallback } from "$pkg/components/dialog_manager/DialogManager";
 import type { DialogMapStore } from "$pkg/types/pineapple_fiber/DialogVariableStore";
+import type { ExtraCharacter } from "$pkg/types/pineapple_fiber/PortraitType";
 
 export interface IDialogManager {
 	dialogMessageMap: Map<string, DialogDetail>;
@@ -15,7 +16,8 @@ export interface IDialogManager {
 	previousTimestamp: number;
 	isDoneTransition: boolean;
 	currentPortrait: Writable<string>;
-	portraitMap: Map<string, any>;
+	portraitMap: Map<string, string>;
+	portraitModifications: Map<string, ExtraCharacter>;
 	currentState: DialogState;
 	currentReadableState: Writable<DialogState>;
 	hidePercent: Tweened<number>;

@@ -10,9 +10,13 @@ export enum PortraitType {
 	AresYay = "AresYay"
 }
 
+// https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html
+type CSSLengthUnit = "px" | "rem" | "em" | "vw" | "vh" | "%";
+export type CSSLength = `${number}${CSSLengthUnit}` | "0";
+
 export interface ExtraCharacter {
 	name: string,
 	image: string,
-	offset: {x: number, y: number},
-	scale: number,
+	offset?: {x?: CSSLength, y?: CSSLength},
+	scale?: number,
 }

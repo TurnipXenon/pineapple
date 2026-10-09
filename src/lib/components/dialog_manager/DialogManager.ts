@@ -45,6 +45,8 @@ export class DialogManager implements IDialogManager {
 	isDoneTransitionWritable = writable(false);
 	currentPortrait = writable("");
 	portraitMap: Map<string, string> = new Map();
+	// note: maps using images instead of name
+	portraitModifications: Map<string, ExtraCharacter> = new Map();
 	currentState = DialogState.Visible;
 	currentReadableState = writable(this.currentState);
 	hidePercent = tweened(100, {
@@ -370,6 +372,7 @@ export class DialogManager implements IDialogManager {
 			// and possibly other side effects
 			param.extraCharacters?.forEach((item) => {
 				this.portraitMap.set(item.name, item.image);
+				this.portraitModifications.set(item.image, item);
 			})
 			return dialogTree;
 		});

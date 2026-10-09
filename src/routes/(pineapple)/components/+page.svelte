@@ -36,8 +36,8 @@
 			extraCharacters: [{
 				name: "Turnip",
 				image: TurnipImageTest,
-				offset: {x: 0, y: 0},
-				scale: 1,
+				offset: {x: "-40%", y: "-60%"},
+				scale: 0.5,
 			}]
 		});
 	});
