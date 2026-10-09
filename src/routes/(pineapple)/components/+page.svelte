@@ -38,6 +38,7 @@
 				image: TurnipImageTest,
 				offset: {x: "-40%", y: "-60%"},
 				scale: 0.5,
+				displayName: "Turnip Test"
 			}]
 		});
 	});

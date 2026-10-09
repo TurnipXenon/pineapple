@@ -19,4 +19,5 @@ export interface ExtraCharacter {
 	image: string,
 	offset?: {x?: CSSLength, y?: CSSLength},
 	scale?: number,
+	displayName?: string,
 }

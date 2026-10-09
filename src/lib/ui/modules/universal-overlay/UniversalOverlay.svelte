@@ -25,6 +25,7 @@ See panels:
 
 	let currentPortrait = $state(AresHappy);
 	let currentPortraitStyle = $state("");
+	let currentDisplayName = $state("Turnip");
 
 	let hidePercent = $state(100);
 	let hidePercentLinear = $state(100);
@@ -48,7 +49,6 @@ See panels:
 					if (portraitStyle.offset?.y) {
 						portraitStyleStr += `translateY(${portraitStyle.offset.y}) `;
 					}
-					console.log(portraitStyleStr);
 					if (portraitStyleStr) {
 						portraitStyleStr = `transform: ${portraitStyleStr};`;
 						console.log(portraitStyleStr);
@@ -60,6 +60,8 @@ See panels:
 				else {
 					currentPortraitStyle = "";
 				}
+
+				currentDisplayName = portraitStyle?.displayName ?? "Turnip";
 			}
 		});
 
@@ -91,7 +93,7 @@ See panels:
 	</div>
 	<div id="main-dialog-box-container">
 		<PinyaCard id="dialog-name">
-			<div class="fake-h1">Turnip</div>
+			<div class="fake-h1">{currentDisplayName}</div>
 		</PinyaCard>
 		<!-- todo: implement this properly later -->
 		<!--<div id="dialog-scroll-indicator"></div>-->
