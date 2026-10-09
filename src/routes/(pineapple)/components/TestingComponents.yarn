@@ -5,13 +5,18 @@ Portrait: AresNeutral
 <p>Hi! I'm <b>Turnip</b>! I like chocolate, and maybe some seals! You should read
 <a href="https://archive.nytimes.com/opinionator.blogs.nytimes.com/2013/06/15/i-know-what-you-think-of-me/" target=”_blank”>this article</a>.
 Hope we can be friends!<br>ヾ(≧ ▽ ≦)ゝ</p>
-<choice Chocolate>I like chocolates too!</choice> | <choice Seal>I like seals!</choice>
+<choice Chocolate>I like chocolates too!</choice>
+| <choice Seal>I like seals!</choice>
+| <choice UnlockTurnipPortrait>Unlock Turnip Portrait</choice>
+| <choice TestTurnipPortrait>Test Turnip Portrait</choice>
 <ChoiceBreak>
 
 -> Chocolate
     <<jump Chocolate>>
 -> Seal
     <<jump Seal>>
+-> TestTurnipPortrait
+    <<jump TestTurnipPortrait>>
 ===
 title: Chocolate
 position: 238,149
@@ -37,8 +42,20 @@ Portrait: AresYay
     <<jump AboutStart>>
 ===
 title: AboutChoiceless
-position: -4,285
+position: 393,402
 ---
 Portrait: AresNeutral
 I am choiceless
+===
+
+title: TestTurnipPortrait
+position: 39,294
+---
+Portrait: Turnip
+Hello we are now a Turnip character loaded dynamically anywhere before script is parsed.
+<choice Continue>Continue</choice>
+<ChoiceBreak>
+
+-> Continue
+    <<jump AboutStart>>
 ===

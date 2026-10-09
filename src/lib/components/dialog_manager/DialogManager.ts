@@ -24,7 +24,7 @@ import {
 	createNewMapStore,
 	type DialogMapStore
 } from "$pkg/types/pineapple_fiber/DialogVariableStore";
-import { PortraitType } from "$pkg/types/pineapple_fiber/PortraitType";
+import { type ExtraCharacter, PortraitType } from "$pkg/types/pineapple_fiber/PortraitType";
 import { backOut, linear } from "svelte/easing";
 import { tweened } from "svelte/motion";
 import { writable } from "svelte/store";
@@ -94,6 +94,16 @@ export class DialogManager implements IDialogManager {
 				});
 			}
 		});
+
+		this.portraitMap.set(PortraitType.AresHappy.toString(), AresHappy);
+		this.portraitMap.set(PortraitType.AresBlushing.toString(), AresBlushing);
+		this.portraitMap.set(PortraitType.AresDisappointed.toString(), AresDisappointed);
+		this.portraitMap.set(PortraitType.AresLetsGo.toString(), AresLetsGo);
+		this.portraitMap.set(PortraitType.AresMad.toString(), AresMad);
+		this.portraitMap.set(PortraitType.AresNeutral.toString(), AresNeutral);
+		this.portraitMap.set(PortraitType.AresSlightlyMad.toString(), AresSlightlyMad);
+		this.portraitMap.set(PortraitType.AresSurprised.toString(), AresSurprised);
+		this.portraitMap.set(PortraitType.AresYay.toString(), AresYay);
 	}
 
 	/**
@@ -134,19 +144,6 @@ export class DialogManager implements IDialogManager {
 				this.dialogMessageMap.set(value.dialogId!, value);
 			}
 		});
-
-		// lazy load map
-		if (this.portraitMap.size == 0) {
-			this.portraitMap.set(PortraitType.AresHappy.toString(), AresHappy);
-			this.portraitMap.set(PortraitType.AresBlushing.toString(), AresBlushing);
-			this.portraitMap.set(PortraitType.AresDisappointed.toString(), AresDisappointed);
-			this.portraitMap.set(PortraitType.AresLetsGo.toString(), AresLetsGo);
-			this.portraitMap.set(PortraitType.AresMad.toString(), AresMad);
-			this.portraitMap.set(PortraitType.AresNeutral.toString(), AresNeutral);
-			this.portraitMap.set(PortraitType.AresSlightlyMad.toString(), AresSlightlyMad);
-			this.portraitMap.set(PortraitType.AresSurprised.toString(), AresSurprised);
-			this.portraitMap.set(PortraitType.AresYay.toString(), AresYay);
-		}
 
 		if (startingNode) {
 			const potentialStartingDialog = newDialogTree.find((t) => t.dialogId === startingNode);
@@ -354,6 +351,26 @@ export class DialogManager implements IDialogManager {
 	async parseAndSetDialogTree(dialogYarn: string, startingNode = ""): Promise<DialogDetail[]> {
 		return parseYarn(dialogYarn).then((dialogTree) => {
 			this.setDialogTree(dialogTree, startingNode);
+			return dialogTree;
+		});
+	}
+
+	async parseAndSetDialogTreeAdvanced(
+		dialogYarn: string,
+		param: {
+			extraCharacters?: ExtraCharacter[];
+			startingNode?: string;
+		}
+	) {
+		return parseYarn(dialogYarn, param).then((dialogTree) => {
+			this.setDialogTree(dialogTree, param.startingNode ?? "");
+
+			// very important to happen after setDialogTree since
+			// we have dumb logic checking portraitMap.size == 0
+			// and possibly other side effects
+			param.extraCharacters?.forEach((item) => {
+				this.portraitMap.set(item.name, item.image);
+			})
 			return dialogTree;
 		});
 	}

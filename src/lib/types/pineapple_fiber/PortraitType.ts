@@ -9,3 +9,10 @@ export enum PortraitType {
 	AresSurprised = "AresSurprised",
 	AresYay = "AresYay"
 }
+
+export interface ExtraCharacter {
+	name: string,
+	image: string,
+	offset: {x: number, y: number},
+	scale: number,
+}
