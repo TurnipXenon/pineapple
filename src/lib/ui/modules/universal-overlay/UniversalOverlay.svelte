@@ -14,7 +14,6 @@ See panels:
 	import CloseIcon from "$pkg/assets/icons/close.svg";
 	import SettingsLogo from "$pkg/assets/icons/icon-settings.svg";
 	import { dialogManager } from "$pkg/components/dialog_manager/DialogManager";
-	import { DialogState } from "$pkg/types/pineapple_fiber/DialogState";
 	import { ButtonVariant, ImageIcon } from "$pkg/ui/elements/index";
 	import GeneralSettingsModal from "$pkg/ui/modules/modals/general-settings/GeneralSettingsModal.svelte";
 	import DialogPanel from "$pkg/ui/modules/universal-overlay/DialogPanel.svelte";
@@ -25,10 +24,11 @@ See panels:
 	import PinyaCard from "../../elements/PinyaCard/PinyaCard.svelte";
 
 	let currentPortrait = $state(AresHappy);
+	let currentPortraitStyle = $state("");
+	let currentDisplayName = $state("Turnip");
 
 	let hidePercent = $state(100);
 	let hidePercentLinear = $state(100);
-	let isHidden = $state(true);
 
 	let enablePortrait = getEnablePortraitContext();
 
@@ -36,20 +36,41 @@ See panels:
 		dialogManager.currentPortrait.subscribe((value) => {
 			if (value) {
 				currentPortrait = value;
+
+				const portraitStyle = dialogManager.portraitModifications.get(currentPortrait);
+				if (portraitStyle) {
+					let portraitStyleStr = "";
+					if (portraitStyle.scale) {
+						portraitStyleStr += `scale(${portraitStyle.scale}) `;
+					}
+					if (portraitStyle.offset?.x) {
+						portraitStyleStr += `translateX(${portraitStyle.offset.x}) `;
+					}
+					if (portraitStyle.offset?.y) {
+						portraitStyleStr += `translateY(${portraitStyle.offset.y}) `;
+					}
+					if (portraitStyleStr) {
+						portraitStyleStr = `transform: ${portraitStyleStr};`;
+						console.log(portraitStyleStr);
+						currentPortraitStyle = portraitStyleStr;
+					} else {
+						currentPortraitStyle = ""
+					}
+				}
+				else {
+					currentPortraitStyle = "";
+				}
+
+				currentDisplayName = portraitStyle?.displayName ?? "Turnip";
 			}
 		});
 
 		dialogManager.hidePercent.subscribe((value) => {
 			hidePercent = value * 0.4;
-			isHidden = false;
 		});
 
 		dialogManager.hidePercentLinear.subscribe((value) => {
 			hidePercentLinear = value * 0.4;
-		});
-
-		dialogManager.currentReadableState.subscribe((value) => {
-			isHidden = value === DialogState.Invisible;
 		});
 
 		dialogManager.update(0);
@@ -63,11 +84,16 @@ See panels:
             --hidePercentHeight: {hidePercentLinear}vh;"
 >
 	<div class="dialog-portrait-container" class:is-portrait-enabled={enablePortrait.value}>
-		<img src={currentPortrait} alt="Ares" class="dialog-portrait" />
+		<img
+			src={currentPortrait}
+			alt="Character portrait"
+			class="dialog-portrait"
+			style={currentPortraitStyle}
+		/>
 	</div>
 	<div id="main-dialog-box-container">
 		<PinyaCard id="dialog-name">
-			<div class="fake-h1">Turnip</div>
+			<div class="fake-h1">{currentDisplayName}</div>
 		</PinyaCard>
 		<!-- todo: implement this properly later -->
 		<!--<div id="dialog-scroll-indicator"></div>-->

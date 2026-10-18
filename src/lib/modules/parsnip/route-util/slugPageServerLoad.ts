@@ -1,5 +1,6 @@
 import type { ParsnipEntry } from "$pkg/modules/parsnip/ParsnipEntry";
 import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
+import { resolvePreviewUrl } from "$pkg/modules/parsnip/resolvePreviewUrl";
 import type { PinyaHead } from "$pkg/ui/templates/pinya-base/pinyaBaseRunes.svelte.js";
 import { getCmsBaseUrl } from "$pkg/util/env-getter";
 import { error } from "@sveltejs/kit";
@@ -85,10 +86,7 @@ export const slugPageServerLoad = async ({ params }: { params: { slug: string } 
 
 	parsnipEntry.ast.ast.children = newChildren as RootContent[];
 
-	let imageUrl = parsnipEntry.preview ? parsnipEntry.preview : undefined;
-	if (imageUrl && !imageUrl.includes("https://")) {
-		imageUrl = `${parsnipOverall.baseUrl}/${parsnipEntry.preview}`;
-	}
+	const imageUrl = resolvePreviewUrl(parsnipEntry.preview, parsnipOverall.baseUrl);
 
 	const meta: PinyaHead = {
 		title: parsnipEntry.basename,

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { dialogManager } from "$pkg";
+	import { type DialogDetail, dialogManager } from "$pkg";
 	import AresLogo from "$pkg/assets/characters/ares/ares_logo.webp";
 	import { FourPartCard, PinyaAccordion, PinyaAccordionItem } from "$pkg/ui/components/index";
 	import { addToast } from "$pkg/ui/components/MeltToaster/MeltToaster.svelte";
@@ -12,8 +12,9 @@
 	import { modals } from "svelte-modals";
 	import TestModal from "./TestModal.svelte";
 	import RawYarn from "./TestingComponents.yarn?raw";
+	import { onDestroy, onMount } from "svelte";
+	import TurnipImageTest from "$pkg/assets/bg_tiled/bg_tiled_turnip.png"
 
-	dialogManager.parseAndSetDialogTree(RawYarn);
 	let allowMultipleOpenAccordion = $state(false);
 	let openAccordionIds = $state(["club"]);
 
@@ -29,6 +30,18 @@
 			}
 		});
 	};
+
+	onMount(() => {
+		dialogManager.parseAndSetDialogTreeAdvanced(RawYarn, {
+			extraCharacters: [{
+				name: "Turnip",
+				image: TurnipImageTest,
+				offset: {x: "-40%", y: "-60%"},
+				scale: 0.5,
+				displayName: "Turnip Test"
+			}]
+		});
+	});
 </script>
 
 <div class="flex flex-col gap-4">
@@ -176,11 +189,11 @@
 </div>
 
 <style>
-	.card-container {
-		display: flex;
-		flex-direction: column;
-		text-align: start;
-		gap: 0.5lh;
-		align-items: flex-start;
-	}
+    .card-container {
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+        gap: 0.5lh;
+        align-items: flex-start;
+    }
 </style>

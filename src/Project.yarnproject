@@ -14,6 +14,9 @@
             "projectName": "pineapple",
             "authorName": "Turnipxenon",
             "startNode": "TutorialStart"
+        },
+        "yarnScriptEditor": {
+            "startNode": "AboutStart"
         }
     }
 }

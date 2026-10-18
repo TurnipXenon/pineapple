@@ -1,5 +1,5 @@
 import type { DialogDetail } from "$pkg/types/pineapple_fiber/DialogDetail";
-import { PortraitType } from "$pkg/types/pineapple_fiber/PortraitType";
+import { type ExtraCharacter, PortraitType } from "$pkg/types/pineapple_fiber/PortraitType";
 
 interface ChoiceDetail {
 	name: string;
@@ -8,7 +8,9 @@ interface ChoiceDetail {
 
 const shouldDebug = false;
 
-export const parseYarn = async (fileContent: string): Promise<DialogDetail[]> => {
+export const parseYarn = async (fileContent: string, params?: {
+	extraCharacters?: ExtraCharacter[]
+}): Promise<DialogDetail[]> => {
 	const dialogDetailList: DialogDetail[] = [];
 
 	fileContent.split("===").map((unparsedNode) => {
@@ -51,6 +53,16 @@ export const parseYarn = async (fileContent: string): Promise<DialogDetail[]> =>
 					// from https://stackoverflow.com/a/17381004/17836168
 					dialogDetails.portraitType =
 						PortraitType[possibleTagPair[1].trim() as keyof typeof PortraitType];
+
+					if (dialogDetails.portraitType === undefined && params?.extraCharacters) {
+						const ec = params.extraCharacters.find((c) => {
+							return c.name === possibleTagPair[1].trim();
+						});
+						if (ec) {
+							dialogDetails.portraitType = ec.name;
+						}
+					}
+
 					if (shouldDebug) {
 						console.log(
 							"Portrait detected:",

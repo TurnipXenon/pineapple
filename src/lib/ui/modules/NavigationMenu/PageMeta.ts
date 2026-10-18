@@ -1,4 +1,5 @@
 import type { ParsnipOverall } from "$pkg/modules/parsnip/ParsnipOverall";
+import { resolvePreviewUrl } from "$pkg/modules/parsnip/resolvePreviewUrl";
 import type { FoodReviewJson } from "$pkg/ui/modules/index";
 import type { RawGlob } from "$pkg/util/util";
 
@@ -247,7 +248,7 @@ export const parsePageMetaNested = (args: {
 				nestedPages: [],
 				relativeLink: `${args.parsnipBasePath}${pf.slug}`,
 				tags: pf.tags,
-				imageUrl: pf.preview ? `${args.parsnipOverall?.baseUrl}/${pf.preview}` : undefined,
+				imageUrl: resolvePreviewUrl(pf.preview, args.parsnipOverall?.baseUrl),
 				imageAlt: pf.previewAlt,
 				datePublished: pf.stat.ctime
 					? new Date(pf.stat.ctime).toISOString().split("T")[0]
