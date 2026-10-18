@@ -45,12 +45,12 @@
 	});
 </script>
 
-{#snippet renderImage()}
+{#snippet renderImage(actualPresentation: string)}
 	<img
 		class="parsnip-image-media"
-		data-presentation={presentation}
-		class:has-dimensions={!!(metadata.width || metadata.height)}
-		class:has-width={!!metadata.width}
+		data-presentation={actualPresentation}
+		class:has-dimensions={!!(metadata.width || metadata.height || actualPresentation === "full")}
+		class:has-width={!!metadata.width || actualPresentation === "full"}
 		src={url}
 		{alt}
 		title={title ?? undefined}
@@ -73,7 +73,7 @@
 		>
 			✕
 		</PinyaButton>
-		{@render renderImage()}
+		{@render renderImage("full")}
 	</div>
 {/if}
 
@@ -81,7 +81,7 @@
 	<PinyaButton class="btn-parsnip-media-zoom" onclick={zoomInClick}>
 		Zoom in
 	</PinyaButton>
-	{@render renderImage()}
+	{@render renderImage(presentation)}
 </div>
 
 
