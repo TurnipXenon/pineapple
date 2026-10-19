@@ -2,12 +2,8 @@
 const OG_ELIGIBLE_EXTENSION = /\.(jpe?g|png|webp|avif)$/i;
 
 /**
- * Resolves a published entry's preview into a usable image URL.
- *
- * An absolute http(s) URL is used as-is; anything else is treated as a path
- * relative to the base blog path. Eligible images resolve to the publisher's
- * `.variants/<path>.og.jpg` thumbnail, since previews are used for link-preview
- * cards (og:image) and nav cards; GIF/SVG keep the original.
+ * Resolves a published entry's preview into an image URL: http(s) as-is,
+ * otherwise relative to the base blog path, using the og thumbnail when eligible.
  */
 export const resolvePreviewUrl = (
 	preview: string | undefined,
